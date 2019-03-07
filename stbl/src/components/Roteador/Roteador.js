@@ -20,7 +20,8 @@ class Roteador extends Component {
 	    			<Route path="/cadastro" component={Cadastro}/>    			
 	    			<Route path="/contato" component={Contato}/>
 	    			<Route path="/sobre" component={Sobre}/>
-						<Route path="/produto" component={TesteProduto}/>
+				<Route path="/produto" component={TesteProduto}/>
+	    			<Route path="" component={Home}/>
 	    			<Route component={NotFound}/>    			
 	    		</Switch>
     		</div>
