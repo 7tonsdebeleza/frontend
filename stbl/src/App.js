@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import './App.css';
-import TesteProduto from './components/Produto/TesteProduto';
+import Roteador from './components/Roteador/Roteador';
+import {Router, Route,Switch} from "react-router-dom";
+import "./App.css"
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <TesteProduto />
-      </div>
+    	<Roteador/>	
     );
   }
 }

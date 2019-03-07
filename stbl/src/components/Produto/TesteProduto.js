@@ -5,7 +5,7 @@ import flash from "./imgs/flash.jpg"
 import supergirl from "./imgs/supergirl.jpg"
 
 
-export default class TesteProduto extends Component {
+class TesteProduto extends Component {
     render() {
         return (
             <div>
@@ -25,3 +25,5 @@ export default class TesteProduto extends Component {
         )
     }
 }
+
+export default TesteProduto;
