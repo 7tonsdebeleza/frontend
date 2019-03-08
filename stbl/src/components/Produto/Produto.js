@@ -73,7 +73,7 @@ class Produto extends Component {
                         <div>
                             <img src={this.props.img} alt="img" className="imagemProdutoModal" />
                         </div>
-                        <div>
+                        <div className="descricaoProdutoModal">
                             <button className="fechar">X</button>
                             <h1>{this.props.titulo}</h1>
                             <p>Disponibilidade: {this.props.estoque}</p>
@@ -83,14 +83,14 @@ class Produto extends Component {
                             <p>Escolha o tamanho:</p>
                             <button>PP</button><button>P</button><button>M</button><button>G</button><button>GG</button>
                             <h1>R${this.props.preco}</h1>
+                            <p>Quantidade: </p>
                             <div>
-                                <p>Quantidade: </p>
-                                <button onClick={this.decrementarQtd}>-</button>
+                                <button onClick={this.decrementarQtd} className="botoesQuantidade">-</button>
                                 {this.state.contadorQtd}
-                                <button onClick={this.incrementarQtd}>+</button>
+                                <button onClick={this.incrementarQtd} className="botoesQuantidade">+</button>
                             </div>
-                            <p>SubTotal: R${this.props.preco * this.state.contadorQtd}</p>
-                            <button>Adicionar ao Carrinho</button>
+                            <p className="subtotalQuantidade">SubTotal: R${this.props.preco * this.state.contadorQtd}</p>
+                            <button><p><i className="fas fa-cart-plus"></i>Adicionar ao Carrinho</p></button>
                         </div>
                     </div>
                 </div>

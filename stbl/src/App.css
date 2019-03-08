@@ -1,3 +1,6 @@
+body{
+    font-family: 'Arimo', sans-serif; /*fonte do template*/
+}
 /*Modal Ver Detalhes do Produto*/
 .modal-container{
     width: 100vw;
@@ -61,8 +64,8 @@
 .produto{ 
     float: left;
     height: 10%;
-    width: 10%;
-    margin-left: 10%;
+    width: 15%;
+    margin-left: 8%;
     border: 3px solid black;
     box-shadow: 0 0 0 2px pink;
 }
@@ -75,7 +78,7 @@
     /* opacity: 0.9; ta dando ruim */
 }
 .divbotaoVerDetalhes{
-    margin-top: -13%;
+    margin-top: -12%;
 }
 .botaoVerDetalhes{
     text-align: center;
@@ -93,7 +96,7 @@
 @keyframes botao {
     from {
         opacity: 0;
-        transform: translate3d(0, -50px, 0);
+        transform: translate3d(0, -10px, 0);
     }
     to {
         opacity: 1;
@@ -105,7 +108,30 @@
 
 }
 .imagemProdutoModal{
-    width: 10%;
-    height: 10%;
+    margin-right: 5%;
+    max-width: 100%;
+    width: 30%;
+    height: 30%;
+    float: left;
 }
+.descricaoProdutoModal{
+    float: left;
+}
+.descricaoProdutoModal button{
+    background-color: black;
+    color: aliceblue;
+    border: 1px solid black;
+    cursor: pointer;
+}
+
+.botoesQuantidade{
+    margin-left: 3%;
+    margin-right: 3%;
+}
+.fas{ /*icones do site */
+    
+}
+
+
+
 /*---------------------------------------- */

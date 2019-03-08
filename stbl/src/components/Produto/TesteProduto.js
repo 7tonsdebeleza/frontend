@@ -20,7 +20,7 @@ class TesteProduto extends Component {
                         marca={"marca2"} preco={227.99} estoque={"Em estoque2"} tipoProduto={"Camisa 2"} descricao={"descricaoooooo2"} />
                     <Produto id={"id3"} img={supergirl} titulo={"Camiseta Super Girl"}
                         marca={"marca3"} preco={237.99} estoque={"Em estoque3"} tipoProduto={"Camisa 3"} descricao={"descricaoooooo3"} />
-                    <Produto id={"id4"} img={mulhermaravilha} titulo={"Camiseta Mulher Maravilha"}
+                    <Produto id={"id4"} img={mulhermaravilha} titulo={"Camiseta M. Maravilha"}
                         marca={"marca4"} preco={954.99} estoque={"Em estoque4"} tipoProduto={"Camisa 4"} descricao={"descricaoooooo4"} />
 
                 </div>
