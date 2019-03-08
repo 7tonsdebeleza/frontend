@@ -10,6 +10,8 @@ class Produto extends Component {
         this.CliqueVerDetalhes = this.CliqueVerDetalhes.bind(this);
         this.decrementarQtd = this.decrementarQtd.bind(this);
         this.incrementarQtd = this.incrementarQtd.bind(this);
+        this.AparecerBotaoDetalhes = this.AparecerBotaoDetalhes.bind(this);
+        this.DesaparecerBotaoDetalhes = this.DesaparecerBotaoDetalhes.bind(this);
     }
 
     CliqueVerDetalhes = () => {
@@ -22,8 +24,20 @@ class Produto extends Component {
         })
     }
 
+    AparecerBotaoDetalhes = () => {
+        const botao = document.getElementById(this.props.img);
+        botao.classList.add('mostrarBotao');
+    }
+
+    DesaparecerBotaoDetalhes = () => {
+        const botao = document.getElementById(this.props.img);
+        botao.classList.remove('mostrarBotao');
+    }
+
+
+
     decrementarQtd = () => {
-        if(this.state.contadorQtd == 1){
+        if (this.state.contadorQtd == 1) {
             return;
         }
         this.setState({
@@ -39,13 +53,16 @@ class Produto extends Component {
 
     render() {
         return (
-            <div>
-                <div>
+            <div >
+                <div className="produto" onMouseOver={this.AparecerBotaoDetalhes} onMouseOut={this.DesaparecerBotaoDetalhes}>
                     <div>
-                        <img src={this.props.img} alt="img" className="imagemProduto" />
-                        <button onClick={this.CliqueVerDetalhes} className="botaoVerDetalhes" id="botaoVerDetalhes">Ver detalhes</button>
+                        <img src={this.props.img} alt="img" className="imagemProduto"  
+                         />
+                        <div className="divbotaoVerDetalhes">
+                            <button onClick={this.CliqueVerDetalhes} className="botaoVerDetalhes" id={this.props.img}>Ver detalhes</button>
+                        </div>
                     </div>
-                    <div>
+                    <div className="descricaoProduto">
                         <p>{this.props.marca}</p>
                         <p>{this.props.titulo}</p>
                         <p>R${this.props.preco}</p>
@@ -54,7 +71,7 @@ class Produto extends Component {
                 <div id={this.props.id} className="modal-container">
                     <div className="modal">
                         <div>
-                            <img src={this.props.img} alt="img" className="imagemProduto" />
+                            <img src={this.props.img} alt="img" className="imagemProdutoModal" />
                         </div>
                         <div>
                             <button className="fechar">X</button>
