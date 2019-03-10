@@ -21,12 +21,12 @@ body{
 
 .modal {
     background: white;
+    height: 75%;
     width: 60%;
-    min-width: 300px;
-    padding: 40px;
-    border: 5px solid black;
-    box-shadow: 0 0 0 2px white;
+    padding: 35px;
+    box-shadow: 0 0 0 2px black;
     position: relative;
+    display: block;
 }
 
 @keyframes modal {
@@ -46,8 +46,8 @@ body{
 
 .fechar{
     position: absolute;
-    top: -20px;
-    right: -20px;
+    top: 0px;
+    right: 0px;
     width: 35px;
     height: 35px;
     border: 1px solid white;
@@ -57,17 +57,71 @@ body{
     transition: all .5s;
 }
 .fechar:hover{
-    background: red;
+    background: #e95144;
 }
 
-/*Produto margin:  top right bottom left  */
+/* Conteudo do Modal */
+.imagemProdutoModal{
+    margin-right: 5%;
+    width: 40%;
+    height: 40%;
+    float: left;
+    transition: all 0.3s;
+}
+.imagemProdutoModal:hover{
+    transform: scale(1.3) translate(-30px, 0px);
+    box-shadow: 0 0 0 2px black;
+    margin-left: 5%;
+    cursor: crosshair;
+}
+.descricaoProdutoModal{
+    float: left;
+}
+.descricaoProdutoModal button{
+    background-color: black;
+    color: white;
+    border: 1px solid black;
+    cursor: pointer;
+    letter-spacing: 1px;
+    transition: all .3s;
+    outline: none;
+    margin-bottom: 5%;
+}
+.descricaoProdutoModal button:hover{
+    background: #e95144;
+    border: 1px solid #e95144;
+}
+
+.botoesTamanho button{
+    margin-right: 5%;
+    height: 25px;
+}
+
+.botoesTamanho button:focus{
+    border: 1px solid #e95144;
+    box-shadow: 0 0 0 2px #e95144;
+}
+
+.botoesQuantidade{
+    margin-left: 3%;
+    margin-right: 3%;
+    height: 25px;
+}
+.botaoAddCarrinho{
+    padding: 0.3rem;
+    margin-top: 0.7rem;
+}
+/*-------------Produto----------------- margin:  top right bottom left  */
+.listaProduto{
+    margin: 5% 0 5% 0; 
+}
 .produto{ 
     float: left;
-    height: 10%;
-    width: 15%;
-    margin-left: 8%;
-    border: 3px solid black;
-    box-shadow: 0 0 0 2px pink;
+    height: 12%;
+    width: 17%;
+    /*box-shadow: 0 0 0 2px rgb(170, 170, 170); */
+    margin-left: 3%;
+    cursor: pointer;
 }
 .imagemProduto{
     width: 100%;
@@ -75,19 +129,20 @@ body{
     transition: all .5s; 
 }
 .imagemProduto:hover{
-    /* opacity: 0.9; ta dando ruim */
-}
-.divbotaoVerDetalhes{
-    margin-top: -12%;
+    opacity: 0.5;
 }
 .botaoVerDetalhes{
     text-align: center;
     cursor: pointer;
+    height: 30px;
     width: 100%;
     border: 1px solid black;
     background-color: black;
-    color: aliceblue;
+    color: #a7a4a4;
     visibility: hidden;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    outline: none;
 }
 .botaoVerDetalhes.mostrarBotao{
     visibility: visible;
@@ -103,35 +158,15 @@ body{
         transform: translate3d(0, 0, 0);
     }
 }
-.descricaoProduto p{
+.descricaoProduto{
     text-align: center;
-
+    font-size: 12px;
+    letter-spacing: 0.1rem;
 }
-.imagemProdutoModal{
-    margin-right: 5%;
-    max-width: 100%;
-    width: 30%;
-    height: 30%;
-    float: left;
+.marcadescricaoProduto{
+    color: #828282;
 }
-.descricaoProdutoModal{
-    float: left;
+.precodescricaoProduto{
+    color: #e95144;
 }
-.descricaoProdutoModal button{
-    background-color: black;
-    color: aliceblue;
-    border: 1px solid black;
-    cursor: pointer;
-}
-
-.botoesQuantidade{
-    margin-left: 3%;
-    margin-right: 3%;
-}
-.fas{ /*icones do site */
-    
-}
-
-
-
 /*---------------------------------------- */

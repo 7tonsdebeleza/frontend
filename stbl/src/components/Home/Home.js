@@ -1,4 +1,5 @@
 import React from 'react';
+import ListaProduto from '../Produto/ListaProduto'
 
 const Home = () => {
     return(
@@ -70,7 +71,7 @@ const Home = () => {
                     <div className='col'><hr/></div>
                 </div>
                 
-                [PRODUTOS]
+                <ListaProduto />
             </div>
 
 
@@ -105,7 +106,7 @@ const Home = () => {
                     <div className='col'><hr/></div>
                 </div>
                 
-                [PRODUTOS]
+                
             </div>
 
             <div className='container'>

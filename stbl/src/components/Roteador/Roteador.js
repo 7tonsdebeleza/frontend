@@ -6,7 +6,7 @@ import Cadastro from "../Cadastro/Cadastro"
 import Contato from "../Contato/Contato"
 import NotFound from "../NotFound/NotFound"
 import Sobre from "../Sobre/Sobre"
-import TesteProduto from "../Produto/TesteProduto"
+import ListaProduto from "../Produto/ListaProduto"
 
 class Roteador extends Component {
   //Dica: Renderize aqui um uma NavBar e a Switch com as rotas
@@ -20,7 +20,7 @@ class Roteador extends Component {
 	    			<Route path="/cadastro" component={Cadastro}/>    			
 	    			<Route path="/contato" component={Contato}/>
 	    			<Route path="/sobre" component={Sobre}/>
-				<Route path="/produto" component={TesteProduto}/>
+				<Route path="/produto" component={ListaProduto}/>
 	    			<Route path="" component={Home}/>
 	    			<Route component={NotFound}/>    			
 	    		</Switch>
