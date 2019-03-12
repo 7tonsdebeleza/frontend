@@ -1,53 +1,63 @@
 import React from "react";
 import {Link} from "react-router-dom";
+import Logo from '../Images/logo.png';
 
 const NavBar = () => {
     //Dica: Renderize os Links aqui!
     return(
-        <div>
+        <div style={{backgroundColor: '#f7f7f8'}}>
             {/*Parte inicial da navbar: logo, barra de pesquisa, numero de contato*/}
             <div className='container'>
-                <nav className='nav justify-content-end'>
-                    <div className='nav-item'>
-                        <p className='nav-link'>
-                            Entre em contato (1800) 000 8808
-                        </p>
-                        
-                    </div>
-                    <div className='nav-item'>
-                        <div className='nav-link'>
-                            <input class="form-control mr-sm-2" type="search" placeholder="buscar" aria-label="Search"/>
-                        </div>
-                    </div>
-                </nav>
-
-
-                <nav className='nav justify-content-end'>
-                    <p>
-                    Free shipping on All Orders. No Minimum Purchase.
-                    </p>
-
-                </nav>
                 
                 <nav className='navbar'>
                     <div className='navbar-brand'>
-                        [LOGO]
+                        <img className='d-inline-block align-top' width='100' height='100' src={Logo} alt='logo'/>
                     </div>
-                    <div className='form-inline'>
-                        <div className='nav-item'>
-                            <div className='nav-link'>
-                                [icon]<Link to="/#" style={{color: 'black'}}>  Carrinho </Link>[contador]
-                            </div>
-                        </div>
 
-                        <div className='nav-item'>
-                            <div className='nav-link'>
-                                <Link to="/cadastro" style={{color: 'black'}}>Entre </Link>
-                                ou 
-                                <Link to="/cadastro" style={{color: 'black'}}> Cadastrar-se</Link>                        
+                    <div className='nav justify-content-end'>
+
+                        <div className='nav flex-column text-right'>
+                            <div className='nav-item'>
+                                <nav className='nav justify-content-end'>
+                                    <div className='nav-item'>
+                                        <p className='nav-link'>
+                                            Entre em contato (1800) 000 8808
+                                        </p>
+                                        
+                                    </div>
+                                    <div className='nav-item'>
+                                        <div className='nav-link'>
+                                            <input class="form-control" type="search" placeholder="buscar" aria-label="Search"/>
+                                        </div>
+                                    </div>
+                                </nav>
+                            </div>
+
+                            <div className='nav-item'>
+                                <p className='nav-link'>
+                                Free shipping on All Orders. No Minimum Purchase.
+                                </p>
+
+                            </div>
+
+                            <div className='nav-item'>
+                                <nav className='nav justify-content-end'>
+                                    <div className='nav-item'>
+                                        <div className='nav-link'>
+                                            [icon]<Link to="/#" style={{color: 'black'}}>  Carrinho </Link>[contador]
+                                        </div>
+                                    </div>
+
+                                    <div className='nav-item'>
+                                        <div className='nav-link'>
+                                            <Link to="/cadastro" style={{color: 'black'}}>Entre </Link>
+                                            ou 
+                                            <Link to="/cadastro" style={{color: 'black'}}> Cadastrar-se</Link>                        
+                                        </div>
+                                    </div>
+                                </nav>
                             </div>
                         </div>
-                        
                     </div>
                     
                 </nav>

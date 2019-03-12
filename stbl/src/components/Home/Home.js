@@ -1,5 +1,4 @@
 import React from 'react';
-import ListaProduto from '../Produto/ListaProduto'
 
 const Home = () => {
     return(
@@ -10,7 +9,7 @@ const Home = () => {
             */}
 
             <div className='card'>
-                <img class="card-img" style={{height:520}} src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDlFD938Z68Amoo8tuv7RG6ooYcm4aVragpD6uaMRoir-PgPxx' alt="Card image"/>
+                <img class="card-img" src='https://cdn.shopify.com/s/files/1/1825/4753/files/slideshow_1_2000x_03328b29-1d6f-40d8-91b4-e2d81ea162c5_2000x.jpg?v=1492532268' alt='img-banner-1'/>
                     <div class="card-img-overlay">
                         <div className='text-center' style={{marginTop: 180}}>
                             <h1 className='card-title'>LOREM A COSMO</h1>
@@ -34,7 +33,7 @@ const Home = () => {
                     
                     <div className='card border-light bg-dark text-white text-center'>
 
-                        <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDlFD938Z68Amoo8tuv7RG6ooYcm4aVragpD6uaMRoir-PgPxx'/>
+                        <img src='https://cdn.shopify.com/s/files/1/1825/4753/files/top-banner-home-1_31d2f89e-9c12-4f47-8c9a-545b06787527_2000x.jpg?v=1489074799' alt='img-card'/>
 
                         <div className='card-img-overlay'>
                             <h2>EDITOR'S PICK</h2>
@@ -43,7 +42,7 @@ const Home = () => {
 
                     <div className='card border-light bg-dark text-center'>
 
-                        <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDlFD938Z68Amoo8tuv7RG6ooYcm4aVragpD6uaMRoir-PgPxx'/>
+                        <img src='https://cdn.shopify.com/s/files/1/1825/4753/files/top-banner-home-2_2000x.jpg?v=1489074851' alt='img-card'/>
 
                         <div className='card-img-overlay'>
                             <h2>SHOES</h2>
@@ -52,7 +51,7 @@ const Home = () => {
 
                     <div className='card border-light bg-dark text-white text-center'>
 
-                        <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDlFD938Z68Amoo8tuv7RG6ooYcm4aVragpD6uaMRoir-PgPxx'/>
+                        <img src='https://cdn.shopify.com/s/files/1/1825/4753/files/top-banner-home-3_2000x.jpg?v=1489074859' alt='img-card'/>
 
                         <div className='card-img-overlay'>
                             <h2>ACCESSORIES</h2>
@@ -70,13 +69,11 @@ const Home = () => {
                     <div className='col-md-auto'>NEW ARRIVALS</div>
                     <div className='col'><hr/></div>
                 </div>
-                
-                <ListaProduto />
             </div>
 
 
-            <div className='card'>
-                <img class="card-img" style={{height:520}} src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDlFD938Z68Amoo8tuv7RG6ooYcm4aVragpD6uaMRoir-PgPxx' alt="Card image"/>
+            <div className='card border-0'>
+                <img class="card-img" src='https://cdn.shopify.com/s/files/1/1825/4753/files/banner_2000x.jpg?v=1489329262' alt='img-card'/>
                     <div class="card-img-overlay">
 
                         <div className='row justify-content-center text-center' style={{marginTop: '10%'}}>
@@ -119,7 +116,7 @@ const Home = () => {
 
                 <div className='card-deck text-center'>
                     <div className='card border-0'>
-                        <img className='card-img-top' src="#"/>
+                        <img className='card-img-top' src="https://cdn.shopify.com/s/files/1/1825/4753/files/banner-home-bottom-1_400x_10ac45b6-ec14-46f8-84f3-589ed39f6647_400x.jpg?v=1494707881" alt='img-card'/>
                             
                         <div className='card-body'>
                             <h3 className='card-title'>LOREM ET DORUS</h3>
@@ -130,7 +127,7 @@ const Home = () => {
                     </div>
 
                     <div className='card border-0'>
-                        <img className='card-img-top' src="#"/>
+                        <img className='card-img-top' src="https://cdn.shopify.com/s/files/1/1825/4753/files/banner-home-bottom-2_400x_ba51370d-324f-49fb-a74e-810425df2719_400x.jpg?v=1494707890" alt='img-card'/>
                             
                         <div className='card-body'>
                             <h3 className='card-title'>MILANCELOS A LANOS</h3>
@@ -141,7 +138,7 @@ const Home = () => {
 
                     <div className='card border-0'>
 
-                        <img className='card-img-top' src="#"/>
+                        <img className='card-img-top' src="https://cdn.shopify.com/s/files/1/1825/4753/files/banner-home-bottom-3_400x_da7ecf24-e8c0-42a2-a2e3-db4bcc53e6a8_400x.jpg?v=1494707900" alt='img-card'/>
                                 
                         <div className='card-body'>
                             <h3 className='card-title'>COMOS DE MILANO</h3>
