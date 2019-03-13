@@ -5,7 +5,7 @@ import Logo from '../Images/logo.png';
 const NavBar = () => {
     //Dica: Renderize os Links aqui!
     return(
-        <div style={{backgroundColor: '#f7f7f8'}}>
+        <div className="mobile-hide discreet-arimo" style={{backgroundColor: '#f7f7f8'}}>
             {/*Parte inicial da navbar: logo, barra de pesquisa, numero de contato*/}
             <div className='container'>
                 
@@ -34,7 +34,7 @@ const NavBar = () => {
                             </div>
 
                             <div className='nav-item'>
-                                <p className='nav-link'>
+                                <p className='nav-link spotlight discreet-spot'>
                                 Free shipping on All Orders. No Minimum Purchase.
                                 </p>
 
@@ -65,7 +65,7 @@ const NavBar = () => {
 
             {/*Segunda parte da navbar com links de navegação*/}
             
-            <nav className='navbar navbar-dark bg-dark'>
+            <nav className='navbar navbar-dark bg-dark spotlight '>
                 <div className='container'>
                     <ul className='nav'>
                         <li className='nav-item'>

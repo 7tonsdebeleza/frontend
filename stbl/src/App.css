@@ -1,3 +1,13 @@
+@font-face{
+    font-family: Arimo;
+    src: url("../src/components/Fonts/Arimo/Arimo-Regular.ttf");
+}
+
+@font-face{
+    font-family: Montserrat;
+    src: url("../src/components/Fonts/Montserrat/Montserrat-SemiBold.ttf")
+}
+
 body{
     font-family: 'Arimo', sans-serif; /*fonte do template*/
 }
@@ -170,15 +180,36 @@ body{
     color: #e95144;
 }
 
+.spotlight{
+    font-family: "Montserrat";
+    text-transform: uppercase;
+}
+
+.discreet-spot{
+    font-size: 11px;
+}
+
+.discreet-arimo{
+    font-size: 12px;
+}
+
+.subtitle-montserrat{
+    font-size: 16px;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-top: 10%;
+    margin-bottom: 10%;
+}
+
 .banner-paragrafo{
     position: relative;
     text-align: center;
     margin-top: -380px;
-    margin-bottom: 240px;
+    margin-bottom: 260px;
 }
 
 .banner-texto{
-    width: 40%;
+    width: 35%;
     margin-left: auto;
     margin-right: auto;
 }
@@ -187,10 +218,24 @@ body{
     margin-left: 50%;
 }
 
+.pink-card{
+    background-color: #FFF5EE;
+    padding: 1%;
+}
+
+.pink-card-title{
+    font-size: 16px;
+    margin-top: 5%;
+    font-weight: bold;
+}
+
 /*---------------------------------------- */
 
 /*Tratando responsividade*/
 @media only screen and (max-width: 600px) {
+    h1, h2, h3{
+        font-size: 20px;
+    }
     .banner-paragrafo{
         margin-top: 0px;
     }
@@ -209,6 +254,10 @@ body{
     }
     .banner-paragrafo-rightinle{
         margin-left: 0;
+    }
+
+    .mobile-hide{
+        display: none;
     }
     
 }
