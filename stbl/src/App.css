@@ -169,4 +169,46 @@ body{
 .precodescricaoProduto{
     color: #e95144;
 }
+
+.banner-paragrafo{
+    position: relative;
+    text-align: center;
+    margin-top: -380px;
+    margin-bottom: 240px;
+}
+
+.banner-texto{
+    width: 40%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.banner-paragrafo-rightinle{
+    margin-left: 50%;
+}
+
 /*---------------------------------------- */
+
+/*Tratando responsividade*/
+@media only screen and (max-width: 600px) {
+    .banner-paragrafo{
+        margin-top: 0px;
+    }
+    .banner-titulo{
+        display: block;
+        position: relative;
+        width: 60%;
+        background-color: white;
+        margin-top: auto;
+        margin-bottom: auto;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .undercard{
+        margin-top: -200px;
+    }
+    .banner-paragrafo-rightinle{
+        margin-left: 0;
+    }
+    
+}

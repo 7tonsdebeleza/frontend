@@ -8,12 +8,12 @@ const Home = () => {
                 futuramente transformar em carrossel (bootstrap não roda)
             */}
 
-            <div className='card'>
-                <img class="card-img" src='https://cdn.shopify.com/s/files/1/1825/4753/files/slideshow_1_2000x_03328b29-1d6f-40d8-91b4-e2d81ea162c5_2000x.jpg?v=1492532268' alt='img-banner-1'/>
-                    <div class="card-img-overlay">
-                        <div className='text-center' style={{marginTop: 180}}>
-                            <h1 className='card-title'>LOREM A COSMO</h1>
-                            <p style={{width: '40%'}} className='mx-auto card-text'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <div className="banner">
+                <img class="d-block w-100" src='https://cdn.shopify.com/s/files/1/1825/4753/files/slideshow_1_2000x_03328b29-1d6f-40d8-91b4-e2d81ea162c5_2000x.jpg?v=1492532268' alt='img-banner-1'/>
+                    <div class="">
+                        <div className='banner-paragrafo' >
+                            <h1 className='banner-titulo'>LOREM A COSMO</h1>
+                            <p className='banner-texto'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
 
                             {/*
                                 Botão dentro do banner (sem função)
@@ -25,8 +25,9 @@ const Home = () => {
                     </div>
             </div>
             
+            
             {/*Div para primeiro card*/}
-            <div className='container justify-content-between p-4'>
+            <div className='container justify-content-between undercard'>
                 {/*Divisão em 3 cards, texto sobreposto em background*/}
 
                 <div className='card-deck'>
@@ -72,13 +73,13 @@ const Home = () => {
             </div>
 
 
-            <div className='card border-0'>
-                <img class="card-img" src='https://cdn.shopify.com/s/files/1/1825/4753/files/banner_2000x.jpg?v=1489329262' alt='img-card'/>
-                    <div class="card-img-overlay">
+            <div className='banner'>
+                <img class="d-block w-100" src='https://cdn.shopify.com/s/files/1/1825/4753/files/banner_2000x.jpg?v=1489329262' alt='img-card'/>
+                    <div class="">
 
-                        <div className='row justify-content-center text-center' style={{marginTop: '10%'}}>
-                            <div className='col' style={{width:'100%'}}>{/*Coluna vazia para por paragrafo abaixo alinhado a direita*/}  </div>
-                            <div className='col'>
+                        <div className='justify-content-center text-center'>
+                            
+                            <div className='banner-paragrafo banner-paragrafo-rightinle'>
                                 <h2>MILANCELOS</h2>
                                 <p style={{width: '60%'}} className='mx-auto'>Pellentesque posuere orci lobortis scelerisque blandit. Donec id tellus lacinia an, tincidunt risus ac, consequat velit. Quisquemos sodales suscipit tortor ditaemcos condimentum lacus meleifend menean viverra auctor blanditos comodous.</p>
 
@@ -89,15 +90,12 @@ const Home = () => {
                                 <button className='btn btn-dark'>SHOP THE COLLECTION</button>
                             </div>
                         </div>
-
-                    
-                        
                     </div>
             </div>
 
-            <div className='container'>
+            <div className='container undercard'>
                 {/*Div para quarto card com breve lista de produtos*/}
-                <div className='p-4 d-flex flex-row justify-content-center align-items-center text-center d-flex'>
+                <div className=' d-flex flex-row justify-content-center align-items-center text-center d-flex'>
                     <div className='col'><hr/></div>
                     <div className='col-md-auto'>TRENDING NOW</div>
                     <div className='col'><hr/></div>
