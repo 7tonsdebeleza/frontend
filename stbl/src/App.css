@@ -214,6 +214,12 @@ body{
     margin-right: auto;
 }
 
+.banner-texto-inline{
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .banner-paragrafo-rightinle{
     margin-left: 50%;
 }
@@ -229,6 +235,17 @@ body{
     font-weight: bold;
 }
 
+.divider{
+    display: block;
+    border: 1.5px solid #222222;
+    width: 40px;
+    color: #222222;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
 /*---------------------------------------- */
 
 /*Tratando responsividade*/
@@ -242,18 +259,32 @@ body{
     .banner-titulo{
         display: block;
         position: relative;
-        width: 60%;
-        background-color: white;
-        margin-top: auto;
-        margin-bottom: auto;
+        width: 70%;
+        height: 30px;
+        align-items: center;
+        background-color: rgba(255,255,255,.9);
+        margin-top: -50px;
+        margin-bottom: 40px;
         margin-left: auto;
         margin-right: auto;
+    }
+
+    .banner-titulo-natural{
+        margin-top: 30px;
+    }
+
+    .banner-texto{
+        width: 80%
     }
     .undercard{
         margin-top: -200px;
     }
     .banner-paragrafo-rightinle{
         margin-left: 0;
+    }
+
+    .banner-texto-inline{
+        width: 80%;
     }
 
     .mobile-hide{
