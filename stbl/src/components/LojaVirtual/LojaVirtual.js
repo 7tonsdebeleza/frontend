@@ -4,7 +4,7 @@ class LojaVirtual extends Component {
   render() {
     return (
       <div>
-        
+        LojaVirtual
       </div>
     )
   }

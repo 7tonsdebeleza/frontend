@@ -7,7 +7,7 @@ import React, { Component } from 'react'
     
     return (
       <div>
-
+        Colecoes
       </div>
     )
   }
