@@ -1,11 +1,13 @@
-import React from "react";
+import React, { Component } from 'react'
 
-const LojaVirtual = () => {
-    return(
-        <div>
-            <h1> LojaVirtual </h1>
-        </div>
+class LojaVirtual extends Component {
+  render() {
+    return (
+      <div>
+        
+      </div>
     )
+  }
 }
 
-export default LojaVirtual;
+export default LojaVirtual

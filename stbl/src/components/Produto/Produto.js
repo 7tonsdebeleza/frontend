@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import Menos from "../Images/minus.svg"
+import Mais from "../Images/plus.svg"
 
 class Produto extends Component {
     constructor() {
@@ -130,12 +132,12 @@ class Produto extends Component {
                             <h2><b>R${this.props.preco}</b></h2>
                             <p><b>Quantidade:</b></p>
                             <div>
-                                <button onClick={this.decrementarQtd} className="botoesQuantidade"><i className="fa fa-minus" aria-hidden="true"></i></button>
+                                <button onClick={this.decrementarQtd} className="botoesQuantidade"><img src={Menos} width='15' height='15'alt='menos'></img></button>
                                 {this.state.contadorQtd}
-                                <button onClick={this.incrementarQtd} className="botoesQuantidade"><i className="fa fa-plus" aria-hidden="true"></i></button>
+                                <button onClick={this.incrementarQtd} className="botoesQuantidade"><img src={Mais}  width='15' height='15' alt='Mais'></img></button>
                             </div>
                             <p className="subtotalQuantidade"><b>SubTotal: R${this.props.preco * this.state.contadorQtd}</b></p>
-                            <button><p><i className="botaoAddCarrinho fas fa-cart-plus fa-1x"></i> ADICIONAR AO CARRINHO</p></button>
+                            <button className="botaoAddCarrinho"> ADICIONAR AO CARRINHO</button>
                         </div>
                     </div>
                 </div>

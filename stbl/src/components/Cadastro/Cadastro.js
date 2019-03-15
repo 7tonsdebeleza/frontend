@@ -1,10 +1,13 @@
-import React from "react";
+import React, { Component } from 'react'
 
-const Cadastro = () => {
-    return(
-        <div>
-            <h1> Cadastro </h1>
-        </div>)
+class Cadastro extends Component {
+  render() {
+    return (
+      <div>
+        
+      </div>
+    )
+  }
 }
 
-export default Cadastro;
+export default Cadastro

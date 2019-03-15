@@ -1,11 +1,15 @@
-import React from "react";
+import React, { Component } from 'react'
 
-const Colecoes = () => {
-    return(
-        <div>
-            <h1> Colecoes </h1>
-        </div>
+
+ class Colecoes extends Component {
+    
+  render() {
+    
+    return (
+      <div>
+
+      </div>
     )
+  }
 }
-
-export default Colecoes;
+export default Colecoes

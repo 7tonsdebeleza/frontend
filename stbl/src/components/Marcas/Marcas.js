@@ -1,11 +1,13 @@
-import React from "react";
+import React, { Component } from 'react'
 
-const Marcas = () => {
-    return(
-        <div>
-            <h1> Marcas </h1>
-        </div>
+ class Marcas extends Component {
+  render() {
+    return (
+      <div>
+        
+      </div>
     )
+  }
 }
 
-export default Marcas;
+export default Marcas
