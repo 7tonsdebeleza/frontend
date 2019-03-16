@@ -10,6 +10,7 @@
 
 body{
     font-family: 'Arimo', sans-serif; /*fonte do template*/
+    
 }
 /*Modal Ver Detalhes do Produto*/
 .modal-container{
@@ -23,6 +24,7 @@ body{
     display: none;
     justify-content: center;
     align-items: center;
+    
 }
 
 .modal-container.mostrar{
@@ -31,12 +33,13 @@ body{
 
 .modal {
     background: white;
-    height: 75%;
-    width: 60%;
+    height: 95%;
+    width: 75%;
     padding: 35px;
     box-shadow: 0 0 0 2px black;
     position: relative;
     display: block;
+    overflow: auto;
 }
 
 @keyframes modal {
@@ -86,40 +89,46 @@ body{
 }
 .descricaoProdutoModal{
     float: left;
+    width: 30%;
 }
 .descricaoProdutoModal button{
-    background-color: black;
-    color: white;
-    border: 1px solid black;
+    border: 1px solid #a7a4a4;
     cursor: pointer;
     letter-spacing: 1px;
     transition: all .3s;
     outline: none;
-    margin-bottom: 5%;
-}
-.descricaoProdutoModal button:hover{
-    background: #e95144;
-    border: 1px solid #e95144;
+    margin-bottom: 10%;
 }
 
 .botoesTamanho button{
     margin-right: 5%;
     height: 25px;
+    background-color: white;
 }
 
 .botoesTamanho button:focus{
-    border: 1px solid #e95144;
-    box-shadow: 0 0 0 2px #e95144;
+    border: 1px solid black;
+    box-shadow: 0 0 0 2px black;
 }
 
 .botoesQuantidade{
     margin-left: 3%;
     margin-right: 3%;
     height: 25px;
+    background-color: white;
+    
 }
 .botaoAddCarrinho{
-    padding: 0.3rem;
+    padding: 0.6rem;
     margin-top: 0.7rem;
+    background-color: black;
+    color: white;
+    width: 100%;
+}
+
+.botaoAddCarrinho:hover{
+    background: #e95144;
+    border: 1px solid #e95144;
 }
 /*-------------Produto----------------- margin:  top right bottom left  */
 .listaProduto{
@@ -179,6 +188,8 @@ body{
 .precodescricaoProduto{
     color: #e95144;
 }
+
+/*---------------------------------------- */
 
 .spotlight{
     font-family: "Montserrat";
@@ -291,4 +302,23 @@ body{
         display: none;
     }
     
+}
+/*------------Scroll Navbar Primaria e Secundaria--------- */
+.navbarPricipal{
+    z-index: 200;
+}
+.navbarEscondida{
+    display: none;
+    z-index: 200;
+}
+.navbarEscondida.aparece{
+    display: block;
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    bottom: 0%;
+    right: 0%;
+}
+.navbarPrincipal.esconde{
+    display: none;
 }

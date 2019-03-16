@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 
-class Cadastro extends Component {
+class Blog extends Component {
   render() {
     return (
       <div>
-        
+        blog
       </div>
     )
   }
 }
 
-export default Cadastro
+export default Blog

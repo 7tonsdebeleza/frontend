@@ -1,11 +1,11 @@
 import React from "react";
 
-const sobre = () => {
+const Faq = () => {
     return(
         <div>
-            <h1> Sobre </h1>
+            <h1> Faq </h1>
         </div>
     )
 }
 
-export default sobre;
+export default Faq;

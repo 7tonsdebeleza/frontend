@@ -1,13 +1,15 @@
 import React, { Component } from 'react'
 
-class Cadastro extends Component {
+
+ class Colecoes extends Component {
+    
   render() {
+    
     return (
       <div>
-        
+        Colecoes
       </div>
     )
   }
 }
-
-export default Cadastro
+export default Colecoes

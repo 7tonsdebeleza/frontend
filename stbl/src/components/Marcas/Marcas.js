@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 
-class Cadastro extends Component {
+ class Marcas extends Component {
   render() {
     return (
       <div>
-        
+        Marcas
       </div>
     )
   }
 }
 
-export default Cadastro
+export default Marcas
