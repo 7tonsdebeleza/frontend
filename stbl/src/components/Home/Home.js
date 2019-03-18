@@ -14,6 +14,7 @@ const Home = () => {
                     <div class="">
                         <div className='banner-paragrafo' >
                             <h1 className='banner-titulo spotlight'>LOREM A COSMO</h1>
+                            <div className='divider mobile-hide'></div>
                             <p className='banner-texto discreet-arimo'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
 
                             {/*
@@ -83,8 +84,9 @@ const Home = () => {
                         <div className='justify-content-center text-center'>
                             
                             <div className='banner-paragrafo banner-paragrafo-rightinle'>
-                                <h2 className='spotlight'>MILANCELOS</h2>
-                                <p style={{width: '70%'}} className='mx-auto discreet-arimo'>Pellentesque posuere orci lobortis scelerisque blandit. Donec id tellus lacinia an, tincidunt risus ac, consequat velit. Quisquemos sodales suscipit tortor ditaemcos condimentum lacus meleifend menean viverra auctor blanditos comodous.</p>
+                                <h2 className='spotlight banner-titulo-natural'>MILANCELOS</h2>
+                                <div className='divider'></div>
+                                <p className='banner-texto-inline discreet-arimo'>Pellentesque posuere orci lobortis scelerisque blandit. Donec id tellus lacinia an, tincidunt risus ac, consequat velit. Quisquemos sodales suscipit tortor ditaemcos condimentum lacus meleifend menean viverra auctor blanditos comodous.</p>
 
                                 {/*
                                     Botão dentro do banner (sem função)
