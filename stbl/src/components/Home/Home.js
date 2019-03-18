@@ -1,4 +1,5 @@
 import React from 'react';
+import ListaProduto from '../Produto/ListaProduto';
 
 const Home = () => {
     return(
@@ -70,6 +71,8 @@ const Home = () => {
                     <div className='col-md-auto spotlight'>NEW ARRIVALS</div>
                     <div className='col'><hr/></div>
                 </div>
+                <ListaProduto />
+                <ListaProduto />
             </div>
 
 

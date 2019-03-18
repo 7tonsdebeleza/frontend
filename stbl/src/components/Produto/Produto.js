@@ -72,6 +72,7 @@ class Produto extends Component {
                         <img src={this.props.img} alt="img" className="imagemProduto" onClick={this.CliqueVerDetalhes}/>
                         <div className="divbotaoVerDetalhes">
                             <button onClick={this.CliqueVerDetalhes} className="botaoVerDetalhes" id={this.props.img}>Ver detalhes</button>
+                            
                         </div>
                     </div>
                     <div className="descricaoProduto" onClick={this.CliqueVerDetalhes}>

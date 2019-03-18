@@ -1,9 +1,24 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import Logo from '../Images/logo.png';
-import Search from '../Images/search-solid.svg';
+import Search from '../Images/iconsearch.png';
+import Carrinho from '../Images/carrinho.png'
 
 class NavBar extends Component {
+    constructor() {
+        super();
+
+    }
+
+    PesquisaNavEsc = () => {
+        const pesq = document.getElementById("search");
+        pesq.classList.toggle('mostrarpesq');
+    }
+    
+
+
+
+
     render() {
         //função para esconder a navbar principal e aparecer a secundaria
         window.addEventListener("scroll", () => {
@@ -16,11 +31,13 @@ class NavBar extends Component {
                 navbarPrinc.classList.add("esconde");
                 navbarSecun.classList.add("aparece");
             }
-            if(navbarAuxTop > -90) {
+            if (navbarAuxTop > -90) {
                 navbarPrinc.classList.remove("esconde");
                 navbarSecun.classList.remove("aparece");
             }
         });
+
+
         return (
             <div className="mobile-hide discreet-arimo" style={{ backgroundColor: '#f7f7f8' }}>
                 {/*Parte inicial da navbar: logo, barra de pesquisa, numero de contato*/}
@@ -133,49 +150,46 @@ class NavBar extends Component {
         */}
                 <div className="navbarEscondida" id="navbarEscondida">
                     <div className="mobile-hide discreet-arimo" style={{ backgroundColor: '#f7f7f8' }}>
-                        {/*Parte inicial da navbar: logo, barra de pesquisa, numero de contato*/}
-
-
-                        {/*Segunda parte da navbar com links de navegação*/}
 
                         <nav className='navbar navbar-dark bg-dark spotlight '>
-                            <div className='container'>
-                                <div className='navbar-brand'>
-                                    <Link to="/home"><img className='d-inline-block align-top' width='40' height='40' src={Logo} alt='logo' /></Link>
-                                </div>
-                                <ul className='nav'>
-                                    <li className='nav-item'>
-                                        <div className='nav-link'>
-                                            <Link to="/home" style={{ color: 'white' }}>Home</Link>
-                                        </div>
 
-                                    </li>
-                                    <li className='nav-item'>
-                                        <div className='nav-link'>
-                                            <Link to="/colecoes" style={{ color: 'white' }}>Coleções</Link>
-                                        </div>
-                                    </li>
-                                    <li className='nav-item'>
-                                        <div className='nav-link'>
-                                            <Link to="/lojavirtual" style={{ color: 'white' }}>Loja Virtual</Link>
-                                        </div>
-                                    </li>
-                                    <li className='nav-item'>
-                                        <div className='nav-link'>
-                                            <Link to="/marcas" style={{ color: 'white' }}>Marcas</Link>
-                                        </div>
-                                    </li>
-                                    <li className='nav-item'>
-                                        <div className='nav-link'>
-                                            <Link to="/faq" style={{ color: 'white' }}>FAQ</Link>
-                                        </div>
-                                    </li>
-                                </ul>
-                                <div><img className='pesquisa' width='20' height='20' src={Search} alt='pesquisa' /></div>
-                                <span className='navbar-text'>
-                                    <Link to="/blog" style={{ color: 'white' }}>Dicas de beleza</Link>
-                                </span>
+                            <div className='navbar-brand'>
+                                <Link to="/home"><img className='d-inline-block align-top' width='30' height='30' src={Logo} alt='logo' /></Link>
                             </div>
+                            <ul className='nav'>
+                                <li className='nav-item'>
+                                    <div className='nav-link'>
+                                        <Link to="/home" style={{ color: 'white' }}>Home</Link>
+                                    </div>
+
+                                </li>
+                                <li className='nav-item'>
+                                    <div className='nav-link'>
+                                        <Link to="/colecoes" style={{ color: 'white' }}>Coleções</Link>
+                                    </div>
+                                </li>
+                                <li className='nav-item'>
+                                    <div className='nav-link'>
+                                        <Link to="/lojavirtual" style={{ color: 'white' }}>Loja Virtual</Link>
+                                    </div>
+                                </li>
+                                <li className='nav-item'>
+                                    <div className='nav-link'>
+                                        <Link to="/marcas" style={{ color: 'white' }}>Marcas</Link>
+                                    </div>
+                                </li>
+                                <li className='nav-item'>
+                                    <div className='nav-link'>
+                                        <Link to="/faq" style={{ color: 'white' }}>FAQ</Link>
+                                    </div>
+                                </li>
+
+                            </ul>
+                            <ul className="imgpesquisa nav">
+                                <li><div className="imgpesquisa nav-link"><img className="imgpesq" id="imgpesquisa" onClick={this.PesquisaNavEsc.bind(this)} width='20' height='20' src={Search} alt='pesquisa' /></div></li>
+                                <li><div id="search" className="pesquisa nav-link"><input className="form-control" style={{ marginTop: '-5%',  marginBottom: '-5%'}} id="pesq" type="search" placeholder="buscar" aria-label="Search" /></div></li>
+                                <li><div className="imgcarrinho nav-link"><img className="imgcarrinho" id="imgcarrinho" width='20' height='20' src={Carrinho} alt='carrinho' /></div></li>
+                            </ul>
 
                         </nav>
                     </div>

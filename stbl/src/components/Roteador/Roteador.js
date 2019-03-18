@@ -10,6 +10,7 @@ import ListaProduto from "../Produto/ListaProduto"
 import Marcas from "../Marcas/Marcas"
 import Faq from "../Faq/Faq"
 import Blog from '../Blog/Blog';
+import Footer from '../Footer/Footer';
 
 class Roteador extends Component {
   //Dica: Renderize aqui um uma NavBar e a Switch com as rotas
@@ -30,6 +31,7 @@ class Roteador extends Component {
 	    			<Route path="" component={Home}/>
 	    			<Route component={NotFound}/>    			
 	    		</Switch>
+				<Footer/>
     		</div>
     	</BrowserRouter>
     );
