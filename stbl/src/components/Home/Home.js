@@ -13,20 +13,22 @@ const Home = () => {
                 <img class="d-block w-100" src='https://cdn.shopify.com/s/files/1/1825/4753/files/slideshow_1_2000x_03328b29-1d6f-40d8-91b4-e2d81ea162c5_2000x.jpg?v=1492532268' alt='img-banner-1'/>
                     <div class="">
                         <div className='banner-paragrafo' >
-                            <h1 className='banner-titulo spotlight'>LOREM A COSMO</h1>
-                            <div className='divider mobile-hide'></div>
-                            <p className='banner-texto discreet-arimo'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                            <div className="animated fadeInUp">
+                                <h1 className='banner-titulo spotlight'>LOREM A COSMO</h1>
+                                <div className='divider mobile-hide'> </div>
+                            </div>
+        
+                            <p className='banner-texto discreet-arimo animated fadeInUp delay-1s'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
 
                             {/*
                                 Botão dentro do banner (sem função)
                                 No template leva a loja virtual;
                             */}
 
-                            <button className='btn btn-dark spotlight discreet-arimo'>SHOP THE COLLECTION</button>
+                            <button className='btn btn-dark spotlight discreet-arimo animated fadeInUp delay-1s slow'>SHOP THE COLLECTION</button>
                         </div>
                     </div>
-            </div>
-            
+            </div>            
             
             {/*Div para primeiro card*/}
             <div className='container justify-content-between undercard'>
@@ -34,7 +36,7 @@ const Home = () => {
 
                 <div className='card-deck'>
                     
-                    <div className='card border-light bg-dark text-white text-center'>
+                    <div className='card border-light bg-dark text-white text-center wow fadeInUp faster'>
 
                         <img src='https://cdn.shopify.com/s/files/1/1825/4753/files/top-banner-home-1_31d2f89e-9c12-4f47-8c9a-545b06787527_2000x.jpg?v=1489074799' alt='img-card'/>
 
@@ -43,7 +45,7 @@ const Home = () => {
                         </div>
                     </div>
 
-                    <div className='card border-light bg-dark text-center'>
+                    <div className='card border-light bg-dark text-center wow fadeInUp fast'>
 
                         <img src='https://cdn.shopify.com/s/files/1/1825/4753/files/top-banner-home-2_2000x.jpg?v=1489074851' alt='img-card'/>
 
@@ -52,7 +54,7 @@ const Home = () => {
                         </div>
                     </div>
 
-                    <div className='card border-light bg-dark text-white text-center'>
+                    <div className='card border-light bg-dark text-white text-center wow fadeInUp'>
 
                         <img src='https://cdn.shopify.com/s/files/1/1825/4753/files/top-banner-home-3_2000x.jpg?v=1489074859' alt='img-card'/>
 
@@ -69,17 +71,17 @@ const Home = () => {
                 {/*Div para segundo card com breve lista de produtos*/}
                 <div className='p-4 d-flex flex-row justify-content-center align-items-center text-center d-flex'>
                     <div className='col'><hr/></div>
-                    <div className='col-md-auto spotlight'>NEW ARRIVALS</div>
+                    <div className='col-md-auto spotlight wow fadeIn'>NEW ARRIVALS</div>
                     <div className='col'><hr/></div>
                 </div>
                 <ListaProduto />
-                <ListaProduto />
+                
             </div>
 
 
-            <div className='banner'>
+            <div className='banner wow fadeInUp'>
                 <img class="d-block w-100" src='https://cdn.shopify.com/s/files/1/1825/4753/files/banner_2000x.jpg?v=1489329262' alt='img-card'/>
-                    <div class="">
+                    <div class="wow slideInLeft">
 
                         <div className='justify-content-center text-center'>
                             
@@ -102,9 +104,11 @@ const Home = () => {
                 {/*Div para quarto card com breve lista de produtos*/}
                 <div className=' d-flex flex-row justify-content-center align-items-center text-center d-flex'>
                     <div className='col'><hr/></div>
-                    <div className='col-md-auto spotlight'>TRENDING NOW</div>
+                    <div className='col-md-auto spotlight wow fadeIn'>TRENDING NOW</div>
                     <div className='col'><hr/></div>
                 </div>
+
+                <ListaProduto />
                 
                 
             </div>
@@ -113,12 +117,12 @@ const Home = () => {
                 {/*Div para quinto card*/}
                 <div className='p-4 d-flex flex-row justify-content-center align-items-center text-center d-flex'>
                     <div className='col'><hr/></div>
-                    <div className='col-md-auto spotlight'>#FEATURED ON ELLA</div>
+                    <div className='col-md-auto spotlight wow fadeIn'>#FEATURED ON ELLA</div>
                     <div className='col'><hr/></div>
                 </div>
 
                 <div className='card-deck text-center'>
-                    <div className='card border-0'>
+                    <div className='card border-0 wow fadeInUp faster'>
                         <img className='card-img-top' src="https://cdn.shopify.com/s/files/1/1825/4753/files/banner-home-bottom-1_400x_10ac45b6-ec14-46f8-84f3-589ed39f6647_400x.jpg?v=1494707881" alt='img-card'/>
                             
                         <div className='card-body'>
@@ -129,7 +133,7 @@ const Home = () => {
 
                     </div>
 
-                    <div className='card border-0'>
+                    <div className='card border-0 wow fadeInUp fast'>
                         <img className='card-img-top' src="https://cdn.shopify.com/s/files/1/1825/4753/files/banner-home-bottom-2_400x_ba51370d-324f-49fb-a74e-810425df2719_400x.jpg?v=1494707890" alt='img-card'/>
                             
                         <div className='card-body'>
@@ -139,7 +143,7 @@ const Home = () => {
                         </div>
                     </div>
 
-                    <div className='card border-0'>
+                    <div className='card border-0 wow fadeInUp'>
 
                         <img className='card-img-top' src="https://cdn.shopify.com/s/files/1/1825/4753/files/banner-home-bottom-3_400x_da7ecf24-e8c0-42a2-a2e3-db4bcc53e6a8_400x.jpg?v=1494707900" alt='img-card'/>
                                 
