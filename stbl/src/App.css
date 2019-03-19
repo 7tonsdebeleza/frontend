@@ -256,8 +256,8 @@ body{
 .banner-paragrafo{
     position: relative;
     text-align: center;
-    margin-top: -380px;
-    margin-bottom: 260px;
+    margin-top: -28%;
+    margin-bottom: 18%;
 }
 
 .banner-texto{
@@ -298,10 +298,11 @@ body{
     margin-bottom: 10px;
 }
 
+
 /*---------------------------------------- */
 
 /*Tratando responsividade*/
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 700px) {
     h1, h2, h3{
         font-size: 20px;
     }
@@ -328,9 +329,7 @@ body{
     .banner-texto{
         width: 80%
     }
-    .undercard{
-        margin-top: -200px;
-    }
+    
     .banner-paragrafo-rightinle{
         margin-left: 0;
     }
