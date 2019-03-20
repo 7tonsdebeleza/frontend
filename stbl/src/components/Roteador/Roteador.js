@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import {BrowserRouter, Route,Switch} from "react-router-dom";
-import NavBar from "../NavBar/NavBar"
-import Home from "../Home/Home"
-import Cadastro from "../Cadastro/Cadastro"
-import LojaVirtual from "../LojaVirtual/LojaVirtual"
-import NotFound from "../NotFound/NotFound"
-import Colecoes from "../Colecoes/Colecoes"
-import ListaProduto from "../Produto/ListaProduto"
-import Marcas from "../Marcas/Marcas"
-import Faq from "../Faq/Faq"
+import NavBar from "../NavBar/NavBar";
+import NavBarMobile from "../NavBar/NavBarMobile";
+import Home from "../Home/Home";
+import Cadastro from "../Cadastro/Cadastro";
+import LojaVirtual from "../LojaVirtual/LojaVirtual";
+import NotFound from "../NotFound/NotFound";
+import Colecoes from "../Colecoes/Colecoes";
+import ListaProduto from "../Produto/ListaProduto";
+import Marcas from "../Marcas/Marcas";
+import Faq from "../Faq/Faq";
 import Blog from '../Blog/Blog';
 import Footer from '../Footer/Footer';
 
@@ -19,6 +20,7 @@ class Roteador extends Component {
     	<BrowserRouter>
     		<div>
 	    		<NavBar/>   
+				<NavBarMobile/>
 	    		<Switch>
 	    			<Route path="/home" component={Home}/>
 	    			<Route path="/cadastro" component={Cadastro}/>    			

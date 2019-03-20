@@ -298,6 +298,9 @@ body{
     margin-bottom: 10px;
 }
 
+.mobile-show{
+    display: none;
+}
 
 /*---------------------------------------- */
 
@@ -340,6 +343,10 @@ body{
 
     .mobile-hide{
         display: none;
+    }
+
+    .mobile-show{
+        display: block;
     }
     
 }
