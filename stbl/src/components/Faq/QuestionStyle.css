@@ -1,0 +1,33 @@
+.btnQuestion {
+    width: 100%;
+    text-align: center;
+    vertical-align: center;
+    text-decoration: none;
+    -webkit-transition: background-color 1s, -webkit-transform 1s;
+    transition: background-color 1s, transform 1s;
+    border: none;
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,0.2), 0 1px 1px 0 rgba(0,0,0,0.19);
+}
+
+.btnQuestionText {
+    margin-top: 10px;
+}
+
+.questionText{
+    text-align: left;
+    width: 100%;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.statusQuestion {
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 11px;
+    margin-top: 8px;
+}
+
+.answerAnimation {
+    transition: all .2s ease-in-out;
+    transform-origin: left top;
+}
