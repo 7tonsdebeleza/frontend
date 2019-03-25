@@ -4,7 +4,7 @@ class Cadastro extends Component {
   render() {
     return (
       <div>
-        
+        <p>cadastro</p>
       </div>
     )
   }

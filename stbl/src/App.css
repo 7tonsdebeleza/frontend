@@ -24,7 +24,7 @@ body{
     display: none;
     justify-content: center;
     align-items: center;
-    
+
 }
 
 .modal-container.mostrar{
@@ -372,10 +372,12 @@ body{
 }
 .pesquisa{
     display: none;
+    background: #343a40;
 }
 .pesquisa.mostrarpesq{
     display: block;
     animation: pesquisa .5s;
+    
 }
 @keyframes pesquisa {
     from {
@@ -404,6 +406,101 @@ body{
 .imgcarrinho:hover{
     opacity: 0.7;
 }
+
+/*Menu Mobile --------------------------------------------------------------*/
+.menuhamburguer{
+    outline: none !important;
+    border: none;
+}
+
+
+.mobile-show.mobile-show-fixed{
+    position: fixed;
+    width: 100%;
+    z-index: 1;
+    top: 0;
+}
+
+.modal-container-menumobile{
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,.5);
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 2000;
+    display: none;
+}
+.modal-container-menumobile.mostrar{
+    display: flex;
+}
+@keyframes modalmenu {
+    from {
+        opacity: 0;
+        transform: translate3d(-800px, 0, 0);
+    }
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+.mostrar .modal-menumobile{
+    animation: modalmenu .5s;
+}
+
+
+.modal-menumobile{
+    background: white;
+    width: 75%;
+}
+.modal-menumobile ul{
+    list-style: none;
+    padding: 0;
+    margin-bottom: 0;
+    width: 100%;
+}
+.modal-menumobile li{
+    border: 1px solid #e5e5e5;
+    transition: .5s all;
+    
+}
+.modal-menumobile a{
+    margin: 4% 0 4% 5%;
+    font-family: Montserrat;
+    color: black;
+    text-transform: uppercase;
+    font-size: 15px;
+    text-decoration: none;
+    display: block;
+    transition: .5s all;
+    
+}
+.modal-menumobile li:hover{
+    background: #343a40;
+}
+.modal-menumobile li a:hover{
+    color: white;
+}
+
+.fechar-menu{
+    position: absolute;
+    top: 0px;
+    right: 25%;
+    width: 45px;
+    height: 45px;
+    border: 1px solid white;
+    background: black;
+    color: white;
+    cursor: pointer;
+    transition: all .5s;
+}
+.fechar-menu:hover{
+    background: #e95144;
+}
+
+
+
 
 /*---------------------------------FOOTER------------------*/
 .footertitles{

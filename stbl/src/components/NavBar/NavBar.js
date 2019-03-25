@@ -5,10 +5,7 @@ import Search from '../Images/iconsearch.png';
 import Carrinho from '../Images/carrinho.png'
 
 class NavBar extends Component {
-    constructor() {
-        super();
-
-    }
+    
 
     PesquisaNavEsc = () => {
         const pesq = document.getElementById("search");
