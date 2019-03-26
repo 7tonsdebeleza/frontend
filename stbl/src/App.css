@@ -232,6 +232,58 @@ body{
 
 /*---------------------------------------- */
 
+.buscar{
+    border: none;
+    border-bottom: 1px solid #e7e7e7;
+    color: #323232;
+    width: 180px;
+    line-height: 14px;
+    padding: 0 30px 0 12px;
+    height: 30px;
+    background: #f0f0f0;
+    transition: .3s all;
+    outline: none;
+}
+.buscar:hover{
+    background: #f0ecec;
+}
+.img-pesq{
+    position: absolute;
+    top: 11%;
+    right: 3%;
+    border: 1px solid #e7e7e7;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.img-pesq2{
+    position: absolute;
+    top: 22%;
+    right: 85px;
+    border: 1px solid #e7e7e7;
+    cursor: pointer;
+    padding: 5px;
+    display: none;
+}
+.img-pesq2.mostrar{
+    display: flex;
+}
+
+.img-pesq3{
+    position: absolute;
+    top: 81px;
+    right: 16px;
+    border: 1px solid #e7e7e7;
+    cursor: pointer;
+    padding: 5px;
+    display: none;
+}
+.img-pesq3.mostrar{
+    display: flex;
+}
+
+/*---------------------------------------- */
+
 .spotlight{
     font-family: "Montserrat";
     text-transform: uppercase;
@@ -396,7 +448,7 @@ body{
     opacity: 1;
 }
 .imgpesquisa:hover{
-    opacity: 0.7;
+    opacity: 0.8;
 }
 .imgcarrinho{
     transition: .3s all;
@@ -404,7 +456,7 @@ body{
     opacity: 1;
 }
 .imgcarrinho:hover{
-    opacity: 0.7;
+    opacity: 0.8;
 }
 
 /*Menu Mobile --------------------------------------------------------------*/
@@ -466,15 +518,18 @@ body{
     
 }
 .modal-menumobile a{
-    margin: 4% 0 4% 5%;
+    
     font-family: Montserrat;
     color: black;
     text-transform: uppercase;
     font-size: 15px;
     text-decoration: none;
-    display: block;
+    display: inline-block;
     transition: .5s all;
-    
+    height: 45px;
+    width: 100%;
+    line-height: 45px;
+    padding: 0 15px;
 }
 .modal-menumobile li:hover{
     background: #343a40;

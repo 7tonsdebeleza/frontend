@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import Logo from '../Images/logo.png';
 import Search from '../Images/iconsearch.png';
+import Search2 from '../Images/iconsearch2.png';
 import Carrinho from '../Images/carrinho.png'
 
 class NavBar extends Component {
@@ -10,6 +11,8 @@ class NavBar extends Component {
     PesquisaNavEsc = () => {
         const pesq = document.getElementById("search");
         pesq.classList.toggle('mostrarpesq');
+        const imgpesq = document.getElementById("img-pesquisa2");
+        imgpesq.classList.toggle('mostrar');
     }
     
 
@@ -59,7 +62,8 @@ class NavBar extends Component {
                                             </div>
                                             <div className='nav-item'>
                                                 <div className='nav-link'>
-                                                    <input class="form-control" type="search" placeholder="buscar" aria-label="Search" />
+                                                    <input className="buscar" type="search" placeholder="Buscar" aria-label="Search" />
+                                                    <img className="img-pesq" id="img-pesquisa" width='28' height='29' src={Search2} alt='pesquisa' />
                                                 </div>
                                             </div>
                                         </nav>
@@ -184,7 +188,9 @@ class NavBar extends Component {
                             </ul>
                             <ul className="imgpesquisa nav">
                                 <li><div className="imgpesquisa nav-link"><img className="imgpesq" id="imgpesquisa" onClick={this.PesquisaNavEsc.bind(this)} width='20' height='20' src={Search} alt='pesquisa' /></div></li>
-                                <li><div id="search" className="pesquisa nav-link"><input className="form-control" style={{ marginTop: '-5%',  marginBottom: '-5%'}} id="pesq" type="search" placeholder="buscar" aria-label="Search" /></div></li>
+
+                                <li><div id="search" className="pesquisa nav-link"><input className="buscar" style={{ marginTop: '-5%',  marginBottom: '-5%'}} id="pesq" type="search" placeholder="Buscar" aria-label="Search" /></div></li>
+                                <div><img className="img-pesq2" id="img-pesquisa2" width='28' height='29' src={Search2} alt='pesquisa' /></div>
                                 <li><div className="imgcarrinho nav-link"><img className="imgcarrinho" id="imgcarrinho" width='20' height='20' src={Carrinho} alt='carrinho' /></div></li>
                             </ul>
 

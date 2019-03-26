@@ -1,0 +1,123 @@
+.blog{
+    font-family: Montserrat;
+}
+.bread{
+    padding: 15px 0 0;
+    margin-bottom: 18px;
+    letter-spacing: 0.05em;  
+    font-size: 12px;
+    color: #848484;
+}
+.bread a{
+    color: #848484;
+}
+.bread a:hover{
+    color: #848484;
+}
+.widget-title span{
+    font-size: 15px;
+    text-transform: uppercase;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #d0d0d0;
+    display: block;
+    margin-top: 5%;
+}
+.widget-content{
+    margin-top: 10%;
+    font-size: 12px;
+    color: #848484;
+    font-family: Arimo;
+}
+.widget-content ul{
+    list-style: none;
+    padding-left: 0;
+}
+.article{
+    border-bottom: 1px dotted #d0d0d0;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    font-size: 12px;
+    font-family: Arimo;
+}
+.article a{
+    color: black;
+}
+.article a:hover{
+    color: black;
+}
+.article em{
+    display: block;
+    padding-top: 11px;
+    color: #848484;
+}
+.sidebar-cms-custom{
+    margin-top: 10%;
+}
+.page-header{
+    margin: 0 0 23px;
+    padding: 0;
+    border: 0;
+}
+.page-header h1{
+    font-size: 21px;
+}
+
+.content-blog ul {
+    padding: 0;
+    list-style: none;
+}
+
+.content-blog .blog-list > li:first-child {
+    padding-top: 0;
+    margin-top: 0;
+    border-top: none;
+}
+.content-blog .blog-list > li {
+    border-top: 1px solid #d0d0d0;
+    padding-top: 36px;
+    margin-top: 33px;
+}
+
+.article_image{
+    transition: .5s all;
+}
+.article_image:hover{
+    opacity: 0.7;
+}
+
+.list-blog h3 a{
+    font-size: 20px;
+    color: black;
+}
+.blog_author {
+    font-style: italic;
+    color: #848484;
+    margin-bottom: 25px;
+    font-size: 12px;
+    font-family: Arimo;
+}
+
+.desc {
+    margin-bottom: 19px;
+    font-size: 12px;
+    font-family: Arimo;
+
+}
+.content-blog .list-blog .button a {
+    background-color: #ffffff;
+    color: #000000;
+    border: 1px solid #7d7d7d;
+    padding: 0 15px;
+    height: 36px;
+    line-height: 36px;
+    display: inline-block;
+    text-transform: uppercase;
+    font-size: 12px!important;
+    text-decoration: none;
+    outline: none;
+    transition: .3s all;
+}
+.content-blog .list-blog .button a:hover {
+    background-color: #000000;
+    color: #ffffff;
+}

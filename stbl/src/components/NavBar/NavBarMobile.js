@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Logo from '../Images/logo.png';
 import Search from '../Images/iconsearch.png';
+import Search2 from '../Images/iconsearch2.png';
 import Carrinho from '../Images/carrinho.png';
 import Login from '../Images/user.png';
 
@@ -42,6 +43,8 @@ class NavBarMobile extends Component {
     PesquisaNavEsc = () => {
         const pesq = document.getElementById("searchh");
         pesq.classList.toggle('mostrarpesq');
+        const imgpesq = document.getElementById("img-pesquisa3");
+        imgpesq.classList.toggle('mostrar');
     }
 
     render() {
@@ -98,7 +101,9 @@ class NavBarMobile extends Component {
                     </div>
                     
                 </nav>
-                <div id="searchh" className="pesquisa nav-link"><input className="form-control" style={{ width: '100%' }} id="pesq" type="search" placeholder="buscar" aria-label="Search" /></div>
+                <div id="searchh" className="pesquisa nav-link"><input className="buscar" style={{ width: '100%' }} id="pesq" type="search" placeholder="Buscar" aria-label="Search" />
+                
+                </div><img className="img-pesq3" id="img-pesquisa3" width='28' height='29' src={Search2} alt='pesquisa' />
 
                 {/* menu mobile*/}
 
@@ -106,13 +111,13 @@ class NavBarMobile extends Component {
                     <button className="fechar-menu">X</button>
                     <div className="modal-menumobile">
 
-                        <ul className="nav-item">
-                            <li className="item" id="item"><Link onClick={this.CliqueLink.bind(this)} to="/home">Home</Link></li>
-                            <li className="item" id="item"><Link onClick={this.CliqueLink.bind(this)} to="/colecoes">Coleções</Link></li>
-                            <li className="item" id="item"><Link onClick={this.CliqueLink.bind(this)} to="/lojavirtual">Loja Virtual</Link></li>
-                            <li className="item" id="item"><Link onClick={this.CliqueLink.bind(this)} to="/marcas">Marcas</Link></li>
-                            <li className="item" id="item"><Link onClick={this.CliqueLink.bind(this)} to="/faq">FAQ</Link></li>
-                            <li className="item" id="item"><Link onClick={this.CliqueLink.bind(this)} to="/blog">Dicas de Beleza</Link></li>
+                        <ul className="nav-item" onClick={this.CliqueLink.bind(this)}>
+                            <li className="item" id="item"><Link to="/home">Home</Link></li>
+                            <li className="item" id="item"><Link to="/colecoes">Coleções</Link></li>
+                            <li className="item" id="item"><Link to="/lojavirtual">Loja Virtual</Link></li>
+                            <li className="item" id="item"><Link to="/marcas">Marcas</Link></li>
+                            <li className="item" id="item"><Link to="/faq">FAQ</Link></li>
+                            <li className="item" id="item"><Link to="/blog">Dicas de Beleza</Link></li>
                         </ul>
                     </div>
                 </div>
@@ -123,11 +128,11 @@ class NavBarMobile extends Component {
                     <button className="fechar-menu">X</button>
                     <div className="modal-menumobile">
 
-                        <ul className="nav-item">
-                            <li className="item" id="item"><Link onClick={this.CliqueLinkUser.bind(this)} to="/cadastro">Login</Link></li>
-                            <li className="item" id="item"><Link onClick={this.CliqueLinkUser.bind(this)} to="/cadastro">Criar uma conta</Link></li>
-                            <li className="item" id="item"><Link onClick={this.CliqueLinkUser.bind(this)} to="/">Minha conta</Link></li>
-                            <li className="item" id="item"><Link onClick={this.CliqueLinkUser.bind(this)} to="/faq">FAQ</Link></li>
+                        <ul className="nav-item" onClick={this.CliqueLinkUser.bind(this)}>
+                            <li className="item" id="item"><Link to="/cadastro">Login</Link></li>
+                            <li className="item" id="item"><Link to="/cadastro">Criar uma conta</Link></li>
+                            <li className="item" id="item"><Link to="/">Minha conta</Link></li>
+                            <li className="item" id="item"><Link to="/faq">FAQ</Link></li>
                         </ul>
                     </div>
                 </div>
