@@ -1,0 +1,33 @@
+.bread{
+    padding: 15px 0 0;
+    margin-bottom: 18px;
+    letter-spacing: 0.05em;  
+    font-size: 12px;
+    color: #848484;
+}
+
+.bread a{
+    color: #848484;
+}
+.bread a:hover{
+    color: #848484;
+}
+
+.shop-menu {
+    font-family: 'Montserrat';
+}
+
+.shop-menu li{
+    padding: 4px 0px;
+}
+
+.shop-menu a{
+    text-decoration: none;
+    color: #222222;;
+}
+
+.shop-menu a:hover{
+    text-decoration: none;
+    color: #222222;;
+}
+
