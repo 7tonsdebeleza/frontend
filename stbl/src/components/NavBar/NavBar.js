@@ -16,9 +16,6 @@ class NavBar extends Component {
     }
     
 
-
-
-
     render() {
         //função para esconder a navbar principal e aparecer a secundaria
         window.addEventListener("scroll", () => {
@@ -55,7 +52,7 @@ class NavBar extends Component {
                                     <div className='nav-item'>
                                         <nav className='nav justify-content-end'>
                                             <div className='nav-item'>
-                                                <p className='nav-link'>
+                                                <p className='nav-link' style={{lineHeight: '32px'}}>
                                                     Entre em contato (1800) 000 8808
                                     </p>
 
@@ -80,15 +77,15 @@ class NavBar extends Component {
                                         <nav className='nav justify-content-end'>
                                             <div className='nav-item'>
                                                 <div className='nav-link'>
-                                                    [icon]<Link to="/#" style={{ color: 'black' }}>  Carrinho </Link>[contador]
+                                                    [icon]&nbsp;<Link to="/#" style={{ color: 'black' }}>Carrinho</Link>&nbsp;[contador]
                                     </div>
                                             </div>
 
                                             <div className='nav-item'>
                                                 <div className='nav-link'>
-                                                    <Link to="/cadastro" style={{ color: 'black' }}>Entre </Link>
-                                                    ou
-                                        <Link to="/cadastro" style={{ color: 'black' }}> Cadastrar-se</Link>
+                                                    <Link to="/login" style={{ color: 'black' }}>Entre</Link>
+                                                    &nbsp;ou&nbsp;
+                                        <Link to="/cadastro" style={{ color: 'black' }}>Cadastrar-se</Link>
                                                 </div>
                                             </div>
                                         </nav>
@@ -186,7 +183,7 @@ class NavBar extends Component {
                                 </li>
 
                             </ul>
-                            <ul className="imgpesquisa nav">
+                            <ul className="nav">
                                 <li><div className="imgpesquisa nav-link"><img className="imgpesq" id="imgpesquisa" onClick={this.PesquisaNavEsc.bind(this)} width='20' height='20' src={Search} alt='pesquisa' /></div></li>
 
                                 <li><div id="search" className="pesquisa nav-link"><input className="buscar" style={{ marginTop: '-5%',  marginBottom: '-5%'}} id="pesq" type="search" placeholder="Buscar" aria-label="Search" /></div></li>

@@ -7,9 +7,11 @@
     letter-spacing: 0.05em;  
     font-size: 12px;
     color: #848484;
+    font-family: Arimo;
 }
 .bread a{
     color: #848484;
+    
 }
 .bread a:hover{
     color: #848484;
@@ -80,6 +82,8 @@
 
 .article_image{
     transition: .5s all;
+    max-width: 100%;
+    height: auto;
 }
 .article_image:hover{
     opacity: 0.7;
@@ -106,10 +110,10 @@
 .content-blog .list-blog .button a {
     background-color: #ffffff;
     color: #000000;
-    border: 1px solid #7d7d7d;
+    border: 3px solid #000000;
     padding: 0 15px;
     height: 36px;
-    line-height: 36px;
+    line-height: 32px;
     display: inline-block;
     text-transform: uppercase;
     font-size: 12px!important;

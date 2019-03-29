@@ -13,6 +13,7 @@ import Faq from "../Faq/Faq";
 import Blog from '../Blog/Blog';
 import Footer from '../Footer/Footer';
 import BotaoTop from '../BotaoTop/BotaoTop';
+import Login from '../Login/Login';
 
 class Roteador extends Component {
   //Dica: Renderize aqui um uma NavBar e a Switch com as rotas
@@ -24,7 +25,8 @@ class Roteador extends Component {
 				<NavBarMobile/>
 	    		<Switch>
 	    			<Route path="/home" component={Home}/>
-	    			<Route path="/cadastro" component={Cadastro}/>    			
+	    			<Route path="/cadastro" component={Cadastro}/>
+					<Route path="/login" component={Login}/>      			
 	    			<Route path="/lojavirtual" component={LojaVirtual}/>
 	    			<Route path="/colecoes" component={Colecoes}/>
 						<Route path="/marcas" component={Marcas}/>

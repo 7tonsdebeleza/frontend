@@ -25,7 +25,9 @@ const Home = () => {
                                 No template leva a loja virtual;
                             */}
 
-                            <button className='btn btn-dark spotlight discreet-arimo animated fadeInUp delay-1s slow'>SHOP THE COLLECTION</button>
+                            <p className="button-pri">
+                                <a href="#">SHOP THE COLLECTION</a>
+                            </p>
                         </div>
                     </div>
             </div>            
@@ -94,7 +96,10 @@ const Home = () => {
                                     Botão dentro do banner (sem função)
                                     No template leva a loja virtual;
                                 */}
-                                <button className='btn btn-dark spotlight discreet-arimo'>SHOP THE COLLECTION</button>
+
+                                <p className="button-pri">
+                                    <a href="#">SHOP THE COLLECTION</a>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -128,7 +133,9 @@ const Home = () => {
                         <div className='card-body'>
                             <h3 className='card-title spotlight subtitle-montserrat'>LOREM ET DORUS</h3>
                             <p className='card-text discreet-arimo'>Nullam aliquet vestibulum augue non varius. Cras nec congue elitos. Duis tristique del ante nec aliquam. Praesent urna tellus laoreet an tellus ullamcorper fermentum facilisis eratum.</p>
-                            <button className='btn btn-dark spotlight discreet-arimo'>SHOP NOW</button>
+                            <p className="button-pri">
+                                <a href="#">SHOP NOW</a>
+                            </p>
                         </div>
 
                     </div>
@@ -139,7 +146,9 @@ const Home = () => {
                         <div className='card-body'>
                             <h3 className='card-title spotlight subtitle-montserrat'>MILANCELOS A LANOS</h3>
                             <p className='card-text discreet-arimo'>Nullam aliquet vestibulum augue non varius. Cras nec congue elitos. Duis tristique del ante nec aliquam. Praesent urna tellus laoreet an tellus ullamcorper fermentum facilisis eratum.</p>
-                            <button className='btn btn-dark spotlight discreet-arimo'>SHOP NOW</button>
+                            <p className="button-pri">
+                                <a href="#">SHOP NOW</a>
+                            </p>
                         </div>
                     </div>
 
@@ -150,7 +159,9 @@ const Home = () => {
                         <div className='card-body'>
                             <h3 className='card-title spotlight subtitle-montserrat'>COSMOS DE MILANO</h3>
                             <p className='card-text discreet-arimo'>Nullam aliquet vestibulum augue non varius. Cras nec congue elitos. Duis tristique del ante nec aliquam. Praesent urna tellus laoreet an tellus ullamcorper fermentum facilisis eratum.</p>
-                            <button className='btn btn-dark spotlight discreet-arimo'>SHOP NOW</button>
+                            <p className="button-pri">
+                                <a href="#">SHOP NOW</a>
+                            </p>
                         </div>
                     </div>
 
@@ -174,7 +185,10 @@ const Home = () => {
                     <div>
                         [IMGS]
                     </div>
-                    <button className='btn btn-dark spotlight discreet-arimo'>VIEW GALLERY</button>
+                    <p className="button-pri">
+                       <a href="#">VIEW GALLERY</a>
+                    </p>
+                    
                 </div>
             </div>
             

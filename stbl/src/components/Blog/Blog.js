@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { Link } from "react-router-dom";
+
 import "./styleBlog.css"
 
 class Blog extends Component {
@@ -6,9 +8,9 @@ class Blog extends Component {
     return (
       <div className="blog container">
         <div className="bread">
-          <a href="/home" >Home</a>
-          <span className="arrow">&nbsp;&nbsp;/</span>
-          <span>&nbsp;&nbsp;Blog</span>
+          <Link to="/home" >Home</Link>
+          <span className="arrow"></span>
+          <span>Blog</span>
         </div>
         <div className="row">
           <div className="section-left-blog col-xs-12 col-sm-3 sidebar" >

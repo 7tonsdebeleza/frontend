@@ -129,7 +129,7 @@ class NavBarMobile extends Component {
                     <div className="modal-menumobile">
 
                         <ul className="nav-item" onClick={this.CliqueLinkUser.bind(this)}>
-                            <li className="item" id="item"><Link to="/cadastro">Login</Link></li>
+                            <li className="item" id="item"><Link to="/login">Login</Link></li>
                             <li className="item" id="item"><Link to="/cadastro">Criar uma conta</Link></li>
                             <li className="item" id="item"><Link to="/">Minha conta</Link></li>
                             <li className="item" id="item"><Link to="/faq">FAQ</Link></li>

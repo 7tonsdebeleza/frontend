@@ -258,7 +258,7 @@ body{
 
 .img-pesq2{
     position: absolute;
-    top: 22%;
+    top: 13px;
     right: 85px;
     border: 1px solid #e7e7e7;
     cursor: pointer;
@@ -448,7 +448,7 @@ body{
     opacity: 1;
 }
 .imgpesquisa:hover{
-    opacity: 0.8;
+    opacity: 0.6;
 }
 .imgcarrinho{
     transition: .3s all;
@@ -456,7 +456,7 @@ body{
     opacity: 1;
 }
 .imgcarrinho:hover{
-    opacity: 0.8;
+    opacity: 0.6;
 }
 
 /*Menu Mobile --------------------------------------------------------------*/
@@ -564,20 +564,25 @@ body{
     font-weight: bold;
     margin-top: 15%;
     margin-bottom: 5%;
-    color: #FFF5EE;
-    
+    color: #FFF5EE; 
 }
 
 .footer-top li{
     list-style-type: none;
-    text-align: left;
     /* bg.dark == #343a40*/
 }
 
-.nav-item{
-    float: left;
-    
+.item-footer{
+    width: 20%;
+    padding: 0 10px;
 }
+
+@media (max-width: 767px){
+    .item-footer {
+        width: 50%;
+    }
+}
+
 .nav-item li span{
     color: #969696;
     letter-spacing: 0.02em;
@@ -585,7 +590,6 @@ body{
     outline: none;
     transition: 0.6s;
     text-decoration: none;
-    margin-right: 55%;
 }
 .nav-item li a{
     text-decoration: none;
@@ -597,17 +601,14 @@ body{
 }
 .footer-bottom{
     color: #969696;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.04em;
     font-size: 12px;
     border-top: 1px solid #525252;
     margin-top: 1%;
-    padding: 2%;
-    
+    padding: 2% 50px;
 }
 .footer-social{
-    margin-top: 1%;
-    margin-left: 10%;
-    margin-bottom: 8%;
+    margin: 0 0 0 auto;
 }
 .social-icons li{
     cursor: pointer;
@@ -628,8 +629,6 @@ body{
 .footer-payments li:hover{
     opacity: 0.4;
 }
-
-
 
 /*-------------------------------------------------------*/
 
@@ -744,3 +743,153 @@ body{
         transform: translate3d(0, 0, 0);
     }
 }
+
+/*botao primario home ----------------------*/
+.button-pri a {
+    background-color: #000000;
+    color: #ffffff;
+    
+    padding: 0 25px;
+    height: 36px;
+    line-height: 34px;
+    display: inline-block;
+    text-transform: uppercase;
+    font-size: 12px!important;
+    text-decoration: none;
+    outline: none;
+    transition: .3s all;
+    font-family: Montserrat;
+    border: 2px solid #000000;
+}
+.button-pri a:hover {
+    background-color: #ffffff;
+    color: #000000;
+    border: 2px solid #000000;
+}
+
+/*--------------------------*/
+.bread span.arrow {
+    margin: 0 10px;
+    line-height: 0;
+    width: 0;
+    height: 0;
+    text-indent: -999em;
+    display: inline-block;
+    border-left: 4px solid #cbcbcb;
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid transparent;
+    font-family: Arimo; 
+}
+
+
+
+/*------------CADASTRO E LOGIN----------------------*/
+.cadastro{
+    font-size: 12px;
+}
+
+.page-header h1 {
+    font-size: 20px;
+    margin-bottom: 22px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    font-weight: 700;
+    font-family: Montserrat;
+}
+p.title {
+    color: #323232;
+    border: 1px solid #eaeaea;
+    border-width: 1px 0;
+    padding: 16px 0;
+    margin-bottom: 26px;
+    font-family: Arimo;
+}
+.inputt{
+    display: block;
+    margin-bottom: 15px;
+    min-width: 200px;
+    width: 380px;
+    height: 30px;
+    border: 1px solid #b4b4b4;
+}
+
+
+.criar-conta label{
+    font-weight: bold;
+    font-family: Arimo;
+}
+.criar-conta em{
+    color: red;
+}
+.btn-secundaryy a{
+    background-color: #ffffff;
+    color: #000000;
+    border: 3px solid #000000;
+    padding: 0 30px;
+    height: 36px;
+    line-height: 32px;
+    display: inline-block;
+    text-transform: uppercase;
+    font-size: 12px!important;
+    outline: none;
+    transition: .3s all;
+    letter-spacing: 0.2em;
+    font-family: Montserrat;
+    margin-bottom: 4%;
+}
+.btn-secundaryy a:hover {
+    background-color: #000000;
+    color: #ffffff;
+    text-decoration:none; 
+}
+.criar-conta {
+    display: inline;
+}
+
+
+.alertacadastro{
+    background: #ececec;
+    line-height: 32px;
+    font-size: 15px;
+    color: #000000;
+    text-align: center;
+    font-family: Montserrat;
+    display: block;
+    margin-bottom: 20px;
+    width: 380px;
+    border: 1px solid #b4b4b4;
+    max-width: 100%;
+    height: auto;
+    
+}
+.fecharalerta {
+    cursor: pointer;
+    text-decoration: none !important;
+    color: #ce1f1f;
+    width: 25px;
+    height: 25px;
+    margin-left: 2%;
+}
+.fecharalerta:hover {
+    color: #ce1f1f;
+}
+
+@media (max-width: 767px){
+    .inputt{
+        width: 100%;
+    }
+    .alertacadastro{
+        width: 100%;
+        
+    }
+}
+.obrigatorio{
+    margin-left: 11%;
+}
+
+
+.login{
+    font-size: 12px;
+}
+
+/*-------------------------------------------------------*/

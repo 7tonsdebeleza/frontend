@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 import SliderCenter from '../Slider/SliderCenter';
 
  const Marcas = () => {
@@ -17,6 +18,12 @@ import SliderCenter from '../Slider/SliderCenter';
 
     return (
       <div className ='container'>
+        <div className="bread">
+            <Link to="/home" >Home</Link>
+            <span className="arrow">/</span>
+            <span>Marcas</span>
+        </div>
+
         <h3 className='spotlight' style={tituloPeriferico}>Nossas marcas</h3>
         <hr/>
         <p>

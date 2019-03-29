@@ -1,9 +1,16 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Question from "./Question";
 
 const Faq = () => {
     return(
         <div className="container">
+            <div className="bread">
+                <Link to="/home" >Home</Link>
+                <span className="arrow">/</span>
+                <span>FAQ</span>
+            </div>
+
             <h3 className="spotlight" style={tituloPeriferico}>Perguntas Frequentes </h3>
             <hr/>
             <p className="text-center discreet-arimo" style={textoPeriferico}>

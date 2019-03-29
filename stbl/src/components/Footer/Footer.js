@@ -35,7 +35,7 @@ class Footer extends Component {
         return (
             <div className="footer bg-dark ">
                 <div className="footer-top nav container d-flex">
-                    <div>
+                    <div className="item-footer">
                         <ul className="nav-item">
                             <h1 className="footertitles">SHOPS</h1>
                             <li ><Link to="/colecoes"><span>New In</span></Link></li>
@@ -48,7 +48,7 @@ class Footer extends Component {
                             <li><Link to="/"><span>Lookbook</span></Link></li>
                         </ul>
                     </div>
-                    <div>
+                    <div className="item-footer">
                         <ul className="nav-item">
                             <h1 className="footertitles">INFORMATION</h1>
                             <li><Link to="/"><span>About us</span></Link></li>
@@ -61,7 +61,7 @@ class Footer extends Component {
                             <li><Link to="/"><span>Blog</span></Link></li>
                         </ul>
                     </div>
-                    <div>
+                    <div className="item-footer">
                         <ul className="nav-item">
                             <h1 className="footertitles">CUSTOMER SERVICE</h1>
                             <li><Link to="/"><span>Seach Terms</span></Link></li>
@@ -85,7 +85,7 @@ class Footer extends Component {
                 </div>
                 <div className="footer-bottom container">
                     <div className="footer-corp">
-                        © 2017 ELLA Fashion Store Shopify. All Rights Reserved. Ecommerce Software by Shopify. <br></br> Shopify Themes e Templates by HaloThemes.com.
+                        © 2019 Todos os direitos reservados. 7 Tons de Beleza.  <br></br> Ecommerce desenvolvido por CEOS. [logo]
                     </div>
                     <div>
                         <ul className="footer-payments nav">
