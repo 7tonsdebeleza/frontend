@@ -40,6 +40,10 @@ body{
     position: relative;
     display: block;
     overflow: auto;
+    font-family: Montserrat;
+}
+.modal p{
+    font-family: Arimo;
 }
 
 @keyframes modal {
@@ -100,13 +104,33 @@ body{
     margin-bottom: 5%;
 }
 
-.botoesTamanho button{
+.botoesCor button{
     margin-right: 3%;
     height: 25px;
-    background-color: white;
+    width: 25px;
 }
 
-.botoesTamanho button:focus{
+.botoesCor1{
+    background-color: rgb(151, 72, 72);
+}
+
+.botoesCor2{
+    background-color: rgb(163, 132, 132);
+}
+
+.botoesCor3{
+    background-color: rgb(49, 24, 24);
+}
+
+.botoesCor4{
+    background-color: rgb(235, 13, 13);
+}
+
+.botoesCor5{
+    background-color: rgb(247, 68, 68);
+}
+
+.botoesCor button:focus{
     border: 1px solid black;
     box-shadow: 0 0 0 2px black;
 }

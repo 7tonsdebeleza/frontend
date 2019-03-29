@@ -7,7 +7,7 @@ class Produto extends Component {
         super();
         this.state = { 
             contadorQtd: 1, /* Contador da quantidade escolhida de um produto */
-            tamanhoRoupa: ""
+            cor: ""
         }
 
         this.CliqueVerDetalhes = this.CliqueVerDetalhes.bind(this);
@@ -94,42 +94,43 @@ class Produto extends Component {
                             <p><b>Tipo de Produto:</b> {this.props.tipoProduto}</p>
                             <p><b>Marca:</b> {this.props.marca}</p>
                             <p>{this.props.descricao}</p>
-                            <p>Escolha o tamanho:</p>
+                            <p>Cor: {this.state.cor} </p>
                             
-                            <div className="botoesTamanho">
+                            <div className="botoesCor">
                             {/* funções para pegar o tamanho escolhido */}
-                            <button tabindex="0" 
+                            <button className="botoesCor1" tabindex="0" 
                             onClick={() => {
-                                this.setState({tamanhoRoupa: "PP"})
-                                console.log(this.state.tamanhoRoupa);
+                                this.setState({cor: "Cor de Pele"})
+                                console.log(this.state.cor);
                             }}
-                            >PP</button>
-                            <button tabindex="0" 
+                            ></button>
+                            <button className="botoesCor2" tabindex="0" 
                             onClick={() => {
-                                this.setState({tamanhoRoupa: "P"})
-                                console.log(this.state.tamanhoRoupa);
+                                this.setState({cor: "Cinza"})
+                                console.log(this.state.cor);
                             }}
-                            >P</button>
-                            <button tabindex="0" 
+                            ></button>
+                            <button className="botoesCor3" tabindex="0" 
                             onClick={() => {
-                                this.setState({tamanhoRoupa: "M"})
-                                console.log(this.state.tamanhoRoupa);
+                                this.setState({cor: "Marrom"})
+                                console.log(this.state.cor);
                             }}
-                            >M</button>
-                            <button tabindex="0" 
+                            ></button>
+                            <button className="botoesCor4" tabindex="0" 
                             onClick={() => {
-                                this.setState({tamanhoRoupa: "G"})
-                                console.log(this.state.tamanhoRoupa);
+                                this.setState({cor: "Vermelho"})
+                                console.log(this.state.cor);
                             }}
-                            >G</button>
-                            <button tabindex="0" 
+                            ></button>
+                            <button className="botoesCor5" tabindex="0" 
                             onClick={() => {
-                                this.setState({tamanhoRoupa: "GG"})
-                                console.log(this.state.tamanhoRoupa);
+                                this.setState({cor: "Salmão"})
+                                console.log(this.state.cor);
                             }}
-                            >GG</button>
+                            ></button>
                             </div>
 
+                            <span>1x de R$ {this.props.preco} sem juros</span>
                             <h2><b>R${this.props.preco}</b></h2>
                             <p><b>Quantidade:</b></p>
                             <div>
