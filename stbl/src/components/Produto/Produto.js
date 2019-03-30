@@ -5,7 +5,7 @@ import Mais from "../Images/plus.svg"
 class Produto extends Component {
     constructor() {
         super();
-        this.state = { 
+        this.state = {
             contadorQtd: 1, /* Contador da quantidade escolhida de um produto */
             cor: ""
         }
@@ -15,7 +15,7 @@ class Produto extends Component {
         this.incrementarQtd = this.incrementarQtd.bind(this);
         this.AparecerBotaoDetalhes = this.AparecerBotaoDetalhes.bind(this);
         this.DesaparecerBotaoDetalhes = this.DesaparecerBotaoDetalhes.bind(this);
-        
+
     }
 
     CliqueVerDetalhes = () => { /* função para abrir o modal dos produtos*/
@@ -27,19 +27,19 @@ class Produto extends Component {
             }
         })
         window.addEventListener('keydown', (event) => {
-            if(event.key === 'Escape'){
+            if (event.key === 'Escape') {
                 modal.classList.remove('mostrar');
             }
         })
     }
-    
+
     /* funções para aparecer e desaparecer o botão Ver Detalhes quando o mouse estiver em cima do produto */
-    AparecerBotaoDetalhes = () => { 
+    AparecerBotaoDetalhes = () => {
         const botao = document.getElementById(this.props.img);
         botao.classList.add('mostrarBotao');
     }
 
-    DesaparecerBotaoDetalhes = () => { 
+    DesaparecerBotaoDetalhes = () => {
         const botao = document.getElementById(this.props.img);
         botao.classList.remove('mostrarBotao');
     }
@@ -61,7 +61,7 @@ class Produto extends Component {
     }
 
     /* função para pegar o tamanho escolhido */
-   
+
 
     render() {
         return (
@@ -69,10 +69,10 @@ class Produto extends Component {
                 {/* Produto: imagem, marca, titulo, preço e botao de ver detalhes*/}
                 <div className="produto" onMouseOver={this.AparecerBotaoDetalhes} onMouseOut={this.DesaparecerBotaoDetalhes} >
                     <div>
-                        <img src={this.props.img} alt="img" className="imagemProduto" onClick={this.CliqueVerDetalhes}/>
+                        <img src={this.props.img} alt="img" className="imagemProduto" onClick={this.CliqueVerDetalhes} />
                         <div className="divbotaoVerDetalhes">
                             <button onClick={this.CliqueVerDetalhes} className="botaoVerDetalhes" id={this.props.img}>Ver detalhes</button>
-                            
+
                         </div>
                     </div>
                     <div className="descricaoProduto" onClick={this.CliqueVerDetalhes}>
@@ -89,57 +89,64 @@ class Produto extends Component {
                         </div>
                         <div className="descricaoProdutoModal">
                             <button className="fechar">X</button>
-                            <h1>{this.props.titulo}</h1>
-                            <p><b>Disponibilidade:</b> {this.props.estoque}</p>
+                            <h1><b>{this.props.titulo}</b></h1>
+                            <p><b>Disponibilidade:</b> { this.props.estoque ? <p style={{display: 'inline'}}>Em estoque</p> : <p style={{display: 'inline'}}>Faltando no estoque</p>}</p>
                             <p><b>Tipo de Produto:</b> {this.props.tipoProduto}</p>
                             <p><b>Marca:</b> {this.props.marca}</p>
                             <p>{this.props.descricao}</p>
-                            <p>Cor: {this.state.cor} </p>
                             
+                            {this.props.multiColor ? 
                             <div className="botoesCor">
-                            {/* funções para pegar o tamanho escolhido */}
-                            <button className="botoesCor1" tabindex="0" 
-                            onClick={() => {
-                                this.setState({cor: "Cor de Pele"})
-                                console.log(this.state.cor);
-                            }}
-                            ></button>
-                            <button className="botoesCor2" tabindex="0" 
-                            onClick={() => {
-                                this.setState({cor: "Cinza"})
-                                console.log(this.state.cor);
-                            }}
-                            ></button>
-                            <button className="botoesCor3" tabindex="0" 
-                            onClick={() => {
-                                this.setState({cor: "Marrom"})
-                                console.log(this.state.cor);
-                            }}
-                            ></button>
-                            <button className="botoesCor4" tabindex="0" 
-                            onClick={() => {
-                                this.setState({cor: "Vermelho"})
-                                console.log(this.state.cor);
-                            }}
-                            ></button>
-                            <button className="botoesCor5" tabindex="0" 
-                            onClick={() => {
-                                this.setState({cor: "Salmão"})
-                                console.log(this.state.cor);
-                            }}
-                            ></button>
-                            </div>
+                                <p><b>Cor:</b> {this.state.cor} </p>
+                                {/* funções para pegar o tamanho escolhido */}
+                                <button className="botoesCor1" tabindex="0"
+                                    onClick={() => {
+                                        this.setState({ cor: "Cor de Pele" })
+                                        console.log(this.state.cor);
+                                    }}
+                                ></button>
+                                <button className="botoesCor2" tabindex="0"
+                                    onClick={() => {
+                                        this.setState({ cor: "Cinza" })
+                                        console.log(this.state.cor);
+                                    }}
+                                ></button>
+                                <button className="botoesCor3" tabindex="0"
+                                    onClick={() => {
+                                        this.setState({ cor: "Marrom" })
+                                        console.log(this.state.cor);
+                                    }}
+                                ></button>
+                                <button className="botoesCor4" tabindex="0"
+                                    onClick={() => {
+                                        this.setState({ cor: "Vermelho" })
+                                        console.log(this.state.cor);
+                                    }}
+                                ></button>
+                                <button className="botoesCor5" tabindex="0"
+                                    onClick={() => {
+                                        this.setState({ cor: "Salmão" })
+                                        console.log(this.state.cor);
+                                    }}
+                                ></button>
+                            </div> : ""}
+                            
 
                             <span>1x de R$ {this.props.preco} sem juros</span>
-                            <h2><b>R${this.props.preco}</b></h2>
+                            <h2><b>R$ {this.props.preco}</b></h2>
                             <p><b>Quantidade:</b></p>
                             <div>
-                                <button onClick={this.decrementarQtd} className="botoesQuantidade"><img src={Menos} width='15' height='15'alt='menos'></img></button>
+                                <button onClick={this.decrementarQtd} className="botoesQuantidade menos"><img src={Menos} width='15' height='15' alt='menos'></img></button>
                                 {this.state.contadorQtd}
-                                <button onClick={this.incrementarQtd} className="botoesQuantidade"><img src={Mais}  width='15' height='15' alt='Mais'></img></button>
+                                <button onClick={this.incrementarQtd} className="botoesQuantidade mais"><img src={Mais} width='15' height='15' alt='Mais'></img></button>
                             </div>
-                            <p className="subtotalQuantidade"><b>SubTotal: R${this.props.preco * this.state.contadorQtd}</b></p>
-                            <button className="botaoAddCarrinho"> ADICIONAR AO CARRINHO</button>
+                            <p className="subtotalQuantidade"><b>SubTotal: R${
+                                parseFloat((this.props.preco * this.state.contadorQtd).toFixed(2))
+                                }</b>
+                            </p>
+                            
+                            { this.props.estoque ? <button className="botaoAddCarrinho"> ADICIONAR AO CARRINHO</button> : <button className="botaoAddCarrinhoDisabilitado"> ADICIONAR AO CARRINHO</button>}
+                            
                         </div>
                     </div>
                 </div>
