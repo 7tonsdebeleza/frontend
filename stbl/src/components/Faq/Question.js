@@ -72,7 +72,7 @@ class Question extends Component {
                 <button onClick = {() => {this.show()}} className='btnQuestion' style={dinamicBg}>
                     <div className="d-flex justify-content-between btnQuestionText">
                         <div className="">
-                            <p className="badge badge-danger">Question</p>
+                            <p className="badge badge-danger">Pergunta</p>
                         </div>
                         <div className="questionText">
                             <p>

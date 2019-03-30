@@ -1,119 +1,187 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import ListaProduto from '../Produto/ListaProduto';
 import './lojaVirtualStyle.css';
 
 class LojaVirtual extends Component {
+  //State altera menu lateral de categorias
+  state = {
+      categoryIndex: 0, //Aponta um indice da lista de categorias
+      itemOver: null, //Dinamiza hover do menu de categoiras
+      dropped: false //State para menu do modo mobile
+  }
+
+
   render() {
+
+    let visibility;
+    let bntTxt;
+    let dropArrow;
+
+    //Modo mobile
+
+    //Checando modo mobile para evitar remover lista em desktop
+    if(window.innerWidth > 574){
+
+      visibility = {
+        display: 'inline',
+      };
+
+    } else {
+
+      if(this.state.dropped){
+        //Itens da lista do menu ficam visíveis
+        visibility = {
+          display: 'inline',
+        };
+
+        //Texto muda para "esconder"
+        bntTxt = "Esconder";
+
+        //Seta para cima
+        dropArrow = {
+          content: "",
+          display: 'inline-block',
+          verticalAlign: 'middle',
+          marginRight: '10px',
+          width: '0', 
+          height: '0',
+          borderLeft: '5px solid transparent',
+          borderRight: '5px solid transparent',
+          borderBottom: '5px solid black',
+        }
+
+      } else {
+        visibility = {
+          display: 'none',
+        }
+
+        //Texto muda para "esconder"
+        bntTxt = "Mostrar";
+
+        //Seta para baixo
+        dropArrow = {
+          content: "",
+          display: 'inline-block',
+          verticalAlign: 'middle',
+          marginRight: '10px',
+          width: 0, 
+          height: 0, 
+          borderLeft: '5px solid transparent',
+          borderRight: '5px solid transparent',
+          borderTop: '5px solid rgb(33, 37, 41)',
+        }
+      }
+    }
+
+
     return (
       <div className='container' style={{fontFamily: 'Montserrat'}}>
+
+      {/*Links abaixo da navbar*/}
         <div className="bread">
           <a href="/home" >Home</a>
-          <span className="arrow">&nbsp;&nbsp;/</span>
+          <span className="arrow">&nbsp;&nbsp;</span>
           <span>&nbsp;&nbsp;Loja Virtual</span>
         </div>
 
+        {/*Organização em linha para sessão lateral*/}
+
         <div className='row'>
+
+        {/*sessão lateral à esquerda para menu de categorias*/}
 
           <div className="section-left-blog col-xs-12 col-sm-3 sidebar" >
 
             <div className="widget widget-recent-articles">
-
               <div className="widget-title">
                 <h3>
-                  <span>Categorias</span>
+                  <span className="shop-menu-title">Categorias</span>
                 </h3>
               </div>
 
               <div className="widget-content">
-                <ul className='shop-menu'>
-                  <li>
-                      <a href="#">
-                        Comos De Milano
-                      </a>
-                  </li>
+                {/*Botão para abrir menu na versão mobile*/}
+                <button className='shop-menu-mobile-control' onClick={() => {
+                  this.setState({
+                    dropped: (this.state.dropped) ? false : true
+                  })
+                }}>{bntTxt} <span style={dropArrow}></span></button>
 
-                  <li>
-                      <a href="#">
-                        Lorem Et Dorus
-                      </a>
-                  </li>
+              {/* Lista para menu de categorias
+                itens são renderizados dinamicamentes através da lista de categorias (ultimas linhas)
+              */}
+                <ul className='shop-menu' style={visibility}>
 
-                  <li>
-                      <a href="#">
-                        Lynn Cosmopolis
-                      </a>
-                  </li>
+                  {
 
-                  <li>
-                      <a href="#">
-                        Men
-                      </a>
-                  </li>
+                    //Categories = lista de objetos
+                    categories.map((object) => {
+                        return(<li>
+                                {/* Marcador dinâmico surge para categoria clicada e hover*/}
+                                <span className="seta-direita" style={this.state.categoryIndex === object.index ||this.state.itemOver === object.index ? {display: "inline"} : {display: "none"}} ></span> 
 
-                  <li>
-                      <a href="#">
-                        Milancelos A Lanos
-                      </a>
-                  </li>
 
-                  <li>
-                      <a href="#">
-                        New in
-                      </a>
-                  </li>
-
-                  <li>
-                      <a href="#">
-                        Nor Loremirus
-                      </a>
-                  </li>
-
-                  <li>
-                      <a href="#">
-                        Sale & Special Offers
-                      </a>
-                  </li>
-
-                  <li>
-                      <a href="#">
-                        Top Brands
-                      </a>
-                  </li>
-
-                  <li>
-                      <a href="#">
-                        Women
-                      </a>
-                  </li>
+                                {/*Botão que seta a categoria, renderizando novos produtos (ainda n implementado) */}
+                                <button href="#" onClick={() => {this.setState({categoryIndex: object.index})}} onMouseOver={() => {this.setState({itemOver: object.index})}} onMouseOut={() => {this.setState({itemOver: null})}}>  
+                                  {object.title}
+                                </button>
+                        </li>)
+                    })
+                  }
 
                 </ul>
               </div>
             </div>
 
-            <div className="widget sidebar-banner">
-              <img className="article_image" src="//cdn.shopify.com/s/files/1/1825/4753/files/banner-sidebar_4d990d2c-ebf8-45e8-8be8-fa104d13704f_1024x1024.jpg?v=1489938247" />
             </div>
 
-            <div className="widget sidebar-cms-custom">
-              <div className="widget-title">
-                <h3>
-                  <span>Custom block</span>
-                </h3>
+            {/* Espaço da descrição da categoria selecionada e produtos*/}
+
+            <div className="shopify-section col-xs-12 col-sm-9 col-main">
+
+            {/*Banner*/}
+
+              <p>
+                <a href="#"><img className="article_image" src="https://cdn.shopify.com/s/files/1/1825/4753/files/img_cat_022eb85c-e4c3-466c-a638-1b67c31d6bc8.jpg?v=1490539957"></img></a>
+              </p>
+
+              <div className="page-header">
+                  {/*Título da categoria, muda dependendo do state que é setado pelo menu*/}
+                <h1><span>{categories[this.state.categoryIndex].title}</span></h1>
               </div>
 
-              <div className="widget-content custom">
-                <p>Custom CMS block displayed at the left sidebar on the Catalog Page. Put your own content here: text, html, images, media... whatever you like. There are many similar sample content placeholders across the store. All editable from admin panel. </p>
-              </div>
-            </div>
+              <p className='desc'>
+                  {/* Descrição da categoria, muda dependendo do state que é setado pelo menu*/}
+                {categories[this.state.categoryIndex].descri}
+              </p>
+
+              <hr/>
+                  {/*Componentes provisórios, substituir por renderização dinâmica*/}
+              <ListaProduto/>
+              <ListaProduto/>
+              <ListaProduto/>
 
             </div>
 
         </div>
 
-        
-
       </div>
     )
   }
 }
+
+
+const categories = [
+  {title: "Comos De Milano", descri: "Categoria 1", index: 0, request: "#"},
+  {title: "Lorem Et Dorus", descri: "Categoria 2", index: 1, request: "#"},
+  {title: " Lynn Cosmopolis", descri: "Categoria 3", index: 2, request: "#"},
+  {title: "Men", descri: "Categoria 4", index: 3, request: "#"},
+  {title: " Milancelos A Lanos", descri: "Categoria 5", index: 4, request: "#"},
+  {title: "New in", descri: "Categoria 6", index: 5, request: "#"},
+  {title: "Nor Loremirus", descri: "Categoria 7", index: 6, request: "#"},
+  {title: "Sale & Special Offers", descri: "Categoria 8", index: 7, request: "#"},
+  {title: "Top Brands", descri: "Categoria 9", index: 8, request: "#"},
+  {title: "Women", descri: "Categoria 10", index: 9, request: "#"},
+]
 
 export default LojaVirtual
