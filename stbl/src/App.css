@@ -464,7 +464,10 @@ body{
     .banner-texto-inline{
         width: 80%;
     }
+    
+}
 
+@media only screen and (max-width: 848px) {
     .mobile-hide{
         display: none;
     }
@@ -474,6 +477,9 @@ body{
     }
     
 }
+
+
+
 /*------------Scroll Navbar Primaria e Secundaria--------- */
 .navbarPricipal{
     z-index: 200;
@@ -535,6 +541,18 @@ body{
 .menuhamburguer{
     outline: none !important;
     border: none;
+}
+
+.nav-link1 {
+    display: block;
+    padding: .5rem 1rem;
+}
+
+@media only screen and (max-width: 400px) {
+    .nav-link1 {
+        padding: .5rem 0.5rem;
+    }
+    
 }
 
 

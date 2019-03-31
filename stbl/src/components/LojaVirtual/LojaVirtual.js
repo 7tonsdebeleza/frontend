@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import ListaProduto from '../Produto/ListaProduto';
+import { Link } from "react-router-dom";
+
 import Produto from '../Produto/Produto';
 import './lojaVirtualStyle.css';
 
@@ -80,7 +81,7 @@ class LojaVirtual extends Component {
 
         {/*Links abaixo da navbar*/}
         <div className="bread">
-          <a href="/home" >Home</a>
+          <Link to="/home" >Home</Link>
           <span className="arrow">&nbsp;&nbsp;</span>
           <span>&nbsp;&nbsp;Loja Virtual</span>
         </div>

@@ -66,7 +66,7 @@ class NavBarMobile extends Component {
                 <nav className='navbar navbar-dark bg-dark'>
 
                     <div className='nav-item'>
-                        <div className='nav-link'>
+                        <div className='nav-link1'>
                             <button className="menuhamburguer navbar-toggler" onClick={this.ClickMenuMobile.bind(this)} type="button">
                                 <span className="navbar-toggler-icon"></span>
                             </button>
@@ -75,24 +75,24 @@ class NavBarMobile extends Component {
 
 
                     <div className='nav-item'>
-                        <div className='nav-link'>
+                        <div className='nav-link1'>
                             <Link to="/home"><img className='d-inline-block align-top' width='30' height='30' src={Logo} alt='logo' /></Link>
                         </div>
                     </div>
 
 
                     <div className='nav-item'>
-                        <div className='nav-link'>
+                        <div className='nav-link1'>
                             <ul className="imgpesquisa nav">
                                 <li>
-                                    <div className="imguser nav-link"><img onClick={this.ClickLoginMobile.bind(this)} className="imguser" id="imguser" width='20' height='20' src={Login} alt='userlogin' /></div>
+                                    <div className="imguser nav-link1"><img onClick={this.ClickLoginMobile.bind(this)} className="imguser" id="imguser" width='20' height='20' src={Login} alt='userlogin' /></div>
                                 </li>
                                 <li>
-                                    <div className="imgpesquisa nav-link"><img onClick={this.PesquisaNavEsc.bind(this)} className="imgpesq" id="imgpesquisa" width='20' height='20' src={Search} alt='pesquisa' /></div>
+                                    <div className="imgpesquisa nav-link1"><img onClick={this.PesquisaNavEsc.bind(this)} className="imgpesq" id="imgpesquisa" width='20' height='20' src={Search} alt='pesquisa' /></div>
                                 </li>
 
                                 <li>
-                                    <div className="imgcarrinho nav-link"><img className="imgcarrinho" id="imgcarrinho" width='20' height='20' src={Carrinho} alt='carrinho' />
+                                    <div className="imgcarrinho nav-link1"><img className="imgcarrinho" id="imgcarrinho" width='20' height='20' src={Carrinho} alt='carrinho' />
                                     </div>
                                 </li>
                             </ul>
