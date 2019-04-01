@@ -1,5 +1,8 @@
 import React from 'react';
-import Produto from "../Produto/Produto"
+import Produto from "../Produto/Produto";
+import { Link } from "react-router-dom";
+import SliderCenter from '../Slider/SliderCenter';
+import BrandsList from '../Marcas/MarcasList';
 
 const Home = () => {
     return(
@@ -21,12 +24,11 @@ const Home = () => {
                             <p className='banner-texto discreet-arimo animated fadeInUp delay-1s'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
 
                             {/*
-                                Botão dentro do banner (sem função)
-                                No template leva a loja virtual;
+                                Botão dentro do banner, span = seta
                             */}
 
                             <p className="button-pri">
-                                <a href="#">SHOP THE COLLECTION</a>
+                                <Link to="/lojavirtual">CONHEÇA NOSSA LOJA <span/></Link>
                             </p>
                         </div>
                     </div>
@@ -43,7 +45,7 @@ const Home = () => {
                         <img src='https://cdn.shopify.com/s/files/1/1825/4753/files/top-banner-home-1_31d2f89e-9c12-4f47-8c9a-545b06787527_2000x.jpg?v=1489074799' alt='img-card'/>
 
                         <div className='card-img-overlay'>
-                            <h2 className="spotlight subtitle-montserrat">EDITOR'S PICK</h2>
+                            <h2 className="spotlight subtitle-montserrat">laboris</h2>
                         </div>
                     </div>
 
@@ -52,7 +54,7 @@ const Home = () => {
                         <img src='https://cdn.shopify.com/s/files/1/1825/4753/files/top-banner-home-2_2000x.jpg?v=1489074851' alt='img-card'/>
 
                         <div className='card-img-overlay'>
-                            <h2 className="spotlight subtitle-montserrat">SHOES</h2>
+                            <h2 className="spotlight subtitle-montserrat">veniam</h2>
                         </div>
                     </div>
 
@@ -61,7 +63,7 @@ const Home = () => {
                         <img src='https://cdn.shopify.com/s/files/1/1825/4753/files/top-banner-home-3_2000x.jpg?v=1489074859' alt='img-card'/>
 
                         <div className='card-img-overlay'>
-                            <h2 className="spotlight subtitle-montserrat">ACCESSORIES</h2>
+                            <h2 className="spotlight subtitle-montserrat">pariatur</h2>
                         </div>
                     </div>
 
@@ -72,7 +74,7 @@ const Home = () => {
                 {/*Div para segundo card com breve lista de produtos*/}
                 <div className='p-4 d-flex flex-row justify-content-center align-items-center text-center d-flex'>
                     <div className='col'><hr/></div>
-                    <div className='col-md-auto spotlight wow fadeIn'>NEW ARRIVALS</div>
+                    <div className='col-md-auto spotlight wow fadeIn'>Lançamentos</div>
                     <div className='col'><hr/></div>
                 </div>
                 {/* Produtos*/}
@@ -104,8 +106,6 @@ const Home = () => {
                 </div>
             </div>
 
-
-
                 
             </div>
 
@@ -122,12 +122,12 @@ const Home = () => {
                                 <p className='banner-texto-inline discreet-arimo'>Pellentesque posuere orci lobortis scelerisque blandit. Donec id tellus lacinia an, tincidunt risus ac, consequat velit. Quisquemos sodales suscipit tortor ditaemcos condimentum lacus meleifend menean viverra auctor blanditos comodous.</p>
 
                                 {/*
-                                    Botão dentro do banner (sem função)
-                                    No template leva a loja virtual;
+                                    Botão dentro do banner,
+                                    span = seta;
                                 */}
 
                                 <p className="button-pri">
-                                    <a href="#">SHOP THE COLLECTION</a>
+                                    <Link to="/lojavirtual">CONHEÇA NOSSA LOJA <span/></Link>
                                 </p>
                             </div>
                         </div>
@@ -138,7 +138,7 @@ const Home = () => {
                 {/*Div para quarto card com breve lista de produtos*/}
                 <div className=' d-flex flex-row justify-content-center align-items-center text-center d-flex'>
                     <div className='col'><hr/></div>
-                    <div className='col-md-auto spotlight wow fadeIn'>TRENDING NOW</div>
+                    <div className='col-md-auto spotlight wow fadeIn'>em alta</div>
                     <div className='col'><hr/></div>
                 </div>
 
@@ -176,7 +176,7 @@ const Home = () => {
                 {/*Div para quinto card*/}
                 <div className='p-4 d-flex flex-row justify-content-center align-items-center text-center d-flex'>
                     <div className='col'><hr/></div>
-                    <div className='col-md-auto spotlight wow fadeIn'>#FEATURED ON ELLA</div>
+                    <div className='col-md-auto spotlight wow fadeIn'>Sobre a 7 Tons de Beleza</div>
                     <div className='col'><hr/></div>
                 </div>
 
@@ -188,7 +188,7 @@ const Home = () => {
                             <h3 className='card-title spotlight subtitle-montserrat'>LOREM ET DORUS</h3>
                             <p className='card-text discreet-arimo'>Nullam aliquet vestibulum augue non varius. Cras nec congue elitos. Duis tristique del ante nec aliquam. Praesent urna tellus laoreet an tellus ullamcorper fermentum facilisis eratum.</p>
                             <p className="button-pri">
-                                <a href="#">SHOP NOW</a>
+                                <Link to="/lojavirtual">visitar loja <span/></Link>
                             </p>
                         </div>
 
@@ -201,7 +201,7 @@ const Home = () => {
                             <h3 className='card-title spotlight subtitle-montserrat'>MILANCELOS A LANOS</h3>
                             <p className='card-text discreet-arimo'>Nullam aliquet vestibulum augue non varius. Cras nec congue elitos. Duis tristique del ante nec aliquam. Praesent urna tellus laoreet an tellus ullamcorper fermentum facilisis eratum.</p>
                             <p className="button-pri">
-                                <a href="#">SHOP NOW</a>
+                                <Link to="/lojavirtual">visitar loja <span/></Link>
                             </p>
                         </div>
                     </div>
@@ -214,7 +214,7 @@ const Home = () => {
                             <h3 className='card-title spotlight subtitle-montserrat'>COSMOS DE MILANO</h3>
                             <p className='card-text discreet-arimo'>Nullam aliquet vestibulum augue non varius. Cras nec congue elitos. Duis tristique del ante nec aliquam. Praesent urna tellus laoreet an tellus ullamcorper fermentum facilisis eratum.</p>
                             <p className="button-pri">
-                                <a href="#">SHOP NOW</a>
+                                <Link to="/lojavirtual">visitar loja<span/></Link>
                             </p>
                         </div>
                     </div>
@@ -226,21 +226,20 @@ const Home = () => {
             <div className='container'>
                 <hr/>
 
-                [BRANDS]
+                    <SliderCenter lista={BrandsList}/>
 
             </div>
 
             <div className='pink-card'>
                 <div className='container text-center'>
                     {/*Ùltimo card*/}
-                    <h3 className="spotlight pink-card-title">#ELLA ON INSTAGRAM</h3>
+                    <h3 className="spotlight pink-card-title">7 Tons de Beleza no INSTAGRAM</h3>
                     <p className='discreet-arimo'>Phasellus lorem malesuada ligula pulvinar commodo maecenas suscipit auctom.</p>
                     
-                    <div>
-                        [IMGS]
-                    </div>
+                    <SliderCenter lista={imagesInst}/>
+
                     <p className="button-pri">
-                       <a href="#">VIEW GALLERY</a>
+                       <a href="#">VISITAR GALERIA <span/></a>
                     </p>
                     
                 </div>
@@ -252,3 +251,26 @@ const Home = () => {
 }
 
 export default Home;
+
+const imagesInst = [
+    (<img src='https://scontent.cdninstagram.com/vp/a97004e7f2d8ac92327c64ea63170a77/5D492033/t51.2885-15/e35/s320x320/18444181_1886201831627903_2441734322760187904_n.jpg?_nc_ht=scontent.cdninstagram.com' alt='instagram image' style={{
+        maxWidth: '100%',
+        height: 'auto'
+    }}/>),
+    (<img src='https://scontent.cdninstagram.com/vp/06b0958f0b704e38f56e2356ba9bcf7e/5D354A5A/t51.2885-15/e35/s320x320/18443569_226764737811492_1219328699799699456_n.jpg?_nc_ht=scontent.cdninstagram.com' alt='instagram image' style={{
+        maxWidth: '100%',
+        height: 'auto'
+    }}/>),
+    (<img src='https://scontent.cdninstagram.com/vp/5416f2b1d7cac0d7b0a6a28a9ff3b74a/5D4D6D63/t51.2885-15/e35/s320x320/18300169_253564125112912_73006081730674688_n.jpg?_nc_ht=scontent.cdninstagram.com' alt='instagram image' style={{
+        maxWidth: '100%',
+        height: 'auto'
+    }}/>),
+    (<img src='https://scontent.cdninstagram.com/vp/de32ee5acffe6db412f1b619519ec158/5D47610A/t51.2885-15/e35/s320x320/18300169_1838895596373697_5209167543268278272_n.jpg?_nc_ht=scontent.cdninstagram.com' alt='instagram image' style={{
+        maxWidth: '100%',
+        height: 'auto'
+    }}/>),
+    (<img src='https://scontent.cdninstagram.com/vp/4afc6151a454c5127051bb9ddc698e2f/5D329316/t51.2885-15/e35/s320x320/18299250_270895493316232_8616688870999719936_n.jpg?_nc_ht=scontent.cdninstagram.com' alt='instagram image' style={{
+        maxWidth: '100%',
+        height: 'auto'
+    }}/>),
+]

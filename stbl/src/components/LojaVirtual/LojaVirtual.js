@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
-
 import Produto from '../Produto/Produto';
 import './lojaVirtualStyle.css';
 

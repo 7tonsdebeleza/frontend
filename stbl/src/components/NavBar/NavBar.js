@@ -4,6 +4,7 @@ import Logo from '../Images/logo.png';
 import Search from '../Images/iconsearch.png';
 import Search2 from '../Images/iconsearch2.png';
 import Carrinho from '../Images/carrinho.png'
+import Bag from '../Images/shopping-bag-black.png';
 
 class NavBar extends Component {
     
@@ -53,8 +54,8 @@ class NavBar extends Component {
                                         <nav className='nav justify-content-end'>
                                             <div className='nav-item'>
                                                 <p className='nav-link' style={{lineHeight: '32px'}}>
-                                                    Entre em contato (1800) 000 8808
-                                    </p>
+                                                    Entre em contato por (1800) 000 8808
+                                                </p>
 
                                             </div>
                                             <div className='nav-item'>
@@ -68,17 +69,35 @@ class NavBar extends Component {
 
                                     <div className='nav-item'>
                                         <p className='nav-link spotlight discreet-spot'>
-                                            Free shipping on All Orders. No Minimum Purchase.
-                            </p>
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                        </p>
 
                                     </div>
 
                                     <div className='nav-item'>
-                                        <nav className='nav justify-content-end'>
+                                        <nav className='nav justify-content-end' style={{lineHeight: 2}}>
                                             <div className='nav-item'>
-                                                <div className='nav-link'>
-                                                    [icon]&nbsp;<Link to="/#" style={{ color: 'black' }}>Carrinho</Link>&nbsp;[contador]
-                                    </div>
+                                                <div className='nav-link' >
+
+                                                    <img src={Bag} alt='bag icon' style={{width: 20, height: 20}}/>
+
+                                                    &nbsp;<Link to="/#" style={{ color: 'black' }}>Carrinho</Link>&nbsp;
+
+                                                    {/*Abaixo contador de itens no carrinho
+                                                        está estático, posteriormente tornar dinâmico
+                                                     */} 
+
+                                                    <span style={{
+                                                        padding: 5,
+                                                        backgroundColor: '#c36854',
+                                                        color: '#f7f7f8',
+                                                        borderRadius: '50%',
+                                                        top: '50%',
+                                                        right: '50%'
+                                                    }}>
+                                                    &nbsp;0&nbsp;
+                                                    </span>
+                                                </div>
                                             </div>
 
                                             <div className='nav-item'>
@@ -110,11 +129,6 @@ class NavBar extends Component {
                                 </li>
                                 <li className='nav-item'>
                                     <div className='nav-link'>
-                                        <Link to="/colecoes" style={{ color: 'white' }}>Coleções</Link>
-                                    </div>
-                                </li>
-                                <li className='nav-item'>
-                                    <div className='nav-link'>
                                         <Link to="/lojavirtual" style={{ color: 'white' }}>Loja Virtual</Link>
                                     </div>
                                 </li>
@@ -136,16 +150,9 @@ class NavBar extends Component {
 
                     </nav>
                 </div>
-                {/*
-        
-        <Link to="/home"> | Home | </Link>
-        <Link to="/contato"> | Contato | </Link>
-        <Link to="/sobre"> | Sobre | </Link>     	
-        <Link to="/produto"> |Produto| </Link>	 
-        
-        -------------------------------
-        Navbar escondida ao scroll
-        */}
+
+
+                {/* Navbar escondida ao scroll */}
                 <div className="navbarEscondida" id="navbarEscondida">
                     <div className="mobile-hide discreet-arimo" style={{ backgroundColor: '#f7f7f8' }}>
 
@@ -163,11 +170,6 @@ class NavBar extends Component {
                                 </li>
                                 <li className='nav-item'>
                                     <div className='nav-link'>
-                                        <Link to="/colecoes" style={{ color: 'white' }}>Coleções</Link>
-                                    </div>
-                                </li>
-                                <li className='nav-item'>
-                                    <div className='nav-link'>
                                         <Link to="/lojavirtual" style={{ color: 'white' }}>Loja Virtual</Link>
                                     </div>
                                 </li>
@@ -179,6 +181,11 @@ class NavBar extends Component {
                                 <li className='nav-item'>
                                     <div className='nav-link'>
                                         <Link to="/faq" style={{ color: 'white' }}>FAQ</Link>
+                                    </div>
+                                </li>
+                                <li className='nav-item'>
+                                    <div className='nav-link'>
+                                        <Link to="/blog" style={{ color: 'white' }}>Dicas de Beleza</Link>
                                     </div>
                                 </li>
 
@@ -196,8 +203,6 @@ class NavBar extends Component {
                 </div>
 
             </div>
-
-
         )
     }
 }

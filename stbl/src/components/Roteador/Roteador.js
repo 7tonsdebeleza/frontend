@@ -6,7 +6,6 @@ import Home from "../Home/Home";
 import Cadastro from "../Cadastro/Cadastro";
 import LojaVirtual from "../LojaVirtual/LojaVirtual";
 import NotFound from "../NotFound/NotFound";
-import Colecoes from "../Colecoes/Colecoes";
 import ListaProduto from "../Produto/ListaProduto";
 import Marcas from "../Marcas/Marcas";
 import Faq from "../Faq/Faq";
@@ -28,11 +27,10 @@ class Roteador extends Component {
 	    			<Route path="/cadastro" component={Cadastro}/>
 					<Route path="/login" component={Login}/>      			
 	    			<Route path="/lojavirtual" component={LojaVirtual}/>
-	    			<Route path="/colecoes" component={Colecoes}/>
-						<Route path="/marcas" component={Marcas}/>
-						<Route path="/faq" component={Faq}/>
-						<Route path="/blog" component={Blog}/>
-						<Route path="/produto" component={ListaProduto}/>
+					<Route path="/marcas" component={Marcas}/>
+					<Route path="/faq" component={Faq}/>
+					<Route path="/blog" component={Blog}/>
+					<Route path="/produto" component={ListaProduto}/>
 	    			<Route path="" component={Home}/>
 	    			<Route component={NotFound}/>    			
 	    		</Switch>
