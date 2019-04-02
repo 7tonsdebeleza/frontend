@@ -37,55 +37,45 @@ class Footer extends Component {
                 <div className="footer-top nav container d-flex">
                     <div className="item-footer">
                         <ul className="nav-item">
-                            <h1 className="footertitles">SHOPS</h1>
-                            <li ><Link to="/colecoes"><span>New In</span></Link></li>
-                            <li><Link to="/"><span>Women</span></Link></li>
-                            <li><Link to="/"><span>Schule Shoes</span></Link></li>
-                            <li><Link to="/"><span>Bags e Accessories</span></Link></li>
-                            <li><Link to="/"><span>Men</span></Link></li>
-                            <li><Link to="/"><span>Top Brands</span></Link></li>
-                            <li><Link to="/"><span>Sale e Special Offers</span></Link></li>
-                            <li><Link to="/"><span>Lookbook</span></Link></li>
+                            <h1 className="footertitles">Loja</h1>
+                            <li ><Link to="/lojavirtual"><span>Lançamentos</span></Link></li>
+                            <li><Link to="/lojavirtual"><span>Lorem Et Dorus</span></Link></li>
+                            <li><Link to="/lojavirtual"><span>Comos De Milano</span></Link></li>
+                            <li><Link to="/marcas"><span>Nossas Marcas</span></Link></li>
+                            <li><Link to="/lojavirtual"><span>Ofertas</span></Link></li>
                         </ul>
                     </div>
                     <div className="item-footer">
                         <ul className="nav-item">
-                            <h1 className="footertitles">INFORMATION</h1>
-                            <li><Link to="/"><span>About us</span></Link></li>
-                            <li><Link to="/"><span>Customer Service</span></Link></li>
-                            <li><Link to="/"><span>New Collection</span></Link></li>
-                            <li><Link to="/"><span>Best Sellers</span></Link></li>
-                            <li><Link to="/"><span>Manufacturers</span></Link></li>
-                            <li><Link to="/"><span>Privacy policy</span></Link></li>
-                            <li><Link to="/"><span>Terms e condition</span></Link></li>
-                            <li><Link to="/"><span>Blog</span></Link></li>
+                            <h1 className="footertitles">Informações</h1>
+                            <li><Link to="/"><span>Sobre</span></Link></li>
+                            <li><Link to="/"><span>Serviços</span></Link></li>
+                            <li><Link to="/"><span>Política de Privacidade</span></Link></li>
+                            <li><Link to="/"><span>Termos e condições</span></Link></li>
+                            <li><Link to="/blog"><span>Blog</span></Link></li>
                         </ul>
                     </div>
                     <div className="item-footer">
                         <ul className="nav-item">
-                            <h1 className="footertitles">CUSTOMER SERVICE</h1>
-                            <li><Link to="/"><span>Seach Terms</span></Link></li>
-                            <li><Link to="/"><span>Advance Search</span></Link></li>
-                            <li><Link to="/"><span>Orders and Returns</span></Link></li>
-                            <li><Link to="/"><span>Contact Us</span></Link></li>
-                            <li><Link to="/"><span>RSS</span></Link></li>
-                            <li><Link to="/"><span>Help</span></Link></li>
-                            <li><Link to="/"><span>Consultant</span></Link></li>
-                            <li><Link to="/"><span>Store</span></Link></li>
+                            <h1 className="footertitles">Serviços</h1>
+                            <li><Link to="/"><span>Pesquisa</span></Link></li>
+                            <li><Link to="/"><span>Pedidos e entregas</span></Link></li>
+                            <li><Link to="/"><span>Contato</span></Link></li>
+                            <li><Link to="/faq"><span>Faq</span></Link></li>
+                            <li><Link to="/"><span>Estoque</span></Link></li>
                         </ul>
                     </div>
                     <div className="footer-social">
-                        <h1 className="footertitles">STAY CONNECTED</h1>
+                        <h1 className="footertitles">Redes Sociais</h1>
                         <ul className="social-icons nav">
                             <li><a href="http://facebook.com"><img className='iconface' id='iconface' onMouseOver={this.FacebookHover.bind(this)} onMouseOut={this.FacebookNotHover.bind(this)} width='50' height='50' src={IconFacebook} alt='iconfacebook' /></a></li>
-                            <li><a href="http://instagram.com"><img className='iconinstagram' id='iconinstagram' onMouseOver={this.InstagramHover.bind(this)} onMouseOut={this.InstagramNotHover.bind(this)} width='50' height='50' src={IconInstragram} alt='iconfacebook' /></a></li>
                             <li><a href="http://instagram.com"><img className='iconinstagram' id='iconinstagram' onMouseOver={this.InstagramHover.bind(this)} onMouseOut={this.InstagramNotHover.bind(this)} width='50' height='50' src={IconInstragram} alt='iconfacebook' /></a></li>
                         </ul>
                     </div>
                 </div>
                 <div className="footer-bottom container">
                     <div className="footer-corp">
-                        © 2019 Todos os direitos reservados. 7 Tons de Beleza.  <br></br> Ecommerce desenvolvido por CEOS. [logo]
+                        © 2019 Todos os direitos reservados. 7 Tons de Beleza.  <br></br> Ecommerce desenvolvido por <a href='http://www.ceos.ufc.br/'>CEOS.</a> 
                     </div>
                     <div>
                         <ul className="footer-payments nav">

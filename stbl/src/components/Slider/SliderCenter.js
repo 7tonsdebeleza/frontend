@@ -33,11 +33,11 @@ class SliderCenter extends Component {
         return(
             <div>
                 {/*Botões para controle do scroll do slider*/}
-                <button className='controles controles-left' onClick={() => {this.previous()}}>
+                <button className='controles controles-left' onClick={() => {this.previous()}} style={this.props.large ? {height: '200px'} : (null)}>
                         <span class="seta-esquerda" aria-hidden="true"></span>
                 </button>
-                <button className='controles controles-right' onClick={() => {this.next()}}>
-                    <span class="seta-direita" aria-hidden="true"></span>
+                <button className='controles controles-right' onClick={() => {this.next()}} style={this.props.large ? {height: '200px'} : (null)}>
+                    <span class="seta-direita" aria-hidden="true" ></span>
                 </button>
 
                 <div className='centeredSlider'>

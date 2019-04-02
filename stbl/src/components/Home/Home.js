@@ -236,7 +236,7 @@ const Home = () => {
                     <h3 className="spotlight pink-card-title">7 Tons de Beleza no INSTAGRAM</h3>
                     <p className='discreet-arimo'>Phasellus lorem malesuada ligula pulvinar commodo maecenas suscipit auctom.</p>
                     
-                    <SliderCenter lista={imagesInst}/>
+                    <SliderCenter lista={imagesInst} large={true}/>
 
                     <p className="button-pri">
                        <a href="#">VISITAR GALERIA <span/></a>
