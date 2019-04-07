@@ -963,6 +963,28 @@ p.title {
     display: inline;
 }
 
+.btn-secundaryy button{
+    background-color: #ffffff;
+    color: #000000;
+    border: 3px solid #000000;
+    padding: 0 30px;
+    height: 36px;
+    line-height: 32px;
+    display: inline-block;
+    text-transform: uppercase;
+    font-size: 12px!important;
+    outline: none;
+    transition: .3s all;
+    letter-spacing: 0.2em;
+    font-family: Montserrat;
+    margin-bottom: 4%;
+}
+.btn-secundaryy button:hover {
+    background-color: #000000;
+    color: #ffffff;
+    text-decoration:none; 
+}
+
 
 .alertacadastro{
     background: #ececec;

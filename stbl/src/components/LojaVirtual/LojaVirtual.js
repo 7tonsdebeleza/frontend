@@ -123,7 +123,7 @@ class LojaVirtual extends Component {
 
 
                         {/*Botão que seta a categoria, renderizando novos produtos (ainda n implementado) */}
-                        <button href="#" onClick={() => { this.setState({ categoryIndex: object.index }) }} onMouseOver={() => { this.setState({ itemOver: object.index }) }} onMouseOut={() => { this.setState({ itemOver: null }) }}>
+                        <button onClick={() => { this.setState({ categoryIndex: object.index }) }} onMouseOver={() => { this.setState({ itemOver: object.index }) }} onMouseOut={() => { this.setState({ itemOver: null }) }}>
                           {object.title}
                         </button>
                       </li>)
