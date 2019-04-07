@@ -3,6 +3,7 @@ import Produto from "../Produto/Produto";
 import { Link } from "react-router-dom";
 import SliderCenter from '../Slider/SliderCenter';
 import BrandsList from '../Marcas/MarcasList';
+//import Logo from '../Images/logo.png';
 
 const Home = () => {
     return(
@@ -233,7 +234,7 @@ const Home = () => {
             <div className='pink-card'>
                 <div className='container text-center'>
                     {/*Ùltimo card*/}
-                    <h3 className="spotlight pink-card-title">7 Tons de Beleza no INSTAGRAM</h3>
+                    <h3 className="pink-card-title"> 7 Tons de Beleza no instagram</h3>
                     <p className='discreet-arimo'>Phasellus lorem malesuada ligula pulvinar commodo maecenas suscipit auctom.</p>
                     
                     <SliderCenter lista={imagesInst} large={true}/>
