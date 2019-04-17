@@ -81,7 +81,7 @@ class NavBar extends Component {
 
                                                     <img src={Bag} alt='bag icon' style={{width: 20, height: 20}}/>
 
-                                                    &nbsp;<Link to="/#" style={{ color: 'black' }}>Carrinho</Link>&nbsp;
+                                                    &nbsp;<Link to="/carrinho" style={{ color: 'black' }}>Carrinho</Link>&nbsp;
 
                                                     {/*Abaixo contador de itens no carrinho
                                                         está estático, posteriormente tornar dinâmico

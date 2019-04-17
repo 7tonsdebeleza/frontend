@@ -14,9 +14,12 @@ import Footer from '../Footer/Footer';
 import BotaoTop from '../BotaoTop/BotaoTop';
 import Login from '../Login/Login';
 import Admin from '../Admin/Admin';
+import Carrinho from '../Carrinho/Carrinho';
+import Dados from '../Produto/Dados'; //Dados provisórios para listas de produtos
 
 class Roteador extends Component {
   //Dica: Renderize aqui um uma NavBar e a Switch com as rotas
+  //Este componente será usado como root para o fluxo de dados entre os demais componentes.
   render() {
     return (
     	<BrowserRouter>
@@ -24,14 +27,15 @@ class Roteador extends Component {
 	    		<NavBar/>   
 				<NavBarMobile/>
 	    		<Switch>
-	    			<Route path="/home" component={Home}/>
+	    			<Route path="/home" render={() => <Home dados={Dados}/>}/>
 	    			<Route path="/cadastro" component={Cadastro}/>
 					<Route path="/login" component={Login}/>      			
-	    			<Route path="/lojavirtual" component={LojaVirtual}/>
+	    			<Route path="/lojavirtual" render={() => <LojaVirtual dados={Dados}/>}/>
 					<Route path="/marcas" component={Marcas}/>
 					<Route path="/faq" component={Faq}/>
 					<Route path="/blog" component={Blog}/>
-					<Route path="/produto" component={ListaProduto}/>
+					<Route path="/produto" render={() => <ListaProduto list={Dados}/>}/>
+					<Route path="/carrinho" component={Carrinho}/>
 					<Route path="/admin7tons" component={Admin}/>
 	    			<Route path="" component={Home}/>
 	    			<Route component={NotFound}/>    			
