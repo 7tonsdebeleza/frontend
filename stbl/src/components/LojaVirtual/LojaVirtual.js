@@ -158,7 +158,7 @@ class LojaVirtual extends Component {
 
             <hr />
             {/*Produtos com renderização dinâmica:*/}
-            <ListaProduto list={this.props.dados}/>
+            <ListaProduto list={this.props.dados} addCarrinho={this.props.addCarrinho}/>
           </div>
 
         </div>

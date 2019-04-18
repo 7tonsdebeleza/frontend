@@ -95,7 +95,7 @@ class NavBar extends Component {
                                                         top: '50%',
                                                         right: '50%'
                                                     }}>
-                                                    &nbsp;0&nbsp;
+                                                    &nbsp;{this.props.qtdCarrinho}&nbsp;
                                                     </span>
                                                 </div>
                                             </div>
@@ -195,7 +195,24 @@ class NavBar extends Component {
 
                                 <li><div id="search" className="pesquisa nav-link"><input className="buscar" style={{ marginTop: '-5%',  marginBottom: '-5%'}} id="pesq" type="search" placeholder="Buscar" aria-label="Search" /></div></li>
                                 <div><img className="img-pesq2" id="img-pesquisa2" width='28' height='29' src={Search2} alt='pesquisa' /></div>
-                                <li><div className="imgcarrinho nav-link"><img className="imgcarrinho" id="imgcarrinho" width='20' height='20' src={Carrinho} alt='carrinho' /></div></li>
+                                <li>
+                                    <div className="imgcarrinho nav-link">
+                                    <Link to="/carrinho"><img className="imgcarrinho" id="imgcarrinho" width='20' height='20' src={Carrinho} alt='carrinho' /></Link>
+
+                                        <span style={{
+                                                padding: 5,
+                                                backgroundColor: '#c36854',
+                                                color: '#f7f7f8',
+                                                borderRadius: '50%',
+                                                top: '50%',
+                                                right: '50%',
+                                                marginLeft: '-15%'
+                                                
+                                            }}>
+                                            &nbsp;{this.props.qtdCarrinho}&nbsp;
+                                        </span>
+                                    </div>
+                                </li>
                             </ul>
 
                         </nav>

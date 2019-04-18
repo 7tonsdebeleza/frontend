@@ -18,33 +18,48 @@ import Carrinho from '../Carrinho/Carrinho';
 import Dados from '../Produto/Dados'; //Dados provisórios para listas de produtos
 
 class Roteador extends Component {
-  //Dica: Renderize aqui um uma NavBar e a Switch com as rotas
-  //Este componente será usado como root para o fluxo de dados entre os demais componentes.
-  render() {
-    return (
-    	<BrowserRouter>
-    		<div>
-	    		<NavBar/>   
-				<NavBarMobile/>
-	    		<Switch>
-	    			<Route path="/home" render={() => <Home dados={Dados}/>}/>
-	    			<Route path="/cadastro" component={Cadastro}/>
-					<Route path="/login" component={Login}/>      			
-	    			<Route path="/lojavirtual" render={() => <LojaVirtual dados={Dados}/>}/>
-					<Route path="/marcas" component={Marcas}/>
-					<Route path="/faq" component={Faq}/>
-					<Route path="/blog" component={Blog}/>
-					<Route path="/produto" render={() => <ListaProduto list={Dados}/>}/>
-					<Route path="/carrinho" component={Carrinho}/>
-					<Route path="/admin7tons" component={Admin}/>
-	    			<Route path="" component={Home}/>
-	    			<Route component={NotFound}/>    			
-	    		</Switch>
-				<BotaoTop/>
-				<Footer/>
-    		</div>
-    	</BrowserRouter>
-    );
+	//Dica: Renderize aqui um uma NavBar e a Switch com as rotas
+	//Este componente será usado como root para o fluxo de dados entre os demais componentes.
+	state = {
+		dadosCarrinho: [],
+		qtdCarrinho: 0
+	}
+
+	//Esta função será passada aos componetes filhos onde houver componete produto
+	addCarrinho = (dados) =>{
+		let novaLista = this.state.dadosCarrinho;
+		novaLista.push(dados);
+		this.setState({
+			dadosCarrinho: novaLista,
+			qtdCarrinho: this.state.qtdCarrinho + dados.qtd
+		})
+	}
+
+	render() {
+		return (
+			<BrowserRouter>
+				<div>
+					<NavBar qtdCarrinho={this.state.qtdCarrinho}/>   
+					<NavBarMobile qtdCarrinho={this.state.qtdCarrinho}/>
+					<Switch>
+						<Route path="/home" render={() => <Home dados={Dados} addCarrinho={this.addCarrinho}/>}/>
+						<Route path="/cadastro" component={Cadastro}/>
+						<Route path="/login" component={Login}/>      			
+						<Route path="/lojavirtual" render={() => <LojaVirtual dados={Dados} addCarrinho={this.addCarrinho}/>}/>
+						<Route path="/marcas" component={Marcas}/>
+						<Route path="/faq" component={Faq}/>
+						<Route path="/blog" component={Blog}/>
+						<Route path="/produto" render={() => <ListaProduto list={Dados} addCarrinho={this.addCarrinho}/>}/>
+						<Route path="/carrinho" render={() => <Carrinho dados={this.state.dadosCarrinho}/>}/>
+						<Route path="/admin7tons" component={Admin}/>
+						<Route path="" component={Home}/>
+						<Route component={NotFound}/>    			
+					</Switch>
+					<BotaoTop/>
+					<Footer/>
+				</div>
+			</BrowserRouter>
+		);
   }
 }
 

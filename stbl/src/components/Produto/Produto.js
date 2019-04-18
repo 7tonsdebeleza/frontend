@@ -60,7 +60,15 @@ class Produto extends Component {
         });
     }
 
-    /* função para pegar o tamanho escolhido */
+    addCarrinho = () =>{
+        let dados = this.props.dados;
+        dados.qtd = this.state.contadorQtd;
+        dados.cor = this.state.cor;
+
+        //Eviando dados para pai:
+        this.props.addCarrinho(dados);
+        console.log("Produto adicionado!");
+    }
 
 
     render() {
@@ -145,7 +153,7 @@ class Produto extends Component {
                                 }</b>
                             </p>
                             
-                            { this.props.dados.estoque ? <button className="botaoAddCarrinho"> ADICIONAR AO CARRINHO</button> : <button className="botaoAddCarrinhoDisabilitado"> ADICIONAR AO CARRINHO</button>}
+                            { this.props.dados.estoque ? <button className="botaoAddCarrinho" onClick={() => this.addCarrinho()}> ADICIONAR AO CARRINHO</button> : <button className="botaoAddCarrinhoDisabilitado"> ADICIONAR AO CARRINHO</button>}
                             
                         </div>
                     </div>

@@ -92,7 +92,21 @@ class NavBarMobile extends Component {
                                 </li>
 
                                 <li>
-                                    <div className="imgcarrinho nav-link1"><img className="imgcarrinho" id="imgcarrinho" width='20' height='20' src={Carrinho} alt='carrinho' />
+                                    <div className="imgcarrinho nav-link1">
+                                        <Link to="/carrinho"><img className="imgcarrinho" id="imgcarrinho" width='20' height='20' src={Carrinho} alt='carrinho' /></Link>
+                                        
+                                        <span style={{
+                                                padding: 5,
+                                                backgroundColor: '#c36854',
+                                                color: '#f7f7f8',
+                                                borderRadius: '50%',
+                                                top: '50%',
+                                                right: '50%',
+                                                marginLeft: '-15%'
+                                                
+                                            }}>
+                                            &nbsp;{this.props.qtdCarrinho}&nbsp;
+                                        </span>
                                     </div>
                                 </li>
                             </ul>
