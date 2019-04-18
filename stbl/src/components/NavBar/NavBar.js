@@ -7,6 +7,10 @@ import Carrinho from '../Images/carrinho.png'
 import Bag from '../Images/shopping-bag-black.png';
 
 class NavBar extends Component {
+
+    state = {
+        pesquisa: '',
+    }
     
 
     PesquisaNavEsc = () => {
@@ -15,8 +19,12 @@ class NavBar extends Component {
         const imgpesq = document.getElementById("img-pesquisa2");
         imgpesq.classList.toggle('mostrar');
     }
-    
 
+    pesquisa = (e) =>{
+        this.setState({
+          pesquisa: e.target.value
+    })}
+    
     render() {
         //função para esconder a navbar principal e aparecer a secundaria
         window.addEventListener("scroll", () => {
@@ -60,8 +68,10 @@ class NavBar extends Component {
                                             </div>
                                             <div className='nav-item'>
                                                 <div className='nav-link'>
-                                                    <input className="buscar" type="search" placeholder="Buscar" aria-label="Search" />
-                                                    <img className="img-pesq" id="img-pesquisa" width='28' height='29' src={Search2} alt='pesquisa' />
+                                                    <input className="buscar" type="search" placeholder="Buscar" aria-label="Search" onChange={this.pesquisa}/>
+                                                    <Link to={"/produto/"+this.state.pesquisa}>
+                                                        <img onClick={() => {this.props.pesquisar(this.state.pesquisa)}} className="img-pesq" id="img-pesquisa" width='28' height='28' src={Search2} alt='pesquisa' style={{marginTop:'-2px'}}/>
+                                                    </Link>
                                                 </div>
                                             </div>
                                         </nav>

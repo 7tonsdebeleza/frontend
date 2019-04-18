@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import Produto from "./Produto"
+import React, { Component } from 'react';
+import Produto from "./Produto";
 
 /*Componente para a renderização dinâmica de produtos
 Lista de dados são passados através de pros "list"

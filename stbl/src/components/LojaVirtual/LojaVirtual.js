@@ -8,7 +8,28 @@ class LojaVirtual extends Component {
   state = {
     categoryIndex: 0, //Aponta um indice da lista de categorias
     itemOver: null, //Dinamiza hover do menu de categoiras
-    dropped: false //State para menu do modo mobile
+    dropped: false, //State para menu do modo mobile
+    produtos: this.props.dados,
+  }
+
+  novaCategoria = (categoria) =>{
+    this.setState({ categoryIndex: categoria.index });
+
+    if(categoria.request.toLowerCase() === 'todos'){
+      this.setState({produtos: this.props.dados});
+    } else {
+        let novaLista = [];
+
+      this.props.dados.map((produto) => {
+        if(produto.tipoProduto.toLowerCase() === categoria.request.toLowerCase()){
+          novaLista.push(produto);
+        }
+      });
+      
+      this.setState({produtos: novaLista});
+
+    }
+    
   }
 
 
@@ -123,7 +144,7 @@ class LojaVirtual extends Component {
 
 
                         {/*Botão que seta a categoria, renderizando novos produtos (ainda n implementado) */}
-                        <button onClick={() => { this.setState({ categoryIndex: object.index }) }} onMouseOver={() => { this.setState({ itemOver: object.index }) }} onMouseOut={() => { this.setState({ itemOver: null }) }}>
+                        <button onClick={() => { this.novaCategoria(object) }} onMouseOver={() => { this.setState({ itemOver: object.index }) }} onMouseOut={() => { this.setState({ itemOver: null }) }}>
                           {object.title}
                         </button>
                       </li>)
@@ -158,7 +179,7 @@ class LojaVirtual extends Component {
 
             <hr />
             {/*Produtos com renderização dinâmica:*/}
-            <ListaProduto list={this.props.dados} addCarrinho={this.props.addCarrinho}/>
+            <ListaProduto list={this.state.produtos} addCarrinho={this.props.addCarrinho}/>
           </div>
 
         </div>
@@ -170,7 +191,7 @@ class LojaVirtual extends Component {
 
 
 const categories = [
-  { title: "Comos De Milano", descri: "Categoria 1", index: 0, request: "#" },
+  { title: "Comos De Milano", descri: "Categoria 1", index: 0, request: "todos" },
   { title: "Lorem Et Dorus", descri: "Categoria 2", index: 1, request: "#" },
   { title: " Lynn Cosmopolis", descri: "Categoria 3", index: 2, request: "#" },
   { title: "Men", descri: "Categoria 4", index: 3, request: "#" },
@@ -180,6 +201,7 @@ const categories = [
   { title: "Sale & Special Offers", descri: "Categoria 8", index: 7, request: "#" },
   { title: "Top Brands", descri: "Categoria 9", index: 8, request: "#" },
   { title: "Women", descri: "Categoria 10", index: 9, request: "#" },
+  { title: "Batom", descri: "Categoria 11", index: 10, request: "batom" },
 ]
 
 export default LojaVirtual

@@ -134,7 +134,7 @@ class Cadastro extends Component {
 
             <label>Sobrenome</label><em>*</em>
             <div>
-              <input className="inputt" type="text" name="sobrenome" onChange={this.Submit} onChange={this.Submit}></input>
+              <input className="inputt" type="text" name="sobrenome" onChange={this.Submit}></input>
             </div>
 
             <label>Email</label><em>*&nbsp;&nbsp;</em><img onMouseOver={this.InformationEmail.bind(this)} onMouseOut={this.InformationEmailOut.bind(this)}  className="information" id="info" width='12' height='12' src={Info} alt='info' />
