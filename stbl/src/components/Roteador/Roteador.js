@@ -52,7 +52,7 @@ class Roteador extends Component {
 						<Route path="/produto" render={() => <ListaProduto list={Dados} addCarrinho={this.addCarrinho}/>}/>
 						<Route path="/carrinho" render={() => <Carrinho dados={this.state.dadosCarrinho}/>}/>
 						<Route path="/admin7tons" component={Admin}/>
-						<Route path="" component={Home}/>
+						<Route path="" render={() => <Home dados={Dados} addCarrinho={this.addCarrinho}/>}/>
 						<Route component={NotFound}/>    			
 					</Switch>
 					<BotaoTop/>
