@@ -12,8 +12,6 @@ class Produto extends Component {
         }
 
         this.CliqueVerDetalhes = this.CliqueVerDetalhes.bind(this);
-        this.decrementarQtd = this.decrementarQtd.bind(this);
-        this.incrementarQtd = this.incrementarQtd.bind(this);
         this.AparecerBotaoDetalhes = this.AparecerBotaoDetalhes.bind(this);
         this.DesaparecerBotaoDetalhes = this.DesaparecerBotaoDetalhes.bind(this);
 
@@ -46,34 +44,29 @@ class Produto extends Component {
     }
 
     /* funções para incrementar e decrementar a quantidade escolhida do produto */
-    decrementarQtd = () => {
-        if (this.state.contadorQtd === 1) {
-            return;
+    
+
+    attQtd = (qtd) => {
+
+        //Testando se entrada é negativa, caso positivo, impedir decrementação negativa
+        if(qtd < 0){
+            if(this.state.contadorQtd === 1){
+                return;
+            }
         }
+        
         this.setState({
-            contadorQtd: this.state.contadorQtd - 1,
+            contadorQtd: this.state.contadorQtd + qtd,
+        }, ()=>{
+            this.props.dados.qtd = this.state.contadorQtd;
+            //Eviando dados para pai:
+            //console.log(this.props.dados);
+
+            this.props.atualizarQtdCarrinho(qtd);
+
         });
         //verificar se a qtd esta certa
-        this.props.dados.qtd = this.state.contadorQtd;
-        //Eviando dados para pai:
-        console.log(this.props.dados.qtd);
-
-        //this.props.atualizarQtdCarrinho(this.props.dados);
-    }
-
-    incrementarQtd = () => {
-
-        this.setState({
-            contadorQtd: this.state.contadorQtd + 1,
-        });
-        //verificar se a qtd esta certa
-        this.props.dados.qtd = this.state.contadorQtd;
-        //Eviando dados para pai:
-        console.log(this.props.dados.qtd);
-        console.log(this.props.dados);
-
-        //this.props.atualizarQtdCarrinho(this.props.dados);
-    }
+        }
 
     addCarrinho = () =>{
         this.props.dados.noCarrinho = true;
@@ -113,12 +106,13 @@ class Produto extends Component {
                     {
                     this.props.dados.noCarrinho ?  
                     <div>
-                        <button onClick={this.decrementarQtd} className="botoesQuantidade menos"><img src={Menos} width='15' height='15' alt='menos'></img></button>
+                        <button onClick={() => this.attQtd(-1)} className="botoesQuantidade menos"><img src={Menos} width='15' height='15' alt='menos'></img></button>
                             {this.state.contadorQtd}
-                        <button onClick={this.incrementarQtd} className="botoesQuantidade mais"><img src={Mais} width='15' height='15' alt='Mais'></img></button>
+                        <button onClick={() => this.attQtd(1)} className="botoesQuantidade mais"><img src={Mais} width='15' height='15' alt='Mais'></img></button>
                         <img onClick={() => this.removerCarrinho()} className="iconelixeira"src={Lixeira} width='25' height='25' alt='lixeira'></img>
                     </div> : ""
                     }
+                    
                     
                 </div>
                 {/* Modal com as informações mais detalhadas do produto incluindo a opção de add ao carrinho */}

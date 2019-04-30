@@ -85,7 +85,7 @@ class Home extends Component {
                     */
                 }
 
-                <ListaProduto list={[this.props.dados[0],this.props.dados[1],this.props.dados[2],this.props.dados[3],this.props.dados[4]]} addCarrinho={this.props.addCarrinho}/>
+                <ListaProduto list={[this.props.dados[0],this.props.dados[1],this.props.dados[2],this.props.dados[3],this.props.dados[4]]} addCarrinho={this.props.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} removerCarrinho={this.removerCarrinho}/>
                 
             </div>
 
@@ -128,7 +128,7 @@ class Home extends Component {
                     */
                 }
 
-                <ListaProduto list={[this.props.dados[5],this.props.dados[6],this.props.dados[7],this.props.dados[8],this.props.dados[9]]} addCarrinho={this.props.addCarrinho}/>
+                <ListaProduto list={[this.props.dados[5],this.props.dados[6],this.props.dados[7],this.props.dados[8],this.props.dados[9]]} addCarrinho={this.props.addCarrinho} atualizarQtdCarrinho={this.props.atualizarQtdCarrinho} removerCarrinho={this.props.removerCarrinho}/>
                 
                 
             </div>
@@ -146,7 +146,7 @@ class Home extends Component {
                         <img className='card-img-top' src="https://cdn.shopify.com/s/files/1/1825/4753/files/banner-home-bottom-1_400x_10ac45b6-ec14-46f8-84f3-589ed39f6647_400x.jpg?v=1494707881" alt='img-card'/>
                             
                         <div className='card-body'>
-                            <h3 className='card-title spotlight subtitle-montserrat'>LOREM ET DORUS</h3>
+                            <h3 className='card-title spotlight subtitle-montserrat'>rewLOREM ET DORUS</h3>
                             <p className='card-text discreet-arimo'>Nullam aliquet vestibulum augue non varius. Cras nec congue elitos. Duis tristique del ante nec aliquam. Praesent urna tellus laoreet an tellus ullamcorper fermentum facilisis eratum.</p>
                             <p className="button-pri">
                                 <Link to="/lojavirtual">visitar loja <span/></Link>

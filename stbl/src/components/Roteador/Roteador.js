@@ -36,26 +36,32 @@ class Roteador extends Component {
 		})
 		console.log(this.state.dadosCarrinho);
 	}
-	atualizarQtdCarrinho = (dados) =>{
+	atualizarQtdCarrinho = (qtd) =>{
 		this.setState({
-			qtdCarrinho: this.state.qtdCarrinho + dados.qtd
+			qtdCarrinho: this.state.qtdCarrinho + qtd
 		})
 	}
 
 	removerCarrinho = (dados) =>{
-		//teste, foreach ou map
-		let cont = 0;
-		this.state.dadosCarrinho.forEach(element => {
+
+		let newArray = this.state.dadosCarrinho;
+		
+		newArray.forEach((element, n) => {
 			if(element.id === dados.id){
-				this.state.dadosCarrinho.splice(cont,cont);
+				newArray.splice(n, 1)
 			}
-			cont++;
 		});
+
+		this.setState({
+			dadosCarrinho: newArray
+		})
+		
+		this.atualizarQtdCarrinho(dados.qtd*(-1));
 	}
 
 	pesquisar = (string) =>{
 		this.setState({
-		  pesquisa: string
+		  pesquisa: string 
 		})	
 	}
 
@@ -74,7 +80,7 @@ class Roteador extends Component {
 						<Route exact path="/faq" component={Faq}/>
 						<Route exact path="/blog" component={Blog}/>
 						<Route path="/produto" component={() => <Busca dados={Dados} pesquisa={this.state.pesquisa} addCarrinho={this.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} removerCarrinho={this.removerCarrinho}/>}/>
-						<Route exact path="/carrinho" render={() => <Carrinho dados={this.state.dadosCarrinho}/>}/>
+						<Route exact path="/carrinho" render={() => <Carrinho dados={this.state.dadosCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} removerCarrinho={this.removerCarrinho}/>}/>
 						<Route exact path="/admin7tons" component={Admin}/>
 						<Route exact path="/"  render={() => <Home dados={Dados} addCarrinho={this.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} removerCarrinho={this.removerCarrinho} />}/>
 						<Route component={NotFound}/>    			

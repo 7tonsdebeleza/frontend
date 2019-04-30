@@ -11,7 +11,7 @@ class Carrinho extends Component{
                 <div>Nenhum produto no Carrinho</div>
             );
         } else {
-            retorno = <ListaProduto list={this.props.dados}/>
+            retorno = <ListaProduto list={this.props.dados} atualizarQtdCarrinho={this.props.atualizarQtdCarrinho} removerCarrinho={this.props.removerCarrinho}/>
         }
 
         return(
