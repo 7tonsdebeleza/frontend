@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Menos from "../Images/minus.svg"
 import Mais from "../Images/plus.svg"
+import Lixeira from "../Images/lixeira.svg"
 
 class Produto extends Component {
     constructor() {
@@ -52,22 +53,43 @@ class Produto extends Component {
         this.setState({
             contadorQtd: this.state.contadorQtd - 1,
         });
+        //verificar se a qtd esta certa
+        this.props.dados.qtd = this.state.contadorQtd;
+        //Eviando dados para pai:
+        console.log(this.props.dados.qtd);
+
+        //this.props.atualizarQtdCarrinho(this.props.dados);
     }
 
     incrementarQtd = () => {
+
         this.setState({
             contadorQtd: this.state.contadorQtd + 1,
         });
+        //verificar se a qtd esta certa
+        this.props.dados.qtd = this.state.contadorQtd;
+        //Eviando dados para pai:
+        console.log(this.props.dados.qtd);
+        console.log(this.props.dados);
+
+        //this.props.atualizarQtdCarrinho(this.props.dados);
     }
 
     addCarrinho = () =>{
+        this.props.dados.noCarrinho = true;
         let dados = this.props.dados;
         dados.qtd = this.state.contadorQtd;
         dados.cor = this.state.cor;
 
         //Eviando dados para pai:
         this.props.addCarrinho(dados);
-        console.log("Produto adicionado!");
+        console.log(dados);
+    }
+
+    removerCarrinho = () =>{
+        let dados = this.props.dados;
+        this.props.removerCarrinho(dados);
+        console.log(dados);
     }
 
 
@@ -88,6 +110,16 @@ class Produto extends Component {
                         <p className="titulodescricaoProduto">{this.props.dados.titulo}</p>
                         <p className="precodescricaoProduto">R${this.props.dados.preco}</p>
                     </div>
+                    {
+                    this.props.dados.noCarrinho ?  
+                    <div>
+                        <button onClick={this.decrementarQtd} className="botoesQuantidade menos"><img src={Menos} width='15' height='15' alt='menos'></img></button>
+                            {this.state.contadorQtd}
+                        <button onClick={this.incrementarQtd} className="botoesQuantidade mais"><img src={Mais} width='15' height='15' alt='Mais'></img></button>
+                        <img onClick={() => this.removerCarrinho()} className="iconelixeira"src={Lixeira} width='25' height='25' alt='lixeira'></img>
+                    </div> : ""
+                    }
+                    
                 </div>
                 {/* Modal com as informações mais detalhadas do produto incluindo a opção de add ao carrinho */}
                 <div id={this.props.dados.id} className="modal-container">
@@ -143,17 +175,13 @@ class Produto extends Component {
                             <span>1x de R$ {this.props.dados.preco} sem juros</span>
                             <h2><b>R$ {this.props.dados.preco}</b></h2>
                             <p><b>Quantidade:</b></p>
-                            <div>
-                                <button onClick={this.decrementarQtd} className="botoesQuantidade menos"><img src={Menos} width='15' height='15' alt='menos'></img></button>
-                                {this.state.contadorQtd}
-                                <button onClick={this.incrementarQtd} className="botoesQuantidade mais"><img src={Mais} width='15' height='15' alt='Mais'></img></button>
-                            </div>
+                            
                             <p className="subtotalQuantidade"><b>SubTotal: R${
                                 parseFloat((this.props.dados.preco * this.state.contadorQtd).toFixed(2))
                                 }</b>
                             </p>
                             
-                            { this.props.dados.estoque ? <button className="botaoAddCarrinho" onClick={() => this.addCarrinho()}> ADICIONAR AO CARRINHO</button> : <button className="botaoAddCarrinhoDisabilitado"> ADICIONAR AO CARRINHO</button>}
+                            { this.props.dados.estoque ? this.props.dados.noCarrinho ? <button className="botaoAddCarrinhoDisabilitado"> PRODUTO ADICIONADO AO CARRINHO</button> : <button className="botaoAddCarrinho" onClick={() => this.addCarrinho()}> ADICIONAR AO CARRINHO</button> : <button className="botaoAddCarrinhoDisabilitado"> ADICIONAR AO CARRINHO</button>}
                             
                         </div>
                     </div>

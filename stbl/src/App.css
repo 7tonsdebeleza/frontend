@@ -149,10 +149,14 @@ body{
     box-shadow: 0px 0px 0px 2px #333 !important;
 }
 .menos{
-    margin-right: 2%;
+    margin-right: 5%;
+    margin-left: 20%;
 }
 .mais{
-    margin-left: 2%;
+    margin-left: 5%;
+}
+.iconelixeira{
+    margin-left: 19%;
 }
 .botaoAddCarrinho{
     padding: 0.6rem;

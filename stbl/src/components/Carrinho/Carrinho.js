@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'; 
 import ListaProduto from '../Produto/ListaProduto';
 //Usando ListaProdutos provisoamente para mostrar produtos adicionados ao carrinho.
 

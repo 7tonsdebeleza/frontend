@@ -34,6 +34,23 @@ class Roteador extends Component {
 			dadosCarrinho: novaLista,
 			qtdCarrinho: this.state.qtdCarrinho + dados.qtd
 		})
+		console.log(this.state.dadosCarrinho);
+	}
+	atualizarQtdCarrinho = (dados) =>{
+		this.setState({
+			qtdCarrinho: this.state.qtdCarrinho + dados.qtd
+		})
+	}
+
+	removerCarrinho = (dados) =>{
+		//teste, foreach ou map
+		let cont = 0;
+		this.state.dadosCarrinho.forEach(element => {
+			if(element.id === dados.id){
+				this.state.dadosCarrinho.splice(cont,cont);
+			}
+			cont++;
+		});
 	}
 
 	pesquisar = (string) =>{
@@ -49,17 +66,17 @@ class Roteador extends Component {
 					<NavBar pesquisar={this.pesquisar} qtdCarrinho={this.state.qtdCarrinho}/>   
 					<NavBarMobile qtdCarrinho={this.state.qtdCarrinho}/>
 					<Switch>
-						<Route exact path="/home" render={() => <Home dados={Dados} addCarrinho={this.addCarrinho}/>}/>
+						<Route exact path="/home" render={() => <Home dados={Dados} addCarrinho={this.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} removerCarrinho={this.removerCarrinho}/>}/>
 						<Route exact path="/cadastro" component={Cadastro}/>
 						<Route exact path="/login" component={Login}/>      			
-						<Route exact path="/lojavirtual" render={() => <LojaVirtual dados={Dados} addCarrinho={this.addCarrinho}/>}/>
+						<Route exact path="/lojavirtual" render={() => <LojaVirtual dados={Dados} addCarrinho={this.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} removerCarrinho={this.removerCarrinho}/>}/>
 						<Route exact path="/marcas" component={Marcas}/>
 						<Route exact path="/faq" component={Faq}/>
 						<Route exact path="/blog" component={Blog}/>
-						<Route path="/produto" component={() => <Busca dados={Dados} pesquisa={this.state.pesquisa} addCarrinho={this.addCarrinho}/>}/>
+						<Route path="/produto" component={() => <Busca dados={Dados} pesquisa={this.state.pesquisa} addCarrinho={this.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} removerCarrinho={this.removerCarrinho}/>}/>
 						<Route exact path="/carrinho" render={() => <Carrinho dados={this.state.dadosCarrinho}/>}/>
 						<Route exact path="/admin7tons" component={Admin}/>
-						<Route exact path="/"  render={() => <Home dados={Dados} addCarrinho={this.addCarrinho}/>}/>
+						<Route exact path="/"  render={() => <Home dados={Dados} addCarrinho={this.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} removerCarrinho={this.removerCarrinho} />}/>
 						<Route component={NotFound}/>    			
 					</Switch>
 					<BotaoTop/>
