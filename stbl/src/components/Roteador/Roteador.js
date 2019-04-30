@@ -55,7 +55,7 @@ class Roteador extends Component {
 		this.setState({
 			dadosCarrinho: newArray
 		})
-		
+
 		this.atualizarQtdCarrinho(dados.qtd*(-1));
 	}
 

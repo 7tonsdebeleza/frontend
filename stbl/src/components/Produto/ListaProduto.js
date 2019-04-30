@@ -16,7 +16,7 @@ class ListaProduto extends Component {
                         this.props.list.map((dados) => {
                             return(
                                 <li className="pro nav-item">
-                                    <Produto dados={dados} addCarrinho={this.props.addCarrinho} atualizarQtdCarrinho={this.props.atualizarQtdCarrinho} removerCarrinho={this.props.removerCarrinho}/>
+                                    <Produto noCarrinho={this.props.noCarrinho} dados={dados} addCarrinho={this.props.addCarrinho} atualizarQtdCarrinho={this.props.atualizarQtdCarrinho} removerCarrinho={this.props.removerCarrinho}/>
                                 </li>
                             )
                         })
