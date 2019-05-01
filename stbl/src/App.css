@@ -96,7 +96,7 @@ body{
 .descricaoProdutoModal{
     float: left;
     width: 55%;
-    
+    font-size: 17px;
     
 }
 
@@ -150,13 +150,13 @@ body{
 }
 .menos{
     margin-right: 5%;
-    margin-left: 20%;
+    margin-left: 17%;
 }
 .mais{
     margin-left: 5%;
 }
 .iconelixeira{
-    margin-left: 19%;
+    margin-left: 10%;
 }
 .botaoAddCarrinho{
     padding: 0.6rem;
@@ -171,7 +171,7 @@ body{
     margin-top: 0.7rem;
     background-color: black;
     color: white;
-    width: 55%;
+    width: 58%;
     opacity: .55;
     font-family: Montserrat;
 }
@@ -198,6 +198,9 @@ body{
     }
     .pro-lv{
         width: 33%;
+    }
+    .botaoAddCarrinhoDisabilitado{
+        width: 100%;
     }
 }
 @media only screen and (max-width: 1039px) {
@@ -243,6 +246,7 @@ body{
     .botaoAddCarrinho{
         width: 100%;
     }
+    
     
 }
 
@@ -340,12 +344,13 @@ body{
 .img-pesq2{
     position: absolute;
     top: 13px;
-    right: 85px;
+    right: 109px;
     border: 1px solid #e7e7e7;
     cursor: pointer;
     padding: 5px;
     display: none;
 }
+
 .img-pesq2.mostrar{
     display: flex;
 }
@@ -482,7 +487,7 @@ body{
     
 }
 
-@media only screen and (max-width: 848px) {
+@media only screen and (max-width: 917px) {
     .mobile-hide{
         display: none;
     }
@@ -963,6 +968,26 @@ p.title {
     color: #ffffff;
     text-decoration:none; 
 }
+
+.button-sec a {
+    background-color: #ffffff;
+    color: #000000;
+    border: 3px solid #000000;
+    padding: 0 15px;
+    height: 36px;
+    line-height: 32px;
+    display: inline-block;
+    text-transform: uppercase;
+    font-size: 12px!important;
+    text-decoration: none;
+    outline: none;
+    transition: .3s all;
+}
+.button-sec a:hover {
+    background-color: #000000;
+    color: #ffffff;
+}
+
 .criar-conta {
     display: inline;
 }
@@ -1034,7 +1059,135 @@ p.title {
 .login{
     font-size: 12px;
 }
+/*Carrinho-------------------------------*/
+.defaultCarrinho{
+    text-align: center;
+    margin-bottom: 3%; 
+    margin-top: 3%;
+    font-family: "Montserrat";
+    text-transform: uppercase;
+    font-size: 20px;
+}
+.subtotalQuantidade{
+    text-align: center;
+    font-family: "Montserrat";
+    text-transform: uppercase;
+    font-size: 18px;
+}
+.botoesCarrinho{
+    margin-bottom: 3%; 
+    margin-top: 2%;
+}
+.botao1 {
+    float: left;
+    padding: 0% 20%; 
+}
+.botao2 {
+    float: left;
+    padding: 0% 2%;
+}
+.botaomodal1{
+    margin-right: 4%;
+    
+}
+.botaomodal2{
+    margin-left: 4%;
+    
+}
 
+@media only screen and (max-width: 1075px) {
+    .botao1 {
+        width: 100%;
+    }
+    .botao2 {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 1098px) {
+    .botaomodal1 {
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .botaomodal2 {
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+.divmodalcarrinho{
+    width: 100vw;
+    height: 100vh;
+    background: transparent;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 2000;
+    display: none;
+}
+.divmodalcarrinho.mostrar{
+    display: flex;
+    animation: modalcart .3s;
+}
+
+.divmodalcarrinhonav{
+    width: 100vw;
+    height: 100vh;
+    background: transparent;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 2000;
+    display: none;
+}
+.divmodalcarrinhonav.mostrar{
+    display: flex;
+    animation: modalcart .3s;
+}
+
+@keyframes modalcart {
+    from {
+        opacity: 0;
+        transform: translate3d(0, -50px, 0);
+    }
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+.modalcarrinho{
+    position: absolute;
+    width: 70%;
+    height: 60%;
+    right: 0px;
+    top: 72px;
+    display: block;
+    background-color: white;
+    border: solid 1px #ebebeb;
+    overflow: auto;
+}
+
+@media only screen and (max-width: 575px) {
+    .modalcarrinho{
+        width: 100%;
+    }
+}
+
+.modalcarrinhonav{
+    position: absolute;
+    width: 700px;
+    height: 581px;
+    right: 0px;
+    top: 55px;
+    display: none;
+    background-color: white;
+    border: solid 1px #ebebeb;
+    overflow: auto;
+}
+.modalcarrinhonav.mostrar{
+    display: block;
+    animation: modalcart .3s;
+}
 
 
 /*-------------------------------------------------------*/

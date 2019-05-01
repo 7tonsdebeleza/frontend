@@ -12,7 +12,7 @@ const Dados = [
         tipoProduto: "Batom",
         descricao: "O batom líquido mate metálico tem alta cobertura, longa duração e pigmentos metálicos intensos para os lábios. Além disso, ele não escorre e nem transfere. São 5 cores lindas pra você se jogar!",
         multiColor: true,
-        noCarrinho: false
+        
     },
     {
         id: "id2",
@@ -24,7 +24,7 @@ const Dados = [
         tipoProduto: "Batom",
         descricao: "O batom líquido mate metálico tem alta cobertura, longa duração e pigmentos metálicos intensos para os lábios. Além disso, ele não escorre e nem transfere. São 5 cores lindas pra você se jogar!",
         multiColor: true,
-        noCarrinho: false
+        
     },
     {
         id:"id3",
@@ -48,7 +48,7 @@ const Dados = [
         tipoProduto: "Hidratante",
         descricao: "Hidratante facial Antioxidante. Efeito detox hidratação até 30 horas. Aumento de colágeno – que deixa a pele mais firme.",
         multiColor: false,
-        noCarrinho: false
+        
     },
     {
         id: "id5",
@@ -60,7 +60,7 @@ const Dados = [
         tipoProduto: "Blush",
         descricao: "A gente adora blush. Afinal, uma corzinha nas bochechas levanta qualquer astral, não é mesmo? Então resolvemos criar várias cores pra você experimentar e variar. Por ter uma textura super fininha o blush QDB tem uma ótima fixação na pele dá aquele efeito natural e saudável. Viva!!",
         multiColor: false,
-        noCarrinho: false
+        
     },{
         id:"id6",
         img:"https://qbbr.vteximg.com.br/arquivos/ids/160473-488-488/pigmento-liquido-metalico-pra--olhos-peroluz-aberto.jpg?v=636259716125170000",
@@ -82,7 +82,7 @@ const Dados = [
         tipoProduto: "Lápis",
         descricao: "O lápis barreira invisível pode ser usado pra contornar os lábios, criando uma película que ajuda o batom a não borrar no momento da aplicação. Ele também pode ser usado como primer, para segurar o batom no lugar por muito mais tempo.",
         multiColor: false,
-        noCarrinho: false
+        
     },{
         id:"id8",
         img: "https://qbbr.vteximg.com.br/arquivos/ids/162619-1000-1000/Po_Translucido_Antibrilho_Amarele_1_819436.jpg?v=636493784569670000",
@@ -93,7 +93,7 @@ const Dados = [
         tipoProduto: "Creme para a pele", 
         descricao: "Com textura ultrafina e aveludada, o pó translúcido solto matifica a pele instantaneamente! Reduz a aparência dos poros e linhas de expressão e controla a oleosidade do rosto ao longo do dia! Sua pele sequinha e sem brilho por até 6 horas! Demais, né? Ah! E por ele ter uma corzinha, também ajuda a uniformizar o tom da sua pele. Encontrar a sua cor é fácil:",
         multiColor:false,
-        noCarrinho: false
+        
     },{
         id: "id9",
         img: "https://qbbr.vteximg.com.br/arquivos/ids/162616-1000-1000/Primer_instamatte_bastao_1_819435.jpg?v=636493782540300000",
@@ -104,7 +104,7 @@ const Dados = [
         tipoProduto: "Primer",
         descricao: "A gente adora uma pele bem sequinha e por isso, resolvemos trazer o nosso primer instamatte no formato bastão! O primer instamatte em bastão matifica a pele instantaneamente, sem falar do efeito blur (se fala blâr), que disfarça as marquinhas, poros e ruguinhas através de partículas difusoras de luz. Sua pele lisinha e sem brilho a qualquer hora!", 
         multiColor: false,
-        noCarrinho: false
+        
     },{
         id: "id10",
         img: "https://qbbr.vteximg.com.br/arquivos/ids/155598-1000-1000/Base-Alta-Cobertura-Quem-disse-berenice_1_813778.jpg?v=636045408136970000",
@@ -115,7 +115,7 @@ const Dados = [
         tipoProduto: "Base",
         descricao: "A base alta cobertura é ideal para quem quer cobrir todas as marquinhas. Ela tem alta cobertura, efeito mate, FPS 15 e dura o dia inteiro! Além de possuir ingredientes especiais que absorvem a oleosidade da pele e não obstruem os poros, ela não transfere e é resistente à água e ao suor!",
         multiColor: true,
-        noCarrinho: false
+        
     }
 ]
 

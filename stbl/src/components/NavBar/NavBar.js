@@ -3,15 +3,17 @@ import { Link } from "react-router-dom";
 import Logo from '../Images/logo.png';
 import Search from '../Images/iconsearch.png';
 import Search2 from '../Images/iconsearch2.png';
-import Carrinho from '../Images/carrinho.png'
+import Carrinhoimg from '../Images/carrinho.png'
 import Bag from '../Images/shopping-bag-black.png';
+import Carrinho from '../Carrinho/Carrinho'
+
 
 class NavBar extends Component {
 
     state = {
         pesquisa: '',
     }
-    
+
 
     PesquisaNavEsc = () => {
         const pesq = document.getElementById("search");
@@ -20,11 +22,25 @@ class NavBar extends Component {
         imgpesq.classList.toggle('mostrar');
     }
 
-    pesquisa = (e) =>{
+    pesquisa = (e) => {
         this.setState({
-          pesquisa: e.target.value
-    })}
+            pesquisa: e.target.value
+        })
+    }
+
+    aparecerCarrinho = () => {
+        const carrinho = document.getElementById("modalcarrinhonav");
+        carrinho.classList.add('mostrar');
+        carrinho.addEventListener('mouseleave', (e) => {
+            carrinho.classList.remove('mostrar');
+
+
+        })
+
+    }
+
     
+
     render() {
         //função para esconder a navbar principal e aparecer a secundaria
         window.addEventListener("scroll", () => {
@@ -61,16 +77,16 @@ class NavBar extends Component {
                                     <div className='nav-item'>
                                         <nav className='nav justify-content-end'>
                                             <div className='nav-item'>
-                                                <p className='nav-link' style={{lineHeight: '32px'}}>
+                                                <p className='nav-link' style={{ lineHeight: '32px' }}>
                                                     Entre em contato por (1800) 000 8808
                                                 </p>
 
                                             </div>
                                             <div className='nav-item'>
                                                 <div className='nav-link'>
-                                                    <input className="buscar" type="search" placeholder="Buscar" aria-label="Search" onChange={this.pesquisa}/>
-                                                    <Link to={"/produto/"+this.state.pesquisa}>
-                                                        <img onClick={() => {this.props.pesquisar(this.state.pesquisa)}} className="img-pesq" id="img-pesquisa" width='28' height='28' src={Search2} alt='pesquisa' style={{marginTop:'-2px'}}/>
+                                                    <input className="buscar" type="search" placeholder="Buscar" aria-label="Search" onChange={this.pesquisa} />
+                                                    <Link to={"/produto/" + this.state.pesquisa}>
+                                                        <img onClick={() => { this.props.pesquisar(this.state.pesquisa) }} className="img-pesq" id="img-pesquisa" width='28' height='28' src={Search2} alt='pesquisa' style={{ marginTop: '-2px' }} />
                                                     </Link>
                                                 </div>
                                             </div>
@@ -85,17 +101,17 @@ class NavBar extends Component {
                                     </div>
 
                                     <div className='nav-item'>
-                                        <nav className='nav justify-content-end' style={{lineHeight: 2}}>
+                                        <nav className='nav justify-content-end' style={{ lineHeight: 2 }}>
                                             <div className='nav-item'>
                                                 <div className='nav-link' >
 
-                                                    <img src={Bag} alt='bag icon' style={{width: 20, height: 20}}/>
+                                                    <img src={Bag} alt='bag icon' style={{ width: 20, height: 20 }} />
 
                                                     &nbsp;<Link to="/carrinho" style={{ color: 'black' }}>Carrinho</Link>&nbsp;
 
                                                     {/*Abaixo contador de itens no carrinho
                                                         está estático, posteriormente tornar dinâmico
-                                                     */} 
+                                                     */}
 
                                                     <span style={{
                                                         padding: 5,
@@ -105,7 +121,7 @@ class NavBar extends Component {
                                                         top: '50%',
                                                         right: '50%'
                                                     }}>
-                                                    &nbsp;{this.props.qtdCarrinho}&nbsp;
+                                                        &nbsp;{this.props.qtdCarrinho}&nbsp;
                                                     </span>
                                                 </div>
                                             </div>
@@ -203,31 +219,39 @@ class NavBar extends Component {
                             <ul className="nav">
                                 <li><div className="imgpesquisa nav-link"><img className="imgpesq" id="imgpesquisa" onClick={this.PesquisaNavEsc.bind(this)} width='20' height='20' src={Search} alt='pesquisa' /></div></li>
 
-                                <li><div id="search" className="pesquisa nav-link"><input className="buscar" style={{ marginTop: '-5%',  marginBottom: '-5%'}} id="pesq" type="search" placeholder="Buscar" aria-label="Search" /></div></li>
+                                <li><div id="search" className="pesquisa nav-link"><input className="buscar" style={{ marginTop: '-5%', marginBottom: '-5%' }} id="pesq" type="search" placeholder="Buscar" aria-label="Search" /></div></li>
                                 <div><img className="img-pesq2" id="img-pesquisa2" width='28' height='29' src={Search2} alt='pesquisa' /></div>
-                                <li>
+                                <li className="licarrinhonav" onMouseOver={() => this.aparecerCarrinho()} >
                                     <div className="imgcarrinho nav-link">
-                                    <Link to="/carrinho"><img className="imgcarrinho" id="imgcarrinho" width='20' height='20' src={Carrinho} alt='carrinho' /></Link>
+                                        <img className="imgcarrinho" id="imgcarrinho" width='20' height='20' src={Carrinhoimg} alt='carrinho' />
 
                                         <span style={{
-                                                padding: 5,
-                                                backgroundColor: '#c36854',
-                                                color: '#f7f7f8',
-                                                borderRadius: '50%',
-                                                top: '50%',
-                                                right: '50%',
-                                                marginLeft: '-15%'
-                                                
-                                            }}>
+                                            padding: 5,
+                                            backgroundColor: '#c36854',
+                                            color: '#f7f7f8',
+                                            borderRadius: '50%',
+                                            top: '50%',
+                                            right: '50%',
+                                            marginLeft: '-15%'
+
+                                        }}>
                                             &nbsp;{this.props.qtdCarrinho}&nbsp;
                                         </span>
                                     </div>
+
                                 </li>
                             </ul>
 
                         </nav>
+
+                    </div>
+
+
+                    <div className="modalcarrinhonav" id="modalcarrinhonav" >
+                        <Carrinho noCarrinho={this.props.noCarrinho} dados={this.props.dados} atualizarQtdCarrinho={this.props.atualizarQtdCarrinho} removerCarrinho={this.props.removerCarrinho} botaoCarrinho={this.props.botaoCarrinho} />
                     </div>
                 </div>
+
 
             </div>
         )

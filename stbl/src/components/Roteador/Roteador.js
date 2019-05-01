@@ -43,7 +43,7 @@ class Roteador extends Component {
 	}
 
 	removerCarrinho = (dados) =>{
-
+		dados.noCarrinho = false;
 		let newArray = this.state.dadosCarrinho;
 		
 		newArray.forEach((element, n) => {
@@ -69,8 +69,8 @@ class Roteador extends Component {
 		return (
 			<BrowserRouter>
 				<div>
-					<NavBar pesquisar={this.pesquisar} qtdCarrinho={this.state.qtdCarrinho}/>   
-					<NavBarMobile qtdCarrinho={this.state.qtdCarrinho}/>
+					<NavBar pesquisar={this.pesquisar} qtdCarrinho={this.state.qtdCarrinho} noCarrinho dados={this.state.dadosCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} removerCarrinho={this.removerCarrinho} botaoCarrinho={true}/>   
+					<NavBarMobile qtdCarrinho={this.state.qtdCarrinho} noCarrinho dados={this.state.dadosCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} removerCarrinho={this.removerCarrinho} botaoCarrinho={true}/>
 					<Switch>
 						<Route exact path="/home" render={() => <Home dados={Dados} addCarrinho={this.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} removerCarrinho={this.removerCarrinho}/>}/>
 						<Route exact path="/cadastro" component={Cadastro}/>
@@ -80,7 +80,7 @@ class Roteador extends Component {
 						<Route exact path="/faq" component={Faq}/>
 						<Route exact path="/blog" component={Blog}/>
 						<Route path="/produto" component={() => <Busca dados={Dados} pesquisa={this.state.pesquisa} addCarrinho={this.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} removerCarrinho={this.removerCarrinho}/>}/>
-						<Route exact path="/carrinho" render={() => <Carrinho dados={this.state.dadosCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} removerCarrinho={this.removerCarrinho}/>}/>
+						<Route exact path="/carrinho" render={() => <Carrinho noCarrinho dados={this.state.dadosCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} removerCarrinho={this.removerCarrinho} botaoCarrinho={false}/>}/>
 						<Route exact path="/admin7tons" component={Admin}/>
 						<Route exact path="/"  render={() => <Home dados={Dados} addCarrinho={this.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} removerCarrinho={this.removerCarrinho} />}/>
 						<Route component={NotFound}/>    			

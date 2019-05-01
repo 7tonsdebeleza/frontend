@@ -2,8 +2,9 @@ import React, { Component } from 'react'
 import Logo from '../Images/logo.png';
 import Search from '../Images/iconsearch.png';
 import Search2 from '../Images/iconsearch2.png';
-import Carrinho from '../Images/carrinho.png';
+import Cart from '../Images/carrinho.png';
 import Login from '../Images/user.png';
+import Carrinho from '../Carrinho/Carrinho'
 
 import { Link } from "react-router-dom";
 
@@ -47,6 +48,21 @@ class NavBarMobile extends Component {
         imgpesq.classList.toggle('mostrar');
     }
 
+    aparecerCarrinho = () => {
+        const carrinho = document.getElementById("divmodalcarrinho");
+        carrinho.classList.add('mostrar');
+        carrinho.addEventListener('click', (e) => {
+            if (e.target.id === "divmodalcarrinho") {
+                carrinho.classList.remove('mostrar'); //toggle
+            }
+
+
+        })
+
+    }
+
+
+
     render() {
         window.addEventListener("scroll", () => {
             let navbarPrinc = document.getElementById("mobile-show");
@@ -83,9 +99,9 @@ class NavBarMobile extends Component {
 
                     <div className='nav-item'>
                         <div className='nav-link1'>
-                            <ul className="imgpesquisa nav">
+                            <ul className="nav">
                                 <li>
-                                    <div className="imguser nav-link1"><img onClick={this.ClickLoginMobile.bind(this)} className="imguser" id="imguser" width='20' height='20' src={Login} alt='userlogin' /></div>
+                                    <div className="imgpesquisa imguser nav-link1"><img onClick={this.ClickLoginMobile.bind(this)} className="imguser" id="imguser" width='20' height='20' src={Login} alt='userlogin' /></div>
                                 </li>
                                 <li>
                                     <div className="imgpesquisa nav-link1"><img onClick={this.PesquisaNavEsc.bind(this)} className="imgpesq" id="imgpesquisa" width='20' height='20' src={Search} alt='pesquisa' /></div>
@@ -93,30 +109,32 @@ class NavBarMobile extends Component {
 
                                 <li>
                                     <div className="imgcarrinho nav-link1">
-                                        <Link to="/carrinho"><img className="imgcarrinho" id="imgcarrinho" width='20' height='20' src={Carrinho} alt='carrinho' /></Link>
-                                        
+                                        <img className="imgcarrinho" id="imgcarrinho" width='20' height='20' src={Cart} alt='carrinho' onClick={() => this.aparecerCarrinho()} />
+
                                         <span style={{
-                                                padding: 5,
-                                                backgroundColor: '#c36854',
-                                                color: '#f7f7f8',
-                                                borderRadius: '50%',
-                                                top: '50%',
-                                                right: '50%',
-                                                marginLeft: '-15%'
-                                                
-                                            }}>
+                                            padding: 5,
+                                            backgroundColor: '#c36854',
+                                            color: '#f7f7f8',
+                                            borderRadius: '50%',
+                                            top: '50%',
+                                            right: '50%',
+                                            marginLeft: '-15%'
+
+                                        }}>
                                             &nbsp;{this.props.qtdCarrinho}&nbsp;
                                         </span>
+
+
                                     </div>
                                 </li>
                             </ul>
                         </div>
-                        
+
                     </div>
-                    
+
                 </nav>
                 <div id="searchh" className="pesquisa nav-link"><input className="buscar" style={{ width: '100%' }} id="pesq" type="search" placeholder="Buscar" aria-label="Search" />
-                
+
                 </div><img className="img-pesq3" id="img-pesquisa3" width='28' height='29' src={Search2} alt='pesquisa' />
 
                 {/* menu mobile*/}
@@ -147,6 +165,12 @@ class NavBarMobile extends Component {
                             <li className="item" id="item"><Link to="/">Minha conta</Link></li>
                             <li className="item" id="item"><Link to="/faq">FAQ</Link></li>
                         </ul>
+                    </div>
+                </div>
+
+                <div className="divmodalcarrinho" id="divmodalcarrinho">
+                    <div className="modalcarrinho" id="modalcarrinho">
+                        <Carrinho noCarrinho={this.props.noCarrinho} dados={this.props.dados} atualizarQtdCarrinho={this.props.atualizarQtdCarrinho} removerCarrinho={this.props.removerCarrinho} botaoCarrinho={this.props.botaoCarrinho}/>
                     </div>
                 </div>
             </div>
