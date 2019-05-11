@@ -170,7 +170,7 @@ class NavBarMobile extends Component {
 
                 <div className="divmodalcarrinho" id="divmodalcarrinho">
                     <div className="modalcarrinho" id="modalcarrinho">
-                        <Carrinho noCarrinho={this.props.noCarrinho} dados={this.props.dados} atualizarQtdCarrinho={this.props.atualizarQtdCarrinho} removerCarrinho={this.props.removerCarrinho} botaoCarrinho={this.props.botaoCarrinho}/>
+                        <Carrinho dados={this.props.dados} atualizarQtdCarrinho={this.props.atualizarQtdCarrinho} removerCarrinho={this.props.removerCarrinho} botaoCarrinho={this.props.botaoCarrinho} naNavbar/>
                     </div>
                 </div>
             </div>

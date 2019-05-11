@@ -31,7 +31,7 @@ class Carrinho extends Component {
                 </div>
             );
         } else {
-            retorno = <ListaProduto noCarrinho={this.props.noCarrinho} list={this.props.dados} atualizarQtdCarrinho={this.props.atualizarQtdCarrinho} removerCarrinho={this.props.removerCarrinho} naNavbar={this.props.naNavbar}/>
+            retorno = <ListaProduto noCarrinho list={this.props.dados} atualizarQtdCarrinho={this.props.atualizarQtdCarrinho} removerCarrinho={this.props.removerCarrinho} naNavbar={this.props.naNavbar}/>
 
             retorno.props.list.forEach(element => {
                 subtotal = subtotal + element.preco * element.qtd;
