@@ -5,24 +5,15 @@ import Lixeira from "../Images/lixeira.svg"
 import { Link } from "react-router-dom";
 
 class Produto extends Component {
-    constructor() {
-        super();
-        this.state = {
-
-            cor: ""
-        }
-
-        this.CliqueVerDetalhes = this.CliqueVerDetalhes.bind(this);
-        this.AparecerBotaoDetalhes = this.AparecerBotaoDetalhes.bind(this);
-        this.DesaparecerBotaoDetalhes = this.DesaparecerBotaoDetalhes.bind(this);
-
+    state = {
+        cor: ""
     }
 
-    CliqueVerDetalhes = () => { /* função para abrir o modal dos produtos*/
-        const modal = document.getElementById(this.props.dados.id);
+    CliqueVerDetalhes = (ProdutoId) => { /* função para abrir o modal dos produtos*/
+        const modal = document.getElementById(ProdutoId);
         modal.classList.add('mostrar');
         modal.addEventListener('click', (e) => {
-            if (e.target.id === this.props.dados.id || e.target.className === 'fechar') {
+            if (e.target.id === ProdutoId || e.target.className === 'fechar') {
                 modal.classList.remove('mostrar');
             }
         })
@@ -34,13 +25,13 @@ class Produto extends Component {
     }
 
     /* funções para aparecer e desaparecer o botão Ver Detalhes quando o mouse estiver em cima do produto */
-    AparecerBotaoDetalhes = () => {
-        const botao = document.getElementById(this.props.dados.img);
+    AparecerBotaoDetalhes = (BotaoId) => {
+        const botao = document.getElementById(BotaoId);
         botao.classList.add('mostrarBotao');
     }
 
-    DesaparecerBotaoDetalhes = () => {
-        const botao = document.getElementById(this.props.dados.img);
+    DesaparecerBotaoDetalhes = (BotaoId) => {
+        const botao = document.getElementById(BotaoId);
         botao.classList.remove('mostrarBotao');
     }
 
@@ -88,23 +79,40 @@ class Produto extends Component {
 
 
     render() {
+
+        //Ids dinâmicos dependentes do local do produto para evitar conflito de modal
+        let ProdutoId;
+        let BotaoId;
+
+        if(this.props.naNavbar){
+            ProdutoId = this.props.dados.id + "naNavbar";
+        } else if (this.props.noCarrinho){
+            ProdutoId = this.props.dados.id + "noCarrinho";
+        } else {
+            ProdutoId = this.props.dados.id;
+        }
+
+        BotaoId = ProdutoId + "Bta";
+        
         return (
             <div >
                 {/* Produto: imagem, marca, titulo, preço e botao de ver detalhes*/}
-                <div className="produto" onMouseOver={this.AparecerBotaoDetalhes} onMouseOut={this.DesaparecerBotaoDetalhes} >
+                <div className="produto" onMouseOver={() => this.AparecerBotaoDetalhes(BotaoId)} onMouseOut={() => this.DesaparecerBotaoDetalhes(BotaoId)} >
                     <div>
-                        <img src={this.props.dados.img} alt="img" className="imagemProduto" onClick={this.CliqueVerDetalhes} />
+                        <img src={this.props.dados.img} alt="img" className="imagemProduto" onClick={() => this.CliqueVerDetalhes(ProdutoId)} />
                         <div className="divbotaoVerDetalhes">
-                            <button onClick={this.CliqueVerDetalhes} className="botaoVerDetalhes" id={this.props.dados.img}>Ver detalhes</button>
+                            <button onClick={() => this.CliqueVerDetalhes} className="botaoVerDetalhes" id={BotaoId}>Ver detalhes</button>
 
                         </div>
                     </div>
-                    <div className="descricaoProduto" onClick={this.CliqueVerDetalhes}>
+                    <div className="descricaoProduto" onClick={() => this.CliqueVerDetalhes}>
                         <p className="marcadescricaoProduto">{this.props.dados.marca}</p>
                         <p className="titulodescricaoProduto">{this.props.dados.titulo}</p>
                         <p className="precodescricaoProduto">R${this.props.dados.preco}</p>
                     </div>
                     {
+
+                        //Botões de edição que aparecem somente no produto do carrinho
                         this.props.noCarrinho ?
                             <div>
                                 <button onClick={() => this.attQtd(-1)} className="botoesQuantidade menos"><img src={Menos} width='15' height='15' alt='menos'></img></button>
@@ -117,7 +125,7 @@ class Produto extends Component {
 
                 </div>
                 {/* Modal com as informações mais detalhadas do produto incluindo a opção de add ao carrinho */}
-                <div id={this.props.dados.id} className="modal-container">
+                <div id={ProdutoId} className="modal-container">
                     <div className="modal">
                         <div>
                             <img src={this.props.dados.img} alt="img" className="imagemProdutoModal" />

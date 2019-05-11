@@ -248,7 +248,7 @@ class NavBar extends Component {
 
 
                     <div className="modalcarrinhonav" id="modalcarrinhonav" >
-                        <Carrinho noCarrinho={this.props.noCarrinho} dados={this.props.dados} atualizarQtdCarrinho={this.props.atualizarQtdCarrinho} removerCarrinho={this.props.removerCarrinho} botaoCarrinho={this.props.botaoCarrinho} />
+                        <Carrinho noCarrinho={this.props.noCarrinho} dados={this.props.dados} atualizarQtdCarrinho={this.props.atualizarQtdCarrinho} removerCarrinho={this.props.removerCarrinho} botaoCarrinho={this.props.botaoCarrinho} naNavbar/>
                     </div>
                 </div>
 

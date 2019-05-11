@@ -73,16 +73,27 @@ class Roteador extends Component {
 					<NavBarMobile qtdCarrinho={this.state.qtdCarrinho} noCarrinho dados={this.state.dadosCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} removerCarrinho={this.removerCarrinho} botaoCarrinho={true}/>
 					<Switch>
 						<Route exact path="/home" render={() => <Home dados={Dados} addCarrinho={this.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} removerCarrinho={this.removerCarrinho}/>}/>
+
 						<Route exact path="/cadastro" component={Cadastro}/>
-						<Route exact path="/login" component={Login}/>      			
+
+						<Route exact path="/login" component={Login}/>
+
 						<Route exact path="/lojavirtual" render={() => <LojaVirtual dados={Dados} addCarrinho={this.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} removerCarrinho={this.removerCarrinho}/>}/>
+
 						<Route exact path="/marcas" component={Marcas}/>
+
 						<Route exact path="/faq" component={Faq}/>
+
 						<Route exact path="/blog" component={Blog}/>
+
 						<Route path="/produto" component={() => <Busca dados={Dados} pesquisa={this.state.pesquisa} addCarrinho={this.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} removerCarrinho={this.removerCarrinho}/>}/>
-						<Route exact path="/carrinho" render={() => <Carrinho noCarrinho dados={this.state.dadosCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} removerCarrinho={this.removerCarrinho} botaoCarrinho={false}/>}/>
+
+						<Route exact path="/carrinho" render={() => <Carrinho noCarrinho={true} dados={this.state.dadosCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} removerCarrinho={this.removerCarrinho} botaoCarrinho={false} naNavbar={false}/>}/>
+
 						<Route exact path="/admin7tons" component={Admin}/>
+
 						<Route exact path="/"  render={() => <Home dados={Dados} addCarrinho={this.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} removerCarrinho={this.removerCarrinho} />}/>
+						
 						<Route component={NotFound}/>    			
 					</Switch>
 					<BotaoTop/>

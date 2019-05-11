@@ -31,7 +31,7 @@ class Carrinho extends Component {
                 </div>
             );
         } else {
-            retorno = <ListaProduto noCarrinho={this.props.noCarrinho} list={this.props.dados} atualizarQtdCarrinho={this.props.atualizarQtdCarrinho} removerCarrinho={this.props.removerCarrinho} />
+            retorno = <ListaProduto noCarrinho={this.props.noCarrinho} list={this.props.dados} atualizarQtdCarrinho={this.props.atualizarQtdCarrinho} removerCarrinho={this.props.removerCarrinho} naNavbar={this.props.naNavbar}/>
 
             retorno.props.list.forEach(element => {
                 subtotal = subtotal + element.preco * element.qtd;
@@ -42,13 +42,13 @@ class Carrinho extends Component {
 
 
         return (
-            <div>
+            <div className="container">
                 {
                     retorno
                 }
                 {
                     subtotal !== 0 ?
-                        <p className="container subtotalQuantidade"><b>SubTotal: R${
+                        <p className="subtotalQuantidade"><b>SubTotal: R${
                             parseFloat((subtotal).toFixed(2))
                         }</b>
                             <div className="nav botoesCarrinho">
