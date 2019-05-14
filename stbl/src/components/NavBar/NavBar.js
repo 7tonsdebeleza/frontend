@@ -39,9 +39,18 @@ class NavBar extends Component {
 
     }
 
-    
+    componentDidMount() {
+        //Chamar pesquisa após 'enter'
+        let input = document.getElementById("pesquisaInput");
 
-    render() {
+        input.addEventListener("keyup", (event) => {
+            // codigo 13 para enter
+            if (event.keyCode === 13) {
+              // Clicando no icone de lupa de pesquisa
+              this.props.pesquisar(this.state.pesquisa);
+            }
+        });
+
         //função para esconder a navbar principal e aparecer a secundaria
         window.addEventListener("scroll", () => {
             let navbarPrinc = document.getElementById("navbarPrincipal");
@@ -58,8 +67,10 @@ class NavBar extends Component {
                 navbarSecun.classList.remove("aparece");
             }
         });
+    }
+    
 
-
+    render() {
         return (
             <div className="mobile-hide discreet-arimo" style={{ backgroundColor: '#f7f7f8' }}>
                 {/*Parte inicial da navbar: logo, barra de pesquisa, numero de contato*/}
@@ -84,10 +95,10 @@ class NavBar extends Component {
                                             </div>
                                             <div className='nav-item'>
                                                 <div className='nav-link'>
-                                                    <input className="buscar" type="search" placeholder="Buscar" aria-label="Search" onChange={this.pesquisa} />
-                                                    <Link to={"/produto/" + this.state.pesquisa}>
-                                                        <img onClick={() => { this.props.pesquisar(this.state.pesquisa) }} className="img-pesq" id="img-pesquisa" width='28' height='28' src={Search2} alt='pesquisa' style={{ marginTop: '-2px' }} />
-                                                    </Link>
+                                                    <input className="buscar" id="pesquisaInput" type="search" placeholder="Buscar" aria-label="Search" onChange={this.pesquisa} value={this.state.pesquisa}/>
+
+                                                    <img onClick={() => { this.props.pesquisar(this.state.pesquisa) }} className="img-pesq" id="img-pesquisa" width='28' height='28' src={Search2} alt='pesquisa' style={{ marginTop: '-2px' }} />
+
                                                 </div>
                                             </div>
                                         </nav>
@@ -219,8 +230,15 @@ class NavBar extends Component {
                             <ul className="nav">
                                 <li><div className="imgpesquisa nav-link"><img className="imgpesq" id="imgpesquisa" onClick={this.PesquisaNavEsc.bind(this)} width='20' height='20' src={Search} alt='pesquisa' /></div></li>
 
-                                <li><div id="search" className="pesquisa nav-link"><input className="buscar" style={{ marginTop: '-5%', marginBottom: '-5%' }} id="pesq" type="search" placeholder="Buscar" aria-label="Search" /></div></li>
-                                <div><img className="img-pesq2" id="img-pesquisa2" width='28' height='29' src={Search2} alt='pesquisa' /></div>
+                                <li>
+                                    <div id="search" className="pesquisa nav-link">
+                                        <input className="buscar" style={{ marginTop: '-5%', marginBottom: '-5%' }} id="pesq" type="search" placeholder="Buscar" aria-label="Search" onChange={this.pesquisa} value={this.state.pesquisa}/>
+                                    </div>
+                                </li>
+                                
+                                <div>
+                                    <img onClick={() => { this.props.pesquisar(this.state.pesquisa) }} className="img-pesq2" id="img-pesquisa2" width='28' height='29' src={Search2} alt='pesquisa' />
+                                </div>
                                 <li className="licarrinhonav" onMouseOver={() => this.aparecerCarrinho()} >
                                     <div className="imgcarrinho nav-link">
                                         <img className="imgcarrinho" id="imgcarrinho" width='20' height='20' src={Carrinhoimg} alt='carrinho' />

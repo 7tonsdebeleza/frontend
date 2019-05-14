@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {BrowserRouter, Route,Switch} from "react-router-dom";
+import {BrowserRouter, Route, Switch, Redirect} from "react-router-dom";
 import NavBar from "../NavBar/NavBar";
 import NavBarMobile from "../NavBar/NavBarMobile";
 import Home from "../Home/Home";
@@ -24,6 +24,7 @@ class Roteador extends Component {
 		dadosCarrinho: [],
 		qtdCarrinho: 0,
 		pesquisa: "",
+		pesquisaChamada: false
 	}
 
 	//Esta função será passada aos componetes filhos onde houver componete produto
@@ -60,15 +61,30 @@ class Roteador extends Component {
 	}
 
 	pesquisar = (string) =>{
+		//State recebe string de pesquisa e pesquisa é setada verdadeira
+
 		this.setState({
-		  pesquisa: string 
-		})	
+		  pesquisa: string,
+		  pesquisaChamada: true, 
+		});
 	}
 
 	render() {
+
 		return (
 			<BrowserRouter>
 				<div>
+					{
+						this.state.pesquisaChamada ? 
+							<Redirect to={'/produto/'+this.state.pesquisa}/>: (null)
+						//Se houver pesquisa, página será redirecionada, depois disso, state é resetada
+					}
+
+					{
+						this.state.pesquisaChamada ? 
+						this.setState({pesquisaChamada: false}) : null
+					}
+
 					<NavBar pesquisar={this.pesquisar} qtdCarrinho={this.state.qtdCarrinho} dados={this.state.dadosCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} removerCarrinho={this.removerCarrinho} botaoCarrinho={true}/>
 
 					<NavBarMobile qtdCarrinho={this.state.qtdCarrinho} dados={this.state.dadosCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} removerCarrinho={this.removerCarrinho} botaoCarrinho={true}/>
@@ -98,6 +114,7 @@ class Roteador extends Component {
 
 						<Route component={NotFound}/>    			
 					</Switch>
+
 					<BotaoTop/>
 					<Footer/>
 				</div>
