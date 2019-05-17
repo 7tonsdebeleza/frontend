@@ -76,7 +76,7 @@ class Roteador extends Component {
 				<div>
 					{
 						this.state.pesquisaChamada ? 
-							<Redirect to={'/produto/'+this.state.pesquisa}/>: (null)
+							<Redirect to={'/buscar/busca='+this.state.pesquisa}/>: (null)
 						//Se houver pesquisa, página será redirecionada, depois disso, state é resetada
 					}
 
@@ -104,7 +104,7 @@ class Roteador extends Component {
 
 						<Route exact path="/blog" component={Blog}/>
 
-						<Route path="/produto" component={() => <Busca dados={Dados} pesquisa={this.state.pesquisa} addCarrinho={this.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} removerCarrinho={this.removerCarrinho}/>}/>
+						<Route path="/buscar" component={() => this.state.pesquisa === "" ? <Redirect to='/home'/>:<Busca dados={Dados} pesquisa={this.state.pesquisa} addCarrinho={this.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} removerCarrinho={this.removerCarrinho}/>}/>
 
 						<Route exact path="/carrinho" render={() => <Carrinho dados={this.state.dadosCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} removerCarrinho={this.removerCarrinho} botaoCarrinho={false} naNavbar={false}/>}/>
 

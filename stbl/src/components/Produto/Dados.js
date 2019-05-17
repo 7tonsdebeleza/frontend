@@ -1,4 +1,3 @@
-import React from 'react';
 //Lista provisória com todos exemplos de dados para produtos;
 
 const Dados = [

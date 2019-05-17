@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ListaProduto from './ListaProduto';
+import Buscador from './Buscador';
 
 class Busca extends Component {
     state = {
@@ -8,13 +9,7 @@ class Busca extends Component {
     }
 
     componentDidMount(){
-        let novaLista = [];
-        this.props.dados.map((produto) => {
-            if(produto.titulo.toLowerCase().search(this.state.pesquisa) != -1 || produto.marca.toLowerCase().search(this.state.pesquisa) != -1 || produto.descricao.toLowerCase().search(this.state.pesquisa) != -1 || produto.tipoProduto.toLowerCase().search(this.state.pesquisa) != -1){
-                novaLista.push(produto);
-            }
-        });
-
+        let novaLista = Buscador(this.state.pesquisa, this.state.dados);
         this.setState({dados: novaLista});
     }
 
