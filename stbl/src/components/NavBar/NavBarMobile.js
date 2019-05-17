@@ -10,6 +10,10 @@ import { Link } from "react-router-dom";
 
 class NavBarMobile extends Component {
 
+    state = {
+        pesquisa: '',
+    }
+
     ClickMenuMobile = () => {
         const modal = document.getElementById("menumobile");
         modal.classList.add('mostrar');
@@ -61,13 +65,29 @@ class NavBarMobile extends Component {
 
     }
 
+    pesquisa = (e) => {
+        this.setState({
+            pesquisa: e.target.value
+        })
+    }
 
 
-    render() {
+    componentDidMount() {
+        //Chamar pesquisa após 'enter'
+        let input = document.getElementById("pesqMobile");
+
+        input.addEventListener("keyup", (event) => {
+            // codigo 13 para enter
+            if (event.keyCode === 13) {
+              // Clicando no icone de lupa de pesquisa
+              this.props.pesquisar(this.state.pesquisa);
+            }
+        });
+
+        //Navbar fixada com scroll
         window.addEventListener("scroll", () => {
             let navbarPrinc = document.getElementById("mobile-show");
             let posicaoy = window.pageYOffset;
-            //console.log(posicaoy)
             if (posicaoy > 0) {
                 navbarPrinc.classList.add("mobile-show-fixed");
             }
@@ -75,7 +95,10 @@ class NavBarMobile extends Component {
                 navbarPrinc.classList.remove("mobile-show-fixed");
             }
         });
+    }
 
+    render() {
+        
         return (
             <div className="mobile-show" id="mobile-show">
 
@@ -104,7 +127,9 @@ class NavBarMobile extends Component {
                                     <div className="imgpesquisa imguser nav-link1"><img onClick={this.ClickLoginMobile.bind(this)} className="imguser" id="imguser" width='20' height='20' src={Login} alt='userlogin' /></div>
                                 </li>
                                 <li>
-                                    <div className="imgpesquisa nav-link1"><img onClick={this.PesquisaNavEsc.bind(this)} className="imgpesq" id="imgpesquisa" width='20' height='20' src={Search} alt='pesquisa' /></div>
+                                    <div className="imgpesquisa nav-link1">
+                                        <img onClick={this.PesquisaNavEsc.bind(this)} className="imgpesq" id="imgpesquisa" width='20' height='20' src={Search} alt='pesquisa' />
+                                    </div>
                                 </li>
 
                                 <li>
@@ -133,9 +158,12 @@ class NavBarMobile extends Component {
                     </div>
 
                 </nav>
-                <div id="searchh" className="pesquisa nav-link"><input className="buscar" style={{ width: '100%' }} id="pesq" type="search" placeholder="Buscar" aria-label="Search" />
 
-                </div><img className="img-pesq3" id="img-pesquisa3" width='28' height='29' src={Search2} alt='pesquisa' />
+                <div id="searchh" className="pesquisa nav-link">
+                    <input className="buscar" style={{ width: '100%' }} id="pesqMobile" type="search" placeholder="Buscar" aria-label="Search" onChange={this.pesquisa} value={this.state.pesquisa}/>
+                </div>
+
+                <img onClick={() => { this.props.pesquisar(this.state.pesquisa) }} className="img-pesq3" id="img-pesquisa3" width='28' height='29' src={Search2} alt='pesquisa' />
 
                 {/* menu mobile*/}
 

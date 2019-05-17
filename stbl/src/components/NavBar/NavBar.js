@@ -41,9 +41,19 @@ class NavBar extends Component {
 
     componentDidMount() {
         //Chamar pesquisa após 'enter'
-        let input = document.getElementById("pesquisaInput");
+        let inputNavbar = document.getElementById("pesquisaInput");
+        let inputNavbarHide = document.getElementById("pesqHideNavbar");
 
-        input.addEventListener("keyup", (event) => {
+        inputNavbar.addEventListener("keyup", (event) => {
+            // codigo 13 para enter
+            if (event.keyCode === 13) {
+              // Clicando no icone de lupa de pesquisa
+              this.props.pesquisar(this.state.pesquisa);
+            }
+        });
+
+
+        inputNavbarHide.addEventListener("keyup", (event) => {
             // codigo 13 para enter
             if (event.keyCode === 13) {
               // Clicando no icone de lupa de pesquisa
@@ -232,7 +242,7 @@ class NavBar extends Component {
 
                                 <li>
                                     <div id="search" className="pesquisa nav-link">
-                                        <input className="buscar" style={{ marginTop: '-5%', marginBottom: '-5%' }} id="pesq" type="search" placeholder="Buscar" aria-label="Search" onChange={this.pesquisa} value={this.state.pesquisa}/>
+                                        <input className="buscar" style={{ marginTop: '-5%', marginBottom: '-5%' }} id="pesqHideNavbar" type="search" placeholder="Buscar" aria-label="Search" onChange={this.pesquisa} value={this.state.pesquisa}/>
                                     </div>
                                 </li>
                                 

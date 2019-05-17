@@ -15,10 +15,17 @@ class Busca extends Component {
 
     render(){
         return(
-            <div>
-                <p>Exibindo resultados para a pesquisa '{this.state.pesquisa}'</p>
+            <div className="container">
+                <div style={{
+                    marginTop: '20px'
+                }}>
+                    <div className="page-header">
+                        <h1><span>EXIBINDO RESULTADOS PARA '{this.state.pesquisa}'</span></h1>
+                    </div>
+                </div>
+                
                 {
-                    (this.state.dados.length > 0) ? <ListaProduto list={this.state.dados} addCarrinho={this.props.addCarrinho}/> : <p>Nenhum resultado encontrado!</p>
+                    (this.state.dados.length > 0) ? <ListaProduto list={this.state.dados} addCarrinho={this.props.addCarrinho}/> : <p className="bread">NENHUM RESULTADO ECONTRADO...</p>
                 }
                 
             </div>
