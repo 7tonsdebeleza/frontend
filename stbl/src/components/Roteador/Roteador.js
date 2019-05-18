@@ -73,7 +73,13 @@ class Roteador extends Component {
 
 		return (
 			<BrowserRouter>
-				<div>
+			<div>
+				<div style={{
+					display:'flex',
+					flex: 1,
+					minHeight: '100vh',
+					flexDirection: 'column',
+				}}>
 					{
 						this.state.pesquisaChamada ? 
 							<Redirect to={'/buscar/busca='+this.state.pesquisa}/>: (null)
@@ -116,7 +122,9 @@ class Roteador extends Component {
 					</Switch>
 
 					<BotaoTop/>
-					<Footer/>
+					
+				</div>
+				<Footer/>
 				</div>
 			</BrowserRouter>
 		);

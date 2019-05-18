@@ -673,6 +673,13 @@ body{
 
 
 /*---------------------------------FOOTER------------------*/
+.footer{
+    flex-shrink: 0;
+    bottom: 0;
+    width: 100%;
+}
+
+
 .footertitles{
     font-size: 12px;
     text-transform: uppercase;

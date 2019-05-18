@@ -33,7 +33,7 @@ class Footer extends Component {
     render() {
 
         return (
-            <div className="footer bg-dark ">
+            <footer className="footer bg-dark ">
                 <div className="footer-top nav container d-flex">
                     <div className="item-footer">
                         <ul className="nav-item">
@@ -88,7 +88,7 @@ class Footer extends Component {
 
 
                 </div>
-            </div>
+            </footer>
         )
     }
 }
