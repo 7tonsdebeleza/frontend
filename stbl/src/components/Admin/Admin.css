@@ -35,3 +35,50 @@
     color: #ffffff;
     text-decoration:none; 
 }
+
+.admin-form{
+    text-align: center;
+}
+
+.admin-form input{
+    border: 1px solid #b4b4b4;
+    width: 100%;
+    min-height: 40px;
+    padding: 8px;
+}
+
+.admin-form textarea{
+    border: 1px solid #b4b4b4;
+    width: 100%;
+    min-height: 80px;
+    padding: 8px;
+}
+
+.admin-form-item{
+    padding: 10px;
+    min-width: 40%;
+    display: inline-block;
+}
+
+.admin-form button{background-color: #ffffff;
+    color: #000000;
+    border: 3px solid #000000;
+    padding: 5% 10px;
+    min-height: 20px;
+    min-width: 40%;
+    display: inline-block;
+    text-transform: uppercase;
+    font-size: 12px!important;
+    outline: none;
+    transition: .3s all;
+    letter-spacing: 0.2em;
+    font-family: Montserrat;
+    margin: 2% 2%;
+    text-align: center;     
+}
+
+.admin-form button:hover{
+    background-color: #222222;
+    color: #ffffff;
+    text-decoration:none; 
+}

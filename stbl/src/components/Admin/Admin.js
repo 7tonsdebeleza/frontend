@@ -5,6 +5,7 @@ import Plus from '../Images/plus.svg';
 import SettingIcon from '../Images/settings.svg';
 import Pencil from '../Images/pencil.svg';
 import ListarConsultas from './ListarConsultas';
+import FormNovoProduto from './FormNovoProduto';
 import './Admin.css'; 
 
 class Admin extends Component{
@@ -52,9 +53,15 @@ class Admin extends Component{
                             <ListarConsultas compras={this.props.consultas}/>
                         </div>
 
-                        <div className='admin-item'>
+                        <div className='admin-item' onClick={() => {this.expandirDiv('divNovoProduto')}}>
                             <img src={Plus} width='40' height='40' alt='seach icon'/>
                             <span>ADICIONAR NOVO PRODUTO</span>
+                        </div>
+
+                        <div style={{
+                            display: this.state.divNovoProduto ? 'block' : 'none'
+                        }}>
+                            <FormNovoProduto/>
                         </div>
 
                         <div className='admin-item'>
