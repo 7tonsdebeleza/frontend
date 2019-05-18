@@ -1,63 +1,30 @@
 import React, {Component} from 'react';
 import { Link } from "react-router-dom";
+import Search from '../Images/iconsearch2.png';
+import Plus from '../Images/plus.svg';
+import SettingIcon from '../Images/settings.svg';
+import Pencil from '../Images/pencil.svg';
+import ListarConsultas from './ListarConsultas';
+import './Admin.css'; 
 
 class Admin extends Component{
     state = {
-        formNewPro: false
+        divConsultas: false,
+        divNovoProduto: false,
+        divEditarProduto: false,
+        divBlog: false,
     }
 
-    expandirPro = () =>{
+    //State determina se divs com forms ficaram visíveis
+    //Função mudar estados das divs de forms:
+
+    expandirDiv = (target) =>{
         this.setState({
-            formNewPro: this.state.formNewPro ? false : true
+            [target]: this.state[target] ? false : true
         })
     }
 
     render(){
-        let formNewPro;
-        //Guardará formulário de produtos, permitindo exibir e ocultar.
-
-        if(this.state.formNewPro){
-            formNewPro = (<form>
-
-                <label>Título:</label><em>*&nbsp;&nbsp;</em>
-                <div >
-                    <input className="inputt" type="text" aria-describedby="emailHelp" name="email"></input>
-                </div>
-
-                <label>Tipo:</label><em>*&nbsp;&nbsp;</em>
-                <div>
-                    <input className="inputt" type="text" name="senha"></input>
-                </div>
-
-                <label>Marca:</label><em>*&nbsp;&nbsp;</em>
-                <div>
-                    <input className="inputt" type="text" name="senha"></input>
-                </div>
-
-                <label>Descrição:</label><em>*&nbsp;&nbsp;</em>
-                <div>
-                    <input className="inputt" type="text" name="senha"></input>
-                </div>
-
-                <label>Estoque:</label><em>*&nbsp;&nbsp;</em>
-                <div>
-                    <input className="inputt" type="number" name="senha"></input>
-                </div>
-
-                <label>Imagem:</label><em>*&nbsp;&nbsp;</em>
-                <div>
-                    <input className="inputt" type="file" name="senha"></input>
-                </div>
-
-                <p className="btn-secundaryy">
-                    <button>Enviar</button>
-                    <em className="obrigatorio">(* obrigatório)</em>
-                </p>
-
-            </form>);
-        } else {
-            formNewPro = (null)
-        }
 
         return(
             <div className="login container">
@@ -71,32 +38,42 @@ class Admin extends Component{
                             <h1 className>Área Administrativa</h1>
                         </header>
                         <p className="title">Área exclusiva para administração da loja virtual 7 Tons de Beleza.</p>
-
-                        <div className="btn-secundaryy">
-                            <button onClick={() => {this.expandirPro()}}>Adicionar novo produto</button>
-                            <p style={{marginTop:'-2%'}}>Adicionar informações para um novo produto</p>
-                        </div>
-
-                        {
-                            formNewPro
-                            /*Exibe um formulário para coleta de dados do novo produto assim que botão for assionado*/
-                        }
-
-                        <div className="btn-secundaryy">
-                            <button>Atualizar produtos</button>
-                            <p style={{marginTop:'-2%'}}>Remover, atualizar estoque e outras informações</p>
-
-                            {/*Buscar lista de produtos no banco de dados, criar componte de produto editável*/}
-                        </div>
-
-                        <div className="btn-secundaryy">
-                            <button>Consultar históricos</button>
-                            <p style={{marginTop:'-2%'}}>Registros de compras e demais atividades</p>
-
-                            {/*Buscar registros no banco de dados e exibir lista*/}
-                        </div>
-
                     </div>
+
+                    <div className='itens-container'>
+                        <div className='admin-item' onClick={() => {this.expandirDiv('divConsultas')}}>
+                            <img src={Search} width='40' height='40' alt='seach icon'/>
+                            <span>CONSULTAR COMPRAS</span>
+                        </div>
+
+                        <div style={{
+                            display: this.state.divConsultas ? 'block' : 'none'
+                        }}>
+                            <ListarConsultas compras={this.props.consultas}/>
+                        </div>
+
+                        <div className='admin-item'>
+                            <img src={Plus} width='40' height='40' alt='seach icon'/>
+                            <span>ADICIONAR NOVO PRODUTO</span>
+                        </div>
+
+                        <div className='admin-item'>
+                            <img src={SettingIcon} width='40' height='40' alt='seach icon'/>
+                            <span>EDITAR PRODUTOS</span>
+                        </div>
+
+                        <div className='admin-item'>
+                            <img src={Pencil} width='40' height='40' alt='seach icon'/>
+                            <span>BLOG</span>
+                        </div>
+
+                        <div style={{
+                            display: this.state.divConsultas ? 'block' : 'none'
+                        }}>
+                        </div>                    
+                    </div>
+                        
+                    
                 </div>
         )
     }

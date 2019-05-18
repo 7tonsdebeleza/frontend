@@ -1,6 +1,6 @@
 //Lista provisória com todos exemplos de dados para produtos;
 
-const Dados = [
+export const Dados = [
     {
         id: "id1",
         img: "https://qbbr.vteximg.com.br/arquivos/ids/160367-1000-1000/batom-liquido-mate-metalico-azuluz-aberto.jpg?v=636247775539130000",
@@ -118,4 +118,30 @@ const Dados = [
     }
 ]
 
-export default Dados;
+
+export const Compras = [
+    {
+        user: 'usuario1@exemplo.com',
+        produto: 'Base Alta Cobertura',
+        produtoId: 'id10',
+        qtd: 2,
+        data: '18-05-2019 13:05',
+        codigo: '#1'
+    },
+    {
+        user: 'usuario2@exemplo.com',
+        produto: 'Primer instamatte bastão',
+        produtoId: 'id9',
+        qtd: 3,
+        data: '17-05-2019 13:05',
+        codigo: '#2'
+    },
+    {
+        user: 'usuario3@exemplo.com',
+        produto: 'Primer instamatte bastão',
+        produtoId: 'id9',
+        qtd: 1,
+        data: '16-05-2019 18:01',
+        codigo: '#3'
+    },
+]

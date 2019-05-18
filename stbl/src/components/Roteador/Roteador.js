@@ -14,7 +14,7 @@ import BotaoTop from '../BotaoTop/BotaoTop';
 import Login from '../Login/Login';
 import Admin from '../Admin/Admin';
 import Carrinho from '../Carrinho/Carrinho';
-import Dados from '../Produto/Dados'; //Dados provisórios para listas de produtos
+import {Dados, Compras} from '../Produto/Dados'; //Dados provisórios para listas de produtos
 import Busca from '../Produto/Busca';
 
 class Roteador extends Component {
@@ -108,7 +108,7 @@ class Roteador extends Component {
 
 						<Route exact path="/carrinho" render={() => <Carrinho dados={this.state.dadosCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} removerCarrinho={this.removerCarrinho} botaoCarrinho={false} naNavbar={false}/>}/>
 
-						<Route exact path="/admin7tons" component={Admin}/>
+						<Route exact path="/admin7tons" render={() => <Admin produtos={Dados} consultas={Compras}/>}/>
 
 						<Route exact path="/"  render={() => <Home dados={Dados} addCarrinho={this.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} removerCarrinho={this.removerCarrinho} />}/>
 
