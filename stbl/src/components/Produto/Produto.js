@@ -101,11 +101,11 @@ class Produto extends Component {
                     <div>
                         <img src={this.props.dados.img} alt="img" className="imagemProduto" onClick={() => this.CliqueVerDetalhes(ProdutoId)} />
                         <div className="divbotaoVerDetalhes">
-                            <button onClick={() => this.CliqueVerDetalhes} className="botaoVerDetalhes" id={BotaoId}>Ver detalhes</button>
+                            <button onClick={() => this.CliqueVerDetalhes(ProdutoId)} className="botaoVerDetalhes" id={BotaoId}>Ver detalhes</button>
 
                         </div>
                     </div>
-                    <div className="descricaoProduto" onClick={() => this.CliqueVerDetalhes}>
+                    <div className="descricaoProduto" onClick={() => this.CliqueVerDetalhes(ProdutoId)}>
                         <p className="marcadescricaoProduto">{this.props.dados.marca}</p>
                         <p className="titulodescricaoProduto">{this.props.dados.titulo}</p>
                         <p className="precodescricaoProduto">R${this.props.dados.preco}</p>

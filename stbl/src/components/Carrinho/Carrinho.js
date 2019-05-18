@@ -38,11 +38,14 @@ class Carrinho extends Component {
             });
             //console.log(retorno.props.list);
 
-        }
+        } 
 
 
         return (
             <div className="container">
+                <div className="tituloCarrinho">
+                    <span>PRODUTOS NO CARRINHO:</span>
+                </div>
                 {
                     retorno
                 }
