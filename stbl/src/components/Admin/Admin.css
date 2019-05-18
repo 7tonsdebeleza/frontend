@@ -82,3 +82,9 @@
     color: #ffffff;
     text-decoration:none; 
 }
+
+.admin-pesquisa{
+    position: absolute;
+    right: 10%;
+    margin-top: 8px;
+}
