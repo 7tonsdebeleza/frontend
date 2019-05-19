@@ -7,6 +7,7 @@ import Pencil from '../Images/pencil.svg';
 import ListarConsultas from './ListarConsultas';
 import FormNovoProduto from './FormNovoProduto';
 import ListaProdutoEditavel from './ListaProdutoEditavel';
+import BlogEditor from './BlogEditor';
 import './Admin.css'; 
 
 class Admin extends Component{
@@ -76,14 +77,17 @@ class Admin extends Component{
                             <ListaProdutoEditavel list={this.props.produtos}/>
                         </div>
 
-                        <div className='admin-item'>
+                        <div className='admin-item' onClick={() => {this.expandirDiv('divBlog')}}>
                             <img src={Pencil} width='40' height='40' alt='seach icon'/>
                             <span>BLOG</span>
                         </div>
-
+                            
                         <div style={{
-                            display: this.state.divConsultas ? 'block' : 'none'
+                            display: this.state.divBlog ? 'block' : 'none'
                         }}>
+
+                            <BlogEditor public={this.props.publics}/>
+
                         </div>                    
                     </div>
                         

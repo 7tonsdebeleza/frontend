@@ -20,6 +20,14 @@
     text-align: center;     
 }
 
+.subtitle{
+    letter-spacing: 0.2em;
+    font-family: Montserrat;
+    margin: 2% 2%;
+    text-align: center; 
+    color: #000000;
+}
+
 @media only screen and (max-width: 800px) {
     .admin-item{
         min-width: 100%;
