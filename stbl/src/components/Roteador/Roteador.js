@@ -14,7 +14,7 @@ import BotaoTop from '../BotaoTop/BotaoTop';
 import Login from '../Login/Login';
 import Admin from '../Admin/Admin';
 import Carrinho from '../Carrinho/Carrinho';
-import {Dados, Compras} from '../Produto/Dados'; //Dados provisórios para listas de produtos
+import {Dados, Compras, Public} from '../Produto/Dados'; //Dados provisórios para listas de produtos
 import Busca from '../Produto/Busca';
 
 class Roteador extends Component {
@@ -108,7 +108,7 @@ class Roteador extends Component {
 
 						<Route exact path="/faq" component={Faq}/>
 
-						<Route exact path="/blog" component={Blog}/>
+						<Route exact path="/blog" render={() => <Blog publics={Public}/>}/>
 
 						<Route path="/buscar" component={() => this.state.pesquisa === "" ? <Redirect to='/home'/>:<Busca dados={Dados} pesquisa={this.state.pesquisa} addCarrinho={this.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} removerCarrinho={this.removerCarrinho}/>}/>
 

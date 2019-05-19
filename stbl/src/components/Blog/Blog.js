@@ -1,10 +1,75 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import { Link } from "react-router-dom";
-
-import "./styleBlog.css"
+import Publicacao from './Publicacao';
+import "./styleBlog.css";
 
 class Blog extends Component {
+
+  state = {
+    publicacaoAberta: false,
+    publicacaoAtual: {},
+  }
+
+  //Abrir e fechar publicações do blog:
+  abrirPublicacao = (dados) =>{
+    this.setState({
+      publicacaoAberta: true,
+      publicacaoAtual: dados,
+    })
+  }
+
+  fecharPublicacao = () =>{
+    this.setState({
+      publicacaoAberta: false,
+      publicacaoAtual: {},
+    })
+  }
+
   render() {
+
+    //Buscando três publicações mais recentes dos dados  de publcicações passados para barra lateral;
+    let recents = [];
+    let listaDePulicacoes;
+
+    for(let i = 0; i < 3; i++){
+      recents.push(
+        <li className="article" onClick={() => this.abrirPublicacao(this.props.publics[i])}>
+            <p>
+              <Link to="#" >
+                <span>{this.props.publics[i].titulo}</span>
+              </Link>
+            <em>{this.props.publics[i].data}</em>
+          </p>
+        </li>
+      )
+    }
+
+    listaDePulicacoes = this.props.publics.map((p) => {
+      return(
+        <li onClick={() => this.abrirPublicacao(p)}>
+          <h3 className="article-title">
+            <Link to="#">{p.titulo}</Link>
+          </h3>
+          <p className="blog_author">
+            <span className="article_date">
+              <time>{p.data}</time>
+            </span>
+          </p>
+          <div className="article-details">
+            <p className="article-img">
+              <Link to="#"><img className="article_image" src={p.capa}></img></Link>
+            </p>
+            <div className="rte article-excerpt">
+              <div className="desc">{p.preExibicao}</div>
+              <p className="button">
+                <Link to="#" className="btn-secondary" href="#">Ler mais</Link>
+              </p>
+            </div>
+          </div>
+        </li>
+      )
+    })
+    
     return (
       <div className="blog container">
         <div className="bread">
@@ -25,32 +90,12 @@ class Blog extends Component {
 
               <div className="widget-content">
                 <ul>
-                  <li className="article">
-                    <p>
-                      <a href="#">
-                        <span>Dinterdum pretium es loremous dorus condimentus</span>
-                      </a>
-                      <em>30 de Maio, 2019</em>
-                    </p>
-                  </li>
-
-                  <li className="article">
-                    <p>
-                      <a href="#">
-                        <span>Naminos elementum disumos an cosmo tincidunts loremous</span>
-                      </a>
-                      <em>31 de Maio, 2019</em>
-                    </p>
-                  </li>
-
-                  <li className="article">
-                    <p>
-                      <a href="#">
-                        <span>Naminos elementum disumos an cosmo tincidunts loremous</span>
-                      </a>
-                      <em>01 de Junho, 2019</em>
-                    </p>
-                  </li>
+                  {
+                    //Retornando lista de lis gerada antes do return
+                    recents.map((li) => {
+                      return li;
+                    })
+                  }
 
                 </ul>
               </div>
@@ -83,100 +128,16 @@ class Blog extends Component {
 
             <div className="content-blog">
               <ul className="list-blog blog-list">
-                <li>
-                  <h3 className="article-title">
-                    <a href="#">Dinterdum pretium es loremous dorus condimentus</a>
-                  </h3>
-                  <p className="blog_author">
-                    <span className="article_date">
-                      <time>30 de Maio, 2019</time>
-                    </span>
-                  </p>
-                  <div className="article-details">
-                    <p className="article-img">
-                      <a href="#"><img className="article_image" src="//cdn.shopify.com/s/files/1/1825/4753/articles/img-blog-02_1024x1024_9b214c6e-abeb-48f5-8b3c-6d6b07cf3520_1024x1024.jpg?v=1527677937"></img></a>
-                    </p>
-                    <div className="rte article-excerpt">
-                      <div className="desc">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis risus leo, elementum in malesuada an darius ut augue. Cras sit amet lectus et justo feugiat euismod sed non erat. Nulla non felis id metus bibendum iaculis quis sit amet eros. Nam suscipit mollis tellus vel malesuada. Duis dan molestie, sem...
-                      </div>
-                      <p className="button">
-                        <a className="btn-secondary" href="#">Read More</a>
-                      </p>
-                    </div>
-                  </div>
-                </li>
 
-                <li>
-                  <h3 className="article-title">
-                    <a href="#">Naminos elementum disumos an cosmo tincidunts loremous</a>
-                  </h3>
-                  <p className="blog_author">
-                    <span className="article_date">
-                      <time>31 de Maio, 2019</time>
-                    </span>
-                  </p>
-                  <div className="article-details">
-                    <p className="article-img">
-                      <a href="#"><img className="article_image" src="//cdn.shopify.com/s/files/1/1825/4753/articles/img-blog-01_1024x1024_6d8d098a-b141-4ba3-8164-a1cdac8a998b_1024x1024.jpg?v=1527677840"></img></a>
-                    </p>
-                    <div className="rte article-excerpt">
-                      <div className="desc">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis risus leo, elementum in malesuada an darius ut augue. Cras sit amet lectus et justo feugiat euismod sed non erat. Nulla non felis id metus bibendum iaculis quis sit amet eros. Nam suscipit mollis tellus vel malesuada. Duis dan molestie, sem...
-                      </div>
-                      <p className="button">
-                        <a className="btn-secondary" href="#">Read More</a>
-                      </p>
-                    </div>
-                  </div>
-                </li>
-
-                <li>
-                  <h3 className="article-title">
-                    <a href="#">Naminos elementum disumos an cosmo tincidunts loremous</a>
-                  </h3>
-                  <p className="blog_author">
-                    <span className="article_date">
-                      <time>31 de Maio, 2019</time>
-                    </span>
-                  </p>
-                  <div className="article-details">
-                    <p className="article-img">
-                      <a href="#"><img className="article_image" src="//cdn.shopify.com/s/files/1/1825/4753/articles/img-blog-03_1_1024x1024_ae1f4a54-cc95-4f5f-9bcd-f7f529d1466e_1024x1024.jpg?v=1527677695"></img></a>
-                    </p>
-                    <div className="rte article-excerpt">
-                      <div className="desc">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis risus leo, elementum in malesuada an darius ut augue. Cras sit amet lectus et justo feugiat euismod sed non erat. Nulla non felis id metus bibendum iaculis quis sit amet eros. Nam suscipit mollis tellus vel malesuada. Duis dan molestie, sem...
-                      </div>
-                      <p className="button">
-                        <a className="btn-secondary" href="#">Read More</a>
-                      </p>
-                    </div>
-                  </div>
-                </li>
-
-
+                {
+                  //Retornando dados do blog do props como elementos de lista ou única publicação aberta
+                  this.state.publicacaoAberta ? <Publicacao dados={this.state.publicacaoAtual} fecharPublicacao={this.fecharPublicacao}/> : listaDePulicacoes
+                }
               </ul>
-
               <ul className="pagination-page">
-
               </ul>
-
-
-
-
             </div>
-
-
-
-
-
           </div>
-
-
-
-
-
         </div>
       </div>
     )

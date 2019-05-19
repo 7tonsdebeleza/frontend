@@ -118,7 +118,7 @@ export const Dados = [
     }
 ]
 
-
+//Lista provisória dados para compras efetuadas
 export const Compras = [
     {
         user: 'usuario1@exemplo.com',
@@ -143,5 +143,31 @@ export const Compras = [
         qtd: 1,
         data: '16-05-2019 18:01',
         codigo: '#3'
+    },
+]
+
+//Lista provisória dados para publicações em blog
+export const Public = [
+    {
+        id: 'idblog1',
+        titulo: 'Dinterdum pretium es loremous dorus condimentus',
+        data: '30 de Maio, 2019',
+        capa: '//cdn.shopify.com/s/files/1/1825/4753/articles/img-blog-02_1024x1024_9b214c6e-abeb-48f5-8b3c-6d6b07cf3520_1024x1024.jpg?v=1527677937',
+        preExibicao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis risus leo, elementum in malesuada an darius ut augue. Cras sit amet lectus et justo feugiat euismod sed non erat. Nulla non felis id metus bibendum iaculis quis sit amet eros. Nam suscipit mollis tellus vel malesuada. Duis dan molestie, sem...',
+        texto: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis risus leo, elementum in malesuada an darius ut augue. Cras sit amet lectus et justo feugiat euismod sed non erat. Nulla non felis id metus bibendum iaculis quis sit amet eros. Nam suscipit mollis tellus vel malesuada. Duis dan molestie, sem in sollicitudin sodales, mi justo sagittis est, id consequat ipsum ligula a ante. Pellentesque sapien dui, miverra et commodo id ductus id est. Cras eu tempor eros donec ut porttitor lacus, nec ullamcorper massa maecenas eu nulla nisl. Destibulum ante ipsum primis in faucibus orci luctus et ultrices posuere.',
+    },{
+        id: 'idblog2',
+        titulo: 'Naminos elementum disumos an cosmo tincidunts loremous',
+        data: '30 de Maio, 2019',
+        capa: '//cdn.shopify.com/s/files/1/1825/4753/articles/img-blog-01_1024x1024_6d8d098a-b141-4ba3-8164-a1cdac8a998b_1024x1024.jpg?v=1527677840',
+        preExibicao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis risus leo, elementum in malesuada an darius ut augue. Cras sit amet lectus et justo feugiat euismod sed non erat. Nulla non felis id metus bibendum iaculis quis sit amet eros. Nam suscipit mollis tellus vel malesuada. Duis dan molestie, sem...',
+        texto: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis risus leo, elementum in malesuada an darius ut augue. Cras sit amet lectus et justo feugiat euismod sed non erat. Nulla non felis id metus bibendum iaculis quis sit amet eros. Nam suscipit mollis tellus vel malesuada. Duis dan molestie, sem in sollicitudin sodales, mi justo sagittis est, id consequat ipsum ligula a ante. Pellentesque sapien dui, miverra et commodo id ductus id est. Cras eu tempor eros donec ut porttitor lacus, nec ullamcorper massa maecenas eu nulla nisl. Destibulum ante ipsum primis in faucibus orci luctus et ultrices posuere.',
+    },{
+        id: 'idblog1',
+        titulo: 'Dinterdum pretium es loremous dorus condimentus',
+        data: '30 de Maio, 2019',
+        capa: '//cdn.shopify.com/s/files/1/1825/4753/articles/img-blog-03_1_1024x1024_ae1f4a54-cc95-4f5f-9bcd-f7f529d1466e_1024x1024.jpg?v=1527677695',
+        preExibicao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis risus leo, elementum in malesuada an darius ut augue. Cras sit amet lectus et justo feugiat euismod sed non erat. Nulla non felis id metus bibendum iaculis quis sit amet eros. Nam suscipit mollis tellus vel malesuada. Duis dan molestie, sem...',
+        texto: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis risus leo, elementum in malesuada an darius ut augue. Cras sit amet lectus et justo feugiat euismod sed non erat. Nulla non felis id metus bibendum iaculis quis sit amet eros. Nam suscipit mollis tellus vel malesuada. Duis dan molestie, sem in sollicitudin sodales, mi justo sagittis est, id consequat ipsum ligula a ante. Pellentesque sapien dui, miverra et commodo id ductus id est. Cras eu tempor eros donec ut porttitor lacus, nec ullamcorper massa maecenas eu nulla nisl. Destibulum ante ipsum primis in faucibus orci luctus et ultrices posuere.',
     },
 ]
