@@ -95,7 +95,7 @@ class Produto extends Component {
         BotaoId = ProdutoId + "Bta";
         
         return (
-            <div >
+            <div className='wow fadeIn'>
                 {/* Produto: imagem, marca, titulo, preço e botao de ver detalhes*/}
                 <div className="produto" onMouseOver={() => this.AparecerBotaoDetalhes(BotaoId)} onMouseOut={() => this.DesaparecerBotaoDetalhes(BotaoId)} >
                     <div>
@@ -133,7 +133,7 @@ class Produto extends Component {
                         <div className="descricaoProdutoModal">
                             <button className="fechar">X</button>
                             <h1><b>{this.props.dados.titulo}</b></h1>
-                            <p><b>Disponibilidade:</b> {this.props.dados.estoque ? <p style={{ display: 'inline' }}>Em estoque</p> : <p style={{ display: 'inline' }}>Faltando no estoque</p>}</p>
+                            <p><b>Disponibilidade:</b> {this.props.dados.estoque !== 0 ? <p style={{ display: 'inline' }}>Em estoque</p> : <p style={{ display: 'inline' }}>Faltando no estoque</p>}</p>
                             <p><b>Tipo de Produto:</b> {this.props.dados.tipoProduto}</p>
                             <p><b>Marca:</b> {this.props.dados.marca}</p>
                             <p>{this.props.dados.descricao}</p>
@@ -179,7 +179,7 @@ class Produto extends Component {
                             <h2><b>R$ {this.props.dados.preco}</b></h2>
 
 
-                            {this.props.dados.estoque ? this.props.dados.noCarrinho ?
+                            {this.props.dados.estoque !== 0 ? this.props.dados.noCarrinho ?
                                 <div>
                                     <button className="botaoAddCarrinhoDisabilitado"> PRODUTO ADICIONADO AO CARRINHO</button>
                                     <div className="nav botoesCarrinho">
@@ -193,10 +193,15 @@ class Produto extends Component {
                                 </div> :
                                 <button className="botaoAddCarrinho" onClick={() => this.addCarrinho()}> ADICIONAR AO CARRINHO</button> :
                                 <div>
-                                    <button className="botaoAddCarrinhoDisabilitado"> SEM ESTOQUE :(</button>
+                                    <button className="botaoAddCarrinhoDisabilitado"> SEM ESTOQUE </button>
                                         <div className="nav botoesCarrinho">
                                         <p className="nav-item button-pri botaomodal1">
-                                            <Link to="/lojavirtual" >Ver outros produtos</Link>
+                                            <Link to="/lojavirtual" onClick={ () => {
+                                                 if(window.location.pathname === '/lojavirtual'){
+                                                    //Aqui deve vir uma função que feche o modal
+                                                 }
+                                                } 
+                                            }>Ver outros produtos</Link>
                                         </p>
                                         <p className="nav-item button-pri botaomodal2">
                                             <Link to="/carrinho" >Ir para o carrinho</Link>

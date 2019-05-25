@@ -106,7 +106,7 @@ class ProdutoEditavel extends Component {
 
                             <p>
                                 <b>Quantidade em estoque:</b>
-                                <input className='admin-form' type='number'/>
+                                <input className='admin-form' type='number' value={this.state.estoque}/>
                             </p>
 
                             <p>
