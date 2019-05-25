@@ -21,6 +21,8 @@ function Buscador(busca, dados){
         if(flag){
             resultado.push(produto);
         }
+
+        return flag;
         
     });
 
@@ -31,10 +33,9 @@ export default Buscador;
 
 //Subfunção para checar se string está presente nos dados
 function checkExist(string, dado){
-    if(dado.titulo.toLowerCase().search(string) != -1 || dado.marca.toLowerCase().search(string) != -1 || dado.descricao.toLowerCase().search(string) != -1 || dado.tipoProduto.toLowerCase().search(string) != -1){
+    if(dado.titulo.toLowerCase().search(string) !== -1 || dado.marca.toLowerCase().search(string) !== -1 || dado.descricao.toLowerCase().search(string) !== -1 || dado.tipoProduto.toLowerCase().search(string) !== -1){
         return true;
     }
 
     return false;
 }
-

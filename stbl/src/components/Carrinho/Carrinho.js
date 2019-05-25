@@ -21,7 +21,7 @@ class Carrinho extends Component {
         let retorno;
         let subtotal = 0;
 
-        if (this.props.dados.length == 0) {
+        if (this.props.dados.length === 0) {
             retorno = (
                 <div className="container defaultCarrinho">
                     <div>
@@ -65,7 +65,7 @@ class Carrinho extends Component {
                                 }
 
                                 <p className="nav-item button-pri botao2">
-                                    <a href="#" onClick={() => { this.fecharCompra() }}>Fechar compra</a>
+                                    <Link to="#" onClick={() => { this.fecharCompra() }}>Fechar compra</Link>
                                 </p>
                                 {this.state.naoestalogado ?
                                     <div className="container" style={{ fontSize: '15px' }}>

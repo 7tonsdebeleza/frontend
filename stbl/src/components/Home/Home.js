@@ -200,7 +200,7 @@ class Home extends Component {
                     <SliderCenter lista={imagesInst} large={true}/>
 
                     <p className="button-pri">
-                       <a href="#">VISITAR GALERIA <span/></a>
+                       <Link to="#">VISITAR GALERIA <span/></Link>
                     </p>
                     
                 </div>
@@ -215,23 +215,23 @@ class Home extends Component {
 export default Home;
 
 const imagesInst = [
-    (<img src='https://scontent.cdninstagram.com/vp/a97004e7f2d8ac92327c64ea63170a77/5D492033/t51.2885-15/e35/s320x320/18444181_1886201831627903_2441734322760187904_n.jpg?_nc_ht=scontent.cdninstagram.com' alt='instagram image' style={{
+    (<img src='https://scontent.cdninstagram.com/vp/a97004e7f2d8ac92327c64ea63170a77/5D492033/t51.2885-15/e35/s320x320/18444181_1886201831627903_2441734322760187904_n.jpg?_nc_ht=scontent.cdninstagram.com' alt='instagram image1' style={{
         maxWidth: '100%',
         height: 'auto'
     }}/>),
-    (<img src='https://scontent.cdninstagram.com/vp/06b0958f0b704e38f56e2356ba9bcf7e/5D354A5A/t51.2885-15/e35/s320x320/18443569_226764737811492_1219328699799699456_n.jpg?_nc_ht=scontent.cdninstagram.com' alt='instagram image' style={{
+    (<img src='https://scontent.cdninstagram.com/vp/06b0958f0b704e38f56e2356ba9bcf7e/5D354A5A/t51.2885-15/e35/s320x320/18443569_226764737811492_1219328699799699456_n.jpg?_nc_ht=scontent.cdninstagram.com' alt='instagram image2' style={{
         maxWidth: '100%',
         height: 'auto'
     }}/>),
-    (<img src='https://scontent.cdninstagram.com/vp/5416f2b1d7cac0d7b0a6a28a9ff3b74a/5D4D6D63/t51.2885-15/e35/s320x320/18300169_253564125112912_73006081730674688_n.jpg?_nc_ht=scontent.cdninstagram.com' alt='instagram image' style={{
+    (<img src='https://scontent.cdninstagram.com/vp/5416f2b1d7cac0d7b0a6a28a9ff3b74a/5D4D6D63/t51.2885-15/e35/s320x320/18300169_253564125112912_73006081730674688_n.jpg?_nc_ht=scontent.cdninstagram.com' alt='instagram image3' style={{
         maxWidth: '100%',
         height: 'auto'
     }}/>),
-    (<img src='https://scontent.cdninstagram.com/vp/de32ee5acffe6db412f1b619519ec158/5D47610A/t51.2885-15/e35/s320x320/18300169_1838895596373697_5209167543268278272_n.jpg?_nc_ht=scontent.cdninstagram.com' alt='instagram image' style={{
+    (<img src='https://scontent.cdninstagram.com/vp/de32ee5acffe6db412f1b619519ec158/5D47610A/t51.2885-15/e35/s320x320/18300169_1838895596373697_5209167543268278272_n.jpg?_nc_ht=scontent.cdninstagram.com' alt='instagram image4' style={{
         maxWidth: '100%',
         height: 'auto'
     }}/>),
-    (<img src='https://scontent.cdninstagram.com/vp/4afc6151a454c5127051bb9ddc698e2f/5D329316/t51.2885-15/e35/s320x320/18299250_270895493316232_8616688870999719936_n.jpg?_nc_ht=scontent.cdninstagram.com' alt='instagram image' style={{
+    (<img src='https://scontent.cdninstagram.com/vp/4afc6151a454c5127051bb9ddc698e2f/5D329316/t51.2885-15/e35/s320x320/18299250_270895493316232_8616688870999719936_n.jpg?_nc_ht=scontent.cdninstagram.com' alt='instagram image5' style={{
         maxWidth: '100%',
         height: 'auto'
     }}/>),

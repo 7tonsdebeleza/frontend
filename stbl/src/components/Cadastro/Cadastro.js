@@ -160,21 +160,21 @@ class Cadastro extends Component {
             </div>
 
             <p className="btn-secundaryy">
-              <a href="#" onClick={this.CliqueCriarConta.bind(this)}>Criar conta</a>
+              <Link to="#" onClick={this.CliqueCriarConta.bind(this)}>Criar conta</Link>
               <em className="obrigatorio">(* obrigatório)</em>
             </p>
             
             <div>
-              {this.state.alerta1? <div className="alertacadastro">Por favor, confira seu email!<a className="fecharalerta" onClick={this.fecharAlerta1.bind(this)} href="#">X</a></div>: ""}
+              {this.state.alerta1? <div className="alertacadastro">Por favor, confira seu email!<Link className="fecharalerta" onClick={this.fecharAlerta1.bind(this)} to="#">X</Link></div>: ""}
             </div>
             <div>
-              {this.state.alerta2? <div className="alertacadastro">Por favor, confira sua senha!<a className="fecharalerta" onClick={this.fecharAlerta2.bind(this)} href="#">X</a></div>: ""}
+              {this.state.alerta2? <div className="alertacadastro">Por favor, confira sua senha!<Link className="fecharalerta" onClick={this.fecharAlerta2.bind(this)} to="#">X</Link></div>: ""}
             </div>
             <div>
-              {this.state.alerta3? <div className="alertacadastro">Por favor, preencha todos os campos!<a className="fecharalerta" onClick={this.fecharAlerta3.bind(this)} href="#">X</a></div>: ""}
+              {this.state.alerta3? <div className="alertacadastro">Por favor, preencha todos os campos!<Link className="fecharalerta" onClick={this.fecharAlerta3.bind(this)} to="#">X</Link></div>: ""}
             </div>
             <div>
-              {this.state.alerta4? <div className="alertacadastro">teste<a className="fecharalerta" onClick={this.fecharAlerta4.bind(this)} href="#">X</a></div>: ""}
+              {this.state.alerta4? <div className="alertacadastro">teste<Link className="fecharalerta" onClick={this.fecharAlerta4.bind(this)} to="#">X</Link></div>: ""}
             </div>
           </form>
 

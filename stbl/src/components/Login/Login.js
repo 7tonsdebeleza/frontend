@@ -68,7 +68,7 @@ class Login extends Component {
                         </div>
 
                         <p className="btn-secundaryy">
-                            <a href="#" onClick={this.CliqueCriarConta.bind(this)}>Entrar</a>
+                            <Link to="#" onClick={this.CliqueCriarConta.bind(this)}>Entrar</Link>
                             <em className="obrigatorio">(* obrigatório)</em>
                         </p>
 
@@ -80,29 +80,11 @@ class Login extends Component {
             </div>
             */}
                         <div>
-                            {this.state.alerta3 ? <div className="alertacadastro">Por favor, preencha todos os campos!<a className="fecharalerta" onClick={this.fecharAlerta3.bind(this)} href="#">X</a></div> : ""}
+                            {this.state.alerta3 ? <div className="alertacadastro">Por favor, preencha todos os campos!<Link className="fecharalerta" onClick={this.fecharAlerta3.bind(this)} to="#">X</Link></div> : ""}
                         </div>
                     </form>
 
                 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             </div>
         )
     }

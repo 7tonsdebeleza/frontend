@@ -57,7 +57,7 @@ class Blog extends Component {
           </p>
           <div className="article-details">
             <p className="article-img">
-              <Link to="#"><img className="article_image" src={p.capa}></img></Link>
+              <Link to="#"><img className="article_image" src={p.capa} alt='capa do blog'></img></Link>
             </p>
             <div className="rte article-excerpt">
               <div className="desc">{p.preExibicao}</div>
@@ -102,7 +102,7 @@ class Blog extends Component {
             </div>
 
             <div className="widget sidebar-banner">
-              <img className="article_image" src="//cdn.shopify.com/s/files/1/1825/4753/files/banner-sidebar_4d990d2c-ebf8-45e8-8be8-fa104d13704f_1024x1024.jpg?v=1489938247" />
+              <img className="article_image" src="//cdn.shopify.com/s/files/1/1825/4753/files/banner-sidebar_4d990d2c-ebf8-45e8-8be8-fa104d13704f_1024x1024.jpg?v=1489938247" alt='side bar capa'/>
             </div>
 
             <div className="widget sidebar-cms-custom">

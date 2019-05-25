@@ -16,7 +16,7 @@ class Publicacao extends Component {
         </p>
         <div className="article-details">
           <p className="article-img">
-            <a href="#"><img className="article_image" src={this.props.dados.capa}></img></a>
+            <Link to="#"><img className="article_image" src={this.props.dados.capa} alt='Capa de publicação'></img></Link>
           </p>
           <div className="rte article-excerpt">
             <div className="desc">{this.props.dados.texto}</div>

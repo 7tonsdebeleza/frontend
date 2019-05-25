@@ -113,7 +113,7 @@ class BlogEditor extends Component{
                                     </p>
                                     <div className="article-details">
                                         <p className="article-img">
-                                        <img className="article_image" src={p.capa}></img>
+                                        <img className="article_image" src={p.capa} alt='capa da publicação'></img>
                                         </p>
                                         <div className="rte article-excerpt">
                                         <div className="desc">{p.preExibicao}</div>
