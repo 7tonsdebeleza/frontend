@@ -9,11 +9,12 @@ class Produto extends Component {
         cor: ""
     }
 
-    CliqueVerDetalhes = (ProdutoId) => { /* função para abrir o modal dos produtos*/
+    /* função para abrir o modal dos produtos*/
+    CliqueVerDetalhes = (ProdutoId) => { 
         const modal = document.getElementById(ProdutoId);
         modal.classList.add('mostrar');
         modal.addEventListener('click', (e) => {
-            if (e.target.id === ProdutoId || e.target.className === 'fechar') {
+            if (e.target.id === ProdutoId || e.target.className === 'fechar' || e.target.className === 'irlojavirtual') {
                 modal.classList.remove('mostrar');
             }
         })
@@ -35,9 +36,6 @@ class Produto extends Component {
         botao.classList.remove('mostrarBotao');
     }
 
-    /* funções para incrementar e decrementar a quantidade escolhida do produto */
-
-
     attQtd = (qtda) => {
 
         //Testando se entrada é negativa, caso positivo, impedir decrementação negativa
@@ -46,16 +44,9 @@ class Produto extends Component {
                 return;
             }
         }
-
-
         this.props.dados.qtd = this.props.dados.qtd + qtda;
-        //Eviando dados para pai:
-        //console.log(this.props.dados);
 
         this.props.atualizarQtdCarrinho(qtda);
-
-
-        //verificar se a qtd esta certa
     }
 
     addCarrinho = () => {
@@ -64,8 +55,6 @@ class Produto extends Component {
         dados.qtd = 1;
         dados.noCarrinho = true;
         dados.cor = this.state.cor;
-
-
         //Eviando dados para pai:
         this.props.addCarrinho(dados);
 
@@ -84,16 +73,16 @@ class Produto extends Component {
         let ProdutoId;
         let BotaoId;
 
-        if(this.props.naNavbar){
+        if (this.props.naNavbar) {
             ProdutoId = this.props.dados.id + "naNavbar";
-        } else if (this.props.noCarrinho){
+        } else if (this.props.noCarrinho) {
             ProdutoId = this.props.dados.id + "noCarrinho";
         } else {
             ProdutoId = this.props.dados.id;
         }
 
         BotaoId = ProdutoId + "Bta";
-        
+
         return (
             <div className='wow fadeIn'>
                 {/* Produto: imagem, marca, titulo, preço e botao de ver detalhes*/}
@@ -184,7 +173,7 @@ class Produto extends Component {
                                     <button className="botaoAddCarrinhoDisabilitado"> PRODUTO ADICIONADO AO CARRINHO</button>
                                     <div className="nav botoesCarrinho">
                                         <p className="nav-item button-pri botaomodal1">
-                                            <Link to="/lojavirtual" >Ver outros produtos</Link>
+                                            <Link to="/lojavirtual" className="irlojavirtual">Ver outros produtos</Link>
                                         </p>
                                         <p className="nav-item button-pri botaomodal2">
                                             <Link to="/carrinho" >Ir para o carrinho</Link>
@@ -194,14 +183,9 @@ class Produto extends Component {
                                 <button className="botaoAddCarrinho" onClick={() => this.addCarrinho()}> ADICIONAR AO CARRINHO</button> :
                                 <div>
                                     <button className="botaoAddCarrinhoDisabilitado"> SEM ESTOQUE </button>
-                                        <div className="nav botoesCarrinho">
+                                    <div className="nav botoesCarrinho">
                                         <p className="nav-item button-pri botaomodal1">
-                                            <Link to="/lojavirtual" onClick={ () => {
-                                                 if(window.location.pathname === '/lojavirtual'){
-                                                    //Aqui deve vir uma função que feche o modal
-                                                 }
-                                                } 
-                                            }>Ver outros produtos</Link>
+                                            <Link to="/lojavirtual" className="irlojavirtual">Ver outros produtos</Link>
                                         </p>
                                         <p className="nav-item button-pri botaomodal2">
                                             <Link to="/carrinho" >Ir para o carrinho</Link>
