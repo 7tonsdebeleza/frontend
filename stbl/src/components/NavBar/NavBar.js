@@ -99,7 +99,7 @@ class NavBar extends Component {
                                         <nav className='nav justify-content-end'>
                                             <div className='nav-item'>
                                                 <p className='nav-link' style={{ lineHeight: '32px' }}>
-                                                    Entre em contato por (1800) 000 8808
+                                                    Entre em contato por (85) 9 9996.8549
                                                 </p>
 
                                             </div>
@@ -116,7 +116,7 @@ class NavBar extends Component {
 
                                     <div className='nav-item'>
                                         <p className='nav-link spotlight discreet-spot'>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                            Makes para todas as formas de beleza.
                                         </p>
 
                                     </div>

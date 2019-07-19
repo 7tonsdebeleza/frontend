@@ -84,7 +84,7 @@ class Produto extends Component {
         BotaoId = ProdutoId + "Bta";
 
         return (
-            <div className='wow fadeIn'>
+            <div>
                 {/* Produto: imagem, marca, titulo, preço e botao de ver detalhes*/}
                 <div className="produto" onMouseOver={() => this.AparecerBotaoDetalhes(BotaoId)} onMouseOut={() => this.DesaparecerBotaoDetalhes(BotaoId)} >
                     <div>
