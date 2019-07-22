@@ -30,14 +30,17 @@ class SliderCenter extends Component {
     }
 
     render(){
+        //Keys para tornar lista sintática
+        let keyIdList = 0;
+
         return(
             <div>
                 {/*Botões para controle do scroll do slider*/}
                 <button className='controles controles-left' onClick={() => {this.previous()}} style={this.props.large ? {height: '200px'} : (null)}>
-                        <span class="seta-esquerda" aria-hidden="true"></span>
+                        <span className="seta-esquerda" aria-hidden="true"></span>
                 </button>
                 <button className='controles controles-right' onClick={() => {this.next()}} style={this.props.large ? {height: '200px'} : (null)}>
-                    <span class="seta-direita" aria-hidden="true" ></span>
+                    <span className="seta-direita" aria-hidden="true" ></span>
                 </button>
 
                 <div className='centeredSlider'>
@@ -46,12 +49,13 @@ class SliderCenter extends Component {
                         display: 'flex',
                         marginLeft: this.state.index * 240 * (-1)
                     }}>
-                    {
 
+                    {
                         //Mapeadno lista de componentes
                         this.props.lista.map(function(component){
+                            keyIdList ++;
                             return (
-                                <div className='centeredSlider-component'>
+                                <div className='centeredSlider-component' key={keyIdList}>
                                     {component}
                                 </div>
                             );

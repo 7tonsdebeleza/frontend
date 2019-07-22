@@ -86,8 +86,8 @@ class Home extends Component {
 
 
             <div className='banner wow fadeInUp'>
-                <img class="d-block w-100" src='https://cdn.shopify.com/s/files/1/1825/4753/files/banner_2000x.jpg?v=1489329262' alt='img-card'/>
-                    <div class="wow slideInLeft">
+                <img className="d-block w-100" src='https://cdn.shopify.com/s/files/1/1825/4753/files/banner_2000x.jpg?v=1489329262' alt='img-card'/>
+                    <div className="wow slideInLeft">
 
                         <div className='justify-content-center text-center'>
                             

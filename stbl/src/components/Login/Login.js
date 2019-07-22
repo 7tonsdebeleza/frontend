@@ -52,7 +52,7 @@ class Login extends Component {
                 </div>
                 <div className="criar-conta login">
                     <header className="page-header">
-                        <h1 className>Login</h1>
+                        <h1>Login</h1>
                     </header>
                     <p className="title">Entre na sua conta 7 Tons de Beleza.</p>
                     <form>

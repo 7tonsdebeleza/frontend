@@ -16,8 +16,6 @@ class Carrinho extends Component {
     }
 
     render() {
-
-
         let retorno;
         let subtotal = 0;
 
@@ -36,7 +34,6 @@ class Carrinho extends Component {
             retorno.props.list.forEach(element => {
                 subtotal = subtotal + element.preco * element.qtd;
             });
-            //console.log(retorno.props.list);
 
         } 
 
@@ -51,7 +48,7 @@ class Carrinho extends Component {
                 }
                 {
                     subtotal !== 0 ?
-                        <p className="subtotalQuantidade"><b>SubTotal: R${
+                        <div className="subtotalQuantidade"><b>SubTotal: R${
                             parseFloat((subtotal).toFixed(2))
                         }</b>
                             <div className="nav botoesCarrinho">
@@ -73,7 +70,7 @@ class Carrinho extends Component {
                                         <p>Ainda não tem uma conta? <Link to="/cadastro">Cadastre-se</Link></p>
                                     </div> : ""}
                             </div>
-                        </p> : ""
+                        </div> : ""
                 }
 
 
@@ -83,10 +80,3 @@ class Carrinho extends Component {
 }
 
 export default Carrinho;
-
-/*
-<p className="subtotalQuantidade"><b>SubTotal: R${
-                    parseFloat((subtotal).toFixed(2))
-                }</b>
-                </p>
-*/

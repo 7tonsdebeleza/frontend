@@ -15,9 +15,9 @@ const Marcas = () => {
 
         <h3 className='spotlight' style={tituloPeriferico}>Nossas marcas</h3>
         <hr/>
-        <p>
+        <div>
             <SliderCenter lista={BrandsList}/>
-        </p>
+        </div>
         <h3 className='spotlight' style={tituloPeriferico}>Loremous</h3>
         <hr/>
         <p className='text-center discreet-arimo' style={textoPeriferico}>

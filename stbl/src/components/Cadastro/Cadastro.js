@@ -123,7 +123,7 @@ class Cadastro extends Component {
         </div>
         <div className="criar-conta">
           <header className="page-header">
-            <h1 className>Crie uma conta</h1>
+            <h1>Crie uma conta</h1>
           </header>
           <p className="title">Faça uma conta grátis na 7 Tons de Beleza.</p>
           <form>

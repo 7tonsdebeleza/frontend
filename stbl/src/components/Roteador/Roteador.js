@@ -35,7 +35,7 @@ class Roteador extends Component {
 			dadosCarrinho: novaLista,
 			qtdCarrinho: this.state.qtdCarrinho + dados.qtd
 		})
-		console.log(this.state.dadosCarrinho);
+
 	}
 	atualizarQtdCarrinho = (qtd) =>{
 		this.setState({

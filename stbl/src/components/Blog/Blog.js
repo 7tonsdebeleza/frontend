@@ -33,7 +33,7 @@ class Blog extends Component {
 
     for(let i = 0; i < 3; i++){
       recents.push(
-        <li className="article" onClick={() => this.abrirPublicacao(this.props.publics[i])}>
+        <li className="article" onClick={() => this.abrirPublicacao(this.props.publics[i])} key={i}>
             <p>
               <Link to="#" >
                 <span>{this.props.publics[i].titulo}</span>
@@ -44,9 +44,12 @@ class Blog extends Component {
       )
     }
 
+    let keyId = 0;
+
     listaDePulicacoes = this.props.publics.map((p) => {
+      keyId ++;
       return(
-        <li onClick={() => this.abrirPublicacao(p)}>
+        <li onClick={() => this.abrirPublicacao(p)} key={keyId}>
           <h3 className="article-title">
             <Link to="#">{p.titulo}</Link>
           </h3>

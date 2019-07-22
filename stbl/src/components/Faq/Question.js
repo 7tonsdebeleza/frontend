@@ -75,9 +75,9 @@ class Question extends Component {
                             <p className="badge badge-danger">Pergunta</p>
                         </div>
                         <div className="questionText">
-                            <p>
+                            <div>
                                 {this.props.texts.quest}
-                            </p>
+                            </div>
                         </div>
                         <span className='statusQuestion'>
                             {textAction}
