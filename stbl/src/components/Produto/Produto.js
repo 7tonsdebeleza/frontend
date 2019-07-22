@@ -122,7 +122,7 @@ class Produto extends Component {
                         <div className="descricaoProdutoModal">
                             <button className="fechar">X</button>
                             <h1><b>{this.props.dados.titulo}</b></h1>
-                            <p><b>Disponibilidade:</b> {this.props.dados.estoque !== 0 ? <p style={{ display: 'inline' }}>Em estoque</p> : <p style={{ display: 'inline' }}>Faltando no estoque</p>}</p>
+                            <div><b>Disponibilidade:</b> {this.props.dados.estoque !== 0 ? <p style={{ display: 'inline' }}>Em estoque</p> : <div style={{ display: 'inline' }}>Faltando no estoque</div>}</div>
                             <p><b>Tipo de Produto:</b> {this.props.dados.tipoProduto}</p>
                             <p><b>Marca:</b> {this.props.dados.marca}</p>
                             <p>{this.props.dados.descricao}</p>
@@ -131,31 +131,31 @@ class Produto extends Component {
                                 <div className="botoesCor">
                                     <p><b>Cor:</b> {this.state.cor} </p>
                                     {/* funções para pegar o tamanho escolhido */}
-                                    <button className="botoesCor1" tabindex="0"
+                                    <button className="botoesCor1" tabIndex="0"
                                         onClick={() => {
                                             this.setState({ cor: "Cor de Pele" })
                                             console.log(this.state.cor);
                                         }}
                                     ></button>
-                                    <button className="botoesCor2" tabindex="0"
+                                    <button className="botoesCor2" tabIndex="0"
                                         onClick={() => {
                                             this.setState({ cor: "Cinza" })
                                             console.log(this.state.cor);
                                         }}
                                     ></button>
-                                    <button className="botoesCor3" tabindex="0"
+                                    <button className="botoesCor3" tabIndex="0"
                                         onClick={() => {
                                             this.setState({ cor: "Marrom" })
                                             console.log(this.state.cor);
                                         }}
                                     ></button>
-                                    <button className="botoesCor4" tabindex="0"
+                                    <button className="botoesCor4" tabIndex="0"
                                         onClick={() => {
                                             this.setState({ cor: "Vermelho" })
                                             console.log(this.state.cor);
                                         }}
                                     ></button>
-                                    <button className="botoesCor5" tabindex="0"
+                                    <button className="botoesCor5" tabIndex="0"
                                         onClick={() => {
                                             this.setState({ cor: "Salmão" })
                                             console.log(this.state.cor);

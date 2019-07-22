@@ -8,14 +8,9 @@ class Home extends Component {
     render(){
         return(
         <div>
-
-            {/*Banner com background
-                futuramente transformar em carrossel (bootstrap não roda)
-            */}
-
             <div className="banner">
-                <img class="d-block w-100" src='https://cdn.shopify.com/s/files/1/1825/4753/files/slideshow_1_2000x_03328b29-1d6f-40d8-91b4-e2d81ea162c5_2000x.jpg?v=1492532268' alt='img-banner-1'/>
-                    <div class="">
+                <img className="d-block w-100" src='https://cdn.shopify.com/s/files/1/1825/4753/files/slideshow_1_2000x_03328b29-1d6f-40d8-91b4-e2d81ea162c5_2000x.jpg?v=1492532268' alt='img-banner-1'/>
+                    <div>
                         <div className='banner-paragrafo' >
                             <div className="animated fadeInUp">
                                 <h1 className='banner-titulo spotlight'>LOREM A COSMO</h1>

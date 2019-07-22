@@ -139,7 +139,7 @@ class LojaVirtual extends Component {
 
                     //Categories = lista de objetos
                     categories.map((object) => {
-                      return (<li>
+                      return (<li key={object.index}>
                         {/* Marcador dinâmico surge para categoria clicada e hover*/}
                         <span className="seta-direita" style={this.state.categoryIndex === object.index || this.state.itemOver === object.index ? { display: "inline" } : { display: "none" }} ></span>
 
