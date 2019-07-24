@@ -214,7 +214,7 @@ const imagesInst = [
         maxWidth: '100%',
         height: 'auto'
     }}/>),
-    (<img src='https://scontent.cdninstagram.com/vp/06b0958f0b704e38f56e2356ba9bcf7e/5D354A5A/t51.2885-15/e35/s320x320/18443569_226764737811492_1219328699799699456_n.jpg?_nc_ht=scontent.cdninstagram.com' alt='instagram image2' style={{
+    (<img src='https://ae01.alicdn.com/kf/HTB1z9dtSXXXXXbXapXXq6xXFXXXV/TARGE-E-tumblr-FRIO-cinza-Camisolas-Mulheres-Moda-Casual-de-Manga-Comprida-camisas-de-Algod-o.jpg' alt='instagram image2' style={{
         maxWidth: '100%',
         height: 'auto'
     }}/>),
@@ -226,7 +226,7 @@ const imagesInst = [
         maxWidth: '100%',
         height: 'auto'
     }}/>),
-    (<img src='https://scontent.cdninstagram.com/vp/4afc6151a454c5127051bb9ddc698e2f/5D329316/t51.2885-15/e35/s320x320/18299250_270895493316232_8616688870999719936_n.jpg?_nc_ht=scontent.cdninstagram.com' alt='instagram image5' style={{
+    (<img src='https://i.pinimg.com/736x/a1/e1/ba/a1e1ba1ce1c8af8d190045c701bbf81d.jpg' alt='instagram image5' style={{
         maxWidth: '100%',
         height: 'auto'
     }}/>),
