@@ -40,47 +40,43 @@ class FormNovoProduto extends Component {
             <div className='admin-form'>
                 <form className='admin-form'>
             <div className='admin-form-item'>
-                <label for="inputIdProduto">ID:</label>
+                <label htmlFor="inputIdProduto">ID:</label>
                 <br/>
                 <input id="inputIdProduto" type="text" placeholder="ID" name="id" onChange={this.atualizarInput}/>
             </div>
             
             <div className='admin-form-item'>
-                <label for="inputTitulo">TITULO:</label><br/>
+                <label htmlFor="inputTitulo">TITULO:</label><br/>
                 <input id="inputTitulo" type="text" placeholder="TTULO" name="titulo" onChange={this.atualizarInput}/>
             </div>
 
-            
-
             <div className='admin-form-item'>
-                <label for="inputMarca">MARCA:</label><br/>
+                <label htmlFor="inputMarca">MARCA:</label><br/>
                 <input id="inputMarca" type="text" placeholder="MARCA" name="marca" onChange={this.atualizarInput}/>
-            </div>
-
-            
+            </div>            
 
             <div className='admin-form-item'>
-                <label for="inputPreco">PREÇO:</label><br/>
+                <label htmlFor="inputPreco">PREÇO:</label><br/>
                 <input id="inputPreco" type="number" placeholder="00,00" name="preco" onChange={this.atualizarInput}/>
             </div>
 
             <div className='admin-form-item'>
-                <label for="inputQtd">QUANTIDADE EM ESTOQUE:</label><br/>
+                <label htmlFor="inputQtd">QUANTIDADE EM ESTOQUE:</label><br/>
                 <input id="inputQtd" type="number" placeholder="0" name="estoque" onChange={this.atualizarInput}/>
             </div>
 
             <div className='admin-form-item'>
-                <label for="inputTipo">TIPO:</label><br/>
+                <label htmlFor="inputTipo">TIPO:</label><br/>
                 <input id="inputTipo" type="text" placeholder="TIPO" name="tipoProduto" onChange={this.atualizarInput}/>
             </div>
 
             <div className='admin-form-item'>
-                <label for="inputDesc">DESCRIÇÃO:</label><br/>
+                <label htmlFor="inputDesc">DESCRIÇÃO:</label><br/>
                 <textarea id="inputDesc" type="text" placeholder="DESCRIÇÃO DO PRODUTO" name="descricao" onChange={this.atualizarInput}/>
             </div>
 
             <div className='admin-form-item'>
-                <label for="inputImg">IMAGEM:</label>
+                <label htmlFor="inputImg">IMAGEM:</label>
                 <input type="file" id="inputImg"/>
             </div>
         </form>

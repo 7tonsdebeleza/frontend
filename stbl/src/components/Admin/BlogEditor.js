@@ -37,6 +37,9 @@ class BlogEditor extends Component{
     }
 
     render(){
+        //Variável para id de listas
+
+        let listId = 0;
 
         //Formulário de edição de blog
         let form = (
@@ -101,8 +104,9 @@ class BlogEditor extends Component{
                     <ul>
                         {
                             this.props.public.map((p) =>{
+                                listId++;
                                 return(
-                                    <li>
+                                    <li key={listId}>
                                     <h3 className="article-title">
                                         {p.titulo}
                                     </h3>

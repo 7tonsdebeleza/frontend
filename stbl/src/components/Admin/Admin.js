@@ -38,7 +38,7 @@ class Admin extends Component{
                     </div>
                     <div className="criar-conta login">
                         <header className="page-header">
-                            <h1 className>Área Administrativa</h1>
+                            <h1>Área Administrativa</h1>
                         </header>
                         <p className="title">Área exclusiva para administração da loja virtual 7 Tons de Beleza.</p>
                     </div>

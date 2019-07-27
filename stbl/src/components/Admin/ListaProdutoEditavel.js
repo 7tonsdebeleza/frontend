@@ -58,7 +58,7 @@ class ListaProdutoEditavel extends Component {
                     {
                         this.state.produtos.map((dados) => {
                             return(
-                                <li className="pro nav-item">
+                                <li className="pro nav-item" key={dados.id}>
                                     <ProdutoEditavel dados={dados}/>
                                 </li>
                             )

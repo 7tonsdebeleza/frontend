@@ -9,9 +9,10 @@ class ListarConsultas extends Component {
     }
 
     render(){
+        let listId = 0;
         return(
             <div className='table-responsive'>
-            <table class="table">
+            <table className="table">
                 <thead>
                 <tr>
                     <th scope="col">USUÁRIO</th>
@@ -27,8 +28,9 @@ class ListarConsultas extends Component {
                     {
                         //Gerando tabela por dados via props
                         this.props.compras.map((reg) => {
+                            listId++;
                             return(
-                                <tr>
+                                <tr key={listId}>
                                     <td>{reg.user}</td>
                                     <td>{reg.produto}</td>
                                     <td>{reg.produtoId}</td>

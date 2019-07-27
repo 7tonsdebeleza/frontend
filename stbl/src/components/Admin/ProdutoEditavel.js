@@ -106,7 +106,8 @@ class ProdutoEditavel extends Component {
 
                             <p>
                                 <b>Quantidade em estoque:</b>
-                                <input className='admin-form' type='number' value={this.state.estoque}/>
+                                <input className='admin-form' type='number' value={this.state.estoque} name="estoque" onChange={this.atualizarInput}/>
+
                             </p>
 
                             <p>
@@ -114,7 +115,7 @@ class ProdutoEditavel extends Component {
                                 <input className='admin-form' type='number' value={this.state.preco} name="preco" onChange={this.atualizarInput}/>
                             </p>
 
-                            <label for="inputImg">Enviar nova imagem:</label>
+                            <label htmlFor="inputImg">Enviar nova imagem:</label>
                             <input type="file" id="inputImg"/>
 
                             <button onClick={() =>{this.salvar()}}>Enviar</button>
