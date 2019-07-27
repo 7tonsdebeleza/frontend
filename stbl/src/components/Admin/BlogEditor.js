@@ -46,28 +46,28 @@ class BlogEditor extends Component{
             <div className='admin-form'>
                 <form className='admin-form'>
                     <div className='admin-form-item'>
-                        <label for="inputTitulo">TITULO:</label><br/>
+                        <label htmlFor="inputTitulo">TITULO:</label><br/>
                         <input id="inputTitulo" type="text" placeholder="TTULO" name="titulo" onChange={this.atualizarInput} value={this.state.titulo}/>
                     </div>
 
                     <div className='admin-form-item'>
-                        <label for="inputMarca">Data:</label><br/>
+                        <label htmlFor="inputMarca">Data:</label><br/>
                         <input id="inputMarca" type="text" placeholder="01 de Janeiro, 2000" name="data" onChange={this.atualizarInput} value={this.state.data}/>
                     </div>
 
 
                     <div className='admin-form-item'>
-                        <label for="inputTipo">PRE-EXIBIÇÃO:</label><br/>
+                        <label htmlFor="inputTipo">PRE-EXIBIÇÃO:</label><br/>
                         <input id="inputTipo" type="text" placeholder="PRÉ-EXIBIÇÃO DE TEXTO" name="preExibicao" onChange={this.atualizarInput} value={this.state.preExibicao}/>
                     </div>
 
                     <div className='admin-form-item'>
-                        <label for="inputDesc">TEXTO:</label><br/>
+                        <label htmlFor="inputDesc">TEXTO:</label><br/>
                         <textarea id="inputDesc" type="text" placeholder="TEXTO" name="texto" onChange={this.atualizarInput} value={this.state.texto}/>
                     </div>
 
                     <div className='admin-form-item'>
-                        <label for="inputImg">CAPA:</label>
+                        <label htmlFor="inputImg">CAPA:</label>
                         <input type="file" id="inputImg"/>
                     </div>
             </form>
