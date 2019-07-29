@@ -19,8 +19,19 @@ import Busca from '../Produto/Busca';
 import api from "../API/api";
 
 class Roteador extends Component {
-	//Dica: Renderize aqui um uma NavBar e a Switch com as rotas
-	//Este componente será usado como root para o fluxo de dados entre os demais componentes.
+	//Este componente é usado como root para o fluxo de dados entre os demais componentes.
+	/*
+	 state:
+		 - "email" guarda o usuário q está logado. [não funcional]
+		 - "dadosCarrinho" guarda uma array de objetos de produtos no carrinho
+		 - "qtdCarrinho" mostra o total de produtos no carrinho, mostrando no contador da navbar
+			 obs.: a qtd individual de cada produto é guardada em cada objeto.
+		 - "pesquisa" guarda a string a ser passada para página de pesquisa
+		 - "pesquisaChamada" ativa a página de resultados de pesquisa
+		 - "dados" guarda a resquisão de produtos do banco de dados
+		 - "carregado" indica se a requisição do banco de dados foi finalizada para renderização
+	*/
+
 	state = {
 		email: "p",
 		dadosCarrinho: [],
@@ -31,11 +42,13 @@ class Roteador extends Component {
 		carregado: false,
 	}
 
+	//Função que executava a requisição com o banco de dados
 	async mostra(){
 		const response = await api.get('/mostrarprodutos');
 		console.log(response.data.products);
 		this.setState({
-			dados: response.data.products
+			dados: response.data.products,
+			carregado: true,
 		})
 	}
 
@@ -83,11 +96,13 @@ class Roteador extends Component {
 	}
 
 	componentDidMount(){
+		//Carregando produtos do banco de dados 
 		this.mostra();
-		this.setState({carregado: true})
 	}
 
 	render() {
+
+		//Os componentes são renderizados apenas se requisião ao banco de dados tiver finalizado
 		if(!this.state.carregado){
 			return(
 				<div>

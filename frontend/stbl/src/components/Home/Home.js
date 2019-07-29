@@ -77,10 +77,13 @@ class Home extends Component {
                 {
                     /* Renderizando dinamicamente parte dos produtos da lista
                     esquema provisório
+
+
+                    <ListaProduto list={[this.props.dados[0],this.props.dados[1],this.props.dados[2],this.props.dados[3],this.props.dados[4]]} addCarrinho={this.props.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} removerCarrinho={this.removerCarrinho}/>
+
                     */
                 }
-
-                <ListaProduto list={[this.props.dados[0],this.props.dados[1],this.props.dados[2],this.props.dados[3],this.props.dados[4]]} addCarrinho={this.props.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} removerCarrinho={this.removerCarrinho}/>
+             
                 
             </div>
 
@@ -120,10 +123,12 @@ class Home extends Component {
                 {
                     /* Renderizando dinamicamente parte dos produtos da lista
                     esquema provisório
+                    
+                    <ListaProduto list={[this.props.dados[5],this.props.dados[6],this.props.dados[7],this.props.dados[8],this.props.dados[9]]} addCarrinho={this.props.addCarrinho} atualizarQtdCarrinho={this.props.atualizarQtdCarrinho} removerCarrinho={this.props.removerCarrinho}/>
                     */
                 }
 
-                <ListaProduto list={[this.props.dados[5],this.props.dados[6],this.props.dados[7],this.props.dados[8],this.props.dados[9]]} addCarrinho={this.props.addCarrinho} atualizarQtdCarrinho={this.props.atualizarQtdCarrinho} removerCarrinho={this.props.removerCarrinho}/>
+                
                 
                 
             </div>
