@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from "react-router-dom";
+import api from "../API/api";
 
 class Login extends Component {
     constructor() {
@@ -20,7 +21,14 @@ class Login extends Component {
         })
     }
 
-    CliqueCriarConta = () => {
+    async Login(){
+        const response = await api.get('/logar',{
+            email: this.state.email,
+            password: this.state.senha
+        })
+    }
+
+    CliqueLogin = () => {
 
         console.log(this.state.email)
         console.log(this.state.senha)
@@ -31,6 +39,8 @@ class Login extends Component {
                 alerta3: true
             })
         }
+
+        this.Login()
 
         //if(senha ou email errado)
     }
@@ -68,7 +78,7 @@ class Login extends Component {
                         </div>
 
                         <p className="btn-secundaryy">
-                            <Link to="#" onClick={this.CliqueCriarConta.bind(this)}>Entrar</Link>
+                            <Link to="#" onClick={this.CliqueLogin.bind(this)}>Entrar</Link>
                             <em className="obrigatorio">(* obrigatório)</em>
                         </p>
 

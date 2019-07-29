@@ -14,17 +14,29 @@ import BotaoTop from '../BotaoTop/BotaoTop';
 import Login from '../Login/Login';
 import Admin from '../Admin/Admin';
 import Carrinho from '../Carrinho/Carrinho';
-import {Dados, Compras, Public} from '../Produto/Dados'; //Dados provisórios para listas de produtos
+import { Compras, Public } from '../Produto/Dados'; //Dados provisórios para listas de produtos
 import Busca from '../Produto/Busca';
+import api from "../API/api";
 
 class Roteador extends Component {
 	//Dica: Renderize aqui um uma NavBar e a Switch com as rotas
 	//Este componente será usado como root para o fluxo de dados entre os demais componentes.
 	state = {
+		email: "p",
 		dadosCarrinho: [],
 		qtdCarrinho: 0,
 		pesquisa: "",
-		pesquisaChamada: false
+		pesquisaChamada: false,
+		dados: [],
+		carregado: false,
+	}
+
+	async mostra(){
+		const response = await api.get('/mostrarprodutos');
+		console.log(response.data.products);
+		this.setState({
+			dados: response.data.products
+		})
 	}
 
 	//Esta função será passada aos componetes filhos onde houver componete produto
@@ -35,8 +47,9 @@ class Roteador extends Component {
 			dadosCarrinho: novaLista,
 			qtdCarrinho: this.state.qtdCarrinho + dados.qtd
 		})
-
+		this.adicionarCarrinho("Batom Líquido Mate Metálico Azuluz");
 	}
+
 	atualizarQtdCarrinho = (qtd) =>{
 		this.setState({
 			qtdCarrinho: this.state.qtdCarrinho + qtd
@@ -69,9 +82,20 @@ class Roteador extends Component {
 		});
 	}
 
-	render() {
+	componentDidMount(){
+		this.mostra();
+		this.setState({carregado: true})
+	}
 
-		return (
+	render() {
+		if(!this.state.carregado){
+			return(
+				<div>
+					<h1>Carregando...</h1>
+				</div>
+			)
+		} else {
+			return (
 			<BrowserRouter>
 			<div>
 				<div style={{
@@ -96,13 +120,13 @@ class Roteador extends Component {
 					<NavBarMobile pesquisar={this.pesquisar} qtdCarrinho={this.state.qtdCarrinho} dados={this.state.dadosCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} removerCarrinho={this.removerCarrinho} botaoCarrinho={true}/>
 					
 					<Switch>
-						<Route exact path="/home" render={() => <Home dados={Dados} addCarrinho={this.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} removerCarrinho={this.removerCarrinho}/>}/>
+						<Route exact path="/home" render={() => <Home dados={this.state.dados} addCarrinho={this.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} removerCarrinho={this.removerCarrinho}/>}/>
 
 						<Route exact path="/cadastro" component={Cadastro}/>
 
 						<Route exact path="/login" component={Login}/>
 
-						<Route exact path="/lojavirtual" render={() => <LojaVirtual dados={Dados} addCarrinho={this.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} removerCarrinho={this.removerCarrinho}/>}/>
+						<Route exact path="/lojavirtual" render={() => <LojaVirtual dados={this.state.dados} addCarrinho={this.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} removerCarrinho={this.removerCarrinho}/>}/>
 
 						<Route exact path="/marcas" component={Marcas}/>
 
@@ -110,13 +134,13 @@ class Roteador extends Component {
 
 						<Route exact path="/blog" render={() => <Blog publics={Public}/>}/>
 
-						<Route path="/buscar" component={() => this.state.pesquisa === "" ? <Redirect to='/home'/>:<Busca dados={Dados} pesquisa={this.state.pesquisa} addCarrinho={this.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} removerCarrinho={this.removerCarrinho}/>}/>
+						<Route path="/buscar" component={() => this.state.pesquisa === "" ? <Redirect to='/home'/>:<Busca dados={this.state.dados} pesquisa={this.state.pesquisa} addCarrinho={this.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} removerCarrinho={this.removerCarrinho}/>}/>
 
 						<Route exact path="/carrinho" render={() => <Carrinho dados={this.state.dadosCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} removerCarrinho={this.removerCarrinho} botaoCarrinho={false} naNavbar={false}/>}/>
 
-						<Route exact path="/admin7tons" render={() => <Admin produtos={Dados} consultas={Compras} publics={Public}/>}/>
+						<Route exact path="/admin7tons" render={() => <Admin produtos={this.state.dados} consultas={Compras} publics={Public}/>}/>
 
-						<Route exact path="/"  render={() => <Home dados={Dados} addCarrinho={this.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} removerCarrinho={this.removerCarrinho} />}/>
+						<Route exact path="/"  render={() => <Home dados={this.state.dados} addCarrinho={this.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} removerCarrinho={this.removerCarrinho} />}/>
 
 						<Route component={NotFound}/>    			
 					</Switch>
@@ -127,7 +151,11 @@ class Roteador extends Component {
 				<Footer/>
 				</div>
 			</BrowserRouter>
-		);
+			);
+		}
+
+
+		
   }
 }
 

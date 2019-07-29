@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from "react-router-dom";
-
-import Info from "../Images/information.svg"
+import Info from "../Images/information.svg";
+import api from "../API/api";
 
 class Cadastro extends Component {
   constructor() {
@@ -20,10 +20,24 @@ class Cadastro extends Component {
       alerta3: false,
       alerta4:false,
       informationemail: false,
-      informationsenha: false
+      informationsenha: false,
+      redirect: "#"
     }
 
     this.Submit = this.Submit.bind(this);
+  }
+
+  async cadastrar(){
+    const response = await api.post('/criarusuario',{
+      nome: this.state.nome,
+      sobrenome: this.state.sobrenome,
+      email: this.state.email,
+      password: this.state.senha
+    })
+
+    this.setState({redirect: "/home"})
+
+    console.log(response.data)
   }
 
   Submit = (e) =>{
@@ -34,6 +48,8 @@ class Cadastro extends Component {
   }
 
   CliqueCriarConta = () =>{
+    let verificador = true;
+
     console.log(this.state.nome)
     console.log(this.state.sobrenome)
     console.log(this.state.email)
@@ -42,31 +58,28 @@ class Cadastro extends Component {
     console.log(this.state.confirmarsenha)
 
     if(this.state.email !== this.state.confirmaremail){
+      verificador = false
       this.setState({
         alerta1: true
       })
-    }
+    } 
     if(this.state.senha !== this.state.confirmarsenha){
+      verificador = false
       this.setState({
         alerta2: true
       })
     }
+
     if(this.state.nome === "" || this.state.sobrenome === "" || this.state.email === "" || this.state.senha === ""){
+      verificador = false
       this.setState({
         alerta3: true
       })
     }
 
-    /*ta dando ruim, undefined
-    console.log(this.state.senha.lenght)
-    if(this.state.senha.lenght < 6){
-
-      this.setState({
-        alerta4: true
-      })
-    }*/
-
-    //if(email ja cadastrado)
+    if(verificador === true){
+      this.cadastrar()
+    }
   }
 
   fecharAlerta1 = () =>{
@@ -160,7 +173,7 @@ class Cadastro extends Component {
             </div>
 
             <p className="btn-secundaryy">
-              <Link to="#" onClick={this.CliqueCriarConta.bind(this)}>Criar conta</Link>
+              <Link to={this.state.redirect} onClick={this.CliqueCriarConta.bind(this)}>Criar conta</Link>
               <em className="obrigatorio">(* obrigatório)</em>
             </p>
             

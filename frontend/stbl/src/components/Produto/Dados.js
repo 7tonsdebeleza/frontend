@@ -1,6 +1,6 @@
-//Lista provisória com todos exemplos de dados para produtos;
+ //Lista provisória com todos exemplos de dados para produtos;
 
-export const Dados = [
+/*export const Dados = [
     {
         id: "id1",
         img: "https://qbbr.vteximg.com.br/arquivos/ids/160367-1000-1000/batom-liquido-mate-metalico-azuluz-aberto.jpg?v=636247775539130000",
@@ -114,7 +114,7 @@ export const Dados = [
         multiColor: true,
         
     }
-]
+]*/
 
 //Lista provisória dados para compras efetuadas
 export const Compras = [
