@@ -3,6 +3,17 @@ import { Link } from "react-router-dom";
 import "./styleBlog.css";
 
 class Publicacao extends Component {
+
+ componentDidMount(){
+    //Convertendo string bruta de htmml para html
+    document.getElementById("body-blog").innerHTML = this.props.dados.texto;
+ }
+
+ componentWillUnmount(){
+   document.getElementById("body-blog").innerHTML = '';
+ }
+
+
  render(){
      return(
         <li>
@@ -19,7 +30,7 @@ class Publicacao extends Component {
             <Link to="#"><img className="article_image" src={this.props.dados.capa} alt='Capa de publicação'></img></Link>
           </p>
           <div className="rte article-excerpt">
-            <div className="desc">{this.props.dados.texto}</div>
+            <div className="desc" id="body-blog"> Carregando... </div>
             <p className="button">
               <Link className="btn-secondary" to="#" onClick={() => this.props.fecharPublicacao()}>Voltar</Link>
             </p>

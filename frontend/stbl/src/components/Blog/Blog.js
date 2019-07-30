@@ -11,7 +11,9 @@ class Blog extends Component {
   }
 
   //Abrir e fechar publicações do blog:
-  abrirPublicacao = (dados) =>{
+  abrirPublicacao = async (dados) =>{
+    await this.fecharPublicacao();
+
     this.setState({
       publicacaoAberta: true,
       publicacaoAtual: dados,
