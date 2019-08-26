@@ -16,6 +16,7 @@ import Admin from '../Admin/Admin';
 import Carrinho from '../Carrinho/Carrinho';
 import { Compras, Public } from '../Produto/Dados'; //Dados provisórios para listas de produtos
 import Busca from '../Produto/Busca';
+import Carregamento from '../Carregamento/Carregamento'
 import api from "../API/api";
 
 class Roteador extends Component {
@@ -106,7 +107,7 @@ class Roteador extends Component {
 		if(!this.state.carregado){
 			return(
 				<div>
-					<h1>Carregando...</h1>
+					<Carregamento />
 				</div>
 			)
 		} else {
