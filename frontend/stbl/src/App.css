@@ -17,6 +17,7 @@ body{
     font-family: 'Arimo', sans-serif; /*fonte do template*/
     
 }
+/*-------------------------------------------------------*/
 /*Modal Ver Detalhes do Produto*/
 .modal-container{
     width: 100vw;
@@ -180,7 +181,8 @@ body{
     background: #e95144;
     border: 1px solid #e95144;
 }
-/*-------------Produto----------------- margin:  top right bottom left  */
+/*-------------------------------------------------------*/
+/*-------------Produto-----------------*/
 .listaProduto{
     margin: 0 0 2% 0;
 }
@@ -190,7 +192,7 @@ body{
 .pro-lv{
     width: 25%;
 }
-
+/*-------------------------------------------------------*/
 /*responsividade produto*/
 @media only screen and (max-width: 1200px) {
     .pro{
@@ -246,8 +248,6 @@ body{
     .botaoAddCarrinho{
         width: 100%;
     }
-    
-    
 }
 
 .produto{ 
@@ -320,8 +320,8 @@ body{
     min-height: 60px;
 }
 
-/*---------------------------------------- */
-
+/*-------------------------------------------------------*/
+/* buscador */
 .buscar{
     border: none;
     border-bottom: 1px solid #e7e7e7;
@@ -373,8 +373,7 @@ body{
     display: flex;
 }
 
-/*---------------------------------------- */
-
+/*-------------------------------------------------------*/
 .special {
     font-family: 'Majestika';
     font-size: 28px;
@@ -502,9 +501,7 @@ body{
     }
     
 }
-
-
-
+/*-------------------------------------------------------*/
 /*------------Scroll Navbar Primaria e Secundaria--------- */
 .navbarPricipal{
     z-index: 200;
@@ -561,8 +558,8 @@ body{
 .imgcarrinho:hover{
     opacity: 0.6;
 }
-
-/*Menu Mobile --------------------------------------------------------------*/
+/*-------------------------------------------------------*/
+/*Menu Mobile */
 .menuhamburguer{
     outline: none !important;
     border: none;
@@ -579,7 +576,6 @@ body{
     }
     
 }
-
 
 .mobile-show.mobile-show-fixed{
     position: fixed;
@@ -615,7 +611,6 @@ body{
 .mostrar .modal-menumobile{
     animation: modalmenu .5s;
 }
-
 
 .modal-menumobile{
     background: white;
@@ -668,17 +663,13 @@ body{
 .fechar-menu:hover{
     background: #e95144;
 }
-
-
-
-
-/*---------------------------------FOOTER------------------*/
+/*-------------------------------------------------------*/
+/*FOOTER*/
 .footer{
     flex-shrink: 0;
     bottom: 0;
     width: 100%;
 }
-
 
 .footertitles{
     font-size: 12px;
@@ -753,7 +744,6 @@ body{
 }
 
 /*-------------------------------------------------------*/
-
 /*Animações*/
 
 .animated {
@@ -837,8 +827,8 @@ body{
   .fadeInUp {
     animation-name: fadeInUp;
   }
-
-/*=---------------------Botao top-------------------*/
+/*-------------------------------------------------------*/
+/*Botao top-*/
 .back-top{
     background: #343a40;   
     z-index: 99;
@@ -865,8 +855,8 @@ body{
         transform: translate3d(0, 0, 0);
     }
 }
-
-/*botao primario home ----------------------*/
+/*-------------------------------------------------------*/
+/*botao primario home */
 .button-pri a {
     background-color: #222222;
     color: #ffffff;
@@ -904,8 +894,7 @@ body{
     border-left: 5px solid #222222;
 }
 
-
-/*--------------------------*/
+/*seta do botao*/
 .bread span.arrow {
     margin: 0 10px;
     line-height: 0;
@@ -919,9 +908,8 @@ body{
     font-family: Arimo; 
 }
 
-
-
-/*------------CADASTRO E LOGIN----------------------*/
+/*-------------------------------------------------------*/
+/*CADASTRO E LOGIN*/
 .cadastro{
     font-size: 12px;
 }
@@ -951,7 +939,6 @@ p.title {
     border: 1px solid #b4b4b4;
 }
 
-
 .criar-conta label{
     font-weight: bold;
     font-family: Arimo;
@@ -959,6 +946,7 @@ p.title {
 .criar-conta em{
     color: red;
 }
+/*botao secundario*/
 .btn-secundaryy a{
     background-color: #ffffff;
     color: #000000;
@@ -1026,7 +1014,6 @@ p.title {
     text-decoration:none; 
 }
 
-
 .alertacadastro{
     background: #ececec;
     line-height: 32px;
@@ -1067,10 +1054,10 @@ p.title {
     margin-left: 11%;
 }
 
-
 .login{
     font-size: 12px;
 }
+/*-------------------------------------------------------*/
 /*Carrinho-------------------------------*/
 .defaultCarrinho{
     text-align: center;
@@ -1208,7 +1195,6 @@ p.title {
     animation: modalcart .3s;
 }
 
-
 /*-------------------------------------------------------*/
 /* Tela de Carregamento */
 .batom {
@@ -1278,4 +1264,21 @@ p.title {
       transform: scale(1.0);
     }
   }
-  /*-------------------------------------------------------*/
+/*-------------------------------------------------------*/
+/*Pagina Not Found*/
+.notfound{
+    margin: 6% auto 0;
+    font-family: "Montserrat";
+}
+.notfound h1 , .notfound h2{
+    text-align: center;
+}
+.notfound li{
+    list-style: none;
+    font-size: 13px;
+}
+.notfound p{
+    margin-top: 10%;
+    text-align: center;
+}
+/*-------------------------------------------------------*/
