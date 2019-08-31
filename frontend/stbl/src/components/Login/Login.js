@@ -9,12 +9,17 @@ class Login extends Component {
         this.state = {
             email: "",
             senha: "",
-
-            alerta3: false,
+            alerta1: false,
+            alerta2: false,
+            alerta3: false
         }
 
         this.Submit = this.Submit.bind(this);
+        this.CliqueLogin = this.CliqueLogin.bind(this);
+        this.fecharAlerta = this.fecharAlerta.bind(this);
     }
+
+    //função que atualiza o state do email e senha
     Submit = (e) => {
         this.setState({
             [e.target.name]: e.target.value
@@ -28,12 +33,31 @@ class Login extends Component {
         })
     }
 
+    //função chamada clicando no botao Login
     CliqueLogin = () => {
 
         console.log(this.state.email)
         console.log(this.state.senha)
 
 
+        /* Caso em que o email está errado, exibir alerta
+        if(this.state.email === errado){
+            this.setState({
+                alerta1: true
+            })
+        }
+        */
+
+        /* Caso em que a senha está errada, exibir alerta
+        if(this.state.senha === errada){
+            this.setState({
+                alerta2: true
+            })
+        }
+        */
+
+
+        //teste para saber se existe algum campo vazio, se existir exibir um alerta
         if (this.state.email === "" || this.state.senha === "") {
             this.setState({
                 alerta3: true
@@ -41,13 +65,13 @@ class Login extends Component {
         }
 
         this.Login()
-
-        //if(senha ou email errado)
     }
 
-    fecharAlerta3 = () => {
+
+    //função para fechar um alerta
+    fecharAlerta = (e) => {
         this.setState({
-            alerta3: false
+            [e.target.name]: false
         })
     }
 
@@ -78,19 +102,33 @@ class Login extends Component {
                         </div>
 
                         <p className="btn-secundaryy">
-                            <Link to="#" onClick={this.CliqueLogin.bind(this)}>Entrar</Link>
+                            <Link to="#" onClick={this.CliqueLogin}>Entrar</Link>
                             <em className="obrigatorio">(* obrigatório)</em>
                         </p>
 
-                        {/*<div>
-              {this.state.teste1? <div className="alertacadastro">Por favor, confira seu email!<a className="fecharalerta" onClick={this.fecharAlerta1.bind(this)} href="#">X</a></div>: ""}
-            </div>
-            <div>
-              {this.state.teste2? <div className="alertacadastro">Por favor, confira sua senha!<a className="fecharalerta" onClick={this.fecharAlerta2.bind(this)} href="#">X</a></div>: ""}
-            </div>
-            */}
+                        {
+                        /*
                         <div>
-                            {this.state.alerta3 ? <div className="alertacadastro">Por favor, preencha todos os campos!<Link className="fecharalerta" onClick={this.fecharAlerta3.bind(this)} to="#">X</Link></div> : ""}
+                            {this.state.teste1? 
+                            <div className="alertacadastro">Por favor, confira seu email!
+                                <a className="fecharalerta" name="alerta2" onClick={this.fecharAlerta} to="#">X</a>
+                            </div> : ""}
+                        </div>
+
+                        <div>
+                            {this.state.teste2?
+                            <div className="alertacadastro">Por favor, confira sua senha!
+                                <Link className="fecharalerta" name="alerta2" onClick={this.fecharAlerta} to="#">X</a>
+                            </div> : ""}
+                        </div>
+                        */
+                        }
+
+                        <div>
+                            {this.state.alerta3 ? 
+                            <div className="alertacadastro">Por favor, preencha todos os campos!
+                                <Link className="fecharalerta" name="alerta3" onClick={this.fecharAlerta} to="#">X</Link>
+                            </div> : ""}
                         </div>
                     </form>
 
