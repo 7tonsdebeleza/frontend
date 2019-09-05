@@ -1,23 +1,24 @@
 import React, { Component } from 'react';
-import ListaProduto from "../Produto/ListaProduto";
+//import ListaProduto from "../Produto/ListaProduto";
 import { Link } from "react-router-dom";
 import SliderCenter from '../Slider/SliderCenter';
 import BrandsList from '../Marcas/MarcasList';
+import Banner from '../Images/Banner-1.jpg';
 
 class Home extends Component {
     render(){
         return(
         <div>
             <div className="banner">
-                <img className="d-block w-100" src='https://cdn.shopify.com/s/files/1/1825/4753/files/slideshow_1_2000x_03328b29-1d6f-40d8-91b4-e2d81ea162c5_2000x.jpg?v=1492532268' alt='img-banner-1'/>
+                <img className="d-block w-100" src={Banner} style={{maxHeight:"90vh"}} alt='img-banner-1'/>
                     <div>
-                        <div className='banner-paragrafo' >
+                        <div className='banner-paragrafo' style={{color:"white"}}>
                             <div className="animated fadeInUp">
-                                <h1 className='banner-titulo spotlight'>LOREM A COSMO</h1>
+                                <h1 className='banner-titulo spotlight'>VENHA CONHECER A NOSSA LOJA</h1>
                                 <div className='divider mobile-hide'> </div>
                             </div>
         
-                            <p className='banner-texto discreet-arimo animated fadeInUp delay-1s'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                            <p className='banner-texto discreet-arimo animated fadeInUp delay-1s'>#7tonsDeBeleza</p>
 
                             {/*
                                 Botão dentro do banner, span = seta

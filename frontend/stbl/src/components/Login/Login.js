@@ -27,7 +27,7 @@ class Login extends Component {
     }
 
     async Login(){
-        const response = await api.get('/logar',{
+        api.get('/logar',{
             email: this.state.email,
             password: this.state.senha
         })
