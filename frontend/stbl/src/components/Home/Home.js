@@ -4,13 +4,17 @@ import { Link } from "react-router-dom";
 import SliderCenter from '../Slider/SliderCenter';
 import BrandsList from '../Marcas/MarcasList';
 import Banner from '../Images/Banner-1.jpg';
+import Cuidados from '../Images/cuidados.jpg';
+import Mq1 from '../Images/maquiagem1.jpg';
+import Mq2 from '../Images/maquiagem2.jpg';
+
 
 class Home extends Component {
     render(){
         return(
         <div>
             <div className="banner">
-                <img className="d-block w-100" src={Banner} style={{maxHeight:"90vh"}} alt='img-banner-1'/>
+                <img className="d-block w-100" src={Banner} style={{maxHeight:"95vh"}} alt='img-banner-1'/>
                     <div>
                         <div className='banner-paragrafo' style={{color:"white"}}>
                             <div className="animated fadeInUp">
@@ -25,7 +29,7 @@ class Home extends Component {
                             */}
 
                             <p className="button-pri">
-                                <Link to="/lojavirtual">CONHEÇA NOSSA LOJA <span/></Link>
+                                <Link to="/lojavirtual">LOJA VIRTUAL<span/></Link>
                             </p>
                         </div>
                     </div>
@@ -39,28 +43,28 @@ class Home extends Component {
                     
                     <div className='card border-light bg-dark text-white text-center wow fadeInUp faster'>
 
-                        <img src='https://cdn.shopify.com/s/files/1/1825/4753/files/top-banner-home-1_31d2f89e-9c12-4f47-8c9a-545b06787527_2000x.jpg?v=1489074799' alt='img-card'/>
+                        <img src={Mq2} style={{maxHeight:"200px"}} alt='img-card'/>
 
-                        <div className='card-img-overlay'>
-                            <h2 className="spotlight subtitle-montserrat">laboris</h2>
+                        <div style={{top:"35px"}} className='card-img-overlay'>
+                            <h2 className="spotlight subtitle-montserrat">Maquiagens</h2>
                         </div>
                     </div>
 
                     <div className='card border-light bg-dark text-center wow fadeInUp fast'>
 
-                        <img src='https://cdn.shopify.com/s/files/1/1825/4753/files/top-banner-home-2_2000x.jpg?v=1489074851' alt='img-card'/>
+                        <img src={Cuidados} style={{maxHeight:"200px"}} alt='img-card'/>
 
-                        <div className='card-img-overlay'>
-                            <h2 className="spotlight subtitle-montserrat">veniam</h2>
+                        <div style={{top:"35px"}} className='card-img-overlay'>
+                            <h2 className="spotlight subtitle-montserrat">Cuidados</h2>
                         </div>
                     </div>
 
                     <div className='card border-light bg-dark text-white text-center wow fadeInUp'>
 
-                        <img src='https://cdn.shopify.com/s/files/1/1825/4753/files/top-banner-home-3_2000x.jpg?v=1489074859' alt='img-card'/>
+                        <img src={Mq1} style={{maxHeight:"200px"}} alt='img-card'/>
 
-                        <div className='card-img-overlay'>
-                            <h2 className="spotlight subtitle-montserrat">pariatur</h2>
+                        <div style={{top:"35px"}} className='card-img-overlay'>
+                            <h2 className="spotlight subtitle-montserrat">E Muito +</h2>
                         </div>
                     </div>
 
@@ -96,9 +100,17 @@ class Home extends Component {
                         <div className='justify-content-center text-center'>
                             
                             <div className='banner-paragrafo banner-paragrafo-rightinle'>
-                                <h2 className='spotlight banner-titulo-natural'>MILANCELOS</h2>
+                                <h2 className='spotlight banner-titulo-natural'>SOBRE A MARCA</h2>
                                 <div className='divider'></div>
-                                <p className='banner-texto-inline discreet-arimo'>Pellentesque posuere orci lobortis scelerisque blandit. Donec id tellus lacinia an, tincidunt risus ac, consequat velit. Quisquemos sodales suscipit tortor ditaemcos condimentum lacus meleifend menean viverra auctor blanditos comodous.</p>
+                                <p className='banner-texto-inline discreet-arimo'>Somos a <strong>7 Tons de Beleza</strong> surgimos em 2019 com o desejo de despertar nas pessoas as emoções transformadoras que a maquiagem causa, possibilitanddo um momento mágico onde tudo é possível. O importante é ser feliz!</p>
+
+                                <p className='banner-texto-inline discreet-arimo'>A Maquiagem traz mudanças que estão muito além do que os olhos podem ver. Ela é uma ferramenta fundamental na autoestima, desperta confiança, independência e nos leva a uma sensação de bem-estar.</p>
+
+                                <p className='banner-texto-inline discreet-arimo'>Acreditamos que o importante é que nossos clientes se sintam bem consigo mesmos e com as pessoas ao seu redor</p>
+
+                                <p className='banner-texto-inline discreet-arimo'>Nossa razão de existir é proporcionar um lugar para esquecer as diferenças e estimular a felicidade. Assim surgiu a 7 Tons, uma loja para todas as formas de beleza!</p>
+
+                                <p className='banner-texto-inline discreet-arimo'>Sonhe, Sinta e Seja Feliz!</p>
 
                                 {/*
                                     Botão dentro do banner,
@@ -106,7 +118,7 @@ class Home extends Component {
                                 */}
 
                                 <p className="button-pri">
-                                    <Link to="/lojavirtual">CONHEÇA NOSSA LOJA <span/></Link>
+                                    <Link to="/lojavirtual">CONHEÇA NOSSA LOJA<span/></Link>
                                 </p>
                             </div>
                         </div>
@@ -147,8 +159,8 @@ class Home extends Component {
                         <img className='card-img-top' src="https://cdn.shopify.com/s/files/1/1825/4753/files/banner-home-bottom-1_400x_10ac45b6-ec14-46f8-84f3-589ed39f6647_400x.jpg?v=1494707881" alt='img-card'/>
                             
                         <div className='card-body'>
-                            <h3 className='card-title spotlight subtitle-montserrat'>rewLOREM ET DORUS</h3>
-                            <p className='card-text discreet-arimo'>Nullam aliquet vestibulum augue non varius. Cras nec congue elitos. Duis tristique del ante nec aliquam. Praesent urna tellus laoreet an tellus ullamcorper fermentum facilisis eratum.</p>
+                            <h3 className='card-title spotlight subtitle-montserrat'>NOSSO NOME</h3>
+                            <p className='card-text discreet-arimo' style={{height: '120px'}}>O conceito desse nome está visivelmente ligado à ideia de que o cliente é responsável por redefinir e construir sua própria autoestima com a ajuda dos produtos da loja.</p>
                             <p className="button-pri">
                                 <Link to="/lojavirtual">visitar loja <span/></Link>
                             </p>
@@ -160,8 +172,8 @@ class Home extends Component {
                         <img className='card-img-top' src="https://cdn.shopify.com/s/files/1/1825/4753/files/banner-home-bottom-2_400x_ba51370d-324f-49fb-a74e-810425df2719_400x.jpg?v=1494707890" alt='img-card'/>
                             
                         <div className='card-body'>
-                            <h3 className='card-title spotlight subtitle-montserrat'>MILANCELOS A LANOS</h3>
-                            <p className='card-text discreet-arimo'>Nullam aliquet vestibulum augue non varius. Cras nec congue elitos. Duis tristique del ante nec aliquam. Praesent urna tellus laoreet an tellus ullamcorper fermentum facilisis eratum.</p>
+                            <h3 className='card-title spotlight subtitle-montserrat'>7 (SETE)</h3>
+                            <p className='card-text discreet-arimo' style={{height: '120px'}}>Julgamos um número mágico e místico por importância. O sete é perfeição.</p>
                             <p className="button-pri">
                                 <Link to="/lojavirtual">visitar loja <span/></Link>
                             </p>
@@ -173,8 +185,8 @@ class Home extends Component {
                         <img className='card-img-top' src="https://cdn.shopify.com/s/files/1/1825/4753/files/banner-home-bottom-3_400x_da7ecf24-e8c0-42a2-a2e3-db4bcc53e6a8_400x.jpg?v=1494707900" alt='img-card'/>
                                 
                         <div className='card-body'>
-                            <h3 className='card-title spotlight subtitle-montserrat'>COSMOS DE MILANO</h3>
-                            <p className='card-text discreet-arimo'>Nullam aliquet vestibulum augue non varius. Cras nec congue elitos. Duis tristique del ante nec aliquam. Praesent urna tellus laoreet an tellus ullamcorper fermentum facilisis eratum.</p>
+                            <h3 className='card-title spotlight subtitle-montserrat'>TONS DE BELEZA</h3>
+                            <p className='card-text discreet-arimo' style={{height: '120px'}}>Tons que refletem a essência de ser brasileiro. A tropicalidade que enriquece a pele, o rosto e alma. Os traços trazem o empoderamento, equilíbrio, autoestima e identidade. Brasil é um país perfeito por mistura de raças, transformando as mulheres brasileiras nas mais belas. Dessa forma, marca a natureza do nome <strong>7 Tons de Beleza</strong> </p>
                             <p className="button-pri">
                                 <Link to="/lojavirtual">visitar loja<span/></Link>
                             </p>
