@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-//import ListaProduto from "../Produto/ListaProduto";
+import ListaProduto from "../Produto/ListaProduto";
 import { Link } from "react-router-dom";
 import SliderCenter from '../Slider/SliderCenter';
 import BrandsList from '../Marcas/MarcasList';
@@ -7,7 +7,15 @@ import Banner from '../Images/Banner-1.jpg';
 import Cuidados from '../Images/cuidados.jpg';
 import Mq1 from '../Images/maquiagem1.jpg';
 import Mq2 from '../Images/maquiagem2.jpg';
-
+import Apr from '../Images/apresentLogo.png';
+import Logos from '../Images/logos.png';
+import Sete from '../Images/sete.jpg';
+import Banner3 from '../Images/banner3.jpg';
+import Temp1 from '../Images/temp1.jpg';
+import Temp2 from '../Images/tem2.jpg';
+import Temp3 from '../Images/tem3.jpg';
+import Temp4 from '../Images/temp4.jpg';
+import Temp5 from '../Images/temp5.jpg';
 
 class Home extends Component {
     render(){
@@ -39,7 +47,7 @@ class Home extends Component {
             <div className='container justify-content-between undercard'>
                 {/*Divisão em 3 cards, texto sobreposto em background*/}
 
-                <div className='card-deck'>
+                <div className='card-deck card-d'>
                     
                     <div className='card border-light bg-dark text-white text-center wow fadeInUp faster'>
 
@@ -82,24 +90,22 @@ class Home extends Component {
                 {
                     /* Renderizando dinamicamente parte dos produtos da lista
                     esquema provisório
-
-
-                    <ListaProduto list={[this.props.dados[0],this.props.dados[1],this.props.dados[2],this.props.dados[3],this.props.dados[4]]} addCarrinho={this.props.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} removerCarrinho={this.removerCarrinho}/>
-
                     */
                 }
+
+                    <ListaProduto list={[Dados[0],Dados[1],Dados[2],Dados[3],Dados[4]]} addCarrinho={this.props.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} removerCarrinho={this.removerCarrinho}/>
              
                 
             </div>
 
 
             <div className='banner wow fadeInUp'>
-                <img className="d-block w-100" src='https://cdn.shopify.com/s/files/1/1825/4753/files/banner_2000x.jpg?v=1489329262' alt='img-card'/>
+                <img className="d-block w-100" src={Banner3} alt='img-card'/>
                     <div className="wow slideInLeft">
 
                         <div className='justify-content-center text-center'>
                             
-                            <div className='banner-paragrafo banner-paragrafo-rightinle'>
+                            <div className='banner-paragrafo2 banner-paragrafo-rightinle'>
                                 <h2 className='spotlight banner-titulo-natural'>SOBRE A MARCA</h2>
                                 <div className='divider'></div>
                                 <p className='banner-texto-inline discreet-arimo'>Somos a <strong>7 Tons de Beleza</strong> surgimos em 2019 com o desejo de despertar nas pessoas as emoções transformadoras que a maquiagem causa, possibilitanddo um momento mágico onde tudo é possível. O importante é ser feliz!</p>
@@ -125,7 +131,7 @@ class Home extends Component {
                     </div>
             </div>
 
-            <div className='container undercard' style={{marginTop: "20%"}}>
+            <div className='container undercard' style={{marginTop: "80px"}}>
                 {/*Div para quarto card com breve lista de produtos*/}
                 <div className=' d-flex flex-row justify-content-center align-items-center text-center d-flex'>
                     <div className='col'><hr/></div>
@@ -135,14 +141,11 @@ class Home extends Component {
 
                 {
                     /* Renderizando dinamicamente parte dos produtos da lista
-                    esquema provisório
-                    
-                    <ListaProduto list={[this.props.dados[5],this.props.dados[6],this.props.dados[7],this.props.dados[8],this.props.dados[9]]} addCarrinho={this.props.addCarrinho} atualizarQtdCarrinho={this.props.atualizarQtdCarrinho} removerCarrinho={this.props.removerCarrinho}/>
-                    */
+                    esquema provisório*/
                 }
 
-                
-                
+                <ListaProduto list={[Dados[5],Dados[6],Dados[7],Dados[8],Dados[9]]} addCarrinho={this.props.addCarrinho} atualizarQtdCarrinho={this.props.atualizarQtdCarrinho} removerCarrinho={this.props.removerCarrinho}/>
+
                 
             </div>
 
@@ -156,7 +159,7 @@ class Home extends Component {
 
                 <div className='card-deck text-center'>
                     <div className='card border-0 wow fadeInUp faster'>
-                        <img className='card-img-top' src="https://cdn.shopify.com/s/files/1/1825/4753/files/banner-home-bottom-1_400x_10ac45b6-ec14-46f8-84f3-589ed39f6647_400x.jpg?v=1494707881" alt='img-card'/>
+                        <img className='card-img-top' src={Apr} alt='img-card'/>
                             
                         <div className='card-body'>
                             <h3 className='card-title spotlight subtitle-montserrat'>NOSSO NOME</h3>
@@ -169,7 +172,7 @@ class Home extends Component {
                     </div>
 
                     <div className='card border-0 wow fadeInUp fast'>
-                        <img className='card-img-top' src="https://cdn.shopify.com/s/files/1/1825/4753/files/banner-home-bottom-2_400x_ba51370d-324f-49fb-a74e-810425df2719_400x.jpg?v=1494707890" alt='img-card'/>
+                        <img className='card-img-top' src={Sete} alt='img-card'/>
                             
                         <div className='card-body'>
                             <h3 className='card-title spotlight subtitle-montserrat'>7 (SETE)</h3>
@@ -182,11 +185,11 @@ class Home extends Component {
 
                     <div className='card border-0 wow fadeInUp'>
 
-                        <img className='card-img-top' src="https://cdn.shopify.com/s/files/1/1825/4753/files/banner-home-bottom-3_400x_da7ecf24-e8c0-42a2-a2e3-db4bcc53e6a8_400x.jpg?v=1494707900" alt='img-card'/>
+                        <img className='card-img-top' src={Logos} alt='img-card'/>
                                 
                         <div className='card-body'>
                             <h3 className='card-title spotlight subtitle-montserrat'>TONS DE BELEZA</h3>
-                            <p className='card-text discreet-arimo' style={{height: '120px'}}>Tons que refletem a essência de ser brasileiro. A tropicalidade que enriquece a pele, o rosto e alma. Os traços trazem o empoderamento, equilíbrio, autoestima e identidade. Brasil é um país perfeito por mistura de raças, transformando as mulheres brasileiras nas mais belas. Dessa forma, marca a natureza do nome <strong>7 Tons de Beleza</strong> </p>
+                            <p className='card-text discreet-arimo' style={{height: 'auto'}}>Tons que refletem a essência de ser brasileiro. A tropicalidade que enriquece a pele, o rosto e alma. Os traços trazem o empoderamento, equilíbrio, autoestima e identidade. Brasil é um país perfeito por mistura de raças, transformando as mulheres brasileiras nas mais belas. Dessa forma, marca a natureza do nome <strong>7 Tons de Beleza</strong> </p>
                             <p className="button-pri">
                                 <Link to="/lojavirtual">visitar loja<span/></Link>
                             </p>
@@ -228,24 +231,141 @@ class Home extends Component {
 export default Home;
 
 const imagesInst = [
-    (<img src='https://scontent.cdninstagram.com/vp/a97004e7f2d8ac92327c64ea63170a77/5D492033/t51.2885-15/e35/s320x320/18444181_1886201831627903_2441734322760187904_n.jpg?_nc_ht=scontent.cdninstagram.com' alt='instagram image1' style={{
+    (<img src={Temp1} alt='instagram image1' style={{
         maxWidth: '100%',
         height: 'auto'
     }}/>),
-    (<img src='https://ae01.alicdn.com/kf/HTB1z9dtSXXXXXbXapXXq6xXFXXXV/TARGE-E-tumblr-FRIO-cinza-Camisolas-Mulheres-Moda-Casual-de-Manga-Comprida-camisas-de-Algod-o.jpg' alt='instagram image2' style={{
+    (<img src={Temp2} alt='instagram image2' style={{
         maxWidth: '100%',
         height: 'auto'
     }}/>),
-    (<img src='https://scontent.cdninstagram.com/vp/5416f2b1d7cac0d7b0a6a28a9ff3b74a/5D4D6D63/t51.2885-15/e35/s320x320/18300169_253564125112912_73006081730674688_n.jpg?_nc_ht=scontent.cdninstagram.com' alt='instagram image3' style={{
+    (<img src={Temp3} alt='instagram image3' style={{
         maxWidth: '100%',
         height: 'auto'
     }}/>),
-    (<img src='https://scontent.cdninstagram.com/vp/de32ee5acffe6db412f1b619519ec158/5D47610A/t51.2885-15/e35/s320x320/18300169_1838895596373697_5209167543268278272_n.jpg?_nc_ht=scontent.cdninstagram.com' alt='instagram image4' style={{
+    (<img src={Temp4} alt='instagram image4' style={{
         maxWidth: '100%',
         height: 'auto'
     }}/>),
-    (<img src='https://i.pinimg.com/736x/a1/e1/ba/a1e1ba1ce1c8af8d190045c701bbf81d.jpg' alt='instagram image5' style={{
+    (<img src={Temp5} alt='instagram image5' style={{
         maxWidth: '100%',
         height: 'auto'
     }}/>),
+]
+
+
+const Dados = [
+    {
+        id: "id1",
+        img: "https://qbbr.vteximg.com.br/arquivos/ids/160367-1000-1000/batom-liquido-mate-metalico-azuluz-aberto.jpg?v=636247775539130000",
+        titulo: "Batom Líquido Mate Metálico Azuluz",
+        marca: "Avon",
+        preco: 27.99,
+        estoque: 10,
+        tipoProduto: "Batom",
+        descricao: "O batom líquido mate metálico tem alta cobertura, longa duração e pigmentos metálicos intensos para os lábios. Além disso, ele não escorre e nem transfere. São 5 cores lindas pra você se jogar!",
+        multiColor: true,
+        
+    },
+    {
+        id: "id2",
+        img: "https://qbbr.vteximg.com.br/arquivos/ids/160437-1000-1000/batom-liquido-mate-metalico-vermeluz-aberto.jpg?v=636259455546800000",
+        titulo: "Líquido Mate Metálico Vermeluz",
+        marca: "Avon",
+        preco: 227.99,
+        estoque: 7,
+        tipoProduto: "Batom",
+        descricao: "O batom líquido mate metálico tem alta cobertura, longa duração e pigmentos metálicos intensos para os lábios. Além disso, ele não escorre e nem transfere. São 5 cores lindas pra você se jogar!",
+        multiColor: true,
+        
+    },
+    {
+        id:"id3",
+        img: "https://qbbr.vteximg.com.br/arquivos/ids/156065-1000-1000/primer-instamatte-quem-disse-berenice-30g_1_812781.jpg?v=636046099692370000",
+        titulo: "Primer Instamatte 30g",
+        marca: "Quem disse berenice",
+        preco: 237.99,
+        estoque: 3,
+        tipoProduto: "Creme para a pele",
+        descricao: "O primer Instamatte é uma inovação pra quem curte ficar bem na foto. Ele é um primer que matifica a pele instantaneamente. Outra super novidade é o efeito blur (se fala blâr) que disfarça as marquinhas e ruguinhas através de partículas difusoras de luz. Sua pele lisinha e sem brilho, pra você fica bem na foto e na festa! Se joga.",
+        multiColor: false,
+    },
+    {
+        id: "id4",
+        img: "https://qbbr.vteximg.com.br/arquivos/ids/157964-1000-1000/hidratante-facial-tchau-pros-poros_814491.jpg?v=636069540312330000",
+        titulo: "Hidratante Facial Tchau Poros 40Ml",
+        marca: "Natura",
+        preco: 954.99,
+        estoque: 9,
+        tipoProduto: "Hidratante",
+        descricao: "Hidratante facial Antioxidante. Efeito detox hidratação até 30 horas. Aumento de colágeno – que deixa a pele mais firme.",
+        multiColor: false,
+        
+    },
+    {
+        id: "id5",
+        img: "https://qbbr.vteximg.com.br/arquivos/ids/156687-1000-1000/Blush-quem-disse-berenice_1_810125.jpg?v=636046197936000000",
+        titulo: "Blush QDB",
+        marca: "Natura",
+        preco: 1165.99,
+        estoque: 5,
+        tipoProduto: "Blush",
+        descricao: "A gente adora blush. Afinal, uma corzinha nas bochechas levanta qualquer astral, não é mesmo? Então resolvemos criar várias cores pra você experimentar e variar. Por ter uma textura super fininha o blush QDB tem uma ótima fixação na pele dá aquele efeito natural e saudável. Viva!!",
+        multiColor: false,
+        
+    },{
+        id:"id6",
+        img:"https://qbbr.vteximg.com.br/arquivos/ids/160473-488-488/pigmento-liquido-metalico-pra--olhos-peroluz-aberto.jpg?v=636259716125170000",
+        titulo: "Pigmento Líquido Metálico Pra Olhos Peroluz",
+        marca: "Avon",
+        preco: 27.99,
+        estoque:3,
+        tipoProduto: "Sombra",
+        descricao: "Os pigmentos deixam qualquer maquiagem mais bonita, ainda mais quando combinados com uma sombra esfumada, não é mesmo? O pigmento líquido metálico une o melhor dos dois: o efeito do pigmento e a facilidade de esfumar da sombra em pó. Incrível, né? Ele é líquido, mas ao secar parece pó, dura 10 horas e o efeito metalizado ilumina o olhar e fica ainda mais lindo esfumado. Além disso, é fácil de aplicar e por ser à base d’água, é fácil de retirar também! Tá esperando o que pra testar?",
+        multiColor: true,
+    },{
+        id: "id7",
+        img: "https://qbbr.vteximg.com.br/arquivos/ids/160205-1000-1000/Lapis-Contorno-Labial-Incolor.jpg?v=636216593706530000",
+        titulo: "Lápis Barreira Invisível Labial 1.1g - Lápis Barreira Invisível Labial 1.1G",        
+        marca: "Avon",
+        preco: 227.99,
+        estoque: 0,
+        tipoProduto: "Lápis",
+        descricao: "O lápis barreira invisível pode ser usado pra contornar os lábios, criando uma película que ajuda o batom a não borrar no momento da aplicação. Ele também pode ser usado como primer, para segurar o batom no lugar por muito mais tempo.",
+        multiColor: false,
+        
+    },{
+        id:"id8",
+        img: "https://qbbr.vteximg.com.br/arquivos/ids/162619-1000-1000/Po_Translucido_Antibrilho_Amarele_1_819436.jpg?v=636493784569670000",
+        titulo: "Pó Translucido Instamatte Amarelê",
+        marca: "Quem disse berenice", 
+        preco: 237.99, 
+        estoque: 6,
+        tipoProduto: "Creme para a pele", 
+        descricao: "Com textura ultrafina e aveludada, o pó translúcido solto matifica a pele instantaneamente! Reduz a aparência dos poros e linhas de expressão e controla a oleosidade do rosto ao longo do dia! Sua pele sequinha e sem brilho por até 6 horas! Demais, né? Ah! E por ele ter uma corzinha, também ajuda a uniformizar o tom da sua pele. Encontrar a sua cor é fácil:",
+        multiColor:false,
+        
+    },{
+        id: "id9",
+        img: "https://qbbr.vteximg.com.br/arquivos/ids/162616-1000-1000/Primer_instamatte_bastao_1_819435.jpg?v=636493782540300000",
+        titulo: "Primer instamatte bastão",
+        marca: "Natura", 
+        preco: 954.99,
+        estoque: 5,
+        tipoProduto: "Primer",
+        descricao: "A gente adora uma pele bem sequinha e por isso, resolvemos trazer o nosso primer instamatte no formato bastão! O primer instamatte em bastão matifica a pele instantaneamente, sem falar do efeito blur (se fala blâr), que disfarça as marquinhas, poros e ruguinhas através de partículas difusoras de luz. Sua pele lisinha e sem brilho a qualquer hora!", 
+        multiColor: false,
+        
+    },{
+        id: "id10",
+        img: "https://qbbr.vteximg.com.br/arquivos/ids/155598-1000-1000/Base-Alta-Cobertura-Quem-disse-berenice_1_813778.jpg?v=636045408136970000",
+        titulo: "Base Alta Cobertura",
+        marca: "Natura",
+        preco: 1165.99,
+        estoque: 0,
+        tipoProduto: "Base",
+        descricao: "A base alta cobertura é ideal para quem quer cobrir todas as marquinhas. Ela tem alta cobertura, efeito mate, FPS 15 e dura o dia inteiro! Além de possuir ingredientes especiais que absorvem a oleosidade da pele e não obstruem os poros, ela não transfere e é resistente à água e ao suor!",
+        multiColor: true,
+        
+    }
 ]

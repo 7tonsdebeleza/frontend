@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import ListaProduto from '../Produto/ListaProduto';
 import './lojaVirtualStyle.css';
+import BannerLV from '../Images/bannerlv.jpg';
+
 
 class LojaVirtual extends Component {
   //State altera menu lateral de categorias
@@ -165,7 +167,7 @@ class LojaVirtual extends Component {
             {/*Banner*/}
 
             <p>
-              <Link to="#"><img className="article_image" src="https://cdn.shopify.com/s/files/1/1825/4753/files/img_cat_022eb85c-e4c3-466c-a638-1b67c31d6bc8.jpg?v=1490539957" alt='Banner loja virtual'/></Link>
+              <Link to="#"><img className="article_image" src={BannerLV} alt='Banner loja virtual'/></Link>
             </p>
 
             <div className="page-header">
