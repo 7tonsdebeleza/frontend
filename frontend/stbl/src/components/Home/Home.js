@@ -5,8 +5,8 @@ import SliderCenter from '../Slider/SliderCenter';
 import BrandsList from '../Marcas/MarcasList';
 import Banner from '../Images/Banner-1.jpg';
 import Cuidados from '../Images/cuidados.jpg';
-import Mq1 from '../Images/maquiagem1.jpg';
-import Mq2 from '../Images/maquiagem2.jpg';
+import Mq1 from '../Images/mais.jpg';
+import Mq2 from '../Images/maquiagem.jpg';
 import Apr from '../Images/apresentLogo.png';
 import Logos from '../Images/logos.png';
 import Sete from '../Images/sete.jpg';
@@ -108,7 +108,7 @@ class Home extends Component {
                             <div className='banner-paragrafo2 banner-paragrafo-rightinle'>
                                 <h2 className='spotlight banner-titulo-natural'>SOBRE A MARCA</h2>
                                 <div className='divider'></div>
-                                <p className='banner-texto-inline discreet-arimo'>Somos a <strong>7 Tons de Beleza</strong> surgimos em 2019 com o desejo de despertar nas pessoas as emoções transformadoras que a maquiagem causa, possibilitanddo um momento mágico onde tudo é possível. O importante é ser feliz!</p>
+                                <p className='banner-texto-inline discreet-arimo'>Somos a <strong>7 Tons de Beleza</strong> surgimos com o desejo de despertar nas pessoas as emoções transformadoras que a maquiagem causa, possibilitanddo um momento mágico onde tudo é possível. O importante é ser feliz!</p>
 
                                 <p className='banner-texto-inline discreet-arimo'>A Maquiagem traz mudanças que estão muito além do que os olhos podem ver. Ela é uma ferramenta fundamental na autoestima, desperta confiança, independência e nos leva a uma sensação de bem-estar.</p>
 

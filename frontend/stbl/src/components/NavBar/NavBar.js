@@ -89,7 +89,7 @@ class NavBar extends Component {
 
                         <nav className='navbar'>
                             <div className='navbar-brand'>
-                                <Link to="/home"><img className='d-inline-block align-top' width='100' height='100' src={Logo} alt='logo' /></Link>
+                                <Link to="/home"><img className='d-inline-block align-top' width='130' height='130' src={Logo} alt='logo' /></Link>
                             </div>
 
                             <div className='nav justify-content-end'>
