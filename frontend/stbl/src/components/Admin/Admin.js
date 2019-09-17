@@ -108,7 +108,7 @@ class Admin extends Component {
                     <Login />
 
                 }
-
+                    <button onClick={() => this.setState({AdmLogado: true})}>testes</button>
 
             </div>
         )
