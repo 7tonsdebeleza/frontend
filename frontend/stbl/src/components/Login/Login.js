@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Link } from "react-router-dom";
-import api from "../API/api";
 
 class Login extends Component {
     constructor() {
@@ -23,13 +22,6 @@ class Login extends Component {
     Submit = (e) => {
         this.setState({
             [e.target.name]: e.target.value
-        })
-    }
-
-    async Login(){
-        api.get('/logar',{
-            email: this.state.email,
-            password: this.state.senha
         })
     }
 
@@ -62,9 +54,16 @@ class Login extends Component {
             this.setState({
                 alerta3: true
             })
-        }
+        } else {
+            //Criando objeto de usuário a ser logado
+            let user = {
+                email: this.state.email,
+                senha: this.state.senha
+            }
 
-        this.Login()
+            //Executando uma função herdada com os dados passados
+            this.props.login(user);
+        }
     }
 
 

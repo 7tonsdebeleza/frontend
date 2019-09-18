@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const NotFound = () => {
     return(
         <div className="notfound">
-            <h1>Página nao encontrada :(</h1>
+            <h1>Página não encontrada :(</h1>
             <h2>Sentimos muito pelo incoveniente</h2>
             <div>
                 <p>Algumas razões para isso acontecer:</p>

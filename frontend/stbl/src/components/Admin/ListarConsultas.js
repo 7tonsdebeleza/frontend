@@ -12,6 +12,7 @@ class ListarConsultas extends Component {
         let listId = 0;
         return(
             <div className='table-responsive'>
+            <p><strong>COMPRAS REALIZADAS</strong></p>
             <table className="table">
                 <thead>
                 <tr>

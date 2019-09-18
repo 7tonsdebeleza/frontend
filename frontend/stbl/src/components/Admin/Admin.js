@@ -1,118 +1,162 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
-import Search from '../Images/iconsearch2.png';
-import Plus from '../Images/plus.svg';
-import SettingIcon from '../Images/settings.svg';
-import Pencil from '../Images/pencil.svg';
+import AdminInterface from './AdminInterface';
 import ListarConsultas from './ListarConsultas';
 import FormNovoProduto from './FormNovoProduto';
 import ListaProdutoEditavel from './ListaProdutoEditavel';
 import BlogEditor from './BlogEditor';
 import Login from '../Login/Login';
+import NotFound from '../NotFound/NotFound';
 
 import './Admin.css';
 
-
 class Admin extends Component {
-    state = {
-        divConsultas: false,
-        divNovoProduto: false,
-        divEditarProduto: false,
-        divBlog: false,
 
-        AdmLogado: false
+    /*
+        State:
+            - login: booleano indicando se há usuário logado
+            - interface: inteiro para alterar qual tela será mostrada
+                - 1: tela principal com todas as opções
+                - 2: tela com histórico de compras
+                - 3: tela para adição de novo produto
+                - 4: tela para edição e pesquisa de produtos
+                - 5: tela para edição na página do blog
+    */
+    state = {
+        adminLogin: false,
+        interface: 1
+    }
+    
+    //Função que será herdada pela coponente login, login para admin diferenciado
+    login = (user) => {
+        // ################# Executar API aqui e passar função abaixo como callback
+        this.changeLogin();
+        console.log(user);
     }
 
-    //State determina se divs com forms ficaram visíveis
-    //Função mudar estados das divs de forms:
+    logout = () =>{
+        // ################# Executar API aqui e passar função abaixo como callback
+        this.changeLogin();
+    }
 
-    expandirDiv = (target) => {
+    //Função para mudanças internas de login e logout
+    changeLogin = () =>{
         this.setState({
-            [target]: this.state[target] ? false : true
+            adminLogin: this.adminLogin ? false : true
         })
     }
 
-    render() {
+    //Função para mudar componentes da tela, será herdada por outros componentes
+    changeInterface = (screen) =>{
+        this.setState({
+            interface: screen
+        })
+    }
 
-        return (
-            <div className="login container">
-                <div className="bread">
-                    <Link to="/home" >Home</Link>
-                    <span className="arrow">/</span>
-                    <span>Área Administrativa</span>
+
+    render(){
+        if(!this.state.adminLogin){
+            return(
+                <div className="login container">
+                    <AdminHeader/>
+                    <Login login={this.login}/>
+                    {/* ######## Butão abaixo para testes sem o backend */}
+                    <button onClick={() => this.changeLogin()}>Testes</button>
                 </div>
-
-                <div className="criar-conta login">
-                    <header className="page-header">
-                        <h1>Área Administrativa</h1>
-                    </header>
-                    <p className="title">Área exclusiva para administração da loja virtual 7 Tons de Beleza.</p>
+            )
+            
+        }
+        //Caso da interface princial:
+        else if(this.state.interface === 1){
+            return(
+                <div className="login container">
+                    <AdminHeader/>
+                    <AdminInterface callback={this.changeInterface}/>
                 </div>
+            )
+        }
 
-                {this.state.AdmLogado ?
+        //Caso da interface com lista de compras de usuário
+        else if(this.state.interface === 2){
+            return(
+                <div className="login container">
+                    <AdminHeader/>
+                    <ListarConsultas compras={this.props.consultas} />
+                    <p className="btn-secundaryy">
+                        <Link to="#" onClick={() => this.changeInterface(1)}> &larr; Retornar</Link>
+                    </p>
+                </div>
+            )
+        }
 
-                    <div>
+        //Caso da interface de adição de um novo produto
+        else if(this.state.interface === 3){
+            return(
+                <div className="login container">
+                    <AdminHeader/>
+                    <FormNovoProduto />
+                    <p className="btn-secundaryy">
+                        <Link to="#" onClick={() => this.changeInterface(1)}> &larr; Retornar</Link>
+                    </p>
+                </div>
+            )
+        }
 
-                        <div className='itens-container'>
-                            <div className='admin-item' onClick={() => { this.expandirDiv('divConsultas') }}>
-                                <img src={Search} width='40' height='40' alt='seach icon' />
-                                <span>CONSULTAR COMPRAS</span>
-                            </div>
+        //Caso da interface de adição de um novo produto
+        else if(this.state.interface === 4){
+            return(
+                <div className="login container">
+                    <AdminHeader/>
+                    <ListaProdutoEditavel list={this.props.produtos} />
+                    <p className="btn-secundaryy">
+                        <Link to="#" onClick={() => this.changeInterface(1)}> &larr; Retornar</Link>
+                    </p>
+                </div>
+            )
+        }
 
-                            <div style={{
-                                display: this.state.divConsultas ? 'block' : 'none'
-                            }}>
-                                <ListarConsultas compras={this.props.consultas} />
-                            </div>
+        //Caso da interface de administração do blog
+        else if(this.state.interface === 5){
+            return(
+                <div className="login container">
+                    <AdminHeader/>
+                    <BlogEditor public={this.props.publics} />
+                    <p className="btn-secundaryy">
+                        <Link to="#" onClick={() => this.changeInterface(1)}> &larr; Retornar</Link>
+                    </p>
+                </div>
+            )
+        }
 
-                            <div className='admin-item' onClick={() => { this.expandirDiv('divNovoProduto') }}>
-                                <img src={Plus} width='40' height='40' alt='seach icon' />
-                                <span>ADICIONAR NOVO PRODUTO</span>
-                            </div>
-
-                            <div style={{
-                                display: this.state.divNovoProduto ? 'block' : 'none'
-                            }}>
-                                <FormNovoProduto />
-                            </div>
-
-                            <div className='admin-item' onClick={() => { this.expandirDiv('divEditarProduto') }}>
-                                <img src={SettingIcon} width='40' height='40' alt='seach icon' />
-                                <span>EDITAR PRODUTOS</span>
-                            </div>
-
-                            <div style={{
-                                display: this.state.divEditarProduto ? 'block' : 'none'
-                            }}>
-                                <ListaProdutoEditavel list={this.props.produtos} />
-                            </div>
-
-                            <div className='admin-item' onClick={() => { this.expandirDiv('divBlog') }}>
-                                <img src={Pencil} width='40' height='40' alt='seach icon' />
-                                <span>BLOG</span>
-                            </div>
-
-                            <div style={{
-                                display: this.state.divBlog ? 'block' : 'none'
-                            }}>
-
-                                <BlogEditor public={this.props.publics} />
-
-                            </div>
-                        </div>
-
-                    </div>
-
-                    :
-
-                    <Login />
-
-                }
-                    <button onClick={() => this.setState({AdmLogado: true})}>testes</button>
-
-            </div>
-        )
+        //Caso ocorra algum erro:
+        else {
+            return(
+                <div className="login container">
+                    <AdminHeader/>
+                    <NotFound/>
+                </div>
+            )
+        }
     }
 }
 
-export default Admin;
+export default Admin
+
+const AdminHeader = () =>{
+    return(
+        <div className="login container">
+            <div className="bread">
+                <Link to="/home" >Home</Link>
+                <span className="arrow">/</span>
+                <span>Área Administrativa</span>
+            </div>
+
+            <div className="criar-conta login">
+                <header className="page-header">
+                    <h1>Área Administrativa</h1>
+                </header>
+                <p className="title">Área exclusiva para administração da loja virtual 7 Tons de Beleza.</p>
+            </div>
+        </div>
+    )
+}
