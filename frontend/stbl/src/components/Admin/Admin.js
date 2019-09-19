@@ -39,6 +39,16 @@ class Admin extends Component {
         this.changeLogin();
     }
 
+    //Função para recuperação do estado de login no servidor
+    checkServerLogin = () =>{
+        // ################# Executar API aqui e chamar função após a renderização deste componente
+        // ################# Essa função deve ter como callback a mudança do state admin login
+        // ################# Função abaixo para tetes
+        this.setState({
+            adminLogin: false,
+        })
+    }
+
     //Função para mudanças internas de login e logout
     changeLogin = () =>{
         this.setState({
@@ -51,6 +61,10 @@ class Admin extends Component {
         this.setState({
             interface: screen
         })
+    }
+
+    componentDidMount(){
+        this.checkServerLogin();
     }
 
 
@@ -70,7 +84,7 @@ class Admin extends Component {
         else if(this.state.interface === 1){
             return(
                 <div className="login container">
-                    <AdminHeader/>
+                    <AdminHeader logout={this.logout}/>
                     <AdminInterface callback={this.changeInterface}/>
                 </div>
             )
@@ -80,8 +94,8 @@ class Admin extends Component {
         else if(this.state.interface === 2){
             return(
                 <div className="login container">
-                    <AdminHeader/>
-                    <ListarConsultas compras={this.props.consultas} />
+                    <AdminHeader logout={this.logout}/>
+                    <ListarConsultas compras={this.props.consultas}/>
                     <p className="btn-secundaryy">
                         <Link to="#" onClick={() => this.changeInterface(1)}> &larr; Retornar</Link>
                     </p>
@@ -93,7 +107,7 @@ class Admin extends Component {
         else if(this.state.interface === 3){
             return(
                 <div className="login container">
-                    <AdminHeader/>
+                    <AdminHeader logout={this.logout}/>
                     <FormNovoProduto />
                     <p className="btn-secundaryy">
                         <Link to="#" onClick={() => this.changeInterface(1)}> &larr; Retornar</Link>
@@ -106,7 +120,7 @@ class Admin extends Component {
         else if(this.state.interface === 4){
             return(
                 <div className="login container">
-                    <AdminHeader/>
+                    <AdminHeader logout={this.logout}/>
                     <ListaProdutoEditavel list={this.props.produtos} />
                     <p className="btn-secundaryy">
                         <Link to="#" onClick={() => this.changeInterface(1)}> &larr; Retornar</Link>
@@ -119,7 +133,7 @@ class Admin extends Component {
         else if(this.state.interface === 5){
             return(
                 <div className="login container">
-                    <AdminHeader/>
+                    <AdminHeader logout={this.logout}/>
                     <BlogEditor public={this.props.publics} />
                     <p className="btn-secundaryy">
                         <Link to="#" onClick={() => this.changeInterface(1)}> &larr; Retornar</Link>
@@ -132,7 +146,7 @@ class Admin extends Component {
         else {
             return(
                 <div className="login container">
-                    <AdminHeader/>
+                    <AdminHeader logout={this.logout}/>
                     <NotFound/>
                 </div>
             )
@@ -142,7 +156,7 @@ class Admin extends Component {
 
 export default Admin
 
-const AdminHeader = () =>{
+const AdminHeader = (props) =>{
     return(
         <div className="login container">
             <div className="bread">
@@ -150,12 +164,18 @@ const AdminHeader = () =>{
                 <span className="arrow">/</span>
                 <span>Área Administrativa</span>
             </div>
-
             <div className="criar-conta login">
                 <header className="page-header">
                     <h1>Área Administrativa</h1>
+                    {
+                        props.logout ?
+                        <p className="btn-secundaryy" style={{float: "right", marginTop: "10px"}}>
+                            <Link to="#" onClick={() => this.props.logout()}> &larr; Desconectar</Link>
+                        </p> : null
+                    }
                 </header>
                 <p className="title">Área exclusiva para administração da loja virtual 7 Tons de Beleza.</p>
+                
             </div>
         </div>
     )
