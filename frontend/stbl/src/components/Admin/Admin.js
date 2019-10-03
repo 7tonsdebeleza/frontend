@@ -7,6 +7,7 @@ import ListaProdutoEditavel from './ListaProdutoEditavel';
 import BlogEditor from './BlogEditor';
 import Login from '../Login/Login';
 import NotFound from '../NotFound/NotFound';
+import { Compras } from '../Produto/Dados'; //###### Dados provisórios
 
 import './Admin.css';
 
@@ -21,10 +22,12 @@ class Admin extends Component {
                 - 3: tela para adição de novo produto
                 - 4: tela para edição e pesquisa de produtos
                 - 5: tela para edição na página do blog
+            - adminData: guardará dados que podem ser acessados pelo admin quando estiver logado
     */
     state = {
         adminLogin: false,
-        interface: 1
+        interface: 1,
+        adminData: null
     }
     
     //Função que será herdada pela coponente login, login para admin diferenciado
@@ -63,8 +66,16 @@ class Admin extends Component {
         })
     }
 
+    //######### Deve buscar dados de compras no servidor
+    getAdminData = () =>{
+        this.setState({
+            adminData: Compras,
+        })
+    }
+
     componentDidMount(){
         this.checkServerLogin();
+        this.getAdminData();
     }
 
 
@@ -95,7 +106,7 @@ class Admin extends Component {
             return(
                 <div className="login container">
                     <AdminHeader logout={this.logout}/>
-                    <ListarConsultas compras={this.props.consultas}/>
+                    <ListarConsultas compras={this.state.adminData}/>
                     <p className="btn-secundaryy">
                         <Link to="#" onClick={() => this.changeInterface(1)}> &larr; Retornar</Link>
                     </p>

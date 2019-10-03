@@ -3,7 +3,7 @@ import Lixeira from "../Images/lixeira.svg";
 
 class ListarConsultas extends Component {
 
-    //Função para apagar registro de compra no bd (implementar futuramente)
+    //######## Função para apagar registro de compra no bd (implementar futuramente)
     apagarReg = (regId) =>{
         console.log("Apagando "+ regId);
     }

@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { Link } from "react-router-dom";
 import './Admin.css';
 
 class FormNovoProduto extends Component {
@@ -11,6 +12,8 @@ class FormNovoProduto extends Component {
         estoque: '',
         tipoProduto: "",
         descricao: "",
+        alert: false,
+        errorMsg: "",
     }
 
     atualizarInput = (e) =>{
@@ -19,17 +22,38 @@ class FormNovoProduto extends Component {
         })
     }
 
+    //######## Deverá enviar dados de um novo produto para o banco de dados
     enviar = () =>{
-        let flag = true;
 
         //Checando se há algum campo vazio antes de enviar dados:
-        if(this.state.id === "" || this.state.img === "" || this.state.titulo === "" || this.state.marca === "" || this.state.preco === "" || this.state.estoque === "" || this.state.descricao === "" || this.state.tipoProduto === ""){
-            flag = false;
-            alert("Preencha todos os campos antes de enviar");
-        };
+        if(this.state.id !== "" && this.state.img !== "" && this.state.titulo !== "" && this.state.marca !== "" && this.state.preco !== "" && this.state.estoque !== "" && this.state.descricao !== "" && this.state.tipoProduto !== "" && this.state.img !== null){
+            //####### Enviar img do produto para bd e receber url
 
-        if(flag){
-            console.log("Produto "+ this.state.id+" enviado para o BD");
+            let url = "###";
+
+            let novoProduto = {
+                id: this.state.id,
+                img: url,
+                titulo: this.state.titulo,
+                marca: this.state.marca,
+                preco: this.state.preco,
+                estoque: this.state.estoque,
+                tipo: this.state.tipoProduto,
+                descricao: this.state.descricao,
+            }
+
+            //####### Substituir abaixo para funçao de create
+            console.log(novoProduto);
+
+
+            //####### Caso ocorra algum erro, usar alert semelhante ao else abaixo
+
+        } else {
+            console.log("ERRO")
+            this.setState({
+                alert: true,
+                errorMsg: "Por favor, preencha todos os dados..."
+            })
         }
         
     }
@@ -83,6 +107,13 @@ class FormNovoProduto extends Component {
                 </form>
                 <div className='admin-form-item'>
                     <button className='btn-secundaryy' onClick={() =>{this.enviar()}}>Enviar</button>
+                    {
+                        this.state.alert ? 
+                        (<div className="alertacadastro">{this.state.errorMsg}
+                            <Link className="fecharalerta" onClick={() => this.setState({alert: false}) } to="#">X</Link>
+                        </div>)
+                        : null
+                    }
                 </div>
         </div>
         
