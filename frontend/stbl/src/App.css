@@ -1304,3 +1304,17 @@ p.title {
     text-align: center;
 }
 /*-------------------------------------------------------*/
+
+.Upload-icon {
+    height: 10vmin;
+  }
+  
+  .Dropzone-field {
+    margin: 40px;
+    padding: 10px;
+    color: #acacac;
+    background-color: #e9e9e9;
+    border-width: thick;
+    border-style: dashed;
+    border-color: #acacac;
+  }
