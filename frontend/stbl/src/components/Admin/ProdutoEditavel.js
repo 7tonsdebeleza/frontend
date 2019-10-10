@@ -1,11 +1,24 @@
 import React, { Component } from 'react';
+import { Link } from "react-router-dom";
+import Dropzone from 'react-dropzone';
+import upload from "../Images/upload.svg";
 import './Admin.css';
 
 class ProdutoEditavel extends Component {
 
-    state = {...this.props.dados}
-
-    //State guarda informações que já existem dos dados para serem editadas
+    /*
+        State:
+            - dadosProdutos: guarda um objeto com todos os dados de um produto a ser editado ou excluido
+            - newImage: guardará arquivo de imagem caso atualização seja feita
+            - alert: boolano que ficará true quando houver algum erro no processo de edição ou exclusão
+            - errorMsg: guardará string com mensagem de erro quando ocorrer.
+    */
+    state = {
+        dadosProduto: this.props.dados,
+        newImage: null,
+        alert: false,
+        errorMsg: " ",
+    }
 
     CliqueVerDetalhes = (ProdutoId) => { /* função para abrir o modal dos produtos*/
         const modal = document.getElementById(ProdutoId);
@@ -33,18 +46,32 @@ class ProdutoEditavel extends Component {
         botao.classList.remove('mostrarBotao');
     }
 
+    //######### Remover item do banco de dados (caso seje necessário outra informação além do id, basca pegar do state)
     removerItem = (id) =>{
+        //PopUp de confimação
+
         console.log("remover item "+id+" do banco de dados");
+        //####### Caso dê certo, callback abaixo:
+        alert("Este produto foi removido do banco de dados");
+
+        //###### Caso não dê certo, callback abaixo:
+        //this.setState({alert:true, errorMsg: "Não foi possível remover este item, tente novamente mais tarde"})
     }
 
+    //######### Salvar atualizações feitas
     salvar = () =>{
-        console.log(this.state.titulo);
+        //Verificação de campos nulos
+        //Verificar se imagem será atualizada para gerar novo link antes da att
     }
 
     atualizarInput = (e) =>{
         this.setState({
             [e.target.name]: e.target.value
         })
+    }
+
+    imageIput = (img) =>{
+        this.setState({newImage: img[0]});
     }
 
     render() {
@@ -81,45 +108,63 @@ class ProdutoEditavel extends Component {
                         <div className="descricaoProdutoModal">
                             <p>
                                 <b>Título:</b>
-                                <input className='admin-form' type='text' value={this.state.titulo} name="titulo" onChange={this.atualizarInput}/>
+                                <input className='admin-form' type='text' value={this.state.dadosProduto.titulo} name="titulo" onChange={this.atualizarInput}/>
                             </p>
 
                             <p>
                                 <b>ID:</b>
-                                <input className='admin-form' type='text' value={this.state.id} name="id" onChange={this.atualizarInput}/>
+                                <input className='admin-form' type='text' value={this.state.dadosProduto.id} name="id" onChange={this.atualizarInput}/>
                             </p>   
 
                             <p>
                                 <b>Tipo de Produto:</b>
-                                <input className='admin-form' type='text' value={this.state.tipoProduto} name="tipoProduto" onChange={this.atualizarInput}/> 
+                                <input className='admin-form' type='text' value={this.state.dadosProduto.tipoProduto} name="tipoProduto" onChange={this.atualizarInput}/> 
                             </p>
 
                             <p>
                                 <b>Marca:</b>
-                                <input className='admin-form' type='text' value={this.state.marca} name="marca" onChange={this.atualizarInput}/>
+                                <input className='admin-form' type='text' value={this.state.dadosProduto.marca} name="marca" onChange={this.atualizarInput}/>
                             </p>
                             
                             <p>
                                 <b>Descrição:</b>
-                                <textarea className='admin-form' type='text' value={this.state.descricao} name="descricao" onChange={this.atualizarInput}/>
+                                <textarea className='admin-form' type='text' value={this.state.dadosProduto.descricao} name="descricao" onChange={this.atualizarInput}/>
                             </p>
 
                             <p>
                                 <b>Quantidade em estoque:</b>
-                                <input className='admin-form' type='number' value={this.state.estoque} name="estoque" onChange={this.atualizarInput}/>
+                                <input className='admin-form' type='number' value={this.state.dadosProduto.estoque} name="estoque" onChange={this.atualizarInput}/>
 
                             </p>
 
                             <p>
                                 <b>Preco:</b>
-                                <input className='admin-form' type='number' value={this.state.preco} name="preco" onChange={this.atualizarInput}/>
+                                <input className='admin-form' type='number' value={this.state.dadosProduto.preco} name="preco" onChange={this.atualizarInput}/>
                             </p>
 
-                            <label htmlFor="inputImg">Enviar nova imagem:</label>
-                            <input type="file" id="inputImg"/>
+                            <Dropzone onDrop={acceptedFiles => this.imageIput(acceptedFiles)}>
+                                {({getRootProps, getInputProps}) => (
+                                    <section>
+                                    <div className="Dropzone-field" {...getRootProps()}>
+                                        <input {...getInputProps()} type="file" accept="image/x-png,image/gif,image/jpeg" onChange={this.atualizarInput} />
+                                        {this.state.newImage !== null? (<p>{this.state.newImage.path}</p>) : <img src={upload} className="Upload-icon" alt="upload icon" />}
+                                        <p>Clique aqui ou arraste uma nova imagem</p>
+                                    
+                                    </div>
+                                    </section>
+                                )}
+                            </Dropzone> 
 
                             <button onClick={() =>{this.salvar()}}>Enviar</button>
-                            <button onClick={() =>{this.removerItem(this.state.id)}}>Remover item</button>
+                            <button onClick={() =>{this.removerItem(this.props.dados.id)}}>Remover item</button>
+
+                            {
+                                this.state.alert ? 
+                                    (<div className="alertacadastro">{this.state.errorMsg}
+                                        <Link className="fecharalerta" onClick={() => this.setState({alert: false}) } to="#">X</Link>
+                                    </div>)
+                                : null
+                            }
                             
                         </div>
                     </div>

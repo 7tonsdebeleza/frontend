@@ -5,6 +5,13 @@ import Search2 from '../Images/iconsearch2.png';
 import Buscador from '../Produto/Buscador';
 
 class ListaProdutoEditavel extends Component {
+    /*
+        State:
+            - produtos: guarda uma lista de objetos que cotem as informações dos produtos, varia de acordo com a pesquisa feita, default será uma lista com todos os produtos.
+            - pesquisa: manipula a string a ser passada para o Buscador
+            - pesquisado: guarda a string da última pesquisa feita para ser indicada na interface.
+
+    */
     state = {
         produtos: this.props.list,
         pesquisa: "",
@@ -28,7 +35,7 @@ class ListaProdutoEditavel extends Component {
     }
 
     componentDidMount() {
-        //Chamar pesquisa após 'enter'
+        //tigger para chamar pesquisa após 'enter'
         let input = document.getElementById("adminPesquisa");
 
         input.addEventListener("keyup", (event) => {
