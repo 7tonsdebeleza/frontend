@@ -126,7 +126,7 @@ class FormNovoProduto extends Component {
                             {({getRootProps, getInputProps}) => (
                                 <section>
                                 <div className="Dropzone-field" {...getRootProps()}>
-                                    <input {...getInputProps()} type="file" accept="image/x-png,image/gif,image/jpeg" onChange={this.atualizarInput} />
+                                    <input {...getInputProps()} type="file" accept="image/x-png,image/gif,image/jpeg"/>
                                     {this.state.img !== null? (<p>{this.state.img.path}</p>) : <img src={upload} className="Upload-icon" alt="upload icon" />}
                                     <p>Clique aqui ou arraste uma nova imagem</p>
                                     

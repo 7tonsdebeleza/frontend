@@ -8,13 +8,21 @@ class ProdutoEditavel extends Component {
 
     /*
         State:
-            - dadosProdutos: guarda um objeto com todos os dados de um produto a ser editado ou excluido
+            - ...:(this.props.dados) os dados de um produto a ser editado ou excluido
             - newImage: guardará arquivo de imagem caso atualização seja feita
             - alert: boolano que ficará true quando houver algum erro no processo de edição ou exclusão
             - errorMsg: guardará string com mensagem de erro quando ocorrer.
     */
     state = {
         dadosProduto: this.props.dados,
+        id: this.props.dados.id,
+        img: this.props.dados.img,
+        titulo: this.props.dados.titulo,
+        marca: this.props.dados.marca,
+        preco: this.props.dados.preco,
+        estoque: this.props.dados.estoque,
+        tipo: this.props.dados.tipoProduto,
+        descricao: this.props.dados.descricao,
         newImage: null,
         alert: false,
         errorMsg: " ",
@@ -60,8 +68,39 @@ class ProdutoEditavel extends Component {
 
     //######### Salvar atualizações feitas
     salvar = () =>{
-        //Verificação de campos nulos
-        //Verificar se imagem será atualizada para gerar novo link antes da att
+
+        //Verificando se algum campo foi deixado vazio antes de atualizar dados:
+        if(this.state.id !== "" && this.state.titulo !== "" && this.state.marca !== "" && this.state.preco !== "" && this.state.estoque !== "" && this.state.descricao !== "" && this.state.tipoProduto !== ""){
+            let img = this.state.img
+
+            //Caso em que imagem será atualizada
+            if(this.state.newImage){
+                //########## Enviar imagem para servidor, gerar novo link, remover imagem antiga
+                img = "#";
+            }
+
+            let produtoAtt = {
+                id: this.state.id,
+                img: img,
+                titulo: this.state.titulo,
+                marca: this.state.marca,
+                preco: this.state.preco,
+                estoque: this.state.estoque,
+                tipo: this.state.tipoProduto,
+                descricao: this.state.descricao,
+            }
+
+            //######### Passar atualizações para update
+            console.log(produtoAtt);
+            alert("Produto atualizado");
+
+            //######### Caso ocorra algum erro, mudar state para alerta de erro
+        } else {
+            this.setState({
+                alert: true,
+                errorMsg: "Todos os campos de texto devem estar preenchidos para essa ação"
+            })
+        }
     }
 
     atualizarInput = (e) =>{
@@ -108,45 +147,45 @@ class ProdutoEditavel extends Component {
                         <div className="descricaoProdutoModal">
                             <p>
                                 <b>Título:</b>
-                                <input className='admin-form' type='text' value={this.state.dadosProduto.titulo} name="titulo" onChange={this.atualizarInput}/>
+                                <input className='admin-form' type='text' value={this.state.titulo} name="titulo" onChange={this.atualizarInput}/>
                             </p>
 
                             <p>
                                 <b>ID:</b>
-                                <input className='admin-form' type='text' value={this.state.dadosProduto.id} name="id" onChange={this.atualizarInput}/>
+                                <input className='admin-form' type='text' value={this.state.id} name="id" onChange={this.atualizarInput}/>
                             </p>   
 
                             <p>
                                 <b>Tipo de Produto:</b>
-                                <input className='admin-form' type='text' value={this.state.dadosProduto.tipoProduto} name="tipoProduto" onChange={this.atualizarInput}/> 
+                                <input className='admin-form' type='text' value={this.state.tipoProduto} name="tipoProduto" onChange={this.atualizarInput}/> 
                             </p>
 
                             <p>
                                 <b>Marca:</b>
-                                <input className='admin-form' type='text' value={this.state.dadosProduto.marca} name="marca" onChange={this.atualizarInput}/>
+                                <input className='admin-form' type='text' value={this.state.marca} name="marca" onChange={this.atualizarInput}/>
                             </p>
                             
                             <p>
                                 <b>Descrição:</b>
-                                <textarea className='admin-form' type='text' value={this.state.dadosProduto.descricao} name="descricao" onChange={this.atualizarInput}/>
+                                <textarea className='admin-form' type='text' value={this.state.descricao} name="descricao" onChange={this.atualizarInput}/>
                             </p>
 
                             <p>
                                 <b>Quantidade em estoque:</b>
-                                <input className='admin-form' type='number' value={this.state.dadosProduto.estoque} name="estoque" onChange={this.atualizarInput}/>
+                                <input className='admin-form' type='number' value={this.state.estoque} name="estoque" onChange={this.atualizarInput}/>
 
                             </p>
 
                             <p>
                                 <b>Preco:</b>
-                                <input className='admin-form' type='number' value={this.state.dadosProduto.preco} name="preco" onChange={this.atualizarInput}/>
+                                <input className='admin-form' type='number' value={this.state.preco} name="preco" onChange={this.atualizarInput}/>
                             </p>
 
                             <Dropzone onDrop={acceptedFiles => this.imageIput(acceptedFiles)}>
                                 {({getRootProps, getInputProps}) => (
                                     <section>
                                     <div className="Dropzone-field" {...getRootProps()}>
-                                        <input {...getInputProps()} type="file" accept="image/x-png,image/gif,image/jpeg" onChange={this.atualizarInput} />
+                                        <input {...getInputProps()} type="file" accept="image/x-png,image/gif,image/jpeg"/>
                                         {this.state.newImage !== null? (<p>{this.state.newImage.path}</p>) : <img src={upload} className="Upload-icon" alt="upload icon" />}
                                         <p>Clique aqui ou arraste uma nova imagem</p>
                                     
