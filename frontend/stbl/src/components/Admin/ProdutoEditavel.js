@@ -21,7 +21,7 @@ class ProdutoEditavel extends Component {
         marca: this.props.dados.marca,
         preco: this.props.dados.preco,
         estoque: this.props.dados.estoque,
-        tipo: this.props.dados.tipoProduto,
+        tipoProduto: this.props.dados.tipoProduto,
         descricao: this.props.dados.descricao,
         newImage: null,
         alert: false,

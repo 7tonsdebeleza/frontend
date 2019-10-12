@@ -3,23 +3,23 @@ const Users = require('../../model/users/users');
 
 const Produto = require('../../model/products/produto');
 
-const bcrypt = require('bcrypt')
+//const bcrypt = require('bcrypt')
 
 //salt insere elementos aleatorios, aumentando a aleatoriedade
-const salt = bcrypt.genSaltSync(10)
+//const salt = bcrypt.genSaltSync(10)
 
 class UserController{
     async store(req,res){
         //Procura a box fixa de Usuarios criada no banco
         const users = await Users.findById("5d337d6e467d702fd0414187"); 
 
-        const senha_criptografada = bcrypt.hashSync(req.body.password,salt)
+        //const senha_criptografada = bcrypt.hashSync(req.body.password,salt)
         
         const user = await User.create({
             nome: req.body.nome,
             sobrenome: req.body.sobrenome,
             email: req.body.email,
-            password: senha_criptografada,
+            password: req.body.password,
             carrinho: []
         });
 

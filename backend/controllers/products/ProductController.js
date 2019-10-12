@@ -5,24 +5,23 @@ const Estoque = require('../../model/products/estoque');
 class ProductController{
     async store(req,res){
         //Procura a box fixa de Produtos criada no banco
-        const estoque = await Estoque.findById("5d28b8942b448c14d4d54eee"); 
-
+        const var_estoque = await Estoque.findById("5d28b8942b448c14d4d54eee"); 
         try{
+            const {img, titulo, marca, preco, estoque, tipoProduto, descricao} = req.body;
 
             const produto = await Produto.create({
-                img: req.body.img,
-                titulo: req.body.titulo,
-                marca: req.body.marca,
-                preco: req.body.preco,
-                estoque: req.body.estoque,
-                tipoProduto: req.body.tipoProduto,
-                descricao: req.body.descricao,
-                multiColor: req.body.multicolor
+                img,
+                titulo,
+                marca,
+                preco,
+                estoque,
+                tipoProduto,
+                descricao
             });
 
-            estoque.products.push(produto);
+            var_estoque.products.push(produto);
 
-            await estoque.save();
+            await var_estoque.save();
 
             return res.json(produto);
 

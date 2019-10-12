@@ -3,11 +3,11 @@ import { Link } from "react-router-dom";
 import Dropzone from 'react-dropzone';
 import upload from "../Images/upload.svg";
 import './Admin.css';
+import api from "../API/api";
 
 class FormNovoProduto extends Component {
     state = {
-        id: "",
-        img: null,
+        //img: null,
         titulo: "",
         marca: "",
         preco: '',
@@ -24,21 +24,21 @@ class FormNovoProduto extends Component {
         })
     }
 
+    /*
     imageIput = (img) =>{
         this.setState({img: img[0]});
-    }
+    }*/
 
     //######## Deverá enviar dados de um novo produto para o banco de dados
-    enviar = () =>{
+    enviar = async () =>{
 
         //Checando se há algum campo vazio antes de enviar dados:
-        if(this.state.id !== "" && this.state.img !== "" && this.state.titulo !== "" && this.state.marca !== "" && this.state.preco !== "" && this.state.estoque !== "" && this.state.descricao !== "" && this.state.tipoProduto !== "" && this.state.img !== null){
+        if(/*this.state.img !== "" && */this.state.titulo !== "" && this.state.marca !== "" && this.state.preco !== "" && this.state.estoque !== "" && this.state.descricao !== "" && this.state.tipoProduto !== "" && this.state.img !== null){
             //####### Enviar img do produto para bd e receber url
 
             let url = "###";
 
             let novoProduto = {
-                id: this.state.id,
                 img: url,
                 titulo: this.state.titulo,
                 marca: this.state.marca,
@@ -47,17 +47,27 @@ class FormNovoProduto extends Component {
                 tipo: this.state.tipoProduto,
                 descricao: this.state.descricao,
             }
+            /*
+            const data = new FormData();
 
+            data.append("img",this.state.url)
+            data.append("titulo",this.state.titulo)
+            data.append("marca",this.state.marca)
+            data.append("preco",this.state.preco)
+            data.append("estoque",this.state.estoque)
+            data.append("tipoProduto",this.state.tipoProduto)
+            data.append("descricao",this.state.descricao)
+            console.log(data)*/
+            await api.post("/criarproduto",novoProduto)
             //####### Substituir abaixo para funçao de create
-            console.log(novoProduto);
+            //console.log(novoProduto);
 
 
             //####### Caso ocorra algum erro, usar alert semelhante ao else abaixo
 
             //####### Caso não ocorra, passar feedback e resetar form
             alert("Novo produto criado com exito");
-            this.setState({
-                id: "",
+            /*this.setState({
                 img: null,
                 titulo: "",
                 marca: "",
@@ -67,7 +77,7 @@ class FormNovoProduto extends Component {
                 descricao: "",
                 alert: false,
                 errorMsg: "",
-            })
+            })*/
 
         } else {
             console.log("ERRO")
@@ -86,14 +96,8 @@ class FormNovoProduto extends Component {
                 <p><strong>FORMULÁRIO DE CADASTRO DE NOVO PRODUTO</strong></p>
                 <form className='admin-form'>
                     <div className='admin-form-item'>
-                        <label htmlFor="inputIdProduto">ID:</label>
-                        <br/>
-                        <input id="inputIdProduto" type="text" placeholder="ID" name="id" onChange={this.atualizarInput} value={this.state.id}/>
-                    </div>
-            
-                    <div className='admin-form-item'>
                         <label htmlFor="inputTitulo">TITULO:</label><br/>
-                        <input id="inputTitulo" type="text" placeholder="TTULO" name="titulo" value={this.state.titulo} onChange={this.atualizarInput}/>
+                        <input id="inputTitulo" type="text" placeholder="TITULO" name="titulo" value={this.state.titulo} onChange={this.atualizarInput}/>
                     </div>
 
                     <div className='admin-form-item'>
@@ -121,7 +125,7 @@ class FormNovoProduto extends Component {
                         <textarea id="inputDesc" type="text" placeholder="DESCRIÇÃO DO PRODUTO" name="descricao" value={this.state.descricao} onChange={this.atualizarInput}/>
                     </div>
 
-                    <div>
+                    {/*<div>
                      <Dropzone onDrop={acceptedFiles => this.imageIput(acceptedFiles)}>
                             {({getRootProps, getInputProps}) => (
                                 <section>
@@ -135,7 +139,8 @@ class FormNovoProduto extends Component {
                             )}
                         </Dropzone>     
                     </div>
-
+                            */}
+                    
                 </form>
                 <div className='admin-form-item'>
                     <button className='btn-secundaryy' onClick={() =>{this.enviar()}}>Enviar</button>
