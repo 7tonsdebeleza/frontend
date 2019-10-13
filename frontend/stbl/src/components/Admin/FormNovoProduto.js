@@ -36,7 +36,7 @@ class FormNovoProduto extends Component {
         if(/*this.state.img !== "" && */this.state.titulo !== "" && this.state.marca !== "" && this.state.preco !== "" && this.state.estoque !== "" && this.state.descricao !== "" && this.state.tipoProduto !== "" && this.state.img !== null){
             //####### Enviar img do produto para bd e receber url
 
-            let url = "###";
+            let url = Math.random()*1000;
 
             let novoProduto = {
                 img: url,
@@ -44,21 +44,15 @@ class FormNovoProduto extends Component {
                 marca: this.state.marca,
                 preco: this.state.preco,
                 estoque: this.state.estoque,
-                tipo: this.state.tipoProduto,
+                tipoProduto: this.state.tipoProduto,
                 descricao: this.state.descricao,
             }
-            /*
-            const data = new FormData();
 
-            data.append("img",this.state.url)
-            data.append("titulo",this.state.titulo)
-            data.append("marca",this.state.marca)
-            data.append("preco",this.state.preco)
-            data.append("estoque",this.state.estoque)
-            data.append("tipoProduto",this.state.tipoProduto)
-            data.append("descricao",this.state.descricao)
-            console.log(data)*/
-            await api.post("/criarproduto",novoProduto)
+            const res = await api.post("/criarproduto",novoProduto)
+
+            if(res.data == "Imagem já existente!" || res.data == "Titulo já existente!"){
+                alert(res.data)
+            }
             //####### Substituir abaixo para funçao de create
             //console.log(novoProduto);
 
@@ -67,7 +61,7 @@ class FormNovoProduto extends Component {
 
             //####### Caso não ocorra, passar feedback e resetar form
             alert("Novo produto criado com exito");
-            /*this.setState({
+            this.setState({
                 img: null,
                 titulo: "",
                 marca: "",
@@ -77,7 +71,7 @@ class FormNovoProduto extends Component {
                 descricao: "",
                 alert: false,
                 errorMsg: "",
-            })*/
+            })
 
         } else {
             console.log("ERRO")

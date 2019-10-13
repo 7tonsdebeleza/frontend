@@ -45,10 +45,10 @@ class Roteador extends Component {
 
 	//Função que executava a requisição com o banco de dados
 	async mostra(){
-		const response = await api.get('/mostrarprodutos');
-		console.log(response.data.products);
+		const response = await api.get('/mostrartodosprodutos');
+		console.log(response.data);
 		this.setState({
-			dados: response.data.products,
+			dados: response.data,
 			carregado: true,
 		})
 	}

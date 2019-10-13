@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Dropzone from 'react-dropzone';
 import upload from "../Images/upload.svg";
 import './Admin.css';
+import api from "../API/api";
 
 class ProdutoEditavel extends Component {
 
@@ -26,6 +27,14 @@ class ProdutoEditavel extends Component {
         newImage: null,
         alert: false,
         errorMsg: " ",
+        
+        img_alterado: false,
+        titulo_alterado: false,
+        marca__alterado: false,
+        preco_alterado: false,
+        estoque_alterado: false,
+        tipoProduto_alterado: false,
+        descricao_alterado: false,
     }
 
     CliqueVerDetalhes = (ProdutoId) => { /* função para abrir o modal dos produtos*/
@@ -67,7 +76,7 @@ class ProdutoEditavel extends Component {
     }
 
     //######### Salvar atualizações feitas
-    salvar = () =>{
+    salvar = async () =>{
 
         //Verificando se algum campo foi deixado vazio antes de atualizar dados:
         if(this.state.id !== "" && this.state.titulo !== "" && this.state.marca !== "" && this.state.preco !== "" && this.state.estoque !== "" && this.state.descricao !== "" && this.state.tipoProduto !== ""){
@@ -77,6 +86,10 @@ class ProdutoEditavel extends Component {
             if(this.state.newImage){
                 //########## Enviar imagem para servidor, gerar novo link, remover imagem antiga
                 img = "#";
+            }
+
+            if(this.state.titulo_alterado){
+                await api.post("/atualizartitulo",{"id":this.state.id,"novo_titulo":this.state.titulo})
             }
 
             let produtoAtt = {
@@ -150,11 +163,13 @@ class ProdutoEditavel extends Component {
                                 <input className='admin-form' type='text' value={this.state.titulo} name="titulo" onChange={this.atualizarInput}/>
                             </p>
 
+                            {/*
                             <p>
                                 <b>ID:</b>
                                 <input className='admin-form' type='text' value={this.state.id} name="id" onChange={this.atualizarInput}/>
                             </p>   
-
+                            */}
+                            
                             <p>
                                 <b>Tipo de Produto:</b>
                                 <input className='admin-form' type='text' value={this.state.tipoProduto} name="tipoProduto" onChange={this.atualizarInput}/> 
