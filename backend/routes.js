@@ -13,6 +13,8 @@ routes.post('/criarproduto',ProductController.Store);
 routes.get('/mostrartodosprodutos',ProductController.Show);
 //Mostrar produtos pelo tipo
 routes.get('/mostrarprodutoportipo',ProductController.ShowTipo)
+//Remover produto pelo ID
+routes.post('/removerproduto',ProductController.Destroy)
 //Atualizar nome do produto
 routes.post('/atualizartitulo',ProductController.UpdateTitle);
 //Atualizar marca

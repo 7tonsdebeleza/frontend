@@ -64,8 +64,9 @@ class ProdutoEditavel extends Component {
     }
 
     //######### Remover item do banco de dados (caso seje necessário outra informação além do id, basca pegar do state)
-    removerItem = (id) =>{
+    removerItem = async (id) =>{
         //PopUp de confimação
+        const res = await api.post("/removerproduto",{"_id":id});
 
         console.log("remover item "+id+" do banco de dados");
         //####### Caso dê certo, callback abaixo:

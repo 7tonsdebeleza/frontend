@@ -33,7 +33,7 @@ module.exports = {
     },
 
     async Show(req,res){
-        const produtos = await Product.find();
+        const produtos = await Product.find().populate().sort({updatedAt: -1});
 
         return res.send(produtos);
     },
@@ -42,6 +42,14 @@ module.exports = {
         const produtos = await Product.find({"tipoProduto":req.body.tipo});
 
         return res.send(produtos);
+    },
+
+    async Destroy(req,res){
+
+        const {_id} = req.body
+        const produto = await Product.findByIdAndDelete({_id})
+
+        return res.send(produto)
     },
 
     async UpdateTitle(req,res){
