@@ -7,7 +7,7 @@ import api from "../API/api";
 
 class FormNovoProduto extends Component {
     state = {
-        //img: null,
+        img: null,
         titulo: "",
         marca: "",
         preco: '',
@@ -51,17 +51,10 @@ class FormNovoProduto extends Component {
             const res = await api.post("/criarproduto",novoProduto)
 
             if(res.data == "Imagem já existente!" || res.data == "Titulo já existente!"){
-                alert(res.data)
-            }
-            //####### Substituir abaixo para funçao de create
-            //console.log(novoProduto);
-
-
-            //####### Caso ocorra algum erro, usar alert semelhante ao else abaixo
-
-            //####### Caso não ocorra, passar feedback e resetar form
-            alert("Novo produto criado com exito");
-            this.setState({
+                this.setState({alert:true, errorMsg: res.data})
+            }else{
+                alert("Novo produto criado com exito");
+                this.setState({
                 img: null,
                 titulo: "",
                 marca: "",
@@ -73,6 +66,15 @@ class FormNovoProduto extends Component {
                 errorMsg: "",
             })
 
+            }
+            //####### Substituir abaixo para funçao de create
+            //console.log(novoProduto);
+
+
+            //####### Caso ocorra algum erro, usar alert semelhante ao else abaixo
+
+            //####### Caso não ocorra, passar feedback e resetar form
+            
         } else {
             console.log("ERRO")
             this.setState({
@@ -119,7 +121,7 @@ class FormNovoProduto extends Component {
                         <textarea id="inputDesc" type="text" placeholder="DESCRIÇÃO DO PRODUTO" name="descricao" value={this.state.descricao} onChange={this.atualizarInput}/>
                     </div>
 
-                    {/*<div>
+                    <div>
                      <Dropzone onDrop={acceptedFiles => this.imageIput(acceptedFiles)}>
                             {({getRootProps, getInputProps}) => (
                                 <section>
@@ -133,7 +135,7 @@ class FormNovoProduto extends Component {
                             )}
                         </Dropzone>     
                     </div>
-                            */}
+                    
                     
                 </form>
                 <div className='admin-form-item'>

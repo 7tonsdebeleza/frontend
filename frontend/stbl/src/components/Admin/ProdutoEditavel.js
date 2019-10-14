@@ -26,15 +26,8 @@ class ProdutoEditavel extends Component {
         descricao: this.props.dados.descricao,
         newImage: null,
         alert: false,
-        errorMsg: " ",
+        errorMsg: " "
         
-        img_alterado: false,
-        titulo_alterado: false,
-        marca__alterado: false,
-        preco_alterado: false,
-        estoque_alterado: false,
-        tipoProduto_alterado: false,
-        descricao_alterado: false,
     }
 
     CliqueVerDetalhes = (ProdutoId) => { /* função para abrir o modal dos produtos*/
@@ -89,8 +82,23 @@ class ProdutoEditavel extends Component {
                 img = "#";
             }
 
-            if(this.state.titulo_alterado){
+            if(this.state.titulo !== this.props.dados.titulo){
                 await api.post("/atualizartitulo",{"id":this.state.id,"novo_titulo":this.state.titulo})
+            }
+            if(this.state.marca !== this.props.dados.marca){
+                await api.post("/atualizarmarca",{"id":this.state.id,"nova_marca":this.state.marca})
+            }
+            if(this.state.preco !== this.props.dados.preco){
+                await api.post("/atualizarpreco",{"id":this.state.id,"novo_preco":this.state.preco})
+            }
+            if(this.state.estoque !== this.props.dados.estoque){
+                await api.post("/atualizarestoque",{"id":this.state.id,"novo_estoque":this.state.estoque})
+            }
+            if(this.state.descricao !== this.props.dados.descricao){
+                await api.post("/atualizardescricao",{"id":this.state.id,"nova_descricao":this.state.descricao})
+            }
+            if(this.state.tipoProduto !== this.props.dados.tipoProduto){
+                await api.post("/atualizartipo",{"id":this.state.id,"novo_tipo":this.state.tipoProduto})
             }
 
             let produtoAtt = {

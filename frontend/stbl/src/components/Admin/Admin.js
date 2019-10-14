@@ -8,6 +8,7 @@ import BlogEditor from './BlogEditor';
 import Login from '../Login/Login';
 import NotFound from '../NotFound/NotFound';
 import { Compras } from '../Produto/Dados'; //###### Dados provisórios
+import api from "../API/api";
 
 import './Admin.css';
 
@@ -31,18 +32,23 @@ class Admin extends Component {
     }
     
     //Função que será herdada pela coponente login, login para admin diferenciado
-    login = (user) => {
+    login = async (user) => {
+        const res = await api.post("/loginadmin",user)
+        console.log(res.data)
         // ################# Executar API aqui para conectar no bd e passar função abaixo como callback
-        this.setState({adminLogin: user});
-        localStorage.setItem("@stbl/userNome", user.nome);
-        localStorage.setItem("@stbl/userEmail", user.email);
+        //this.setState({adminLogin: user});
+        if(res.data == "Email inválido!" || res.data == "Senha inválida!"){
+            alert(res.data)
+        }else{
+            this.setState({adminLogin:res.data})
+            localStorage.setItem('@stbl/user', JSON.stringify(res.data))
+        }
     }
 
     logout = () =>{
         // ################# Executar API aqui para conectar no bd e passar função abaixo como callback
         this.setState({adminLogin: null});
-        localStorage.removeItem("@stbl/userNome");
-        localStorage.removeItem("@stbl/userEmail");
+        localStorage.removeItem("@stbl/user");
     }
 
     //Função para mudar componentes da tela, será herdada por outros componentes
@@ -60,11 +66,8 @@ class Admin extends Component {
     }
 
     componentDidMount = () =>{
-        let user = {
-            nome: localStorage.getItem("@stbl/userNome"),
-            email: localStorage.getItem("@stbl/userEmail"),
-        };
-        if(user.nome !== null) this.setState({adminLogin: user})
+        let user = localStorage.getItem("@stbl/user")
+        if(user !== null) this.setState({adminLogin: user})
     }
 
     render(){

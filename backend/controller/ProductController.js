@@ -90,5 +90,13 @@ module.exports = {
         const product = await Product.findOneAndUpdate({"_id":id},{"descricao":nova_descricao},{new:true});
 
         return res.send(product)
+    },
+
+    async UpdateType(req,res){
+        const {id, novo_tipo} = req.body
+
+        const product = await Product.findOneAndUpdate({"_id":id},{"tipoProduto":novo_tipo},{new:true});
+
+        return res.send(product)
     }
 }

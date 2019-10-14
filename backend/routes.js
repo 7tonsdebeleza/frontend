@@ -4,8 +4,15 @@ const routes = express.Router();
 const UserController = require("./controller/UserController");
 const ProductController = require("./controller/ProductController");
 
+//PELO AMOR DE DEUS APAGAR
+const AdminController = require("./controller/AdminController");
+routes.post('/criaradmin',AdminController.Store);
+routes.post('/loginadmin',AdminController.Find);
+//SERIO VEY APAGA
+
 //Criar usuarios
 routes.post('/criarusuario',UserController.Store);
+
 
 //Criar produto
 routes.post('/criarproduto',ProductController.Store);
@@ -25,6 +32,8 @@ routes.post('/atualizarpreco',ProductController.UpdatePrice);
 routes.post('/atualizarestoque',ProductController.UpdateEstoque);
 //Atualizar descrição
 routes.post('/atualizardescricao',ProductController.UpdateDescription);
+//Atualizar tipoProduto
+routes.post('/atualizartipo',ProductController.UpdateType)
 
 /*
 const UsersController = require('./controllers/users/UsersController');
