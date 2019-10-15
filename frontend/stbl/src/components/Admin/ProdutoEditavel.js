@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import Dropzone from 'react-dropzone';
 import upload from "../Images/upload.svg";
-import './Admin.css';
+import Modal from "../Modal/Modal";
 import api from "../API/api";
 
 class ProdutoEditavel extends Component {
@@ -63,7 +63,8 @@ class ProdutoEditavel extends Component {
 
         console.log(res);
         //####### Caso dê certo, callback abaixo:
-        alert("Este produto foi removido do banco de dados");
+        alert("Produto foi removido com êxito! Esta pagina será recarregada...");
+        window.location.reload();
 
         //###### Caso não dê certo, callback abaixo:
         //this.setState({alert:true, errorMsg: "Não foi possível remover este item, tente novamente mais tarde"})
@@ -128,6 +129,8 @@ class ProdutoEditavel extends Component {
         //Ids dinâmicos dependentes do local do produto para evitar conflito de modal
         let ProdutoId = this.props.dados.id;
         let BotaoId = ProdutoId + "Bta";
+        let BotaoModal = ProdutoId + "Btamodal";
+        let BotaoModalCancel = ProdutoId + "BtamodalCancel";
         
         return (
             <div >
@@ -159,13 +162,6 @@ class ProdutoEditavel extends Component {
                                 <b>Título:</b>
                                 <input className='admin-form' type='text' value={this.state.titulo} name="titulo" onChange={this.atualizarInput}/>
                             </p>
-
-                            {/*
-                            <p>
-                                <b>ID:</b>
-                                <input className='admin-form' type='text' value={this.state.id} name="id" onChange={this.atualizarInput}/>
-                            </p>   
-                            */}
                             
                             <p>
                                 <b>Tipo de Produto:</b>
@@ -207,7 +203,14 @@ class ProdutoEditavel extends Component {
                             </Dropzone> 
 
                             <button onClick={() =>{this.salvar()}}>Enviar</button>
-                            <button onClick={() =>{this.removerItem(this.props.dados.id)}}>Remover item</button>
+                            <button id={BotaoModal}>Remover item</button>
+
+                            <Modal listenersId={[BotaoModal, BotaoModalCancel]} actived={false}>
+                                <h3>Tem certeza que deseja remover este item?</h3>
+                                <p>O produto será removido completamnte do catálogo da loja virtual e não poderá ser recuperado!</p>
+                                <div><button onClick={() =>{this.removerItem(this.props.dados.id)}}>Continuar</button></div>
+                                <div><button id={BotaoModalCancel} >Cancelar</button></div>
+                            </Modal>
 
                             {
                                 this.state.alert ? 
