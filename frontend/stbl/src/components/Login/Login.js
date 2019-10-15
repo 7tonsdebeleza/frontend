@@ -27,28 +27,7 @@ class Login extends Component {
 
     //função chamada clicando no botao Login
     CliqueLogin = () => {
-
-        console.log(this.state.email)
-        console.log(this.state.senha)
-
-
-        /* Caso em que o email está errado, exibir alerta
-        if(this.state.email === errado){
-            this.setState({
-                alerta1: true
-            })
-        }
-        */
-
-        /* Caso em que a senha está errada, exibir alerta
-        if(this.state.senha === errada){
-            this.setState({
-                alerta2: true
-            })
-        }
-        */
-
-
+       
         //teste para saber se existe algum campo vazio, se existir exibir um alerta
         if (this.state.email === "" || this.state.senha === "") {
             this.setState({
@@ -61,8 +40,24 @@ class Login extends Component {
                 senha: this.state.senha
             }
 
-            //Executando uma função herdada com os dados passados
-            this.props.login(user);
+            //Executando uma função herdada com os dados passados, res recebe retorno da função;
+            this.props.login(user).then((res) => {
+                console.log(res)
+
+                if(res === "Email inválido!"){
+                    this.setState({
+                    alerta1: true,
+                    })
+                }
+
+                else if(res === "Senha inválida!"){
+                    this.setState({
+                        alerta1: false,
+                        alerta2: true,
+                    })
+                }
+            });
+            
         }
     }
 
@@ -105,29 +100,25 @@ class Login extends Component {
                             <em className="obrigatorio">(* obrigatório)</em>
                         </p>
 
-                        {
-                        /*
                         <div>
-                            {this.state.teste1? 
+                            {this.state.alerta1? 
                             <div className="alertacadastro">Por favor, confira seu email!
-                                <a className="fecharalerta" name="alerta2" onClick={this.fecharAlerta} to="#">X</a>
+                                <Link className="fecharalerta" name="alerta2" onClick={this.fecharAlerta} to="#">X</Link>
                             </div> : ""}
                         </div>
 
                         <div>
-                            {this.state.teste2?
+                            {this.state.alerta2?
                             <div className="alertacadastro">Por favor, confira sua senha!
-                                <Link className="fecharalerta" name="alerta2" onClick={this.fecharAlerta} to="#">X</a>
-                            </div> : ""}
+                                <Link className="fecharalerta" name="alerta2" onClick={this.fecharAlerta} to="#">X</Link>
+                            </div> : null}
                         </div>
-                        */
-                        }
 
                         <div>
                             {this.state.alerta3 ? 
                             <div className="alertacadastro">Por favor, preencha todos os campos!
                                 <Link className="fecharalerta" name="alerta3" onClick={this.fecharAlerta} to="#">X</Link>
-                            </div> : ""}
+                            </div> : null}
                         </div>
                     </form>
 

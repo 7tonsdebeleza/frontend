@@ -33,22 +33,28 @@ class Admin extends Component {
     
     //Função que será herdada pela coponente login, login para admin diferenciado
     login = async (user) => {
+        //Fazendo login do banco de dados
         const res = await api.post("/loginadmin",user)
-        console.log(res.data)
-        // ################# Executar API aqui para conectar no bd e passar função abaixo como callback
-        //this.setState({adminLogin: user});
-        if(res.data == "Email inválido!" || res.data == "Senha inválida!"){
-            alert(res.data)
-        }else{
+        
+        //Caso login não funcione
+        if(res.data === "Email inválido!" || res.data === "Senha inválida!"){
+            return res.data;
+        } else {
+            //Caso funcione, salvando obj de usuário no state
             this.setState({adminLogin:res.data})
-            localStorage.setItem('@stbl/user', JSON.stringify(res.data))
+
+            //Tornando dados do usuário logado permanente
+            localStorage.setItem('@stbl/admin/user', JSON.stringify(res.data))
+
+            return true;
         }
     }
 
     logout = () =>{
-        // ################# Executar API aqui para conectar no bd e passar função abaixo como callback
+        // Removendo objeto do state e permanência do navegador
         this.setState({adminLogin: null});
-        localStorage.removeItem("@stbl/user");
+        localStorage.removeItem("@stbl/admin/user");
+        localStorage.removeItem("@stbl/admin/interface");
     }
 
     //Função para mudar componentes da tela, será herdada por outros componentes
@@ -56,6 +62,11 @@ class Admin extends Component {
         this.setState({
             interface: screen
         })
+
+        window.scrollTo(0,0);
+
+        //Salvando interface no navegador para recuperação após reload
+        localStorage.setItem("@stbl/admin/interface", screen);
     }
 
     //######### Deve buscar dados de compras no servidor
@@ -66,8 +77,20 @@ class Admin extends Component {
     }
 
     componentDidMount = () =>{
-        let user = localStorage.getItem("@stbl/user")
-        if(user !== null) this.setState({adminLogin: user})
+        //Verificando se há usuário para ser recuperado no login permanete
+        let user = localStorage.getItem("@stbl/admin/user");
+        if(user !== null){           
+            //Recuperando última interface selecionada antes de um reload
+            let lastInterface = localStorage.getItem("@stbl/admin/interface");
+            console.log(lastInterface);
+            this.setState({
+                adminLogin: JSON.parse(user),
+                interface: lastInterface === null ? 1 : parseInt(lastInterface),
+            });
+
+            //########### Buscando dados acessíveis apenas pelo admin
+            this.getAdminData();
+        }
     }
 
     render(){
@@ -76,12 +99,6 @@ class Admin extends Component {
                 <div className="login container">
                     <AdminHeader/>
                     <Login login={this.login}/>
-
-                    {/* ######## Butão abaixo para testes sem o backend */}
-                    <button onClick={() => this.login({
-                        email:"teste@teste.com",
-                        nome: "testes",
-                    })}>Testes</button>
                 </div>
             )
             
@@ -181,7 +198,7 @@ const AdminHeader = (props) =>{
                     }
                 </header>
                 <p className="title">
-                    {props.user ? ("Bem vindo " + props.user.nome + "! ") : null}
+                    {props.user ? (<div>Bem vindo(a) <b>{props.user.nome}</b>! </div>) : null}
                     Área exclusiva para administração da loja virtual 7 Tons de Beleza.
                 </p>
                 

@@ -24,16 +24,15 @@ class FormNovoProduto extends Component {
         })
     }
 
-    /*
     imageIput = (img) =>{
         this.setState({img: img[0]});
-    }*/
+    }
 
     //######## Deverá enviar dados de um novo produto para o banco de dados
     enviar = async () =>{
 
         //Checando se há algum campo vazio antes de enviar dados:
-        if(/*this.state.img !== "" && */this.state.titulo !== "" && this.state.marca !== "" && this.state.preco !== "" && this.state.estoque !== "" && this.state.descricao !== "" && this.state.tipoProduto !== "" && this.state.img !== null){
+        if(this.state.titulo !== "" && this.state.marca !== "" && this.state.preco !== "" && this.state.estoque !== "" && this.state.descricao !== "" && this.state.tipoProduto !== "" /* && this.state.img !== null*/){
             //####### Enviar img do produto para bd e receber url
 
             let url = Math.random()*1000;
@@ -50,30 +49,12 @@ class FormNovoProduto extends Component {
 
             const res = await api.post("/criarproduto",novoProduto)
 
-            if(res.data == "Imagem já existente!" || res.data == "Titulo já existente!"){
+            if(res.data === "Imagem já existente!" || res.data === "Titulo já existente!"){
                 this.setState({alert:true, errorMsg: res.data})
             }else{
-                alert("Novo produto criado com exito");
-                this.setState({
-                img: null,
-                titulo: "",
-                marca: "",
-                preco: '',
-                estoque: '',
-                tipoProduto: "",
-                descricao: "",
-                alert: false,
-                errorMsg: "",
-            })
-
+                alert("Novo produto criado com exito! Esta página será recarregada...");
+                window.location.reload(true);
             }
-            //####### Substituir abaixo para funçao de create
-            //console.log(novoProduto);
-
-
-            //####### Caso ocorra algum erro, usar alert semelhante ao else abaixo
-
-            //####### Caso não ocorra, passar feedback e resetar form
             
         } else {
             console.log("ERRO")
@@ -116,7 +97,7 @@ class FormNovoProduto extends Component {
                         <input id="inputTipo" type="text" placeholder="TIPO" name="tipoProduto" value={this.state.tipoProduto} onChange={this.atualizarInput}/>
                     </div>
 
-                    <div className='admin-form-item'>
+                    <div>
                         <label htmlFor="inputDesc">DESCRIÇÃO:</label><br/>
                         <textarea id="inputDesc" type="text" placeholder="DESCRIÇÃO DO PRODUTO" name="descricao" value={this.state.descricao} onChange={this.atualizarInput}/>
                     </div>

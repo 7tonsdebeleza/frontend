@@ -61,7 +61,7 @@ class ProdutoEditavel extends Component {
         //PopUp de confimação
         const res = await api.post("/removerproduto",{"_id":id});
 
-        console.log("remover item "+id+" do banco de dados");
+        console.log(res);
         //####### Caso dê certo, callback abaixo:
         alert("Este produto foi removido do banco de dados");
 
@@ -74,13 +74,13 @@ class ProdutoEditavel extends Component {
 
         //Verificando se algum campo foi deixado vazio antes de atualizar dados:
         if(this.state.id !== "" && this.state.titulo !== "" && this.state.marca !== "" && this.state.preco !== "" && this.state.estoque !== "" && this.state.descricao !== "" && this.state.tipoProduto !== ""){
-            let img = this.state.img
+            /*let img = this.state.img
 
             //Caso em que imagem será atualizada
             if(this.state.newImage){
                 //########## Enviar imagem para servidor, gerar novo link, remover imagem antiga
                 img = "#";
-            }
+            }*/
 
             if(this.state.titulo !== this.props.dados.titulo){
                 await api.post("/atualizartitulo",{"id":this.state.id,"novo_titulo":this.state.titulo})
@@ -101,20 +101,8 @@ class ProdutoEditavel extends Component {
                 await api.post("/atualizartipo",{"id":this.state.id,"novo_tipo":this.state.tipoProduto})
             }
 
-            let produtoAtt = {
-                id: this.state.id,
-                img: img,
-                titulo: this.state.titulo,
-                marca: this.state.marca,
-                preco: this.state.preco,
-                estoque: this.state.estoque,
-                tipo: this.state.tipoProduto,
-                descricao: this.state.descricao,
-            }
-
-            //######### Passar atualizações para update
-            console.log(produtoAtt);
-            alert("Produto atualizado");
+            alert("Produto atualizado! Esta página será recarregada...");
+            window.location.reload(true);
 
             //######### Caso ocorra algum erro, mudar state para alerta de erro
         } else {
