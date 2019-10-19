@@ -156,7 +156,7 @@ class NavBar extends Component {
                                                             <Link to="/Cliente" style={{ color: 'black' }}>Minha conta</Link>
                                                             &nbsp;
                                                             &nbsp;
-                                                            <Link to="/#" onClick={this.props.logout()} style={{ color: 'black' }}>Sair</Link>
+                                                            <Link to="/#" onClick={() => this.props.logout()} style={{ color: 'black' }}>Sair</Link>
                                                         </div>) 
                                                         : (<div>
                                                             <Link to="/login" style={{ color: 'black' }}>Entre</Link>

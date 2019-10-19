@@ -81,7 +81,7 @@ class Roteador extends Component {
 
 	Clientelogout = () =>{
         // Removendo objeto do state e permanência do navegador
-        this.setState({adminLogin: null});
+        this.setState({user: null});
         localStorage.removeItem("@stbl/client/user");
     }
 
