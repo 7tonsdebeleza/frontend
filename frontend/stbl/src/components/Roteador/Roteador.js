@@ -31,6 +31,7 @@ class Roteador extends Component {
 		 - "pesquisaChamada" ativa a página de resultados de pesquisa
 		 - "dados" guarda a resquisão de produtos do banco de dados
 		 - "carregado" indica se a requisição do banco de dados foi finalizada para renderização
+		 - "user" guarda um objeto de usuário (cliente)
 	*/
 
 	state = {
@@ -41,7 +42,49 @@ class Roteador extends Component {
 		pesquisaChamada: false,
 		dados: [],
 		carregado: false,
+		user: null
 	}
+
+
+	//Função que será herdada pelo componente de login do cliente
+	//Recebe como parâmetro dados válidos do form de login
+	clientLogin = async (user) => {
+		
+		console.log(user);
+
+		let testeUser = {
+			name: "teste",
+		}
+
+		await this.setState({user:testeUser});
+		localStorage.setItem('@stbl/client/user', JSON.stringify(testeUser))
+		return true;
+
+		/*
+		//Fazendo login do banco de dados
+        const res = await api.post("/loginadmin",user)
+        
+        //Caso login não funcione
+        if(res.data === "Email inválido!" || res.data === "Senha inválida!"){
+            return res.data;
+        } else {
+            //Caso funcione, salvando obj de usuário no state
+            this.setState({user:res.data})
+
+            //Tornando dados do usuário logado permanente
+            localStorage.setItem('@stbl/client/user', JSON.stringify(res.data))
+
+            return true;
+		}*/
+	}
+	
+
+	Clientelogout = () =>{
+        // Removendo objeto do state e permanência do navegador
+        this.setState({adminLogin: null});
+        localStorage.removeItem("@stbl/client/user");
+    }
+
 
 	//Função que executava a requisição com o banco de dados
 	async mostra(){
@@ -61,7 +104,7 @@ class Roteador extends Component {
 			dadosCarrinho: novaLista,
 			qtdCarrinho: this.state.qtdCarrinho + dados.qtd
 		})
-		this.adicionarCarrinho("Batom Líquido Mate Metálico Azuluz");
+		
 	}
 
 	atualizarQtdCarrinho = (qtd) =>{
@@ -99,6 +142,17 @@ class Roteador extends Component {
 	componentDidMount(){
 		//Carregando produtos do banco de dados 
 		this.mostra();
+
+		//recuperando estado de usuário logado
+		let user = localStorage.getItem("@stbl/client/user");
+        if(user !== null){
+
+			//##### Implementar função para conectar carrinho do cliente logado           
+            
+            this.setState({
+                user: JSON.parse(user),
+            });
+        }
 	}
 
 	render() {
@@ -131,16 +185,16 @@ class Roteador extends Component {
 						this.setState({pesquisaChamada: false}) : null
 					}
 
-					<NavBar pesquisar={this.pesquisar} qtdCarrinho={this.state.qtdCarrinho} dados={this.state.dadosCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} removerCarrinho={this.removerCarrinho} botaoCarrinho={true}/>
+					<NavBar pesquisar={this.pesquisar} qtdCarrinho={this.state.qtdCarrinho} dados={this.state.dadosCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} removerCarrinho={this.removerCarrinho} botaoCarrinho={true} user={this.state.user} logout={this.Clientelogout} />
 
-					<NavBarMobile pesquisar={this.pesquisar} qtdCarrinho={this.state.qtdCarrinho} dados={this.state.dadosCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} removerCarrinho={this.removerCarrinho} botaoCarrinho={true}/>
+					<NavBarMobile pesquisar={this.pesquisar} qtdCarrinho={this.state.qtdCarrinho} dados={this.state.dadosCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} removerCarrinho={this.removerCarrinho} botaoCarrinho={true} user={this.state.user} logout={this.Clientelogout}/>
 					
 					<Switch>
 						<Route exact path="/home" render={() => <Home dados={this.state.dados} addCarrinho={this.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} removerCarrinho={this.removerCarrinho}/>}/>
 
-						<Route exact path="/cadastro" component={Cadastro}/>
+						<Route exact path="/cadastro" render={() => this.state.user ? <Redirect to='/Cliente'/> : <Cadastro/>}/>
 
-						<Route exact path="/login" component={Login}/>
+						<Route exact path="/login" render={() => this.state.user ? <Redirect to='/Cliente'/> : <Login login={this.clientLogin}/>} />
 
 						<Route exact path="/lojavirtual" render={() => <LojaVirtual dados={this.state.dados} addCarrinho={this.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} removerCarrinho={this.removerCarrinho}/>}/>
 

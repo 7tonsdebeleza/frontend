@@ -187,12 +187,25 @@ class NavBarMobile extends Component {
                     <button className="fechar-menu">X</button>
                     <div className="modal-menumobile">
 
-                        <ul className="nav-item" onClick={this.CliqueLinkUser.bind(this)}>
-                            <li className="item" id="item"><Link to="/login">Login</Link></li>
-                            <li className="item" id="item"><Link to="/cadastro">Criar uma conta</Link></li>
-                            <li className="item" id="item"><Link to="/">Minha conta</Link></li>
-                            <li className="item" id="item"><Link to="/faq">FAQ</Link></li>
-                        </ul>
+                        {
+                            this.props.user ?
+
+                            <ul className="nav-item" onClick={this.CliqueLinkUser.bind(this)}>
+                                <li className="item" id="item"><Link to="/Cliente">Minha conta</Link></li>
+                                <li className="item" id="item"><Link to="#" onClick={() => this.props.logout()}>Sair</Link></li>
+                                <li className="item" id="item"><Link to="/faq">FAQ</Link></li>
+                            </ul>
+
+                            :
+
+                            <ul className="nav-item" onClick={this.CliqueLinkUser.bind(this)}>
+                                <li className="item" id="item"><Link to="/login">Login</Link></li>
+                                <li className="item" id="item"><Link to="/cadastro">Criar uma conta</Link></li>
+                                <li className="item" id="item"><Link to="/faq">FAQ</Link></li>
+                            </ul>
+
+                        }
+                        
                     </div>
                 </div>
 

@@ -18,7 +18,6 @@ class Cadastro extends Component {
       alerta1: false,
       alerta2: false,
       alerta3: false,
-      alerta4: false,
       informationemail: false,
       informationsenha: false,
       
@@ -39,9 +38,26 @@ class Cadastro extends Component {
       password: this.state.senha
     })
 
-    this.setState({ redirect: "/home" })
-
     console.log(response.data)
+
+    alert("Cadastro realizado!");
+
+    this.setState({
+      nome: "",
+      sobrenome: "",
+      email: "",
+      senha: "",
+      confirmaremail: "",
+      confirmarsenha: "",
+
+      alerta1: false,
+      alerta2: false,
+      alerta3: false,
+      alerta4: false,
+      informationemail: false,
+      informationsenha: false,
+    });
+
   }
 
   //função que atualiza o state dos dados
@@ -154,7 +170,7 @@ class Cadastro extends Component {
             </div>
 
             <p className="btn-secundaryy">
-              <Link to={this.state.redirect} onClick={this.CliqueCriarConta}>Criar conta</Link>
+              <Link to="#" onClick={this.CliqueCriarConta}>Criar conta</Link>
               <em className="obrigatorio">(* obrigatório)</em>
             </p>
 
@@ -179,13 +195,7 @@ class Cadastro extends Component {
               <Link className="fecharalerta" name="alerta3" onClick={this.fecharAlerta} to="#">X</Link>
                 </div> : ""}
             </div>
-            <div>
-              {this.state.alerta4 ?
-                <div className="alertacadastro">teste
-              <Link className="fecharalerta" name="alerta4" onClick={this.fecharAlerta} to="#">X</Link>
-                </div> : ""}
-            </div>
-
+            
         </div>
       </div>
     )

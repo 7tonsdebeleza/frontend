@@ -149,9 +149,22 @@ class NavBar extends Component {
 
                                             <div className='nav-item'>
                                                 <div className='nav-link'>
-                                                    <Link to="/login" style={{ color: 'black' }}>Entre</Link>
-                                                    &nbsp;ou&nbsp;
-                                        <Link to="/cadastro" style={{ color: 'black' }}>Cadastrar-se</Link>
+
+                                                    {
+                                                        this.props.user ? 
+                                                        (<div>
+                                                            <Link to="/Cliente" style={{ color: 'black' }}>Minha conta</Link>
+                                                            &nbsp;
+                                                            &nbsp;
+                                                            <Link to="/#" onClick={this.props.logout()} style={{ color: 'black' }}>Sair</Link>
+                                                        </div>) 
+                                                        : (<div>
+                                                            <Link to="/login" style={{ color: 'black' }}>Entre</Link>
+                                                            &nbsp;ou&nbsp;
+                                                            <Link to="/cadastro" style={{ color: 'black' }}>Cadastrar-se</Link>
+                                                        </div>)
+                                                    }
+
                                                 </div>
                                             </div>
                                         </nav>
