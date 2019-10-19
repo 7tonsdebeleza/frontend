@@ -16,7 +16,9 @@ import Admin from '../Admin/Admin';
 import Carrinho from '../Carrinho/Carrinho';
 import { Compras, Public } from '../Produto/Dados'; //Dados provisórios para listas de produtos
 import Busca from '../Produto/Busca';
-import Carregamento from '../Carregamento/Carregamento'
+import Carregamento from '../Carregamento/Carregamento';
+import Cliente from "../Cliente/Cliente";
+import AtualizarClienteInfo from "../Cliente/AtualizarClienteInfo";
 import api from "../API/api";
 
 class Roteador extends Component {
@@ -53,7 +55,9 @@ class Roteador extends Component {
 		console.log(user);
 
 		let testeUser = {
-			name: "teste",
+			id:1,
+			nome: "teste",
+			email: "teste@teste.com",
 		}
 
 		await this.setState({user:testeUser});
@@ -212,6 +216,10 @@ class Roteador extends Component {
 
 						<Route exact path="/"  render={() => <Home dados={this.state.dados} addCarrinho={this.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} removerCarrinho={this.removerCarrinho} />}/>
 
+						<Route exact path="/cliente" render={() => this.state.user? <Cliente user={this.state.user}/> : <Redirect to="/login"/> }/>
+
+						<Route exact path="/cliente/atualizar" render={() => this.state.user? <AtualizarClienteInfo user={this.state.user}/> : <Redirect to="/login"/> }/>
+
 						<Route component={NotFound}/>    			
 					</Switch>
 
@@ -223,8 +231,6 @@ class Roteador extends Component {
 			</BrowserRouter>
 			);
 		}
-
-
 		
   }
 }
