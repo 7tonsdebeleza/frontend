@@ -68,6 +68,7 @@ class FormNovoProduto extends Component {
 
 
     render(){
+        console.log(window.location.pathname)
         return(
             <div className='admin-form'>
                 <p><strong>FORMULÁRIO DE CADASTRO DE NOVO PRODUTO</strong></p>
@@ -129,6 +130,10 @@ class FormNovoProduto extends Component {
                         : null
                     }
                 </div>
+
+                <p className="btn-secundaryy">
+                    <Link to="/admin7tons"> &larr; Retornar</Link>
+                </p>
         </div>
         
         )}

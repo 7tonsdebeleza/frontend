@@ -3,31 +3,31 @@ import Search from '../Images/iconsearch2.png';
 import Plus from '../Images/plus.svg';
 import SettingIcon from '../Images/settings.svg';
 import Pencil from '../Images/pencil.svg';
+import { Link } from "react-router-dom";
 
 //Compontente stateless com interface principal da tela administrativa
-//Herda as funções de respostas da interface
-const AdminInterface = (props) =>{
+const AdminInterface = () =>{
     return(
         <div className='itens-container'>
-            <div className='admin-item' onClick={() => {props.callback(2) }}>
+            <Link to="/admin7tons/consulta"><div className='admin-item'>
                 <img src={Search} width='40' height='40' alt='seach icon' />
-                <span>CONSULTAR COMPRAS</span>
-            </div>
+                <span>  CONSULTAR COMPRAS</span>
+            </div></Link>
 
-            <div className='admin-item' onClick={() => {props.callback(3) }}>
+            <Link to="/admin7tons/novoproduto"><div className='admin-item'>
                 <img src={Plus} width='40' height='40' alt='seach icon' />
-                <span>ADICIONAR NOVO PRODUTO</span>
-            </div>
+                <span>  ADICIONAR NOVO PRODUTO </span>
+            </div></Link>
 
-            <div className='admin-item' onClick={() => {props.callback(4) }}>
+            <Link to="/admin7tons/editarprodutos"> <div className='admin-item'>
                 <img src={SettingIcon} width='40' height='40' alt='seach icon' />
-                <span>EDITAR PRODUTOS</span>
-            </div>
+                <span> EDITAR PRODUTOS </span>
+            </div></Link>
 
-            <div className='admin-item' onClick={() => {props.callback(5) }}>
+            <Link to="/admin7tons/blog"><div className='admin-item'>
                 <img src={Pencil} width='40' height='40' alt='seach icon' />
-                <span>BLOG</span>
-            </div>                        
+                <span>  BLOG </span>
+            </div> </Link>                        
         </div>
 
     )

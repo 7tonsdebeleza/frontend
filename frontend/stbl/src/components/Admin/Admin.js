@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import { Link } from "react-router-dom";
+import {BrowserRouter, Route, Switch, Link, Redirect} from "react-router-dom";
 import AdminInterface from './AdminInterface';
 import ListarConsultas from './ListarConsultas';
 import FormNovoProduto from './FormNovoProduto';
 import ListaProdutoEditavel from './ListaProdutoEditavel';
 import BlogEditor from './BlogEditor';
 import Login from '../Login/Login';
-import NotFound from '../NotFound/NotFound';
 import { Compras } from '../Produto/Dados'; //###### Dados provisórios
 import api from "../API/api";
 
@@ -17,17 +16,10 @@ class Admin extends Component {
     /*
         State:
             - adminlogin: guarda objeto de usuário logado
-            - interface: inteiro para alterar qual tela será mostrada
-                - 1: tela principal com todas as opções
-                - 2: tela com histórico de compras
-                - 3: tela para adição de novo produto
-                - 4: tela para edição e pesquisa de produtos
-                - 5: tela para edição na página do blog
             - adminData: guardará dados do bd que podem ser acessados pelo admin quando estiver logado
     */
     state = {
         adminLogin: null,
-        interface: 1,
         adminData: null
     }
     
@@ -57,17 +49,6 @@ class Admin extends Component {
         localStorage.removeItem("@stbl/admin/interface");
     }
 
-    //Função para mudar componentes da tela, será herdada por outros componentes
-    changeInterface = (screen) =>{
-        this.setState({
-            interface: screen
-        })
-
-        window.scrollTo(0,0);
-
-        //Salvando interface no navegador para recuperação após reload
-        localStorage.setItem("@stbl/admin/interface", screen);
-    }
 
     //######### Deve buscar dados de compras no servidor
     getAdminData = () =>{
@@ -76,7 +57,7 @@ class Admin extends Component {
         })
     }
 
-    componentDidMount = () =>{
+    componentWillMount = () =>{
         //Verificando se há usuário para ser recuperado no login permanete
         let user = localStorage.getItem("@stbl/admin/user");
         if(user !== null){           
@@ -91,89 +72,36 @@ class Admin extends Component {
             //########### Buscando dados acessíveis apenas pelo admin
             this.getAdminData();
         }
+
+        window.scrollTo(0,0);
+
     }
 
     render(){
-        if(this.state.adminLogin === null){
-            return(
-                <div className="login container">
-                    <AdminHeader/>
-                    <Login login={this.login}/>
-                </div>
-            )
-            
-        }
-        //Caso da interface princial:
-        else if(this.state.interface === 1){
-            return(
-                <div className="login container">
-                    <AdminHeader user={this.state.adminLogin} logout={this.logout}/>
-                    <AdminInterface callback={this.changeInterface}/>
-                </div>
-            )
-        }
+        let admin = this.state.adminLogin;
 
-        //Caso da interface com lista de compras de usuário
-        else if(this.state.interface === 2){
-            return(
+        return(
+            <BrowserRouter>
                 <div className="login container">
-                    <AdminHeader user={this.state.adminLogin} logout={this.logout}/>
-                    <ListarConsultas compras={this.state.adminData}/>
-                    <p className="btn-secundaryy">
-                        <Link to="#" onClick={() => this.changeInterface(1)}> &larr; Retornar</Link>
-                    </p>
-                </div>
-            )
-        }
 
-        //Caso da interface de adição de um novo produto
-        else if(this.state.interface === 3){
-            return(
-                <div className="login container">
-                    <AdminHeader user={this.state.adminLogin} logout={this.logout}/>
-                    <FormNovoProduto />
-                    <p className="btn-secundaryy">
-                        <Link to="#" onClick={() => this.changeInterface(1)}> &larr; Retornar</Link>
-                    </p>
-                </div>
-            )
-        }
+                    <AdminHeader user={admin} logout={admin? this.logout : null}/>
+                    { !admin? <Redirect onUpdate={() => window.scrollTo(0,0)} to="/admin7tons"/> : null }
+                    <Switch>
+                        <Route exact onUpdate={() => window.scrollTo(0,0)} path="/admin7tons" render={() => !admin ? <Login login={this.login}/> : <AdminInterface/>} />
 
-        //Caso da interface de adição de um novo produto
-        else if(this.state.interface === 4){
-            return(
-                <div className="login container">
-                    <AdminHeader user={this.state.adminLogin} logout={this.logout}/>
-                    <ListaProdutoEditavel list={this.props.produtos} />
-                    <p className="btn-secundaryy">
-                        <Link to="#" onClick={() => this.changeInterface(1)}> &larr; Retornar</Link>
-                    </p>
-                </div>
-            )
-        }
+                        <Route exact path="/admin7tons/consulta" render = {() => <ListarConsultas compras={this.state.adminData}/>} />
 
-        //Caso da interface de administração do blog
-        else if(this.state.interface === 5){
-            return(
-                <div className="login container">
-                    <AdminHeader user={this.state.adminLogin} logout={this.logout}/>
-                    <BlogEditor public={this.props.publics} />
-                    <p className="btn-secundaryy">
-                        <Link to="#" onClick={() => this.changeInterface(1)}> &larr; Retornar</Link>
-                    </p>
-                </div>
-            )
-        }
+                        <Route exact path="/admin7tons/novoproduto" component = {FormNovoProduto} />
 
-        //Caso ocorra algum erro:
-        else {
-            return(
-                <div className="login container">
-                    <AdminHeader user={this.state.adminLogin} logout={this.logout}/>
-                    <NotFound/>
+                        <Route exact path="/admin7tons/editarprodutos" render = {() => <ListaProdutoEditavel list={this.props.produtos} />} />
+
+                        <Route exact path="/admin7tons/blog" render = {() => <BlogEditor public={this.props.publics} />} />
+                    </Switch>
+
                 </div>
-            )
-        }
+            </BrowserRouter>
+        )
+
     }
 }
 

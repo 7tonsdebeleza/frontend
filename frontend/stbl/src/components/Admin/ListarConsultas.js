@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { Link } from "react-router-dom";
 import Lixeira from "../Images/lixeira.svg";
 
 class ListarConsultas extends Component {
@@ -13,40 +14,50 @@ class ListarConsultas extends Component {
         return(
             <div className='table-responsive'>
             <p><strong>COMPRAS REALIZADAS</strong></p>
-            <table className="table">
-                <thead>
-                <tr>
-                    <th scope="col">USUÁRIO</th>
-                    <th scope="col">PRODUTO</th>
-                    <th scope="col">ID</th>
-                    <th scope="col">QUANTIDADE</th>
-                    <th scope="col">DATA</th>
-                    <th scope="col">CÓDIGO</th>
-                    <th scope="col">X</th>
-                </tr>
-                </thead>
-                <tbody>
-                    {
-                        //Gerando tabela por dados via props
-                        this.props.compras.map((reg) => {
-                            listId++;
-                            return(
-                                <tr key={listId}>
-                                    <td>{reg.user}</td>
-                                    <td>{reg.produto}</td>
-                                    <td>{reg.produtoId}</td>
-                                    <td>{reg.qtd}</td>
-                                    <td>{reg.data}</td>
-                                    <td>{reg.codigo}</td>
-                                    <td>
-                                        <img src={Lixeira} width={18} height={18} alt='delete icon' onClick={() =>{this.apagarReg(reg.codigo)}}/>
-                                    </td>
-                                </tr>
-                            )
-                        })
-                    }
-                </tbody>
-            </table>
+            <hr/>
+            {
+                this.props.compras && this.props.compras.length > 0 ?
+
+                <table className="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">USUÁRIO</th>
+                        <th scope="col">PRODUTO</th>
+                        <th scope="col">ID</th>
+                        <th scope="col">QUANTIDADE</th>
+                        <th scope="col">DATA</th>
+                        <th scope="col">CÓDIGO</th>
+                        <th scope="col">X</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            //Gerando tabela por dados via props
+                            this.props.compras.map((reg) => {
+                                listId++;
+                                return(
+                                    <tr key={listId}>
+                                        <td>{reg.user}</td>
+                                        <td>{reg.produto}</td>
+                                        <td>{reg.produtoId}</td>
+                                        <td>{reg.qtd}</td>
+                                        <td>{reg.data}</td>
+                                        <td>{reg.codigo}</td>
+                                        <td>
+                                            <img src={Lixeira} width={18} height={18} alt='delete icon' onClick={() =>{this.apagarReg(reg.codigo)}}/>
+                                        </td>
+                                    </tr>
+                                )
+                            })
+                        }
+                    </tbody>
+                </table>
+                : <em> Nenhum registro no momento...</em>
+            }
+            <hr/>
+            <p className="btn-secundaryy">
+                <Link to="/admin7tons"> &larr; Retornar</Link>
+            </p>
             </div>
         )
     }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ProdutoEditavel from "./ProdutoEditavel";
-import './Admin.css';
+import { Link } from "react-router-dom";
 import Search2 from '../Images/iconsearch2.png';
 import Buscador from '../Produto/Buscador';
 
@@ -74,6 +74,9 @@ class ListaProdutoEditavel extends Component {
                     
                 </ul>
                 </div>
+                <p className="btn-secundaryy">
+                    <Link to="/admin7tons"> &larr; Retornar</Link>
+                </p>
             </div>
         )
     }
