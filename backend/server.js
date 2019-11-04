@@ -1,15 +1,17 @@
 const express = require('express');
 const mongoose =  require('mongoose');
 const bodyparser = require('body-parser');
-
+const data = require('./data/data');
 const cors = require('cors')
 
 const app = express();
 
 app.use(cors())
 
+mongoose.set('useUnifiedTopology', true);
+
 //Conecta ao banco de dados
-mongoose.connect('mongodb+srv://adm:adm@marla-1x5cg.mongodb.net/test?retryWrites=true&w=majority',{
+mongoose.connect(data.databaseUrl,{
     useNewUrlParser: true
 });
 

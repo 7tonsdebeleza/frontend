@@ -1,4 +1,6 @@
 const User = require("../model/User")
+const bcrypt = require("bcrypt")
+const data = require('../data/data')
 
 module.exports = {
     async Store(req,res){
@@ -11,7 +13,7 @@ module.exports = {
                 nome,
                 sobrenome,
                 email,
-                password,
+                password:bcrypt.hashSync(password, data.salt),
                 carrinho: []
             })
         }
