@@ -4,7 +4,7 @@ import Buscador from './Buscador';
 
 class Busca extends Component {
     state = {
-        pesquisa: this.props.pesquisa.toLowerCase(),
+        pesquisa: this.props.pesquisa.toLowerCase().replace(/%20/g, " "),
         dados: this.props.dados,
     }
 

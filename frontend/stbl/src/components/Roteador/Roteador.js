@@ -19,6 +19,9 @@ import Busca from '../Produto/Busca';
 import Carregamento from '../Carregamento/Carregamento';
 import Cliente from "../Cliente/Cliente";
 import AtualizarClienteInfo from "../Cliente/AtualizarClienteInfo";
+import GoTop from "./GoTop";
+import PostsList from "../Blog/PostsList";
+import Publicacao from "../Blog/Publicacao";
 import api from "../API/api";
 
 class Roteador extends Component {
@@ -143,6 +146,20 @@ class Roteador extends Component {
 		});
 	}
 
+	componentWillMount(){
+		//Fazendo verificações do endereço
+		let adress = window.location.pathname;
+
+		//Caso endereço seja de página de busca
+		if(adress.includes("/buscar/busca=")){
+			this.setState({
+				pesquisaChamada: true,
+				pesquisa: adress.replace("/buscar/busca=", "").toString()
+			});
+		}
+
+	}
+
 	componentDidMount(){
 		//Carregando produtos do banco de dados 
 		this.mostra();
@@ -171,7 +188,9 @@ class Roteador extends Component {
 		} else {
 			return (
 			<BrowserRouter>
+			
 			<div>
+				<GoTop />
 				<div style={{
 					display:'flex',
 					flex: 1,
@@ -206,8 +225,6 @@ class Roteador extends Component {
 
 						<Route exact path="/faq" component={Faq}/>
 
-						<Route exact path="/blog" render={() => <Blog publics={Public}/>}/>
-
 						<Route path="/buscar" component={() => this.state.pesquisa === "" ? <Redirect to='/home'/>:<Busca dados={this.state.dados} pesquisa={this.state.pesquisa} addCarrinho={this.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} removerCarrinho={this.removerCarrinho}/>}/>
 
 						<Route exact path="/carrinho" render={() => <Carrinho dados={this.state.dadosCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} removerCarrinho={this.removerCarrinho} botaoCarrinho={false} naNavbar={false}/>}/>
@@ -219,6 +236,11 @@ class Roteador extends Component {
 						<Route exact path="/cliente" render={() => this.state.user? <Cliente user={this.state.user}/> : <Redirect to="/login"/> }/>
 
 						<Route exact path="/cliente/atualizar" render={() => this.state.user? <AtualizarClienteInfo user={this.state.user}/> : <Redirect to="/login"/> }/>
+
+						{/*Rotas para publicações na aba blog*/}
+
+						<Route exact path="/blog" component={() => <Blog publics={Public}><PostsList publics={Public}/></Blog> } /> 
+                		<Route path="/blog/posts/" component={() => <Blog publics={Public}><Publicacao publics={Public}/></Blog> } />
 
 						<Route component={NotFound}/>    			
 					</Switch>

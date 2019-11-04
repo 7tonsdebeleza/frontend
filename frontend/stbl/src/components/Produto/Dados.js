@@ -149,6 +149,7 @@ export const Public = [
     {
         id: 'idblog1',
         titulo: 'Dinterdum pretium es loremous dorus condimentus',
+        local: 'dinterdum-pretium-es-loremous-dorus-condimentus',
         data: '30 de Maio, 2019',
         capa: '//cdn.shopify.com/s/files/1/1825/4753/articles/img-blog-02_1024x1024_9b214c6e-abeb-48f5-8b3c-6d6b07cf3520_1024x1024.jpg?v=1527677937',
         preExibicao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis risus leo, elementum in malesuada an darius ut augue. Cras sit amet lectus et justo feugiat euismod sed non erat. Nulla non felis id metus bibendum iaculis quis sit amet eros. Nam suscipit mollis tellus vel malesuada. Duis dan molestie, sem...',
@@ -156,13 +157,15 @@ export const Public = [
     },{
         id: 'idblog2',
         titulo: 'Naminos elementum disumos an cosmo tincidunts loremous',
+        local: 'naminos-elementum-disumos-an-cosmo-tincidunts-loremous',
         data: '30 de Maio, 2019',
         capa: '//cdn.shopify.com/s/files/1/1825/4753/articles/img-blog-01_1024x1024_6d8d098a-b141-4ba3-8164-a1cdac8a998b_1024x1024.jpg?v=1527677840',
         preExibicao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis risus leo, elementum in malesuada an darius ut augue. Cras sit amet lectus et justo feugiat euismod sed non erat. Nulla non felis id metus bibendum iaculis quis sit amet eros. Nam suscipit mollis tellus vel malesuada. Duis dan molestie, sem...',
         texto: '<b>Lorem ipsum</b> dolor sit amet, consectetur adipiscing elit. Duis risus leo, elementum in malesuada an darius ut augue. Cras sit amet lectus et justo feugiat euismod sed non erat. Nulla non felis id metus bibendum iaculis quis sit amet eros. Nam suscipit mollis tellus vel malesuada. Duis dan molestie, sem in sollicitudin sodales, mi justo sagittis est, id consequat ipsum ligula a ante. Pellentesque sapien dui, miverra et commodo id ductus id est. Cras eu tempor eros donec ut porttitor lacus, nec ullamcorper massa maecenas eu nulla nisl. Destibulum ante ipsum primis in faucibus orci luctus et ultrices posuere.<br/><br/><br/><br/><iframe id="ytplayer" type="text/html" width="100%" height="360" src="https://www.youtube.com/embed/M7lc1UVf-VE?autoplay=0&origin=http://example.com">',
     },{
         id: 'idblog1',
-        titulo: 'Dinterdum pretium es loremous dorus condimentus',
+        titulo: 'Dinterdum pretium es loremous dorus condimentus 2',
+        local: 'dsinterdum-pretium-es-loremous-dorus-condimentus-2',
         data: '30 de Maio, 2019',
         capa: '//cdn.shopify.com/s/files/1/1825/4753/articles/img-blog-03_1_1024x1024_ae1f4a54-cc95-4f5f-9bcd-f7f529d1466e_1024x1024.jpg?v=1527677695',
         preExibicao: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis risus leo, elementum in malesuada an darius ut augue. Cras sit amet lectus et justo feugiat euismod sed non erat. Nulla non felis id metus bibendum iaculis quis sit amet eros. Nam suscipit mollis tellus vel malesuada. Duis dan molestie, sem...',
