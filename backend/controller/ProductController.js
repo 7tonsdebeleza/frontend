@@ -3,8 +3,12 @@ const Product = require("../model/Product")
 module.exports = {
     async Store(req,res){
         try{
-            const {img, titulo, marca, preco, estoque, tipoProduto, descricao} = req.body;
-            const procura_imagem = await Product.findOne({img})
+            const img = req.file
+            const imgPath = img.filename
+            
+            const {titulo, marca, preco, estoque, tipoProduto, descricao} = req.body;
+            
+            const procura_imagem = await Product.findOne({img:imgPath})
             const procura_titulo = await Product.findOne({titulo})
 
             if(procura_imagem){
@@ -13,10 +17,9 @@ module.exports = {
             if(procura_titulo){
                 return res.send("Titulo já existente!")
             }
-
             
             const product = await Product.create({
-                img,
+                img:imgPath,
                 titulo,
                 marca,
                 preco,
@@ -26,7 +29,7 @@ module.exports = {
             })
             
             return res.send(product)
-            
+        
         }catch(e){
             return res.send(e)
         }

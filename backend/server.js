@@ -2,16 +2,15 @@ const express = require('express');
 const mongoose =  require('mongoose');
 const bodyparser = require('body-parser');
 const data = require('./data/data');
-const cors = require('cors')
-
+const cors = require('cors');
+const path = require('path');
 const app = express();
 
 app.use(cors())
 
-mongoose.set('useUnifiedTopology', true);
-
 //Conecta ao banco de dados
 mongoose.connect(data.databaseUrl,{
+    useUnifiedTopology: true,
     useNewUrlParser: true
 });
 
@@ -35,6 +34,8 @@ mongoose.set('useCreateIndex', true);
 //Tratadores e configuradores para melhor uso do acesso ao POST
 app.use(bodyparser.urlencoded({ extended: true }));
 app.use(bodyparser.json());
+
+app.use('/files', express.static(path.resolve(__dirname,"uploads")))
 
 app.use(require('./routes'));
 

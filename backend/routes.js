@@ -1,5 +1,9 @@
 const express = require('express');
+const multer = require('multer');
+const uploadConfig = require('./config/upload');
 const routes = express.Router();
+const upload = multer(uploadConfig)
+
 
 const UserController = require("./controller/UserController");
 const ProductController = require("./controller/ProductController");
@@ -15,7 +19,7 @@ routes.post('/criarusuario',UserController.Store);
 
 
 //Criar produto
-routes.post('/criarproduto',ProductController.Store);
+routes.post('/criarproduto',upload.single('img'),ProductController.Store);
 //Mostrar produtos
 routes.get('/mostrartodosprodutos',ProductController.Show);
 //Mostrar produtos pelo tipo
