@@ -96,7 +96,12 @@ class Roteador extends Component {
 	//Função que executava a requisição com o banco de dados
 	async mostra(){
 		const response = await api.get('/mostrartodosprodutos');
-		console.log(response.data);
+		
+		response.data.map((obj)=>{
+			//Remove o path da imagem e seta como o link dela
+			obj.img = obj.img_url
+		})
+
 		this.setState({
 			dados: response.data,
 			carregado: true,

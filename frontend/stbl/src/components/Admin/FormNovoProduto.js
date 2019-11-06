@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
 import { Link } from "react-router-dom";
-import Dropzone from 'react-dropzone';
-import upload from "../Images/upload.svg";
+//import Dropzone from 'react-dropzone';
+//import upload from "../Images/upload.svg";
 import './Admin.css';
 import api from "../API/api";
+
+import camera from './camera.svg'
 
 class FormNovoProduto extends Component {
     state = {
@@ -18,13 +20,17 @@ class FormNovoProduto extends Component {
         errorMsg: "",
     }
 
+    preview = () =>{
+        return this.state.img ? URL.createObjectURL(this.state.img) : null
+    }
+
     atualizarInput = (e) =>{
         this.setState({
             [e.target.name]: e.target.value
         })
     }
 
-    imageIput = (img) =>{
+    imageInput = (img) =>{
         this.setState({img: img[0]});
     }
 
@@ -32,20 +38,16 @@ class FormNovoProduto extends Component {
     enviar = async () =>{
 
         //Checando se há algum campo vazio antes de enviar dados:
-        if(this.state.titulo !== "" && this.state.marca !== "" && this.state.preco !== "" && this.state.estoque !== "" && this.state.descricao !== "" && this.state.tipoProduto !== "" /* && this.state.img !== null*/){
+        if(this.state.img !== null && this.state.titulo !== "" && this.state.marca !== "" && this.state.preco !== "" && this.state.estoque !== "" && this.state.descricao !== "" && this.state.tipoProduto !== "" /* && this.state.img !== null*/){
             //####### Enviar img do produto para bd e receber url
-
-            let url = Math.random()*1000;
-
-            let novoProduto = {
-                img: url,
-                titulo: this.state.titulo,
-                marca: this.state.marca,
-                preco: this.state.preco,
-                estoque: this.state.estoque,
-                tipoProduto: this.state.tipoProduto,
-                descricao: this.state.descricao,
-            }
+            const novoProduto = new FormData();
+            novoProduto.append('img',this.state.img)
+            novoProduto.append('titulo',this.state.titulo)
+            novoProduto.append('marca',this.state.marca)
+            novoProduto.append('descricao',this.state.descricao)
+            novoProduto.append('preco',this.state.preco)
+            novoProduto.append('estoque',this.state.estoque)
+            novoProduto.append('tipoProduto',this.state.tipoProduto)
 
             const res = await api.post("/criarproduto",novoProduto)
 
@@ -104,18 +106,24 @@ class FormNovoProduto extends Component {
                     </div>
 
                     <div>
-                     <Dropzone onDrop={acceptedFiles => this.imageIput(acceptedFiles)}>
-                            {({getRootProps, getInputProps}) => (
-                                <section>
-                                <div className="Dropzone-field" {...getRootProps()}>
-                                    <input {...getInputProps()} type="file" accept="image/x-png,image/gif,image/jpeg"/>
-                                    {this.state.img !== null? (<p>{this.state.img.path}</p>) : <img src={upload} className="Upload-icon" alt="upload icon" />}
-                                    <p>Clique aqui ou arraste uma nova imagem</p>
-                                    
-                                </div>
-                                </section>
-                            )}
-                        </Dropzone>     
+
+                        <label id="thumbnail" style={{backgroundImage:`url(${this.preview()})`}} className={this.state.img ? 'has-thumb' : ''}>
+                            <input type="file" onChange={event => this.setState({img: event.target.files[0]})}/>
+                            <img src={camera} alt="Select img"/>
+                        </label>
+                        
+                        {/*<Dropzone onDrop={acceptedFiles => this.imageInput(acceptedFiles)}>
+                                {({getRootProps, getInputProps}) => (
+                                    <section>
+                                    <div className="Dropzone-field" {...getRootProps()}>
+                                        <input {...getInputProps()} type="file" accept="image/x-png,image/gif,image/jpeg"/>
+                                        {this.state.img !== null? (<p>{this.state.img.path}</p>) : <img src={upload} className="Upload-icon" alt="upload icon" />}
+                                        <p>Clique aqui ou arraste uma nova imagem</p>
+                                        
+                                    </div>
+                                    </section>
+                                )}
+                        </Dropzone>*/}     
                     </div>
                     
                     

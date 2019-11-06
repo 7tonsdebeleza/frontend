@@ -28,6 +28,7 @@ module.exports = {
                 descricao
             })
             
+            
             return res.send(product)
         
         }catch(e){
