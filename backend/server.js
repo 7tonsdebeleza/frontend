@@ -8,11 +8,16 @@ const app = express();
 
 app.use(cors())
 
-//Conecta ao banco de dados
+//Conecta ao banco de dados via MongoDB Atlas, em nuvem
+/*
 mongoose.connect(data.databaseUrl,{
     useUnifiedTopology: true,
     useNewUrlParser: true
 });
+*/
+
+//Conecta ao banco de dados via MongoDB Compass, localmente na CEOS
+mongoose.connect('mongodb://localhost/7tonsdebeleza')
 
 //Area para conferir o estado do servidor Mongo
 mongoose.connection.on('error',(err)=>{
