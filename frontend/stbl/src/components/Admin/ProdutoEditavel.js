@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
-import Dropzone from 'react-dropzone';
-import upload from "../Images/upload.svg";
+//import Dropzone from 'react-dropzone';
+//import upload from "../Images/upload.svg";
 import Modal from "../Modal/Modal";
 import api from "../API/api";
+import camera from './camera.svg'
 
 class ProdutoEditavel extends Component {
 
@@ -28,6 +29,10 @@ class ProdutoEditavel extends Component {
         alert: false,
         errorMsg: " "
         
+    }
+
+    preview = () =>{
+        return this.state.newImage ? URL.createObjectURL(this.state.newImage) : null
     }
 
     CliqueVerDetalhes = (ProdutoId) => { /* função para abrir o modal dos produtos*/
@@ -189,6 +194,13 @@ class ProdutoEditavel extends Component {
                                 <input className='admin-form' type='number' value={this.state.preco} name="preco" onChange={this.atualizarInput}/>
                             </p>
 
+
+                            <label id="thumbnail" style={{backgroundImage:`url(${this.preview()})`}} className={this.state.newImage ? 'has-thumb' : ''}>
+                                <input type="file" onChange={event => this.setState({newImage: event.target.files[0]})}/>
+                                <img src={camera} alt="Select img"/>
+                            </label>                    
+
+                            {/*
                             <Dropzone onDrop={acceptedFiles => this.imageIput(acceptedFiles)}>
                                 {({getRootProps, getInputProps}) => (
                                     <section>
@@ -201,6 +213,7 @@ class ProdutoEditavel extends Component {
                                     </section>
                                 )}
                             </Dropzone> 
+                            */}
 
                             <button onClick={() =>{this.salvar()}}>Enviar</button>
                             <button id={BotaoModal}>Remover item</button>
