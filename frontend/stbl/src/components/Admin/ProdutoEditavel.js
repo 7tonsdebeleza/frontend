@@ -88,6 +88,15 @@ class ProdutoEditavel extends Component {
                 img = "#";
             }*/
 
+            if(this.state.newImage !== null){
+                const id = this.state.id
+                const data = new FormData();
+                data.append('img',this.state.newImage)
+
+                await api.post("/atualizarimagem",data,{
+                    headers: {id}
+                })
+            }
             if(this.state.titulo !== this.props.dados.titulo){
                 await api.post("/atualizartitulo",{"id":this.state.id,"novo_titulo":this.state.titulo})
             }

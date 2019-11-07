@@ -1,4 +1,5 @@
 const Product = require("../model/Product")
+const fetch = require('node-fetch')
 
 module.exports = {
     async Store(req,res){
@@ -74,7 +75,45 @@ module.exports = {
     },
     
     async UpdateImage(req,res){
-        //nada ainda
+        const novaImagem = req.file
+        const {id} = req.headers
+
+        const produto = await Product.findById({_id: id})
+        const {titulo, marca, preco, estoque, tipoProduto, descricao} = produto
+
+        const teste = await fetch('http://localhost:3333/criarproduto',{
+                            method: 'post',
+                            headers: {'Content-Type': 'application/json'},
+                            body: JSON.stringify({
+                                "novaImagem": novaImagem,
+                                "titulo": titulo,
+                                "marca":  marca,
+                                "preco": preco, 
+                                "estoque": estoque,
+                                "tipoProduto": tipoProduto,
+                                "descricao": descricao
+                            })
+                        })
+                        .then(res =>console.log(res))
+
+        console.log(teste)
+        /*
+        const novoProduto = await fetch('http://localhost:3333/criarproduto',{novaImagem,titulo, marca, preco, estoque, tipoProduto, descricao})
+                                    .then(res =>res)
+
+        console.log(novoProduto)
+
+        await Product.findByIdAndUpdate({_id:id},{$set: {img: 
+            Product.virtual('img_url').get(function(){
+                return `http://localhost:3333/files/${novaImagem.originalname}`
+            })}},
+            {new: true}, (err,doc)=>{
+                if(err){
+                    return res.send(err)
+                }
+                return res.send(doc)
+            })
+        */
     },
 
     async UpdateTitle(req,res){

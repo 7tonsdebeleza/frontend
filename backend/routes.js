@@ -32,6 +32,8 @@ routes.get('/mostrartodosprodutos',ProductController.Show);
 routes.get('/mostrarprodutoportipo',ProductController.ShowTipo)
 //Remover produto pelo ID
 routes.post('/removerproduto',ProductController.Destroy)
+//Atualizar imagem do prodtuto
+routes.post('/atualizarimagem',upload.single('img'),ProductController.UpdateImage);
 //Atualizar nome do produto
 routes.post('/atualizartitulo',ProductController.UpdateTitle);
 //Atualizar marca
@@ -72,7 +74,7 @@ routes.get('/comprarproduto',ProductController.comprar);
 */
 
 routes.get('/teste',(req,res)=>{
-    return res.send('It Works!');
+    return res.send({oi:'oi'});
 });
 
 module.exports = routes;
