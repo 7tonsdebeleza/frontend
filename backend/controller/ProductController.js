@@ -36,6 +36,23 @@ module.exports = {
         }
     },
 
+    async Comprar(req,res){
+        const estoque = Product.findById({_id: req.body.id}, (err,data) =>{
+            if(data.estoque >= req.body.quantidade){
+                Product.findByIdAndUpdate({_id: req.body.id},{$set: {estoque: data.estoque - req.body.quantidade}},
+                    {new: true},(err,doc) =>{
+                        if(err){
+                            return res.send(err)
+                        }
+
+                        return res.send(doc)
+                    }
+                )
+            }
+        })
+
+    },
+
     async Show(req,res){
         const produtos = await Product.find().populate().sort({updatedAt: -1});
 
@@ -59,48 +76,80 @@ module.exports = {
     async UpdateTitle(req,res){
         const {id, novo_titulo} = req.body
 
-        const product = await Product.findOneAndUpdate({"_id":id},{"titulo":novo_titulo},{new:true});
-
-        return res.send(product)
+        Product.findByIdAndUpdate({_id: id},{$set: {titulo: novo_titulo}},
+            {new: true},(err,doc) =>{
+                if(err){
+                    return res.send(err)
+                }
+                return res.send(doc)
+            }
+        )
     },
 
     async UpdateMarca(req,res){
         const {id, nova_marca} = req.body
 
-        const product = await Product.findOneAndUpdate({"_id":id},{"marca":nova_marca},{new:true});
-
-        return res.send(product);
+        Product.findByIdAndUpdate({_id: id},{$set: {marca: nova_marca}},
+            {new: true},(err,doc) =>{
+                if(err){
+                    return res.send(err)
+                }
+                return res.send(doc)
+            }
+        )
     },
 
     async UpdatePrice(req,res){
         const {id, novo_preco} = req.body
 
-        const product = await Product.findOneAndUpdate({"_id":id},{"preco":novo_preco},{new:true});
-        
-        return res.send(product)
+        Product.findByIdAndUpdate({_id: id},{$set: {preco: novo_preco}},
+            {new: true},(err,doc) =>{
+                if(err){
+                    return res.send(err)
+                }
+                return res.send(doc)
+            }
+        )
     },
 
     async UpdateEstoque(req,res){
         const {id, novo_estoque} = req.body
-
-        const product = await Product.findOneAndUpdate({"_id":id},{"estoque":novo_estoque},{new:true});
-
-        return res.send(product)
+        
+        Product.findByIdAndUpdate({_id: id},{$set: {estoque: novo_estoque}},
+            {new: true},(err,doc) =>{
+                if(err){
+                    return res.send(err)
+                }
+                return res.send(doc)
+            }
+        )
     },
 
     async UpdateDescription(req,res){
         const {id, nova_descricao} = req.body
-
-        const product = await Product.findOneAndUpdate({"_id":id},{"descricao":nova_descricao},{new:true});
-
-        return res.send(product)
+        
+        Product.findByIdAndUpdate({_id: id},{$set: {descricao: nova_descricao}},
+            {new: true},(err,doc) =>{
+                if(err){
+                    return res.send(err)
+                }
+                return res.send(doc)
+            }
+        )
     },
 
     async UpdateType(req,res){
         const {id, novo_tipo} = req.body
 
-        const product = await Product.findOneAndUpdate({"_id":id},{"tipoProduto":novo_tipo},{new:true});
+        Product.findByIdAndUpdate({_id: id},{$set: {tipoProduto: novo_tipo}},
+            {new: true},(err,doc) =>{
+                if(err){
+                    return res.send(err)
+                }
+                return res.send(doc)
+            }
+        )
+    },
 
-        return res.send(product)
-    }
+    
 }

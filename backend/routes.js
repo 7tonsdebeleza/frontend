@@ -17,7 +17,12 @@ routes.post('/loginadmin',AdminController.Find);
 
 //Criar usuarios
 routes.post('/criarusuario',UserController.Store);
-
+//Adicionar no carrinho
+routes.post('/adicionarcarrinho',UserController.adicionarCarrinho);
+//Remover do carrinho
+routes.post('/removercarrinho',UserController.removerCarrinho);
+//Fazer login
+routes.get('/login',UserController.Login);
 
 //Criar produto
 routes.post('/criarproduto',upload.single('img'),ProductController.Store);
