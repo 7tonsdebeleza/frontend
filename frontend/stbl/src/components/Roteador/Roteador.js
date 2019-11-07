@@ -54,22 +54,11 @@ class Roteador extends Component {
 	//Função que será herdada pelo componente de login do cliente
 	//Recebe como parâmetro dados válidos do form de login
 	clientLogin = async (user) => {
-		
-		console.log(user);
 
-		let testeUser = {
-			id:1,
-			nome: "teste",
-			email: "teste@teste.com",
-		}
-
-		await this.setState({user:testeUser});
-		localStorage.setItem('@stbl/client/user', JSON.stringify(testeUser))
-		return true;
-
-		/*
-		//Fazendo login do banco de dados
-        const res = await api.post("/loginadmin",user)
+		const res = await api.post('/login',{
+			email: user.email,
+			senha: user.senha
+		  });		
         
         //Caso login não funcione
         if(res.data === "Email inválido!" || res.data === "Senha inválida!"){
@@ -82,7 +71,7 @@ class Roteador extends Component {
             localStorage.setItem('@stbl/client/user', JSON.stringify(res.data))
 
             return true;
-		}*/
+		}
 	}
 	
 

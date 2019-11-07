@@ -124,17 +124,21 @@ module.exports = {
     },
 
     async Login(req,res){
-        const senha_criptografada = bcrypt.hashSync(req.body.password,salt)
-        const usuario = await User.findOne({email: req.body.email}, (err, data_user)=>{
-            console.log(data_user)
-            console.log(senha_criptografada)
-            if(data_user.password == senha_criptografada){
-                return res.send("logado")
-            }else{
-                return res.send("Erro, login ou senha invalidos")
-            }
-        })
+        const {email,senha} = req.body
         
+        let response = await User.findOne({email});
+
+        if(!response){
+            return res.send("Email inválido!")
+        }
+
+        const senha_criptografada =  bcrypt.compareSync(senha,response.password)
+
+        if(senha_criptografada){
+            return res.send(response)
+        }
+
+        return res.send("Senha inválida!");
     },
          
 }

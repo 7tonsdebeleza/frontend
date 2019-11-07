@@ -72,6 +72,10 @@ module.exports = {
 
         return res.send(produto)
     },
+    
+    async UpdateImage(req,res){
+        //nada ainda
+    },
 
     async UpdateTitle(req,res){
         const {id, novo_titulo} = req.body
@@ -151,5 +155,5 @@ module.exports = {
         )
     },
 
-    
+
 }

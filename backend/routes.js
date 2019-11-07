@@ -22,7 +22,7 @@ routes.post('/adicionarcarrinho',UserController.adicionarCarrinho);
 //Remover do carrinho
 routes.post('/removercarrinho',UserController.removerCarrinho);
 //Fazer login
-routes.get('/login',UserController.Login);
+routes.post('/login',UserController.Login);
 
 //Criar produto
 routes.post('/criarproduto',upload.single('img'),ProductController.Store);
