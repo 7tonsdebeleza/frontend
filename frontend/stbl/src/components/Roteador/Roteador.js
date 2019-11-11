@@ -89,6 +89,7 @@ class Roteador extends Component {
 		response.data.map((obj)=>{
 			//Remove o path da imagem e seta como o link dela
 			obj.img = obj.img_url
+			return true
 		})
 
 		this.setState({

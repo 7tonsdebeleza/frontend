@@ -96,34 +96,3 @@
     right: 10%;
     margin-top: 8px;
 }
-
-
-
-
-
-
-
-label#thumbnail{
-    margin-bottom: 20px;
-    border: 1px dashed #ddd;
-    background-size: cover;
-    cursor:pointer;
-    height: 160px;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-label#thumbnail input{
-    display: none;
-}
-
-label#thumbnail.has-thumb{
-    border: 0;
-}
-
-
-label#thumbnail.has-thumb img{
-    display: none;
-}

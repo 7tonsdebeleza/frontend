@@ -1,11 +1,8 @@
 import React, {Component} from 'react';
 import { Link } from "react-router-dom";
-//import Dropzone from 'react-dropzone';
-//import upload from "../Images/upload.svg";
-import './Admin.css';
+import ThumbInput from '../ThumbInput/ThumbInput';
 import api from "../API/api";
-
-import camera from './camera.svg'
+import './Admin.css';
 
 class FormNovoProduto extends Component {
     state = {
@@ -20,18 +17,14 @@ class FormNovoProduto extends Component {
         errorMsg: "",
     }
 
-    preview = () =>{
-        return this.state.img ? URL.createObjectURL(this.state.img) : null
-    }
-
     atualizarInput = (e) =>{
         this.setState({
             [e.target.name]: e.target.value
         })
     }
 
-    imageInput = (img) =>{
-        this.setState({img: img[0]});
+    imageInput = (e) =>{
+        this.setState({img: e.target.files[0]});
     }
 
     //######## Deverá enviar dados de um novo produto para o banco de dados
@@ -70,7 +63,7 @@ class FormNovoProduto extends Component {
 
 
     render(){
-        console.log(window.location.pathname)
+        
         return(
             <div className='admin-form'>
                 <p><strong>FORMULÁRIO DE CADASTRO DE NOVO PRODUTO</strong></p>
@@ -106,24 +99,9 @@ class FormNovoProduto extends Component {
                     </div>
 
                     <div>
-
-                        <label id="thumbnail" style={{backgroundImage:`url(${this.preview()})`}} className={this.state.img ? 'has-thumb' : ''}>
-                            <input type="file" onChange={event => this.setState({img: event.target.files[0]})}/>
-                            <img src={camera} alt="Select img"/>
-                        </label>
-                        
-                        {/*<Dropzone onDrop={acceptedFiles => this.imageInput(acceptedFiles)}>
-                                {({getRootProps, getInputProps}) => (
-                                    <section>
-                                    <div className="Dropzone-field" {...getRootProps()}>
-                                        <input {...getInputProps()} type="file" accept="image/x-png,image/gif,image/jpeg"/>
-                                        {this.state.img !== null? (<p>{this.state.img.path}</p>) : <img src={upload} className="Upload-icon" alt="upload icon" />}
-                                        <p>Clique aqui ou arraste uma nova imagem</p>
-                                        
-                                    </div>
-                                    </section>
-                                )}
-                        </Dropzone>*/}     
+                        <label>IMAGEM:</label>
+                        <ThumbInput onChange={this.imageInput}/>
+                       
                     </div>
                     
                     

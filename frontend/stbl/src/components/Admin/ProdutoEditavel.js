@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
-//import Dropzone from 'react-dropzone';
-//import upload from "../Images/upload.svg";
+import ThumbInput from '../ThumbInput/ThumbInput';
 import Modal from "../Modal/Modal";
 import api from "../API/api";
-import camera from './camera.svg'
 
 class ProdutoEditavel extends Component {
 
@@ -29,10 +27,6 @@ class ProdutoEditavel extends Component {
         alert: false,
         errorMsg: " "
         
-    }
-
-    preview = () =>{
-        return this.state.newImage ? URL.createObjectURL(this.state.newImage) : null
     }
 
     CliqueVerDetalhes = (ProdutoId) => { /* função para abrir o modal dos produtos*/
@@ -65,8 +59,8 @@ class ProdutoEditavel extends Component {
     removerItem = async (id) =>{
         //PopUp de confimação
         const res = await api.post("/removerproduto",{"_id":id});
-
         console.log(res);
+
         //####### Caso dê certo, callback abaixo:
         alert("Produto foi removido com êxito! Esta pagina será recarregada...");
         window.location.reload();
@@ -134,8 +128,8 @@ class ProdutoEditavel extends Component {
         })
     }
 
-    imageIput = (img) =>{
-        this.setState({newImage: img[0]});
+    imageInput = (e) =>{
+        this.setState({newImage: e.target.files[0]});
     }
 
     render() {
@@ -204,25 +198,10 @@ class ProdutoEditavel extends Component {
                             </p>
 
 
-                            <label id="thumbnail" style={{backgroundImage:`url(${this.preview()})`}} className={this.state.newImage ? 'has-thumb' : ''}>
-                                <input type="file" onChange={event => this.setState({newImage: event.target.files[0]})}/>
-                                <img src={camera} alt="Select img"/>
-                            </label>                    
-
-                            {/*
-                            <Dropzone onDrop={acceptedFiles => this.imageIput(acceptedFiles)}>
-                                {({getRootProps, getInputProps}) => (
-                                    <section>
-                                    <div className="Dropzone-field" {...getRootProps()}>
-                                        <input {...getInputProps()} type="file" accept="image/x-png,image/gif,image/jpeg"/>
-                                        {this.state.newImage !== null? (<p>{this.state.newImage.path}</p>) : <img src={upload} className="Upload-icon" alt="upload icon" />}
-                                        <p>Clique aqui ou arraste uma nova imagem</p>
-                                    
-                                    </div>
-                                    </section>
-                                )}
-                            </Dropzone> 
-                            */}
+                            <p>
+                                <b>IMAGEM:</b>
+                                <ThumbInput onChange={this.imageInput}/>
+                            </p>
 
                             <button onClick={() =>{this.salvar()}}>Enviar</button>
                             <button id={BotaoModal}>Remover item</button>
