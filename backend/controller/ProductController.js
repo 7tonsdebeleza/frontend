@@ -1,5 +1,5 @@
-const Product = require("../model/Product")
-const fetch = require('node-fetch')
+const Product = require("../model/Product");
+const fs = require('fs');
 
 module.exports = {
     async Store(req,res){
@@ -71,49 +71,40 @@ module.exports = {
         const {_id} = req.body
         const produto = await Product.findByIdAndDelete({_id})
 
+        const name = produto.img
+
+        fs.unlink(`./uploads/${name}`,(err)=>{
+            if(err){
+                return res.send(err)
+            }
+        })
+
         return res.send(produto)
     },
     
     async UpdateImage(req,res){
-        const novaImagem = req.file
-        const {id} = req.headers
+        const {id}  = req.headers;
+        const img = req.file
+        const imgPath = img.filename
 
-        const produto = await Product.findById({_id: id})
-        const {titulo, marca, preco, estoque, tipoProduto, descricao} = produto
+        const produto = await Product.findById({_id:id})
 
-        const teste = await fetch('http://localhost:3333/criarproduto',{
-                            method: 'post',
-                            headers: {'Content-Type': 'application/json'},
-                            body: JSON.stringify({
-                                "novaImagem": novaImagem,
-                                "titulo": titulo,
-                                "marca":  marca,
-                                "preco": preco, 
-                                "estoque": estoque,
-                                "tipoProduto": tipoProduto,
-                                "descricao": descricao
-                            })
-                        })
-                        .then(res =>console.log(res))
+        const oldName = produto.img
 
-        console.log(teste)
-        /*
-        const novoProduto = await fetch('http://localhost:3333/criarproduto',{novaImagem,titulo, marca, preco, estoque, tipoProduto, descricao})
-                                    .then(res =>res)
-
-        console.log(novoProduto)
-
-        await Product.findByIdAndUpdate({_id:id},{$set: {img: 
-            Product.virtual('img_url').get(function(){
-                return `http://localhost:3333/files/${novaImagem.originalname}`
-            })}},
-            {new: true}, (err,doc)=>{
+        await Product.findByIdAndUpdate({_id: id},{$set: {img:imgPath}},{new: true}, (err,doc)=>{
                 if(err){
                     return res.send(err)
                 }
+                fs.unlink(`./uploads/${oldName}`,(err)=>{
+                    if(err){
+                        return res.send(err)
+                    }
+                })
+        
                 return res.send(doc)
+        
             })
-        */
+        
     },
 
     async UpdateTitle(req,res){
