@@ -82,10 +82,9 @@ class Roteador extends Component {
 			if(res.data.error){
 				//Caso autenticação falhe, usuário será deslogado para gerar novo token
 				console.log(res.data.error)
-				this.logout();
+				this.Clientelogout();
 			} else {
 				//Salvando dados do usuário
-				console.log(res.data)
 				this.setState({user:res.data})
 			}
 		})

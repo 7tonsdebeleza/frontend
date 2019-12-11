@@ -12,7 +12,9 @@ const ProductController = require("./controller/ProductController");
 const AdminController = require("./controller/AdminController");
 routes.post('/criaradmin',AdminController.Store);
 routes.post('/loginadmin',AdminController.Find);
-routes.post('/Signadmin',AdminController.Find);
+
+routes.post('/Signadmin',AdminController.Sign);
+routes.post('/Authadmin',AdminController.Auth);
 
 //SERIO VEY APAGA
 

@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt")
 const data = require('../data/data')
 const jwt = require('jsonwebtoken');
 
-process.env.SECRET_KEY = 'secret';
+process.env.SECRET_KEY = 'secret7tons';
 
 module.exports = {
     async Store(req,res){

@@ -1,4 +1,7 @@
 const Admin = require("../model/Admin")
+const jwt = require('jsonwebtoken');
+
+process.env.SECRET_KEY = 'secret7tons';
 
 module.exports = {
     async Store(req,res){
@@ -37,20 +40,27 @@ module.exports = {
     async Sign(req,res){
         const {email,senha} = req.body
         
-        let response = await User.findOne({email});
+        Admin.where({email: email}).findOne((e, data) => {
+            //Casos de erro ao procurar usuário
+            if(e) return res.send({error: e});
+            if(!data) return res.send("Email inválido!")
+            
+            //const senha_criptografada =  bcrypt.compareSync(senha,data.password)
 
-        if(!response){
-            return res.send("Email inválido!")
-        }
+            //if(!senha_criptografada){
+                //return res.send("Senha inválida!")
+            //}
 
-        const senha_criptografada =  bcrypt.compareSync(senha,response.password)
+            //Gerando token com dados do usuário encontrado
+            jwt.sign(data.toJSON(), process.env.SECRET_KEY, {expiresIn: '7d'}, (err, token) => {
+                if(err){
+                    console.log(err)
+                    return res.send({error: "Erro inesperado..."})
+                } 
+                return res.send({token: token})
+            })
 
-        if(!senha_criptografada){
-            return res.send("Senha inválida!")
-        }
-
-        const token = jwt.sign(response, process.env.SECRET_KEY, {expiresIn: '7d'})
-        return res.send({token: token})
+        });
 
     },
 
@@ -64,7 +74,7 @@ module.exports = {
             }
 
             //Buscando dados do usuário
-            User.where({email: decode.email}).findOne((e, data) => {
+            Admin.where({email: decode.email}).findOne((e, data) => {
                 if(e) return res.send({error: e})
                 if(!data) return res.send("Usuário não encontrado")
                 return res.send(data)
@@ -72,4 +82,5 @@ module.exports = {
 
         })
     },
+
 }

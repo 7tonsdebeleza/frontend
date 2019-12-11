@@ -26,27 +26,43 @@ class Admin extends Component {
     //Função que será herdada pela coponente login, login para admin diferenciado
     login = async (user) => {
         //Fazendo login do banco de dados
-        const res = await api.post("/loginadmin",user)
+        const res = await api.post("/Signadmin",user)
         
         //Caso login não funcione
+        if(res.data.error) return res.data.error
         if(res.data === "Email inválido!" || res.data === "Senha inválida!"){
             return res.data;
         } else {
-            //Caso funcione, salvando obj de usuário no state
-            this.setState({adminLogin:res.data})
+            //Caso funcione, salvando para permanencia do login
+            localStorage.setItem('@stbl/admin/user', res.data.token)
 
-            //Tornando dados do usuário logado permanente
-            localStorage.setItem('@stbl/admin/user', JSON.stringify(res.data))
+            //Autenticando token
+            this.auth(res.data.token)
 
             return true;
         }
     }
 
+    //Função de autenticação de token
+	auth = (token) => {
+		console.log("Autenticando...")
+		api.post('/Authadmin',  {headers: {"Authorization" : token}}).then(res => {
+			if(res.data.error){
+				//Caso autenticação falhe, usuário será deslogado para gerar novo token
+				console.log(res.data.error)
+				this.logout();
+			} else {
+				//Salvando dados do usuário
+				this.setState({adminLogin:res.data})
+			}
+		})
+	}
+	
+
     logout = () =>{
         // Removendo objeto do state e permanência do navegador
         this.setState({adminLogin: null});
         localStorage.removeItem("@stbl/admin/user");
-        localStorage.removeItem("@stbl/admin/interface");
     }
 
 
@@ -60,14 +76,9 @@ class Admin extends Component {
     componentWillMount = () =>{
         //Verificando se há usuário para ser recuperado no login permanete
         let user = localStorage.getItem("@stbl/admin/user");
-        if(user !== null){           
-            //Recuperando última interface selecionada antes de um reload
-            let lastInterface = localStorage.getItem("@stbl/admin/interface");
-            console.log(lastInterface);
-            this.setState({
-                adminLogin: JSON.parse(user),
-                interface: lastInterface === null ? 1 : parseInt(lastInterface),
-            });
+        if(user !== null){
+            //auteticando token guardada
+            this.auth(user)            
 
             //########### Buscando dados acessíveis apenas pelo admin
             this.getAdminData();
