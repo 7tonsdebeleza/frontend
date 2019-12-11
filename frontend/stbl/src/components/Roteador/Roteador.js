@@ -55,23 +55,40 @@ class Roteador extends Component {
 	//Recebe como parâmetro dados válidos do form de login
 	clientLogin = async (user) => {
 
-		const res = await api.post('/login',{
+		console.log("Gerando token...")
+		const res = await api.post('/Sign',{
 			email: user.email,
 			senha: user.senha
 		  });		
         
-        //Caso login não funcione
+		//Caso login não funcione
+		if(res.data.error) return res.data.error
         if(res.data === "Email inválido!" || res.data === "Senha inválida!"){
             return res.data;
         } else {
-            //Caso funcione, salvando obj de usuário no state
-            this.setState({user:res.data})
 
-            //Tornando dados do usuário logado permanente
-            localStorage.setItem('@stbl/client/user', JSON.stringify(res.data))
+            //Salvando token para permância de login
+            localStorage.setItem('@stbl/client/user', res.data.token);
+			this.auth(res.data.token);
 
             return true;
 		}
+	}
+
+	//Função de autenticação de token
+	auth = (token) => {
+		console.log("Autenticando...")
+		api.post('/Auth',  {headers: {"Authorization" : token}}).then(res => {
+			if(res.data.error){
+				//Caso autenticação falhe, usuário será deslogado para gerar novo token
+				console.log(res.data.error)
+				this.logout();
+			} else {
+				//Salvando dados do usuário
+				console.log(res.data)
+				this.setState({user:res.data})
+			}
+		})
 	}
 	
 
@@ -160,14 +177,12 @@ class Roteador extends Component {
 		this.mostra();
 
 		//recuperando estado de usuário logado
-		let user = localStorage.getItem("@stbl/client/user");
-        if(user !== null){
+		let token = localStorage.getItem("@stbl/client/user");
+        if(token !== null){
 
 			//##### Implementar função para conectar carrinho do cliente logado           
             
-            this.setState({
-                user: JSON.parse(user),
-            });
+            this.auth(token)
         }
 	}
 

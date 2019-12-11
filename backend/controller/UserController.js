@@ -3,6 +3,8 @@ const bcrypt = require("bcrypt")
 const data = require('../data/data')
 const jwt = require('jsonwebtoken');
 
+process.env.SECRET_KEY = 'secret';
+
 module.exports = {
     async Store(req,res){
         const {nome,sobrenome,email,password} = req.body
@@ -147,21 +149,27 @@ module.exports = {
     async Sign(req,res){
         const {email,senha} = req.body
         
-        let response = await User.findOne({email});
+        User.where({email: email}).findOne((e, data) => {
+            //Casos de erro ao procurar usuário
+            if(e) return res.send({error: e});
+            if(!data) return res.send("Email inválido!")
+            
+            const senha_criptografada =  bcrypt.compareSync(senha,data.password)
 
-        if(!response){
-            return res.send("Email inválido!")
-        }
+            if(!senha_criptografada){
+                return res.send("Senha inválida!")
+            }
 
-        const senha_criptografada =  bcrypt.compareSync(senha,response.password)
+            //Gerando token com dados do usuário encontrado
+            jwt.sign(data.toJSON(), process.env.SECRET_KEY, {expiresIn: '7d'}, (err, token) => {
+                if(err){
+                    console.log(err)
+                    return res.send({error: "Erro inesperado..."})
+                } 
+                return res.send({token: token})
+            })
 
-        if(!senha_criptografada){
-            return res.send("Senha inválida!")
-        }
-
-        //Gerando token com dados do usuário encontrado
-        const token = jwt.sign(response, process.env.SECRET_KEY, {expiresIn: '7d'})
-        return res.send({token: token})
+        });
 
     },
 

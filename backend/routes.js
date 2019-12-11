@@ -12,6 +12,7 @@ const ProductController = require("./controller/ProductController");
 const AdminController = require("./controller/AdminController");
 routes.post('/criaradmin',AdminController.Store);
 routes.post('/loginadmin',AdminController.Find);
+routes.post('/Signadmin',AdminController.Find);
 
 //SERIO VEY APAGA
 
@@ -23,6 +24,10 @@ routes.post('/adicionarcarrinho',UserController.adicionarCarrinho);
 routes.post('/removercarrinho',UserController.removerCarrinho);
 //Fazer login
 routes.post('/login',UserController.Login);
+//Fazer login com padrão jwt
+routes.post('/Sign',UserController.Sign);
+//Fazer autheticação de token jwt
+routes.post('/Auth',UserController.Auth);
 
 //Criar produto
 routes.post('/criarproduto',upload.single('img'),ProductController.Store);
