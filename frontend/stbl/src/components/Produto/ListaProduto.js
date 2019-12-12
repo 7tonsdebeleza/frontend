@@ -16,7 +16,6 @@ class ListaProduto extends Component {
                     {
                         this.props.list.map((dados) => {
                             id_number++
-                            console.log(dados)
                             return(
                                 <li className="pro nav-item" key={id_number}>
                                     <Produto noCarrinho={this.props.noCarrinho} dados={dados} addCarrinho={this.props.addCarrinho} atualizarQtdCarrinho={this.props.atualizarQtdCarrinho} removerCarrinho={this.props.removerCarrinho} naNavbar={this.props.naNavbar}/>
