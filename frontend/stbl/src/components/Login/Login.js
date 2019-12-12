@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Link } from "react-router-dom";
 
 class Login extends Component {
-    constructor() {
+    /*constructor() {
         super();
 
         this.state = {
@@ -16,6 +16,13 @@ class Login extends Component {
         this.Submit = this.Submit.bind(this);
         this.CliqueLogin = this.CliqueLogin.bind(this);
         this.fecharAlerta = this.fecharAlerta.bind(this);
+    }*/
+
+    state = {
+        email: "",
+        senha: "",
+        error: false,
+        errorMsg: "",
     }
 
     //função que atualiza o state do email e senha
@@ -29,45 +36,54 @@ class Login extends Component {
     CliqueLogin = () => {
        
         //teste para saber se existe algum campo vazio, se existir exibir um alerta
-        if (this.state.email === "" || this.state.senha === "") {
-            this.setState({
-                alerta3: true
-            })
-        } else {
-            //Criando objeto de usuário a ser logado
-            let user = {
-                email: this.state.email,
-                senha: this.state.senha
-            }
+        if (this.state.email === "" || this.state.senha === "") return this.chemarAlerta("Preencha todos os campos!");
 
-            //Executando uma função herdada com os dados passados, res recebe retorno da função;
-            this.props.login(user).then((res) => {
-                console.log(res)
+        if (!this.verifyEmail(this.state.email)) return this.chemarAlerta("Formato de email inválido!");
 
-                if(res === "Email inválido!"){
-                    this.setState({
-                    alerta1: true,
-                    })
-                }
-
-                else if(res === "Senha inválida!"){
-                    this.setState({
-                        alerta1: false,
-                        alerta2: true,
-                    })
-                }
-            });
-            
+        //Criando objeto de usuário a ser logado
+        let user = {
+            email: this.state.email,
+            senha: this.state.senha
         }
+
+        //Executando uma função herdada com os dados passados, res recebe retorno da função;
+        this.props.login(user).then((res) => {
+            console.log(res)
+            if(res.error) return this.chemarAlerta("Erro inesperado... Tente novamento mais tarde!");
+            if(res === "Email inválido!" || res === "Senha inválida!") return this.chemarAlerta(res);
+        }).catch(e => {
+            console.log(e);
+            return this.chemarAlerta("Erro inesperado... Tente novamento mais tarde!");
+        });
+        
+        
     }
 
 
     //função para fechar um alerta
-    fecharAlerta = (e) => {
+    fecharAlerta = () => {
         this.setState({
-            [e.target.name]: false
+            error: false,
+            errorMsg: "",
         })
     }
+
+    chemarAlerta = (msg) => {
+        this.setState({
+            error: true,
+            errorMsg: msg,
+        })
+    }
+
+    //Função para verificar validade de email
+    verifyEmail = (emailString) => {
+        const userString = emailString.substring(0, emailString.indexOf("@"));
+        const dom = emailString.substring(emailString.indexOf("@")+ 1, emailString.length);
+    
+        if ((userString.length >=1) && (dom.length >=3) && (userString.search("@")===-1) && (dom.search("@")===-1) && (userString.search(" ")===-1) && (dom.search(" ")===-1) && (dom.search(".")!==-1) &&(dom.indexOf(".") >=1) && (dom.lastIndexOf(".") < dom.length - 1)) {
+          return true;
+        } else return false;
+      }
 
 
     render() {
@@ -101,23 +117,9 @@ class Login extends Component {
                         </p>
 
                         <div>
-                            {this.state.alerta1? 
-                            <div className="alertacadastro">Por favor, confira seu email!
-                                <Link className="fecharalerta" name="alerta2" onClick={this.fecharAlerta} to="#">X</Link>
-                            </div> : ""}
-                        </div>
-
-                        <div>
-                            {this.state.alerta2?
-                            <div className="alertacadastro">Por favor, confira sua senha!
-                                <Link className="fecharalerta" name="alerta2" onClick={this.fecharAlerta} to="#">X</Link>
-                            </div> : null}
-                        </div>
-
-                        <div>
-                            {this.state.alerta3 ? 
-                            <div className="alertacadastro">Por favor, preencha todos os campos!
-                                <Link className="fecharalerta" name="alerta3" onClick={this.fecharAlerta} to="#">X</Link>
+                            {this.state.error? 
+                            <div className="alertacadastro">{this.state.errorMsg}
+                                <Link className="fecharalerta" name="alerta2" onClick={()=>this.fecharAlerta()} to="#">X</Link>
                             </div> : null}
                         </div>
                     </form>
