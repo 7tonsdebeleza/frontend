@@ -22,6 +22,7 @@ import AtualizarClienteInfo from "../Cliente/AtualizarClienteInfo";
 import GoTop from "./GoTop";
 import PostsList from "../Blog/PostsList";
 import Publicacao from "../Blog/Publicacao";
+import ErroInterface from "./ErroInterface";
 import api from "../API/api";
 
 class Roteador extends Component {
@@ -37,6 +38,7 @@ class Roteador extends Component {
 		 - "dados" guarda a resquisão de produtos do banco de dados
 		 - "carregado" indica se a requisição do banco de dados foi finalizada para renderização
 		 - "user" guarda um objeto de usuário (cliente)
+		 - "error" quando true, retorna tela de erro
 	*/
 
 	state = {
@@ -47,7 +49,8 @@ class Roteador extends Component {
 		pesquisaChamada: false,
 		dados: [],
 		carregado: false,
-		user: null
+		user: null,
+		error: false,
 	}
 
 
@@ -100,18 +103,21 @@ class Roteador extends Component {
 
 	//Função que executava a requisição com o banco de dados
 	async mostra(){
-		const response = await api.get('/mostrartodosprodutos');
+		api.get('/mostrartodosprodutos').then(response => {
+			response.data.map((obj)=>{
+				//Remove o path da imagem e seta como o link dela
+				obj.img = obj.img_url
+				return true
+			})
+			this.setState({
+				dados: response.data,
+				carregado: true,
+			})
+		}).catch(e => {
+			console.log(e);
+			this.setState({error: true});
+		})
 		
-		response.data.map((obj)=>{
-			//Remove o path da imagem e seta como o link dela
-			obj.img = obj.img_url
-			return true
-		})
-
-		this.setState({
-			dados: response.data,
-			carregado: true,
-		})
 	}
 
 	//Esta função será passada aos componetes filhos onde houver componete produto
@@ -186,15 +192,12 @@ class Roteador extends Component {
 	}
 
 	render() {
+		//Caso haja erro na api
+		if(this.state.error) return <ErroInterface />
 
 		//Os componentes são renderizados apenas se requisião ao banco de dados tiver finalizado
-		if(!this.state.carregado){
-			return(
-				<div>
-					<Carregamento />
-				</div>
-			)
-		} else {
+		if(!this.state.carregado) return <Carregamento />
+		else {
 			return (
 			<BrowserRouter>
 			
