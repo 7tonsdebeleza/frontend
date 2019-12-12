@@ -4,59 +4,49 @@ import Info from "../Images/information.svg";
 import api from "../API/api";
 
 class Cadastro extends Component {
-  constructor() {
-    super();
 
-    this.state = {
-      nome: "",
-      sobrenome: "",
-      email: "",
-      senha: "",
-      confirmaremail: "",
-      confirmarsenha: "",
+  state = {
+    nome: "",
+    sobrenome: "",
+    email: "",
+    senha: "",
+    confirmaremail: "",
+    confirmarsenha: "",
 
-      alerta1: false,
-      alerta2: false,
-      alerta3: false,
-      informationemail: false,
-      informationsenha: false,
-      
-      redirect: "#"
-    }
-
-    this.Submit = this.Submit.bind(this);
-    this.fecharAlerta = this.fecharAlerta.bind(this);
-    this.Information = this.Information.bind(this);
-    this.CliqueCriarConta = this.CliqueCriarConta.bind(this);
+    alert: false,
+    alertMsg: "",
+    informationemail: false,
+    informationsenha: false,
   }
 
   async cadastrar() {
-    const response = await api.post('/criarusuario', {
+    api.post('/criarusuario', {
       nome: this.state.nome,
       sobrenome: this.state.sobrenome,
       email: this.state.email,
       password: this.state.senha
+    }).then(res => {
+      console.log(res)
+      alert("Cadastro realizado!"); //Melhorar UX
+
+      this.setState({
+        nome: "",
+        sobrenome: "",
+        email: "",
+        senha: "",
+        confirmaremail: "",
+        confirmarsenha: "",
+
+        alertMsg: "",
+        informationemail: false,
+        informationsenha: false,
+      });
+
+    }).catch(e => {
+      console.log(e);
+      this.chamarAlerta("Erro inesperado... Tente novamente mais tarde!")
+
     })
-
-    console.log(response.data)
-
-    alert("Cadastro realizado!");
-
-    this.setState({
-      nome: "",
-      sobrenome: "",
-      email: "",
-      senha: "",
-      confirmaremail: "",
-      confirmarsenha: "",
-
-      alerta1: false,
-      alerta2: false,
-      alerta3: false,
-      alerta4: false,
-      informationemail: false,
-      informationsenha: false,
-    });
 
   }
 
@@ -69,49 +59,39 @@ class Cadastro extends Component {
   }
 
   CliqueCriarConta = () => {
-    let verificador = true;
-
-    console.log(this.state.nome)
-    console.log(this.state.sobrenome)
-    console.log(this.state.email)
-    console.log(this.state.senha)
-    console.log(this.state.confirmaremail)
-    console.log(this.state.confirmarsenha)
-
 
     //verificando e exibindo alertas
-    if (this.state.email !== this.state.confirmaremail) {
-      verificador = false
-      this.setState({
-        alerta1: true
-      })
-    }
-    if (this.state.senha !== this.state.confirmarsenha) {
-      verificador = false
-      this.setState({
-        alerta2: true
-      })
-    }
+    if (this.state.nome === "" || this.state.sobrenome === "" || this.state.email === "" || this.state.senha === "") return this.chamarAlerta("Preencha todos os dados")
+    if(!this.verifyEmail(this.state.email)) return this.chamarAlerta("Formato de email inválido!")
+    if(this.state.senha.length < 6) return this.chamarAlerta("Sua senha deve ter no mínimo 6 caracteres!")
+    if (this.state.email !== this.state.confirmaremail) return this.chamarAlerta("Emails não coincidem!")
+    if (this.state.senha !== this.state.confirmarsenha) return this.chamarAlerta("Senhas não coincidem!")
 
-    if (this.state.nome === "" || this.state.sobrenome === "" || this.state.email === "" || this.state.senha === "") {
-      verificador = false
-      this.setState({
-        alerta3: true
-      })
-    }
-
-    if (verificador === true) {
-      this.cadastrar()
-    }
+    return this.cadastrar();
   }
 
   //função para fechar alertas
-  fecharAlerta = (e) => {
+  fecharAlerta = () => {
     this.setState({
-      [e.target.name]: false
+      alert: "",
     })
   }
 
+  chamarAlerta = (msg) => {
+    this.setState({
+      alert: msg,
+    })
+  }
+
+  //Função para verificar validade de email
+  verifyEmail = (emailString) => {
+    const userString = emailString.substring(0, emailString.indexOf("@"));
+    const dom = emailString.substring(emailString.indexOf("@")+ 1, emailString.length);
+
+    if ((userString.length >=1) && (dom.length >=3) && (userString.search("@")===-1) && (dom.search("@")===-1) && (userString.search(" ")===-1) && (dom.search(" ")===-1) && (dom.search(".")!==-1) &&(dom.indexOf(".") >=1) && (dom.lastIndexOf(".") < dom.length - 1)) {
+      return true;
+    } else return false;
+  }
 
   //função para exibir e ocultar informações sobre como email e senha devem ser
   Information = (e) => {
@@ -133,7 +113,7 @@ class Cadastro extends Component {
           <header className="page-header">
             <h1>Crie uma conta</h1>
           </header>
-          <p className="title">Faça uma conta grátis na 7 Tons de Beleza.</p>
+          <p className="title">Cadastre uma conta grátis na 7 Tons de Beleza.</p>
 
           <form>
 
@@ -178,26 +158,13 @@ class Cadastro extends Component {
 
           {/*Alertas de senha ou email incorretos */}
           <div>
-              {this.state.alerta1 ?
-                <div className="alertacadastro">Por favor, confira seu email!
-                  <Link className="fecharalerta" name="alerta1" onClick={this.fecharAlerta} to="#">X</Link>
-                </div> : ""}
-            </div>
-            <div>
-              {this.state.alerta2 ?
-                <div className="alertacadastro">Por favor, confira sua senha!
-              <Link className="fecharalerta" name="alerta2" onClick={this.fecharAlerta} to="#">X</Link>
-                </div> : ""}
-            </div>
-            <div>
-              {this.state.alerta3 ?
-                <div className="alertacadastro">Por favor, preencha todos os campos!
-              <Link className="fecharalerta" name="alerta3" onClick={this.fecharAlerta} to="#">X</Link>
-                </div> : ""}
-            </div>
-            
-        </div>
+              {this.state.alert ?
+                <div className="alertacadastro">{this.state.alert}
+                  <Link className="fecharalerta" name="alerta1" onClick={() => this.fecharAlerta()} to="#">X</Link>
+                </div> : null}
+          </div>
       </div>
+    </div>
     )
   }
 }
