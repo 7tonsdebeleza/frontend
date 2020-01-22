@@ -19,6 +19,21 @@ const UserSchema = new mongoose.Schema({
         type: String,
         unique: false,
     },
+    phoneAreaCode: {
+        required: false,
+        type: String,
+        unique: false, 
+    },
+    phoneNumber: {
+        required: false,
+        type: String,
+        unique: false,
+    },
+    cep: {
+        required: false,
+        type: String,
+        unique: false,
+    },
     carrinho: {
         type: []
     }

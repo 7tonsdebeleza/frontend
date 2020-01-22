@@ -8,6 +8,11 @@ const upload = multer(uploadConfig)
 const UserController = require("./controller/UserController");
 const ProductController = require("./controller/ProductController");
 
+/*
+const EmailController = require('./controller/EmailController');
+routes.get('/emailteste',EmailController.teste)
+*/
+
 //PELO AMOR DE DEUS APAGAR
 const AdminController = require("./controller/AdminController");
 routes.post('/criaradmin',AdminController.Store);
@@ -19,17 +24,31 @@ routes.post('/Authadmin',AdminController.Auth);
 //SERIO VEY APAGA
 
 //Criar usuarios
-routes.post('/criarusuario',UserController.Store);
+routes.post('/criarusuario', UserController.Store);
 //Adicionar no carrinho
-routes.post('/adicionarcarrinho',UserController.adicionarCarrinho);
+routes.post('/adicionarcarrinho', UserController.adicionarCarrinho);
 //Remover do carrinho
-routes.post('/removercarrinho',UserController.removerCarrinho);
+routes.post('/removercarrinho', UserController.removerCarrinho);
 //Fazer login
 routes.post('/login',UserController.Login);
 //Fazer login com padrão jwt
 routes.post('/Sign',UserController.Sign);
 //Fazer autheticação de token jwt
-routes.post('/Auth',UserController.Auth);
+routes.post('/Auth', UserController.Auth);
+//Atualizar nome
+routes.post('/updateName', UserController.updateName);
+//Atualizar sobrenome
+routes.post('/updateSurname', UserController.updateSurname);
+//Atualizar email
+routes.post('/updateEmail', UserController.updateEmail);
+//Atualizar senha
+routes.post('/updatePassword', UserController.updatePassword);
+//Atualizar código de área
+routes.post('/insertPhoneAreaCode', UserController.insertPhoneAreaCode)
+//Atualizar numéro de celular
+routes.post('/insertPhoneNumber', UserController.insertPhoneNumber)
+//Atualizar CEP
+routes.post('/insertCep',UserController.insertCep)
 
 //Criar produto
 routes.post('/criarproduto',upload.single('img'),ProductController.Store);
@@ -54,31 +73,7 @@ routes.post('/atualizardescricao',ProductController.UpdateDescription);
 //Atualizar tipoProduto
 routes.post('/atualizartipo',ProductController.UpdateType)
 
-/*
-const UsersController = require('./controllers/users/UsersController');
-const UserController = require('./controllers/users/UserController');
-const EstoqueController = require('./controllers/products/EstoqueController');
-const ProductController = require('./controllers/products/ProductController');
 
-//Não mexer nem alterar, executada unica vez para criar a box de usuarios
-//routes.post('/createusers',UsersController.store);
-
-//Não mexer nem alterar, executado unica vez para criar a box de produtos
-//routes.post('/criarestoque',EstoqueController.store);
-
-//Mostrar usuarios
-routes.get('/mostrarusuarios',UsersController.show);
-//Adiciona no carrinho
-routes.post('/inserircarrinho',UserController.adicionaCarrinho);
-//Remove no carrinho
-routes.post('/removercarrinho',UserController.removerCarrinho);
-//Logar
-routes.get('/logar',UserController.logar);
-
-//Comprar produto
-routes.get('/comprarproduto',ProductController.comprar);
-
-*/
 
 routes.get('/teste',(req,res)=>{
     return res.send({oi:'oi'});

@@ -1,13 +1,14 @@
-const User = require("../model/User")
-const bcrypt = require("bcrypt")
-const data = require('../data/data')
+const User = require("../model/User");
+
+const bcrypt = require("bcrypt");
+const data = require('../data/data');
 const jwt = require('jsonwebtoken');
 
 process.env.SECRET_KEY = 'secret7tons';
 
 module.exports = {
     async Store(req,res){
-        const {nome,sobrenome,email,password} = req.body
+        const {nome,sobrenome,email,password,phoneAreaCode,phoneNumber,cep} = req.body
         
         let user = await User.findOne({email})
 
@@ -17,11 +18,128 @@ module.exports = {
                 sobrenome,
                 email,
                 password:bcrypt.hashSync(password, data.salt),
+                phoneAreaCode,
+                phoneNumber,
+                cep,
                 carrinho: []
             })
         }
 
         return res.json(user)
+    },
+
+    async updateName(req,res){
+        const {email, name} = req.body;
+        
+        await User.findOneAndUpdate({email},{$set: {nome: name}},
+            {new:true}, (err,doc)=>{
+                if(err){
+                    return res.send(err)
+                }
+                
+                return res.json(doc)
+            })
+
+    },
+
+    async updateSurname(req,res){
+
+        const {email, surname} = req.body;
+        
+        await User.findOneAndUpdate({email},{$set: {sobrenome: surname}},
+            {new:true}, (err,doc)=>{
+                if(err){
+                    return res.send(err)
+                }
+                
+                return res.json(doc)
+            })
+    },
+
+    async insertPhoneAreaCode(req,res){
+        const {email, phoneAreaCode} = req.body;
+        
+        const user = User.findOne({email})
+
+        if(phoneAreaCode != null && phoneAreaCode != user.phoneAreaCode){
+            
+            await User.findOneAndUpdate({email},{$set: {phoneAreaCode: phoneAreaCode}},
+                {new:true}, (err,doc)=>{
+                    if(err){
+                        return res.send(err)
+                    }
+                    
+                    return res.json(doc)
+                })
+        }
+        return res.send(user)
+    },
+
+    async insertPhoneNumber(req,res){
+        const {email, phoneNumber} = req.body;
+        
+        const user = User.findOne({email})
+
+        if(phoneNumber != null && phoneNumber != user.phoneNumber){
+            await User.findOneAndUpdate({email},{$set: {phoneNumber: phoneNumber}},
+                {new:true}, (err,doc)=>{
+                    if(err){
+                        return res.send(err)
+                    }
+                    
+                    return res.json(doc)
+                })
+        }
+
+        return res.send(user)
+    },
+
+    async insertCep(req,res){
+        const {email, cep} = req.body;
+        
+        const user = User.findOne({email})
+
+        if(cep != null && cep != user.cep){
+            const user = await User.findOneAndUpdate({email},{$set: {cep: cep}},
+                {new:true}, (err,doc)=>{
+                    if(err){
+                        return res.send(err)
+                    }
+                    
+                    return res.json(doc)
+                })
+        }
+
+        return res.send(user)
+    },
+
+    async updatePassword(req,res){
+        const [email, newPass] = req.body;
+
+        const user = await User.findOneAndUpdate({email},{$set: {password: newPass}},
+            {new:true}, (err,doc)=>{
+                if(err){
+                    return res.send(err)
+                }
+                
+                return res.json(doc)
+            })
+
+    },
+
+    async updateEmail(req,res){
+
+        const [email, newEmail] = req.body;
+
+        const user = await User.findOneAndUpdate({email},{$set: {email: newEmail}},
+            {new:true}, (err,doc)=>{
+                if(err){
+                    return res.send(err)
+                }
+                
+                return res.json(doc)
+            })
+
     },
 
     async adicionarCarrinho(req,res){
