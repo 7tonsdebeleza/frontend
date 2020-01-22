@@ -139,6 +139,11 @@ module.exports = {
 
   getAllTransactions(req, res){
     console.log("Buscando todas as transações cadastradas...");
+
+    // Esse método retornará todas as transações que foram postadas na PagSeguro e salvas no banco de dados desta API
+    // Usar paginação?
+    // "Transaction" é o nome da tabela usada na implementação incial, substituir abaixo
+
     Transaction.findAll().then(trans => {
       console.log("Uma lista de transações foi retornada!");
       res.send(trans);
@@ -152,6 +157,9 @@ module.exports = {
   },
 
   getTransaction(req, res){
+    // Este método retorna os dados de uma trasação a partir do seu código (/:code)
+    // "Transaction" é o nome da tabela usada na implementação incial, substituir abaixo
+
     const searchedCode = req.params.code;
     console.log("Transação requisitada, código: " + searchedCode);
 
@@ -162,7 +170,7 @@ module.exports = {
       }
 
       else {
-        console.log("Transação retornada retornado");
+        console.log("Transação retornada");
         res.send(trans);
         
       }
@@ -174,8 +182,20 @@ module.exports = {
   },
 
   getUserTransaction(req, res){
+
+    // Este método retorna todas as transações de um usuário a partir de seu id (/:user)
+    // "Transaction" é o nome da tabela usada na implementação incial, substituir abaixo 
+
     const userId = req.params.user;
     console.log("Buscando transações realizadas pelo usuário de id " + userId);
+
+    /* 
+      Os dados de transação postados na PagSeguro têm um campo "reference" que pode ser usado
+      como uma chave estrageira para o usuário desde a realização do pedido
+      (o email e outros dados podem ser alterados pelo usuário durante o processo de compra com
+        a PagSeguro)
+    
+    */  
 
     Transaction.findAll({where: {reference: userId}}).then(trans => {
       if(!trans){
@@ -198,6 +218,21 @@ module.exports = {
   },
 
   getTransactionRegister(req, res){
+
+    /* 
+      Na implementação incial foi criada uma tabela "Transaction" que guarda os dados de uma trasação
+      postada na PagSeguro, e uma tabela auxiliar "TransactionRegister" (abaixo) que guarda dados dos
+      itens comprados na transação, pois o retorno de uma trasação na PagSeguro segue a estrutura:
+        {
+          code: 000000,
+          ...outros
+          items: [{id: 00, description: 'abc', ...outros}, {id: 00, description: 'abc', ...outros}]
+        }
+
+      É preciso analisar se esse método é necessário ou quais adaptacões são necessárias
+    */
+
+    // O código de uma transação é usado para encontrar seus registros de itens (/:code)
     const code = req.params.code;
     console.log("Buscando itens da transação de cógido " + code);
 
@@ -223,7 +258,22 @@ module.exports = {
   },
 
   receiveStatus(req, res){
-    //POST será realizado pela plataforma da PagSeguro
+    // A PagSeguro usará esse método para fazer POST de um códio de notificação
+    // A rota deste método desse ser configurada junto ao método de chekout na linha 115 deste arquivo
+    // O POST da PagSeguro é insistente, caso não funcione na primeira tentativa, tentará novamente em alguns segundos (sandbox é manual)
+    /*
+      Um primeiro código é enviado quando uma compra é finalizada, e outros códigos são enviados
+      sempre que o status de uma transação muda. A partir desse código de notificação, um GET pode
+      ser feito no endereço da PagSeguro https://ws.pagseguro.uol.com.br/v3/transactions/notifications/
+      que retornará todos os dados da transação correspondente.
+
+      Na implementação inicial, após o GET, é verificado, pelo código da transação, se ele já existe no banco de dados
+      Caso exista, apenas o status da transação é atualizado, caso não exista, os dados da transação são salvos na tabela
+      Transactions, e os dados de seus itens, no campo items:[...] são guardados em instâncias de uma tabea auxiliar 
+      TrasactionRegister
+
+      Analisar abaixo o que precisa ser alterado
+    */
     console.log("Notificação de mudança de status de compra recebido!");
     const code = req.body.notificationCode;
     
@@ -232,16 +282,22 @@ module.exports = {
 
     const url = 'https://ws.sandbox.pagseguro.uol.com.br/v3/transactions/notifications/'+code+'?email='+config.PagSeguroConfig.email+'&token='+config.PagSeguroConfig.token;
 
-    //Buscando dados da transação realizada a partir do código recebido da PagSeguros
+    //Buscando dados da transação realizada a partir do código de notificação recebido da PagSeguros
     axios({
       method: 'get',
       url: url,
       
     }).then(ret => {
       console.log("Resposta recebida!");
+      // Convertendo o retorno de XML para JSON
       resjson = convert.xml2json(ret.data, {compact: true, spaces: 4});
+      // Convertendo o JSON para um objeto
       const data = JSON.parse(resjson);
 
+      // Use abaixo, se precisar, para visualizar todos os dados do retorno
+      // console.log(data)
+
+      // Separando informações da transação que serão guardadas no banco de dados, na tabela Transaction
       const transData = {
         code: data.transaction.code._text,
         date: data.transaction.date._text,
@@ -287,15 +343,20 @@ module.exports = {
         shippingCost: data.transaction.shipping.cost._text,
       }
 
+      // Separando lista de itens da transação, para guardar em instâncias da tabela TransactionRegister
       const items = data.transaction.items.item;
+
+      // Use abaixo para visualizar os itens se precisar
+      // console.table(items)
 
       console.log("Códgo de transação: " + transData.code);
 
-      //Verificando se transação já está cadastrada no bd
-      //Caso ela já exista, significa que seu status foi alterado
+      // Verificando se transação já está cadastrada no bd
+      // Caso ela já exista, significa que seu status foi alterado, apenas o status será atuaizado
       Transaction.findOne({where: {code: transData.code}}).then(trans => {
         if(trans){
           console.log("Atualizando transação no banco de dados...");
+          // Atualizando status
           Transaction.update(transData, {where: {code: transData.code}}).then(()=>{
             console.log("Transação atualizada!");
             res.send("Transação atualizada!");
@@ -310,6 +371,7 @@ module.exports = {
         }
   
         else {
+          // Guardando dados de uma nova transação e seus itens
           console.log("Registrando nova transação...");
           Transaction.create(transData).then(t => {
             console.log("Nova transação registrada!");
