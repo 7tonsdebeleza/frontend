@@ -8,7 +8,7 @@ process.env.SECRET_KEY = 'secret7tons';
 
 module.exports = {
     async Store(req,res){
-        const {nome,sobrenome,email,password,phoneAreaCode,phoneNumber,cep} = req.body
+        const {nome,sobrenome,email,password,phoneAreaCode= " ",phoneNumber=" ",cep=" "} = req.body
         
         let user = await User.findOne({email})
 

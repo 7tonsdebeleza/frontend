@@ -7,7 +7,9 @@ module.exports = {
             const img = req.file
             const imgPath = img.filename
             
-            const {titulo, marca, preco, estoque, tipoProduto, descricao} = req.body;
+            const {titulo, marca, preco, estoque, tipoProduto, descricao,
+                peso =" ", formato =" ", comprimento =" ", altura =" ", largura =" ", diametro =" "}
+                 = req.body;
             
             const procura_imagem = await Product.findOne({img:imgPath})
             const procura_titulo = await Product.findOne({titulo})
@@ -26,9 +28,14 @@ module.exports = {
                 preco,
                 estoque,
                 tipoProduto,
-                descricao
-            })
-            
+                descricao,
+                peso,
+                formato,
+                comprimento,
+                altura,
+                largura,
+                diametro
+            },(e)=>{console.log(e)})
             
             return res.send(product)
         
@@ -185,5 +192,82 @@ module.exports = {
         )
     },
 
+    async UpdatePeso(req,res){
+        const {id, novo_peso} = req.body
+
+        Product.findByIdAndUpdate({_id: id},{$set: {peso: novo_peso}},
+            {new: true},(err,doc) =>{
+                if(err){
+                    return res.send(err)
+                }
+                return res.send(doc)
+            }
+        )
+    },
+
+    async UpdateFormato(req,res){
+        const {id, novo_formato} = req.body
+
+        Product.findByIdAndUpdate({_id: id},{$set: {formato: novo_formato}},
+            {new: true},(err,doc) =>{
+                if(err){
+                    return res.send(err)
+                }
+                return res.send(doc)
+            }
+        )
+    },
+
+    async UpdateComprimento(req,res){
+        const {id, novo_comprimento} = req.body
+
+        Product.findByIdAndUpdate({_id: id},{$set: {comprimento: novo_comprimento}},
+            {new: true},(err,doc) =>{
+                if(err){
+                    return res.send(err)
+                }
+                return res.send(doc)
+            }
+        )
+    },
+
+    async UpdateAltura(req,res){
+        const {id, nova_altura} = req.body
+
+        Product.findByIdAndUpdate({_id: id},{$set: {altura: nova_altura}},
+            {new: true},(err,doc) =>{
+                if(err){
+                    return res.send(err)
+                }
+                return res.send(doc)
+            }
+        )
+    },
+
+    async UpdateLargura(req,res){
+        const {id, nova_largura} = req.body
+
+        Product.findByIdAndUpdate({_id: id},{$set: {largura: nova_largura}},
+            {new: true},(err,doc) =>{
+                if(err){
+                    return res.send(err)
+                }
+                return res.send(doc)
+            }
+        )
+    },
+
+    async UpdateDiametro(req,res){
+        const {id, novo_diametro} = req.body
+
+        Product.findByIdAndUpdate({_id: id},{$set: {diametro: novo_diametro}},
+            {new: true},(err,doc) =>{
+                if(err){
+                    return res.send(err)
+                }
+                return res.send(doc)
+            }
+        )
+    },
 
 }

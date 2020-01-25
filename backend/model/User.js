@@ -20,17 +20,17 @@ const UserSchema = new mongoose.Schema({
         unique: false,
     },
     phoneAreaCode: {
-        required: false,
+        required: true,
         type: String,
         unique: false, 
     },
     phoneNumber: {
-        required: false,
+        required: true,
         type: String,
         unique: false,
     },
     cep: {
-        required: false,
+        required: true,
         type: String,
         unique: false,
     },

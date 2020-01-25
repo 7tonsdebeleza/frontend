@@ -72,7 +72,12 @@ routes.post('/atualizarestoque',ProductController.UpdateEstoque);
 routes.post('/atualizardescricao',ProductController.UpdateDescription);
 //Atualizar tipoProduto
 routes.post('/atualizartipo',ProductController.UpdateType)
-
+//Atualizar peso
+//Atualizar formato
+//Atualizar comprimento
+//Atualizar altura
+//Atualizar largura
+//Atualizar diametro
 
 
 routes.get('/teste',(req,res)=>{

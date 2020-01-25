@@ -30,6 +30,30 @@ const ProductSchema = new mongoose.Schema({
     descricao:{
         required: true,
         type: String
+    },
+    peso:{
+        required: true,
+        type: String
+    },
+    formato:{
+        required: true,
+        type: String
+    },
+    comprimento:{
+        required: true,
+        type: String
+    },
+    altura:{
+        required: true,
+        type: String
+    },
+    largura:{
+        required: true,
+        type: String
+    },
+    diametro:{
+        required: true,
+        type: String
     }
 
     },{
