@@ -34,6 +34,51 @@ const UserSchema = new mongoose.Schema({
         type: String,
         unique: false,
     },
+    type: {
+        required: true,
+        type: String,
+        unique: false,
+    },
+    street: {
+        required: true,
+        type: String,
+        unique: false,
+    },
+    number: {
+        required: true,
+        type: String,
+        unique: false,
+    },
+    complement: {
+        required: true,
+        type: String,
+        unique: false,
+    },
+    district: {
+        required: true,
+        type: String,
+        unique: false,
+    },
+    postalCode: {
+        required: true,
+        type: String,
+        unique: false,
+    },
+    city: {
+        required: true,
+        type: String,
+        unique: false,
+    },
+    state: {
+        required: true,
+        type: String,
+        unique: false,
+    },
+    country: {
+        required: true,
+        type: String,
+        unique: false,
+    },
     carrinho: {
         type: []
     }

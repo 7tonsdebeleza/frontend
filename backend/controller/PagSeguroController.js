@@ -1,6 +1,7 @@
 const pagseguro = require('pagseguro');
 const convert = require('xml-js');
 //const config = require('../globalconfig');
+const config = require('../data/GeneralConfig');
 const axios = require('axios');
 
 //const Transaction = require('../models/Transaction');
@@ -112,7 +113,8 @@ module.exports = {
      
     //Configuranto URLs de retorno e de notificação
     pag.setRedirectURL("http://localhost:3000");
-    pag.setNotificationURL("http://localhost:8080/pagseguro/status");
+    //8080 or 3333
+    pag.setNotificationURL("http://localhost:3333/pagseguro/status");
     
     console.log("Recebendo chave para sessão de checkout de direcionamento");
   
@@ -296,6 +298,7 @@ module.exports = {
 
       // Use abaixo, se precisar, para visualizar todos os dados do retorno
       // console.log(data)
+
 
       // Separando informações da transação que serão guardadas no banco de dados, na tabela Transaction
       const transData = {

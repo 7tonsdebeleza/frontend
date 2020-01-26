@@ -7,6 +7,7 @@ const upload = multer(uploadConfig)
 
 const UserController = require("./controller/UserController");
 const ProductController = require("./controller/ProductController");
+const PagSeguroController = require('./controller/PagSeguroController');
 
 /*
 const EmailController = require('./controller/EmailController');
@@ -79,6 +80,11 @@ routes.post('/atualizartipo',ProductController.UpdateType)
 //Atualizar largura
 //Atualizar diametro
 
+//PAGSEGURO
+//Recebe status do PagSeguro
+routes.post('/pagseguro/status',PagSeguroController.receiveStatus);
+//Fazer Checkout
+routes.post('/pagseguro/checkout',PagSeguroController.sendCheckout);
 
 routes.get('/teste',(req,res)=>{
     return res.send({oi:'oi'});
