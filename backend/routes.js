@@ -7,7 +7,9 @@ const upload = multer(uploadConfig)
 
 const UserController = require("./controller/UserController");
 const ProductController = require("./controller/ProductController");
-const PagSeguroController = require('./controller/PagSeguroController');
+const FreteController = require("./controller/FreteController");
+
+//const PagSeguroController = require('./controller/PagSeguroController');
 
 /*
 const EmailController = require('./controller/EmailController');
@@ -24,6 +26,7 @@ routes.post('/Authadmin',AdminController.Auth);
 
 //SERIO VEY APAGA
 
+//Usuarios
 //Criar usuarios
 routes.post('/criarusuario', UserController.Store);
 //Adicionar no carrinho
@@ -39,7 +42,7 @@ routes.post('/Auth', UserController.Auth);
 //Atualizar nome
 routes.post('/updateName', UserController.updateName);
 //Atualizar sobrenome
-routes.post('/updateSurname', UserController.updateSurname);
+routes.post('/updateUsrname', UserController.updateSurname);
 //Atualizar email
 routes.post('/updateEmail', UserController.updateEmail);
 //Atualizar senha
@@ -51,6 +54,28 @@ routes.post('/insertPhoneNumber', UserController.insertPhoneNumber)
 //Atualizar CEP
 routes.post('/insertCep',UserController.insertCep)
 
+
+//Propriedade Frete de Usuarios
+//Atualizar tipo
+routes.post('/updateType',FreteController.updateType)
+//Atualizar rua
+routes.post('/updateStreet',FreteController.updateStreet)
+//Atualizar numero
+routes.post('/updateNumber',FreteController.updateNumber)
+//Atualizar complemento
+routes.post('/updateComplement',FreteController.updateComplement)
+//Atualizar distrito
+routes.post('/updateDistrict',FreteController.updateDistrict)
+//Atualizar codigo postal
+routes.post('/updatePostalCode',FreteController.updatePostalCode)
+//Atualizar cidade
+routes.post('/updateCity',FreteController.updateCity);
+//Atualizar estado
+routes.post('/updateState',FreteController.updateState)
+//Atualizar país
+routes.post('/updateCountry',FreteController.updateCountry)
+
+//Produtos
 //Criar produto
 routes.post('/criarproduto',upload.single('img'),ProductController.Store);
 //Mostrar produtos
@@ -74,17 +99,24 @@ routes.post('/atualizardescricao',ProductController.UpdateDescription);
 //Atualizar tipoProduto
 routes.post('/atualizartipo',ProductController.UpdateType)
 //Atualizar peso
+routes.post('/atualizarpeso',ProductController.UpdatePeso)
 //Atualizar formato
+routes.post('/atualizarformato',ProductController.UpdateFormato)
 //Atualizar comprimento
+routes.post('/atualizarcomprimento',ProductController.UpdateComprimento)
 //Atualizar altura
+routes.post('/atualizaraltura',ProductController.UpdateAltura)
 //Atualizar largura
+routes.post('/atualizarlargura',ProductController.UpdateLargura)
 //Atualizar diametro
+routes.post('/atualizardiametro',ProductController.UpdateDiametro)
+
 
 //PAGSEGURO
 //Recebe status do PagSeguro
-routes.post('/pagseguro/status',PagSeguroController.receiveStatus);
+//routes.post('/pagseguro/status',PagSeguroController.receiveStatus);
 //Fazer Checkout
-routes.post('/pagseguro/checkout',PagSeguroController.sendCheckout);
+//routes.post('/pagseguro/checkout',PagSeguroController.sendCheckout);
 
 routes.get('/teste',(req,res)=>{
     return res.send({oi:'oi'});

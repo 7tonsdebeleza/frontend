@@ -22,14 +22,8 @@ module.exports = {
         let user = await User.findOne({email})
 
         if(!user){
-            user = await User.create({
-                nome,
-                sobrenome,
-                email,
-                password:bcrypt.hashSync(password, data.salt),
-                phoneAreaCode,
-                phoneNumber,
-                cep,
+
+            const frete = {
                 type, 
                 street,
                 number,
@@ -38,7 +32,18 @@ module.exports = {
                 postalCode,
                 city,
                 state,
-                country,
+                country
+            }
+
+            user = await User.create({
+                nome,
+                sobrenome,
+                email,
+                password:bcrypt.hashSync(password, data.salt),
+                phoneAreaCode,
+                phoneNumber,
+                cep,
+                frete,
                 carrinho: []
             })
         }

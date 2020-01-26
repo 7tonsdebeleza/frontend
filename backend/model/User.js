@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 
+const FreteSchema = require('./Frete');
+
 const UserSchema = new mongoose.Schema({
     nome:{
         required: true,
@@ -34,50 +36,9 @@ const UserSchema = new mongoose.Schema({
         type: String,
         unique: false,
     },
-    type: {
-        required: true,
-        type: String,
-        unique: false,
-    },
-    street: {
-        required: true,
-        type: String,
-        unique: false,
-    },
-    number: {
-        required: true,
-        type: String,
-        unique: false,
-    },
-    complement: {
-        required: true,
-        type: String,
-        unique: false,
-    },
-    district: {
-        required: true,
-        type: String,
-        unique: false,
-    },
-    postalCode: {
-        required: true,
-        type: String,
-        unique: false,
-    },
-    city: {
-        required: true,
-        type: String,
-        unique: false,
-    },
-    state: {
-        required: true,
-        type: String,
-        unique: false,
-    },
-    country: {
-        required: true,
-        type: String,
-        unique: false,
+    frete:{
+        type: FreteSchema,
+        required: true
     },
     carrinho: {
         type: []
