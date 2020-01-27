@@ -78,7 +78,6 @@ class Roteador extends Component {
 	  } else {
 		//Salvando dados do usuário
 		this.setState({user:res.data});
-		console.log(res.data);
 	  }
 	})
   }
@@ -113,7 +112,6 @@ class Roteador extends Component {
 
   //Esta função será passada aos componetes filhos onde houver componete produto
   addCarrinho = (dados) =>{
-	console.log(dados);
 	let novaLista = this.state.dadosCarrinho;
 	novaLista.push(dados);
 
@@ -131,7 +129,6 @@ class Roteador extends Component {
   }
 
   removerCarrinho = (dados) =>{
-	console.log(dados);
 	dados.noCarrinho = false;
 	let newArray = this.state.dadosCarrinho;
 		
@@ -228,7 +225,7 @@ class Roteador extends Component {
 
 				<Route path="/buscar" component={() => this.state.pesquisa === "" ? <Redirect to='/home'/>:<Busca dados={this.state.dados} pesquisa={this.state.pesquisa} addCarrinho={this.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} removerCarrinho={this.removerCarrinho}/>}/>
 
-				<Route exact path="/carrinho" render={() => <Carrinho dados={this.state.dadosCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} removerCarrinho={this.removerCarrinho} botaoCarrinho={false} naNavbar={false}/>}/>
+				<Route exact path="/carrinho" render={() => <Carrinho logado={this.state.user ? true : false} dados={this.state.dadosCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} removerCarrinho={this.removerCarrinho} botaoCarrinho={false} naNavbar={false}/>}/>
 
 				<Route path="/admin7tons" render={() => <Admin produtos={this.state.dados} consultas={Compras} publics={Public}/>}/>
 
