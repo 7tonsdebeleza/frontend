@@ -14,6 +14,7 @@ import BotaoTop from '../BotaoTop/BotaoTop';
 import Login from '../Login/Login';
 import Admin from '../Admin/Admin';
 import Carrinho from '../Carrinho/Carrinho';
+import Checkout from '../Carrinho/Checkout';
 import { Compras, Public } from '../Produto/Dados'; //Dados provisórios para listas de produtos
 import Busca from '../Produto/Busca';
 import Carregamento from '../Carregamento/Carregamento';
@@ -227,6 +228,8 @@ class Roteador extends Component {
 
 				<Route exact path="/carrinho" render={() => <Carrinho logado={this.state.user ? true : false} dados={this.state.dadosCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} removerCarrinho={this.removerCarrinho} botaoCarrinho={false} naNavbar={false}/>}/>
 
+				<Route path="/checkout" render={() => <Checkout/> }/>
+
 				<Route path="/admin7tons" render={() => <Admin produtos={this.state.dados} consultas={Compras} publics={Public}/>}/>
 
 				<Route exact path="/"  render={() => <Home dados={this.state.dados} addCarrinho={this.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} removerCarrinho={this.removerCarrinho} />}/>
@@ -234,6 +237,7 @@ class Roteador extends Component {
 				<Route exact path="/cliente" render={() => this.state.user? <Cliente user={this.state.user}/> : <Redirect to="/login"/> }/>
 
 				<Route exact path="/cliente/atualizar" render={() => this.state.user? <AtualizarClienteInfo user={this.state.user}/> : <Redirect to="/login"/> }/>
+
 
 				{/*Rotas para publicações na aba blog*/}
 
