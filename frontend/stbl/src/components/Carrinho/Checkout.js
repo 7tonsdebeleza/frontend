@@ -9,6 +9,7 @@ class Checkout extends Component {
 
     informationcep: false, // Indica se informativo sobre o cep deve aparecer
 
+    // Dados do usuário e do carrinho estarão em props user e carrrinho
     // Dados do frete
     street: "",
     number: "",
@@ -19,7 +20,9 @@ class Checkout extends Component {
     state: "",
     country: "",
 
-    freteValor: "120"
+    // Dados dos valores da compra
+    freteValor: "",
+    subtotal: 0,
   }
 
   handleInput = (e) =>{
@@ -53,7 +56,7 @@ class Checkout extends Component {
     // Pegar retorno de estado, cidade, bairro e rua e por no state    
   }
 
-  getTrippin = () =>{
+  getTrip = () =>{
     // Calcular frete
   }
 
@@ -62,7 +65,25 @@ class Checkout extends Component {
   }
 
   componentDidMount(){
-    // Setar dados do usuário para o state
+    // Esta página não poderá ser acessada caso o usuário esteja logado, ou o carrinho vazio
+    if(!this.props.user) {
+      console.log('Acesso não autorizado...');
+      window.location = '/login';
+    }
+
+    else if(this.props.carrinho.length === 0){
+      console.log('Carrinho vazio, essa ação não pode ser concluída')
+      window.location = '/lojavirtual';
+    } 
+
+    // Calculando subtotal da compra
+    if(this.props.carrinho.length > 0){
+      let subtotal = 0;
+      this.props.carrinho.forEach(produto => {
+        subtotal = subtotal + (produto.preco * produto.qtd);
+      });
+      this.setState({subtotal: subtotal});
+    }
   }
 
   render(){
@@ -126,14 +147,14 @@ class Checkout extends Component {
               <input className="inputt" type="email" name="complement" onChange={this.handleInput}></input>
             </div>
 
-            <p style={{color: 'black'}}> Valor da Compra: </p>
+            <p> <b>SUBTOTAL: </b> <em className="obrigatorio" style={{color: 'black'}}> R${parseFloat((this.state.subtotal).toFixed(2))} </em></p>
             
             <p className="btn-secundaryy">
               <Link to="#">Calcular frete</Link>
-              <em className="obrigatorio" style={{color: 'black'}}>{this.state.freteValor ? "Frete: " + this.state.freteValor : null}</em>
+              <em>{this.state.freteValor ? "FRETE: " + this.state.freteValor : null}</em>
             </p>
 
-            <p style={{color: 'black'}}> Total: </p>
+            <p> <b>TOTAL: </b> </p>
 
             <p className="btn-secundaryy">
               <Link to="#">Confirmar</Link>

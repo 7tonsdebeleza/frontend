@@ -228,7 +228,7 @@ class Roteador extends Component {
 
 				<Route exact path="/carrinho" render={() => <Carrinho logado={this.state.user ? true : false} dados={this.state.dadosCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} removerCarrinho={this.removerCarrinho} botaoCarrinho={false} naNavbar={false}/>}/>
 
-				<Route path="/checkout" render={() => <Checkout/> }/>
+				<Route path="/checkout" render={() => <Checkout user={this.state.user} carrinho={this.state.dadosCarrinho} /> }/>
 
 				<Route path="/admin7tons" render={() => <Admin produtos={this.state.dados} consultas={Compras} publics={Public}/>}/>
 

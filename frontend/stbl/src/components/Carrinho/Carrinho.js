@@ -48,7 +48,7 @@ const Carrinho = (props) =>{
               props.logado ?
 
               <p className="nav-item button-pri botao2">
-                <Link to="#">Fechar compra</Link>
+                <Link to="/checkout">Fechar compra</Link>
               </p>
               
               :
