@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import Info from "../Images/information.svg";
 import Search2 from '../Images/iconsearch2.png';
+import api from "../API/api";
 
 class Checkout extends Component {
   state ={
@@ -61,7 +62,50 @@ class Checkout extends Component {
   }
 
   Submit = () =>{
-   // Enviar dados para PagSeguro e receber link de redirecionamento
+   // Enviar dados para PagSeguro e receber link de redirecionamento para transação
+
+   const st = this.state;
+
+   if(st.phoneAreaCode && st.phoneNumber && st.street && st.number && st.district && st.postalCode && st.city && st.state && st.country){
+    const comprador = {
+      name: st.name,
+      email: st.email,
+      phoneAreaCode: st.phoneAreaCode,
+      phoneNumber: st.phoneNumber,
+      ref: st.ref,
+    }
+
+    const frete = {
+      type: 1,
+      street: st.street,
+      number: st.number,
+      complement: st.complement,
+      district: st.district,
+      postalCode: st.postalCode,
+      city: st.city,
+      state: st.state,
+      country: st.country,
+    }
+
+    let carrinho = []
+
+    let req = {carrinho: carrinho, comprador: comprador, frete: frete};
+
+    api.post("/pagseguro", req).then((res) => {
+      console.log("Redirecionando...");
+      let redirectKey = res.data.checkout.code._text;
+      console.log(redirectKey);
+
+      }).catch((e) => {
+        console.log(e);
+        this.chamarAlerta("Erro inesperado... Tente novamente mais tarde!");
+
+      });
+
+   } else {
+     this.chamarAlerta("Preencha todos os dados!");
+   }
+
   }
 
   componentDidMount(){
@@ -83,6 +127,20 @@ class Checkout extends Component {
         subtotal = subtotal + (produto.preco * produto.qtd);
       });
       this.setState({subtotal: subtotal});
+    }
+
+    // Carregando dados de frete que já foram salvos pelo usuário
+    if(this.props.user){
+      this.setState({
+        street: this.props.user.street,
+        number: this.props.user.number,
+        complement: this.props.user.complement,
+        district: this.props.user.district,
+        postalCode: this.props.user.postalCode,
+        city: this.props.user.city,
+        state: this.props.user.state,
+        country: this.props.user.country
+      })
     }
   }
 
@@ -157,13 +215,13 @@ class Checkout extends Component {
             <p> <b>TOTAL: </b> </p>
 
             <p className="btn-secundaryy">
-              <Link to="#">Confirmar</Link>
+              <Link to="#" onClick={() => this.Submit()}>Confirmar</Link>
               <em className="obrigatorio">(* obrigatório)</em>
             </p>
 
           </form>
 
-          {/*Alertas de senha ou email incorretos */}
+          {/*Alertas de erro no formulário */}
           <div>
               {this.state.alert ?
                 <div className="alertacadastro">{this.state.alert}
