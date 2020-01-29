@@ -52,7 +52,7 @@ class Checkout extends Component {
     })
   }
 
-  searchCep = () => {
+  searchCep = async () => {
     // Buscar cep na api
     // Pegar retorno de estado, cidade, bairro e rua e por no state    
   }
@@ -61,12 +61,15 @@ class Checkout extends Component {
     // Calcular frete
   }
 
-  Submit = () =>{
+  Submit = async () =>{
    // Enviar dados para PagSeguro e receber link de redirecionamento para transação
 
    const st = this.state;
 
-   if(st.phoneAreaCode && st.phoneNumber && st.street && st.number && st.district && st.postalCode && st.city && st.state && st.country){
+   // ####### Fazer checagem do cep com rota correios;
+   await this.searchCep();
+
+   if(st.phoneAreaCode && st.phoneNumber && st.street && st.number && st.district && st.postalCode && st.city && st.state && st.country && !st.phoneAreaCode.trim() && !st.phoneNumber.trim() && !st.street.trim() && !st.number.trim() && !st.district.trim() && !st.postalCode.trim() && !st.city.trim() && !st.state.trim() && !st.country.trim()){
     const comprador = {
       name: st.name,
       email: st.email,
@@ -89,7 +92,7 @@ class Checkout extends Component {
 
     let carrinho = []
 
-    let req = {carrinho: carrinho, comprador: comprador, frete: frete};
+    let req = {carrinho, comprador, frete};
 
     api.post("/pagseguro", req).then((res) => {
       console.log("Redirecionando...");
@@ -103,7 +106,7 @@ class Checkout extends Component {
       });
 
    } else {
-     this.chamarAlerta("Preencha todos os dados!");
+     return this.chamarAlerta("Preencha todos os dados!");
    }
 
   }
@@ -132,14 +135,14 @@ class Checkout extends Component {
     // Carregando dados de frete que já foram salvos pelo usuário
     if(this.props.user){
       this.setState({
-        street: this.props.user.street,
-        number: this.props.user.number,
-        complement: this.props.user.complement,
-        district: this.props.user.district,
-        postalCode: this.props.user.postalCode,
-        city: this.props.user.city,
-        state: this.props.user.state,
-        country: this.props.user.country
+        street: this.props.user.street.trim(),
+        number: this.props.user.number.trim(),
+        complement: this.props.user.complement.trim(),
+        district: this.props.user.district.trim(),
+        postalCode: this.props.user.postalCode.trim(),
+        city: this.props.user.city.trim(),
+        state: this.props.user.state.trim(),
+        country: this.props.user.country.trim()
       })
     }
   }
@@ -169,7 +172,7 @@ class Checkout extends Component {
 
             <div>
               <div style={{display: 'flex', flexDirection: 'row' }}>
-                <input className="inputt" type="email" aria-describedby="emailHelp" name="postalCode" onChange={this.handleInput}/>
+                <input className="inputt" type="number" aria-describedby="emailHelp" name="postalCode" onChange={this.handleInput}/>
                 <img className="information" id="img-pesquisa" width='20' height='20' style={{marginLeft: '4px', marginTop: '4px'}} src={Search2} alt='pesquisa' />
               </div>
             </div>
@@ -177,32 +180,32 @@ class Checkout extends Component {
             
             <label>Estado (UF)</label><em>*</em>
             <div >
-              <input className="inputt" type="email" name="state" onChange={this.handleInput}></input>
+              <input className="inputt" type="text" name="state" onChange={this.handleInput}></input>
             </div>
 
             <label>Cidade</label><em>*</em>
             <div >
-              <input className="inputt" type="email" name="city" onChange={this.handleInput}></input>
+              <input className="inputt" type="text" name="city" onChange={this.handleInput}></input>
             </div>
 
             <label>Bairro</label><em>*</em>
             <div >
-              <input className="inputt" type="email" name="district" onChange={this.handleInput}></input>
+              <input className="inputt" type="text" name="district" onChange={this.handleInput}></input>
             </div>
 
             <label>Rua</label><em>*</em>
             <div >
-              <input className="inputt" type="email" name="city" onChange={this.handleInput}></input>
+              <input className="inputt" type="text" name="city" onChange={this.handleInput}></input>
             </div>
 
             <label>Número</label><em>*</em>
             <div >
-              <input className="inputt" type="email" name="number" onChange={this.handleInput}></input>
+              <input className="inputt" type="text" name="number" onChange={this.handleInput}></input>
             </div>
 
             <label>Complemento</label>
             <div >
-              <input className="inputt" type="email" name="complement" onChange={this.handleInput}></input>
+              <input className="inputt" type="text" name="complement" onChange={this.handleInput}></input>
             </div>
 
             <p> <b>SUBTOTAL: </b> <em className="obrigatorio" style={{color: 'black'}}> R${parseFloat((this.state.subtotal).toFixed(2))} </em></p>
