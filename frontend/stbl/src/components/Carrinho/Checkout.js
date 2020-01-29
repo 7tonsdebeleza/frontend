@@ -12,6 +12,8 @@ class Checkout extends Component {
 
     // Dados do usuário e do carrinho estarão em props user e carrrinho
     // Dados do frete
+    phoneAreaCode: "",
+    phoneNumber: "",
     street: "",
     number: "",
     complement: "",
@@ -57,7 +59,7 @@ class Checkout extends Component {
     // Pegar retorno de estado, cidade, bairro e rua e por no state    
   }
 
-  getTrip = () =>{
+  getShipping = () =>{
     // Calcular frete
   }
 
@@ -90,7 +92,20 @@ class Checkout extends Component {
       country: st.country,
     }
 
-    let carrinho = []
+    let carrinho = [];
+
+    console.log(this.props.carrinho)
+    this.props.carrinho.forEach(produto => {
+      let item = {
+        id: produto._id,
+        description: produto.titulo,
+        amount: produto.preco,
+        quantity: produto.qtd,
+        weight: produto.peso,
+      }
+
+      carrinho.push(item);
+    });
 
     let req = {carrinho, comprador, frete};
 
@@ -135,16 +150,17 @@ class Checkout extends Component {
     // Carregando dados de frete que já foram salvos pelo usuário
     if(this.props.user){
       this.setState({
-        street: this.props.user.street.trim(),
-        number: this.props.user.number.trim(),
-        complement: this.props.user.complement.trim(),
-        district: this.props.user.district.trim(),
-        postalCode: this.props.user.postalCode.trim(),
-        city: this.props.user.city.trim(),
-        state: this.props.user.state.trim(),
-        country: this.props.user.country.trim()
+        street: this.props.user.frete.street.trim(),
+        number: this.props.user.frete.number.trim(),
+        complement: this.props.user.frete.complement.trim(),
+        district: this.props.user.frete.district.trim(),
+        postalCode: this.props.user.frete.postalCode.trim(),
+        city: this.props.user.frete.city.trim(),
+        state: this.props.user.frete.state.trim(),
+        country: this.props.user.frete.country.trim()
       })
     }
+
   }
 
   render(){
@@ -172,7 +188,7 @@ class Checkout extends Component {
 
             <div>
               <div style={{display: 'flex', flexDirection: 'row' }}>
-                <input className="inputt" type="number" aria-describedby="emailHelp" name="postalCode" onChange={this.handleInput}/>
+                <input className="inputt" type="num" aria-describedby="emailHelp" name="postalCode" onChange={this.handleInput}/>
                 <img className="information" id="img-pesquisa" width='20' height='20' style={{marginLeft: '4px', marginTop: '4px'}} src={Search2} alt='pesquisa' />
               </div>
             </div>
