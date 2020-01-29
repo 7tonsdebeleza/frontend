@@ -64,12 +64,19 @@ class Checkout extends Component {
   }
 
   Submit = async () =>{
-   // Enviar dados para PagSeguro e receber link de redirecionamento para transação
+    // Enviar dados para PagSeguro e receber link de redirecionamento para transação
 
-   const st = this.state;
+    const st = this.state;
 
-   // ####### Fazer checagem do cep com rota correios;
-   await this.searchCep();
+    if(st.phoneNumber.length < 8 || st.phoneNumber.length > 10){
+      return this.chamarAlerta("Insira um número de celular válido");
+    }
+
+    console.log(st);
+
+
+    // ####### Fazer checagem do cep com rota correios;
+    await this.searchCep();
 
    if(st.phoneAreaCode && st.phoneNumber && st.street && st.number && st.district && st.postalCode && st.city && st.state && st.country && !st.phoneAreaCode.trim() && !st.phoneNumber.trim() && !st.street.trim() && !st.number.trim() && !st.district.trim() && !st.postalCode.trim() && !st.city.trim() && !st.state.trim() && !st.country.trim()){
     const comprador = {
@@ -164,6 +171,8 @@ class Checkout extends Component {
   }
 
   render(){
+    const dddList = [11, 12, 14, 15, 16, 17, 18, 19, 21, 22, 24, 27, 28, 31, 32, 33, 34, 35, 37, 38, 41, 42, 43, 44, 45, 46, 47, 48, 49, 51, 53, 54, 55, 61, 62, 63, 64, 65, 66, 67, 68, 69, 71, 73, 74, 75, 77, 79, 81, 82, 83, 84, 85, 86, 87, 88, 89, 91, 92, 93, 94, 95, 96, 97, 98, 99];
+
     return(
         <div className="cadastro container">
 
@@ -180,6 +189,22 @@ class Checkout extends Component {
 
           <form>
 
+            <label>DDD e Celular</label><em>*&nbsp;&nbsp;</em>
+
+            <div>
+              <div style={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
+                <select style={{minWidth: '60px', maxWidth: '60px'}} className="inputt" type="text" name="phoneAreaCode" onChange={this.handleInput} defaultValue="" >
+                  {
+                    dddList.map(ddd => {
+                      return(<option key={ddd} style={{maxWidth: '5px'}} value={ddd}> {ddd} </option>)
+                    })
+                  }
+                </select>
+                <input className="inputt" type="number" aria-describedby="emailHelp" name="phoneNumber" onChange={this.handleInput}/>
+
+              </div>
+            </div>
+
             <label>CEP</label><em>*&nbsp;&nbsp;</em>
             
             <img name="informationcep" onClick={this.Information} className="information" id="info" width='12' height='12' src={Info} alt='info' />
@@ -188,7 +213,7 @@ class Checkout extends Component {
 
             <div>
               <div style={{display: 'flex', flexDirection: 'row' }}>
-                <input className="inputt" type="num" aria-describedby="emailHelp" name="postalCode" onChange={this.handleInput}/>
+                <input className="inputt" type="text" aria-describedby="emailHelp" name="postalCode" onChange={this.handleInput}/>
                 <img className="information" id="img-pesquisa" width='20' height='20' style={{marginLeft: '4px', marginTop: '4px'}} src={Search2} alt='pesquisa' />
               </div>
             </div>
@@ -196,7 +221,35 @@ class Checkout extends Component {
             
             <label>Estado (UF)</label><em>*</em>
             <div >
-              <input className="inputt" type="text" name="state" onChange={this.handleInput}></input>
+              <select className="inputt" type="text" name="state" onChange={this.handleInput} defaultValue="CE" >
+                <option value="AC">Acre (AC)</option>
+                <option value="AL">Alagoas (AL)</option>
+                <option value="AP">Amapá (AP)</option>
+                <option value="AM">Amazonas (AM)</option>
+                <option value="BH">Bahia (BH)</option>
+                <option value="CE">Ceará (CE)</option>
+                <option value="DF">Distrito Federal (DF)</option>
+                <option value="ES">Espírito Santo (ES)</option>
+                <option value="GO">Goiás (GO)</option>
+                <option value="MA">Maranhão (MA)</option>
+                <option value="MT">Mato Grosso (MT)</option>
+                <option value="MS">Mato Grosso do Sul (MS)</option>
+                <option value="MG">Minas Gerais (MG)</option>
+                <option value="PA">Pará (PA)</option>
+                <option value="PB">Paraíba (PB)</option>
+                <option value="PR">Parana (PR)</option>
+                <option value="PE">Pernambuco (PE)</option>
+                <option value="PI">Piauí (PI)</option>
+                <option value="RR">Roraima (RR)</option>
+                <option value="RO">Rondônia (RO)</option>
+                <option value="RJ">Rio de Janeiro (RJ)</option>
+                <option value="RN">Rio Grande do Norte (RN)</option>
+                <option value="RS">Rio Grande do Sul (RS)</option>
+                <option value="SC">Santa Catarina (SC)</option>
+                <option value="SP">São Paulo (SP)</option>
+                <option value="SE">Sergipe (SE)</option>
+                <option value="TO">Tocantins (TO)</option>
+              </select>
             </div>
 
             <label>Cidade</label><em>*</em>
