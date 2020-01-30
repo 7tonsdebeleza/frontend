@@ -15,6 +15,7 @@ const config = require("../globalconfig");
 
 module.exports = {
   AdressGeter(req, res){
+    //Deu merda no tracinho
     const cep = req.params.cep;
     console.log("Solicitando endereço para CEP: "+cep);
     const validaCep = /^[0-9]{8}$/;

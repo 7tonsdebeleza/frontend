@@ -8,8 +8,8 @@ const upload = multer(uploadConfig)
 const UserController = require("./controller/UserController");
 const ProductController = require("./controller/ProductController");
 const FreteController = require("./controller/FreteController");
-
-//const PagSeguroController = require('./controller/PagSeguroController');
+const CorreiosController = require('./controller/CorreiosController');
+const PagSeguroController = require('./controller/PagSeguroController');
 
 /*
 const EmailController = require('./controller/EmailController');
@@ -111,12 +111,17 @@ routes.post('/atualizarlargura',ProductController.UpdateLargura)
 //Atualizar diametro
 routes.post('/atualizardiametro',ProductController.UpdateDiametro)
 
+//Correio
+//Receber CEP
+routes.get('/getAdress/:cep',CorreiosController.AdressGeter)
+//Calcular preço do frete
+routes.post('/getShippingPrice',CorreiosController.getShippingPrice)
 
 //PAGSEGURO
 //Recebe status do PagSeguro
 //routes.post('/pagseguro/status',PagSeguroController.receiveStatus);
 //Fazer Checkout
-//routes.post('/pagseguro/checkout',PagSeguroController.sendCheckout);
+routes.post('/pagseguro/checkout',PagSeguroController.sendCheckout);
 
 routes.get('/teste',(req,res)=>{
     return res.send({oi:'oi'});

@@ -33,6 +33,7 @@ class Checkout extends Component {
         [e.target.name]: e.target.value
     })
   }
+  
 
   //função para fechar alertas ao clicar no X
   fecharAlerta = () => {
@@ -56,7 +57,17 @@ class Checkout extends Component {
 
   searchCep = async () => {
     // Buscar cep na api
-    // Pegar retorno de estado, cidade, bairro e rua e por no state    
+    // Pegar retorno de estado, cidade, bairro e rua e por no state
+    const res  = await api.get(`/getAdress/${this.state.postalCode}`);
+
+    this.setState({
+      street:res.data.logradouro,
+      district: res.data.bairro,
+      city: res.data.localidade,
+      state: res.data.uf,
+      country: 'BR'
+    })
+
   }
 
   getShipping = () =>{
@@ -65,7 +76,6 @@ class Checkout extends Component {
 
   Submit = async () =>{
     // Enviar dados para PagSeguro e receber link de redirecionamento para transação
-
     const st = this.state;
 
     if(st.phoneNumber.length < 8 || st.phoneNumber.length > 10){
@@ -76,9 +86,10 @@ class Checkout extends Component {
 
 
     // ####### Fazer checagem do cep com rota correios;
-    await this.searchCep();
+    //await this.searchCep();
+    
 
-   if(st.phoneAreaCode && st.phoneNumber && st.street && st.number && st.district && st.postalCode && st.city && st.state && st.country && !st.phoneAreaCode.trim() && !st.phoneNumber.trim() && !st.street.trim() && !st.number.trim() && !st.district.trim() && !st.postalCode.trim() && !st.city.trim() && !st.state.trim() && !st.country.trim()){
+   if(st.phoneAreaCode && st.phoneNumber && st.street && st.number && st.district && st.postalCode && st.city && st.state && st.country && st.phoneAreaCode.trim() && st.phoneNumber.trim() && st.street.trim() && st.number.trim() && st.district.trim() && st.postalCode.trim() && st.city.trim() && st.state.trim() && st.country.trim()){
     const comprador = {
       name: st.name,
       email: st.email,
@@ -116,11 +127,11 @@ class Checkout extends Component {
 
     let req = {carrinho, comprador, frete};
 
-    api.post("/pagseguro", req).then((res) => {
+    api.post("/pagseguro/checkout", req).then((res) => {
       console.log("Redirecionando...");
       let redirectKey = res.data.checkout.code._text;
-      console.log(redirectKey);
-
+      window.location = `https://sandbox.pagseguro.uol.com.br/v2/checkout/payment.html?code=${redirectKey}`
+      
       }).catch((e) => {
         console.log(e);
         this.chamarAlerta("Erro inesperado... Tente novamente mais tarde!");
@@ -214,14 +225,14 @@ class Checkout extends Component {
             <div>
               <div style={{display: 'flex', flexDirection: 'row' }}>
                 <input className="inputt" type="text" aria-describedby="emailHelp" name="postalCode" onChange={this.handleInput}/>
-                <img className="information" id="img-pesquisa" width='20' height='20' style={{marginLeft: '4px', marginTop: '4px'}} src={Search2} alt='pesquisa' />
+                <img onClick={()=>this.searchCep()} className="information" id="img-pesquisa" width='20' height='20' style={{marginLeft: '4px', marginTop: '4px'}} src={Search2} alt='pesquisa' />
               </div>
             </div>
 
             
             <label>Estado (UF)</label><em>*</em>
             <div >
-              <select className="inputt" type="text" name="state" onChange={this.handleInput} defaultValue="CE" >
+              <select className="inputt" value={this.state.state || "CE"} type="text" name="state" onChange={this.handleInput} defaultValue="CE" >
                 <option value="AC">Acre (AC)</option>
                 <option value="AL">Alagoas (AL)</option>
                 <option value="AP">Amapá (AP)</option>
@@ -254,27 +265,27 @@ class Checkout extends Component {
 
             <label>Cidade</label><em>*</em>
             <div >
-              <input className="inputt" type="text" name="city" onChange={this.handleInput}></input>
+              <input className="inputt" value={this.state.city} type="text" name="city" onChange={this.handleInput}></input>
             </div>
 
             <label>Bairro</label><em>*</em>
             <div >
-              <input className="inputt" type="text" name="district" onChange={this.handleInput}></input>
+              <input className="inputt" value={this.state.district} type="text" name="district" onChange={this.handleInput}></input>
             </div>
 
             <label>Rua</label><em>*</em>
             <div >
-              <input className="inputt" type="text" name="city" onChange={this.handleInput}></input>
+              <input className="inputt" value={this.state.street} type="text" name="city" onChange={this.handleInput}></input>
             </div>
 
             <label>Número</label><em>*</em>
             <div >
-              <input className="inputt" type="text" name="number" onChange={this.handleInput}></input>
+              <input className="inputt" value={this.state.number} type="text" name="number" onChange={this.handleInput}></input>
             </div>
 
             <label>Complemento</label>
             <div >
-              <input className="inputt" type="text" name="complement" onChange={this.handleInput}></input>
+              <input className="inputt" value={this.state.complement} type="text" name="complement" onChange={this.handleInput}></input>
             </div>
 
             <p> <b>SUBTOTAL: </b> <em className="obrigatorio" style={{color: 'black'}}> R${parseFloat((this.state.subtotal).toFixed(2))} </em></p>

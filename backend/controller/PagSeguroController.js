@@ -1,7 +1,6 @@
 const pagseguro = require('pagseguro');
 const convert = require('xml-js');
-//const config = require('../globalconfig');
-const config = require('../data/GeneralConfig');
+const config = require('../globalconfig');
 const axios = require('axios');
 
 //const Transaction = require('../models/Transaction');
@@ -19,7 +18,6 @@ const axios = require('axios');
 
 module.exports = {
   sendCheckout(req, res){
-
     //Estrutura da requisição
     /*
     {
