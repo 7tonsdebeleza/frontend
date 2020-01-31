@@ -89,7 +89,7 @@ class Checkout extends Component {
    if(st.phoneAreaCode && st.phoneNumber && st.street && st.number && st.district && st.postalCode && st.city && st.state && st.country && st.phoneAreaCode.trim() && st.phoneNumber.trim() && st.street.trim() && st.number.trim() && st.district.trim() && st.postalCode.trim() && st.city.trim() && st.state.trim() && st.country.trim()){
     
     if(!st.freteValor) return this.chamarAlerta("Calcule o frete antes de efetuar esta ação!");
-    
+
     const comprador = {
       name: st.name,
       email: st.email,
@@ -210,7 +210,7 @@ class Checkout extends Component {
                     })
                   }
                 </select>
-                <input className="inputt" type="number" aria-describedby="emailHelp" name="phoneNumber" onChange={this.handleInput}/>
+                <input style={{width: '320px'}} className="inputt" type="number" aria-describedby="emailHelp" name="phoneNumber" onChange={this.handleInput}/>
 
               </div>
             </div>
