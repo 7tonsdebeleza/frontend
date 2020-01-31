@@ -1,30 +1,116 @@
 const mongoose = require('mongoose')
 
 const HistorySchema = new mongoose.Schema({
-    userEmail:{
+    code:{
         require: true,
         type: String
     },
-    productName:{
-        required: true,
+    date: {
+        require: true,
         type: String
     },
-    quantity:{
-        required: true,
-        type: Number
-    },
-    data:{
-        required: true,
-        type: Data
-    },
-    address:{
-        required: true,
+    reference: {
+        require: true,
         type: String
     },
-    status:{
-        required: true,
-        type: Boolean
-    }
+    status:  {
+        require: true,
+        type: String
+    },
+    paymentMethod:  {
+        require: true,
+        type: String
+    },
+    grossAmount:  {
+        require: true,
+        type: String
+    },
+    discountAmount:  {
+        require: true,
+        type: String
+    },
+    
+    intermediationRateAmount: {
+        require: true,
+        type: String
+    },
+    intermediationFeeAmount:  {
+        require: true,
+        type: String
+    },
+    
+    netAmount:  {
+        require: true,
+        type: String
+    },
+    extraAmount:  {
+        require: true,
+        type: String
+    },
+    installmentCount:  {
+        require: true,
+        type: String
+    },
+    itemCount:  {
+        require: true,
+        type: String
+    },
+    
+    senderName:  {
+        require: true,
+        type: String
+    },
+    senderEmail:  {
+        require: true,
+        type: String
+    },
+    
+    senderPhoneAreaCode:  {
+        require: true,
+        type: String
+    },
+    senderPhoneNumber:  {
+        require: true,
+        type: String
+    },
+    
+    shippingStreet:  {
+        require: true,
+        type: String
+    },
+    shippingNumber:  {
+        require: true,
+        type: String
+    },
+    shippingComplement:  {
+        require: true,
+        type: String
+    },
+    shippingDistrict:  {
+        require: true,
+        type: String
+    },
+    shippingCity:  {
+        require: true,
+        type: String
+    },
+    shippingState:  {
+        require: true,
+        type: String
+    },
+    shippingCountry:  {
+        require: true,
+        type: String
+    },
+    shippingPostalCode:  {
+        require: true,
+        type: String
+    },
+    shippingCost:  {
+        require: true,
+        type: String
+    },
+    
 })
 
 module.exports = mongoose.model('HistorySchema',HistorySchema);

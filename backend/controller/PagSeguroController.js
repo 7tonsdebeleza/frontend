@@ -257,7 +257,7 @@ module.exports = {
 
   },
 
-  receiveStatus(req, res){
+  async receiveStatus(req, res){
     // A PagSeguro usará esse método para fazer POST de um códio de notificação
     // A rota deste método desse ser configurada junto ao método de chekout na linha 115 deste arquivo
     // O POST da PagSeguro é insistente, caso não funcione na primeira tentativa, tentará novamente em alguns segundos (sandbox é manual)
@@ -283,7 +283,7 @@ module.exports = {
     const url = 'https://ws.sandbox.pagseguro.uol.com.br/v3/transactions/notifications/'+code+'?email='+config.PagSeguroConfig.email+'&token='+config.PagSeguroConfig.token;
 
     //Buscando dados da transação realizada a partir do código de notificação recebido da PagSeguros
-    axios({
+    await axios({
       method: 'get',
       url: url,
       
@@ -295,14 +295,15 @@ module.exports = {
       const data = JSON.parse(resjson);
 
       // Use abaixo, se precisar, para visualizar todos os dados do retorno
-      // console.log(data)
+      //console.log(data)
 
-
+      
+      console.log('logo depois de sair')
       // Separando informações da transação que serão guardadas no banco de dados, na tabela Transaction
       const transData = {
         code: data.transaction.code._text,
         date: data.transaction.date._text,
-        reference: data.transaction.reference._text,
+        //reference: data.transaction.reference._text,
         status: data.transaction.status._text,
         /*
           1 = Aguardando pagamento
@@ -424,6 +425,6 @@ module.exports = {
       res.sendStatus(500);
 
     })
-
+      
   }
 }

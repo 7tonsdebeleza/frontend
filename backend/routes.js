@@ -10,6 +10,7 @@ const ProductController = require("./controller/ProductController");
 const FreteController = require("./controller/FreteController");
 const CorreiosController = require('./controller/CorreiosController');
 const PagSeguroController = require('./controller/PagSeguroController');
+const HistoryController = require('./controller/HistoryController')
 
 /*
 const EmailController = require('./controller/EmailController');
@@ -111,6 +112,10 @@ routes.post('/atualizarlargura',ProductController.UpdateLargura)
 //Atualizar diametro
 routes.post('/atualizardiametro',ProductController.UpdateDiametro)
 
+//Histórico
+//Criar um ítem de histórico
+routes.post('/criarHistorico',HistoryController.store)
+
 //Correio
 //Receber CEP
 routes.get('/getAdress/:cep',CorreiosController.AdressGeter)
@@ -119,7 +124,7 @@ routes.post('/getShippingPrice',CorreiosController.getShippingPrice)
 
 //PAGSEGURO
 //Recebe status do PagSeguro
-//routes.post('/pagseguro/status',PagSeguroController.receiveStatus);
+routes.post('/pagseguro/status',PagSeguroController.receiveStatus);
 //Fazer Checkout
 routes.post('/pagseguro/checkout',PagSeguroController.sendCheckout);
 
