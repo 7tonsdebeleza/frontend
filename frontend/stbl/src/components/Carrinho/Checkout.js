@@ -45,10 +45,11 @@ class Checkout extends Component {
   chamarAlerta = (msg) => {
     this.setState({
       alert: msg,
+    }, () => 
+    {
+      let alertDiv = document.getElementById("alert-div");
+      if (alertDiv) alertDiv.scrollIntoView();
     });
-
-    window.scrollTo(0,document.body.scrollHeight);
-
   }
 
   // funçao para uso de informação com hover
@@ -89,50 +90,56 @@ class Checkout extends Component {
       return this.chamarAlerta("Insira um número de celular válido");
     }
 
-   if(st.phoneAreaCode && st.phoneNumber && st.street && st.number && st.district && st.postalCode && st.city && st.state && st.country && st.phoneAreaCode.trim() && st.phoneNumber.trim() && st.street.trim() && st.number.trim() && st.district.trim() && st.postalCode.trim() && st.city.trim() && st.state.trim() && st.country.trim()){
+    console.log(st);
+
+    if(st.phoneAreaCode && st.phoneNumber && st.street && st.number && 
+      st.district && st.postalCode && st.city && st.state && st.country &&
+      st.phoneAreaCode.trim() && st.phoneNumber.trim() && st.street.trim() &&
+      st.number.trim() && st.district.trim() && st.postalCode.trim() &&
+      st.city.trim() && st.state.trim() && st.country.trim()){
     
-    if(!st.freteValor) return this.chamarAlerta("Calcule o frete antes de efetuar esta ação!");
+      if(!st.freteValor) return this.chamarAlerta("Calcule o frete antes de efetuar esta ação!");
 
-    const comprador = {
-      name: st.name,
-      email: st.email,
-      phoneAreaCode: st.phoneAreaCode,
-      phoneNumber: st.phoneNumber,
-      ref: st.ref,
-    }
-
-    const frete = {
-      type: 1,
-      street: st.street,
-      number: st.number,
-      complement: st.complement,
-      district: st.district,
-      postalCode: st.postalCode,
-      city: st.city,
-      state: st.state,
-      country: st.country,
-    }
-
-    let carrinho = [];
-
-    this.props.carrinho.forEach(produto => {
-      let item = {
-        id: produto._id,
-        description: produto.titulo,
-        amount: produto.preco,
-        quantity: produto.qtd,
-        weight: produto.peso,
+      const comprador = {
+        name: this.props.user.nome + " " + this.props.user.sobrenome,
+        email: this.props.user.email,
+        phoneAreaCode: st.phoneAreaCode,
+        phoneNumber: st.phoneNumber,
+        ref: this.props.user._id,
       }
 
-      carrinho.push(item);
-    });
+      const frete = {
+        type: 1,
+        street: st.street,
+        number: st.number,
+        complement: st.complement,
+        district: st.district,
+        postalCode: st.postalCode,
+        city: st.city,
+        state: st.state,
+        country: st.country,
+      }
 
-    let req = {carrinho, comprador, frete};
+      let carrinho = [];
 
-    api.post("/pagseguro/checkout", req).then((res) => {
-      console.log("Redirecionando...");
-      let redirectKey = res.data.checkout.code._text;
-      window.location = `https://sandbox.pagseguro.uol.com.br/v2/checkout/payment.html?code=${redirectKey}`
+      this.props.carrinho.forEach(produto => {
+        let item = {
+          id: produto._id,
+          description: produto.titulo,
+          amount: produto.preco,
+          quantity: produto.qtd,
+          weight: produto.peso,
+        }
+
+        carrinho.push(item);
+      });
+
+      let req = {carrinho, comprador, frete};
+
+      api.post("/pagseguro/checkout", req).then((res) => {
+        console.log("Redirecionando...");
+        let redirectKey = res.data.checkout.code._text;
+        window.location = `https://sandbox.pagseguro.uol.com.br/v2/checkout/payment.html?code=${redirectKey}`
       
       }).catch((e) => {
         console.log(e);
@@ -140,9 +147,10 @@ class Checkout extends Component {
 
       });
 
-   } else {
-     return this.chamarAlerta("Preencha todos os dados!");
-   }
+    } else {
+      return this.chamarAlerta("Preencha todos os dados!");
+
+    }
 
   }
 
@@ -313,7 +321,7 @@ class Checkout extends Component {
           {/*Alertas de erro no formulário */}
           <div>
               {this.state.alert ?
-                <div className="alertacadastro">{this.state.alert}
+                <div id="alert-div" className="alertacadastro">{this.state.alert}
                   <Link className="fecharalerta" name="alerta1" onClick={() => this.fecharAlerta()} to="#">X</Link>
                 </div> : null}
           </div>
