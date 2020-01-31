@@ -45,7 +45,10 @@ class Checkout extends Component {
   chamarAlerta = (msg) => {
     this.setState({
       alert: msg,
-    })
+    });
+
+    window.scrollTo(0,document.body.scrollHeight);
+
   }
 
   // funçao para uso de informação com hover
@@ -60,7 +63,7 @@ class Checkout extends Component {
     // Pegar retorno de estado, cidade, bairro e rua e por no state
     const res  = await api.get(`/getAdress/${this.state.postalCode}`);
 
-    if(res.data === "Formalo invalido!") return this.chamarAlerta("Formato de cep inválido!")
+    if(res.data === "Formato invalido") return this.chamarAlerta("Formato de cep inválido!")
 
     else return this.setState({
       street:res.data.logradouro,
