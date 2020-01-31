@@ -60,7 +60,9 @@ class Checkout extends Component {
     // Pegar retorno de estado, cidade, bairro e rua e por no state
     const res  = await api.get(`/getAdress/${this.state.postalCode}`);
 
-    this.setState({
+    if(res.data === "Formalo invalido!") return this.chamarAlerta("Formato de cep inválido!")
+
+    else return this.setState({
       street:res.data.logradouro,
       district: res.data.bairro,
       city: res.data.localidade,
@@ -71,7 +73,9 @@ class Checkout extends Component {
   }
 
   getShipping = () =>{
-    // Calcular frete
+    // ####### Temporário até implementação real
+    this.setState({ freteValor: 100.00 })
+
   }
 
   Submit = async () =>{
@@ -82,14 +86,10 @@ class Checkout extends Component {
       return this.chamarAlerta("Insira um número de celular válido");
     }
 
-    console.log(st);
-
-
-    // ####### Fazer checagem do cep com rota correios;
-    //await this.searchCep();
-    
-
    if(st.phoneAreaCode && st.phoneNumber && st.street && st.number && st.district && st.postalCode && st.city && st.state && st.country && st.phoneAreaCode.trim() && st.phoneNumber.trim() && st.street.trim() && st.number.trim() && st.district.trim() && st.postalCode.trim() && st.city.trim() && st.state.trim() && st.country.trim()){
+    
+    if(!st.freteValor) return this.chamarAlerta("Calcule o frete antes de efetuar esta ação!");
+    
     const comprador = {
       name: st.name,
       email: st.email,
@@ -112,7 +112,6 @@ class Checkout extends Component {
 
     let carrinho = [];
 
-    console.log(this.props.carrinho)
     this.props.carrinho.forEach(produto => {
       let item = {
         id: produto._id,
@@ -232,7 +231,7 @@ class Checkout extends Component {
             
             <label>Estado (UF)</label><em>*</em>
             <div >
-              <select className="inputt" value={this.state.state || "CE"} type="text" name="state" onChange={this.handleInput} defaultValue="CE" >
+              <select className="inputt" defaultValue={this.state.state || "CE"} type="text" name="state" onChange={this.handleInput}>
                 <option value="AC">Acre (AC)</option>
                 <option value="AL">Alagoas (AL)</option>
                 <option value="AP">Amapá (AP)</option>
@@ -291,12 +290,16 @@ class Checkout extends Component {
             <p> <b>SUBTOTAL: </b> <em className="obrigatorio" style={{color: 'black'}}> R${parseFloat((this.state.subtotal).toFixed(2))} </em></p>
             
             <p className="btn-secundaryy">
-              <Link to="#">Calcular frete</Link>
-              <em>{this.state.freteValor ? "FRETE: " + this.state.freteValor : null}</em>
+              <Link to="#" onClick={() => this.getShipping() } >Calcular frete</Link>
+              <em className="obrigatorio" style={{color: 'black'}}>{this.state.freteValor ? "FRETE: R$" + this.state.freteValor : null}</em>
+            </p>
+            
+
+
+            <p> <b>TOTAL: </b> <em className="obrigatorio" style={{color: 'black'}}>{this.state.freteValor ? "R$" + (parseFloat((this.state.subtotal).toFixed(2)) + parseFloat((this.state.freteValor).toFixed(2))) : null}</em>
             </p>
 
-            <p> <b>TOTAL: </b> </p>
-
+            
             <p className="btn-secundaryy">
               <Link to="#" onClick={() => this.Submit()}>Confirmar</Link>
               <em className="obrigatorio">(* obrigatório)</em>
