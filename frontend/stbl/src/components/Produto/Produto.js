@@ -97,7 +97,7 @@ class Produto extends Component {
                     <div className="descricaoProduto" onClick={() => this.CliqueVerDetalhes(ProdutoId)}>
                         <p className="marcadescricaoProduto">{this.props.dados.marca}</p>
                         <p className="titulodescricaoProduto">{this.props.dados.titulo}</p>
-                        <p className="precodescricaoProduto">R${this.props.dados.preco}</p>
+                        <p className="precodescricaoProduto">R${parseFloat(this.props.dados.preco).toFixed(2)}</p>
                     </div>
                     {
 
@@ -164,8 +164,7 @@ class Produto extends Component {
                                 </div> : ""}
 
 
-                            <span>1x de R$ {this.props.dados.preco} sem juros</span>
-                            <h2><b>R$ {this.props.dados.preco}</b></h2>
+                            <h2><b>R$ {parseFloat(this.props.dados.preco).toFixed(2)}</b></h2>
 
 
                             {this.props.dados.estoque !== 0 ? this.props.dados.noCarrinho ?

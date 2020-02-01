@@ -3,8 +3,9 @@ const Pagseguro = require('pagseguro');
 
 module.exports = {
     async store(req,res){
-        console.log('oi')
-        const data = req.body.transaction
+        console.log('oi');
+        console.log(req.body);
+        /*const data = req.body.transaction
 
         const code = data.code._text
         const date = data.date._text
@@ -12,9 +13,10 @@ module.exports = {
         const status = data.status._text
         const paymentMethod = data.type._text
         const grossAmount = data.grossAmount._text
-        const discountAmount = data.discountAmount._text
+        const discountAmount = data.discountAmount._text*/
 
-        res.send(reference)
+        //res.send(reference)
+        return res.send("ok")
         
     }
 }

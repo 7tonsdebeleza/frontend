@@ -321,7 +321,7 @@ class Checkout extends Component {
               <em className="obrigatorio" style={{color: 'black'}}>{this.state.freteValor ? "FRETE: R$" + this.state.freteValor : null}</em>
             </p>
             
-            <p> <b>TOTAL: </b> <em className="obrigatorio" style={{color: 'black'}}>{this.state.freteValor ? "R$" + (parseFloat(this.state.subtotal).toFixed(2) + parseFloat(this.state.freteValor).toFixed(2)) : null}</em>
+            <p> <b>TOTAL: </b> <em className="obrigatorio" style={{color: 'black'}}>{this.state.freteValor ? "R$" + (parseFloat(this.state.subtotal) + parseFloat(this.state.freteValor)).toFixed(2) : null}</em>
             </p>
 
             
