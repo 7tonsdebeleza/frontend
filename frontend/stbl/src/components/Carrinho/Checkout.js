@@ -82,15 +82,16 @@ class Checkout extends Component {
 
   }
 
-  Submit = async () =>{
+  Submit = () =>{
     // Enviar dados para PagSeguro e receber link de redirecionamento para transação
     const st = this.state;
 
-    if(st.phoneNumber.length < 8 || st.phoneNumber.length > 10){
+    console.log(st.phoneNumber )
+
+    if(st.phoneNumber.length < 8 || st.phoneNumber.length > 10 || !st.phoneAreaCode){
       return this.chamarAlerta("Insira um número de celular válido");
     }
 
-    console.log(st);
 
     if(st.phoneAreaCode && st.phoneNumber && st.street && st.number && 
       st.district && st.postalCode && st.city && st.state && st.country &&
@@ -192,7 +193,10 @@ class Checkout extends Component {
   }
 
   render(){
-    const dddList = [11, 12, 14, 15, 16, 17, 18, 19, 21, 22, 24, 27, 28, 31, 32, 33, 34, 35, 37, 38, 41, 42, 43, 44, 45, 46, 47, 48, 49, 51, 53, 54, 55, 61, 62, 63, 64, 65, 66, 67, 68, 69, 71, 73, 74, 75, 77, 79, 81, 82, 83, 84, 85, 86, 87, 88, 89, 91, 92, 93, 94, 95, 96, 97, 98, 99];
+    const dddList = [11, 12, 14, 15, 16, 17, 18, 19, 21, 22, 24, 27, 28, 31, 32, 33, 34, 35,
+      37, 38, 41, 42, 43, 44, 45, 46, 47, 48, 49, 51, 53, 54, 55, 61, 62, 63, 64, 65, 66, 67,
+      68, 69, 71, 73, 74, 75, 77, 79, 81, 82, 83, 84, 85, 86, 87, 88, 89, 91, 92, 93, 94, 95,
+      96, 97, 98, 99];
 
     return(
         <div className="cadastro container">
@@ -206,7 +210,9 @@ class Checkout extends Component {
           <header className="page-header">
             <h1>Realize Checkout</h1>
           </header>
-          <p className="title">Sua compra está quase finalizada! Confirme os dados de frete para lhe redirecionarmos para o portal da PagSeguro. </p>
+          <p className="title">
+            Sua compra está quase finalizada! Confirme os dados de frete para lhe redirecionarmos para o portal da PagSeguro.
+          </p>
 
           <form>
 
@@ -214,14 +220,16 @@ class Checkout extends Component {
 
             <div>
               <div style={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
-                <select style={{minWidth: '60px', maxWidth: '60px'}} className="inputt" type="text" name="phoneAreaCode" onChange={this.handleInput} defaultValue="" >
+                <select style={{minWidth: '60px', maxWidth: '60px'}} className="inputt" type="text" name="phoneAreaCode" onChange={this.handleInput} value={this.state.phoneAreaCode}>
+                  <option key={0} style={{maxWidth: '5px'}} value={''}> </option>
                   {
                     dddList.map(ddd => {
                       return(<option key={ddd} style={{maxWidth: '5px'}} value={ddd}> {ddd} </option>)
                     })
                   }
                 </select>
-                <input style={{width: '320px'}} className="inputt" type="number" aria-describedby="emailHelp" name="phoneNumber" onChange={this.handleInput}/>
+                <input style={{width: '320px'}} className="inputt" type="number" name="phoneNumber" 
+                  onChange={this.handleInput} placeholder="999999999" />
 
               </div>
             </div>
@@ -230,11 +238,14 @@ class Checkout extends Component {
             
             <img name="informationcep" onClick={this.Information} className="information" id="info" width='12' height='12' src={Info} alt='info' />
             
-            {this.state.informationcep ? <p>Insira seu CEP e click na lupa para preenchimento rápido. Caso não saiba seu CEP <a target='_blank'  rel="noopener noreferrer" href='http://www.buscacep.correios.com.br/sistemas/buscacep/'> click aqui. </a> </p> : null}
+            {this.state.informationcep ? 
+              <p>Insira seu CEP e click na lupa para preenchimento rápido. Caso não saiba seu CEP <a target='_blank'  rel="noopener noreferrer" href='http://www.buscacep.correios.com.br/sistemas/buscacep/'> click aqui. </a> 
+              </p> : null}
 
             <div>
               <div style={{display: 'flex', flexDirection: 'row' }}>
-                <input className="inputt" type="text" aria-describedby="emailHelp" name="postalCode" onChange={this.handleInput}/>
+                <input className="inputt" type="text" name="postalCode" onChange={this.handleInput}
+                  placeholder="00000000, 00000-000 ou 00.000-000" />
                 <img onClick={()=>this.searchCep()} className="information" id="img-pesquisa" width='20' height='20' style={{marginLeft: '4px', marginTop: '4px'}} src={Search2} alt='pesquisa' />
               </div>
             </div>
@@ -275,27 +286,32 @@ class Checkout extends Component {
 
             <label>Cidade</label><em>*</em>
             <div >
-              <input className="inputt" value={this.state.city} type="text" name="city" onChange={this.handleInput}></input>
+              <input className="inputt" value={this.state.city} type="text" name="city" onChange={this.handleInput}
+                placeholder="Insira sua cidade" />
             </div>
 
             <label>Bairro</label><em>*</em>
             <div >
-              <input className="inputt" value={this.state.district} type="text" name="district" onChange={this.handleInput}></input>
+              <input className="inputt" value={this.state.district} type="text" name="district" onChange={this.handleInput}
+                placeholder="Insira seu bairro" />
             </div>
 
             <label>Rua</label><em>*</em>
             <div >
-              <input className="inputt" value={this.state.street} type="text" name="city" onChange={this.handleInput}></input>
+              <input className="inputt" value={this.state.street} type="text" name="city" onChange={this.handleInput}
+                placeholder="Insira sua rua"/>
             </div>
 
             <label>Número</label><em>*</em>
             <div >
-              <input className="inputt" value={this.state.number} type="text" name="number" onChange={this.handleInput}></input>
+              <input className="inputt" value={this.state.number} type="text" name="number" onChange={this.handleInput}
+                placeholder="Insira o número e seu endereço" />
             </div>
 
             <label>Complemento</label>
             <div >
-              <input className="inputt" value={this.state.complement} type="text" name="complement" onChange={this.handleInput}></input>
+              <input className="inputt" value={this.state.complement} type="text" name="complement" onChange={this.handleInput}
+                placeholder="Insira um complemento (opcional)" />
             </div>
 
             <p> <b>SUBTOTAL: </b> <em className="obrigatorio" style={{color: 'black'}}> R${parseFloat((this.state.subtotal).toFixed(2))} </em></p>
@@ -305,9 +321,7 @@ class Checkout extends Component {
               <em className="obrigatorio" style={{color: 'black'}}>{this.state.freteValor ? "FRETE: R$" + this.state.freteValor : null}</em>
             </p>
             
-
-
-            <p> <b>TOTAL: </b> <em className="obrigatorio" style={{color: 'black'}}>{this.state.freteValor ? "R$" + (parseFloat((this.state.subtotal).toFixed(2)) + parseFloat((this.state.freteValor).toFixed(2))) : null}</em>
+            <p> <b>TOTAL: </b> <em className="obrigatorio" style={{color: 'black'}}>{this.state.freteValor ? "R$" + (parseFloat(this.state.subtotal).toFixed(2) + parseFloat(this.state.freteValor).toFixed(2)) : null}</em>
             </p>
 
             

@@ -91,7 +91,8 @@ class Roteador extends Component {
   }
 
   //Função que executava a requisição com o banco de dados
-  async mostra(){
+  mostra = () =>{
+
 	api.get('/mostrartodosprodutos').then(response => {
 	  response.data.map((obj)=>{
 		//Remove o path da imagem e seta como o link dela
@@ -103,6 +104,9 @@ class Roteador extends Component {
 		dados: response.data,
 		carregado: true,
 	  });
+
+	  this.loadCarrinho();
+
 
 	}).catch(e => {
 	  console.log(e);
@@ -146,6 +150,15 @@ class Roteador extends Component {
 	this.atualizarQtdCarrinho(dados.qtd*(-1));
   }
 
+  // Método para carregar carrinho do usuário no banco de dados
+  loadCarrinho = () => {
+	// ####### Set provisório
+	let produto = this.state.dados[0];
+	produto.qtd = 1;
+	produto.noCarrinho = true;
+	this.addCarrinho(produto);
+  }
+
   pesquisar = (string) =>{
 	//State recebe string de pesquisa e pesquisa é setada verdadeira
 
@@ -177,8 +190,9 @@ class Roteador extends Component {
 	let token = localStorage.getItem("@stbl/client/user");
     if(token !== null){
 
-	//##### Implementar função para conectar carrinho do cliente logado             
-    this.auth(token)
+	  //##### Implementar função para conectar carrinho do cliente logado
+
+	  this.auth(token);
     }
   }
 

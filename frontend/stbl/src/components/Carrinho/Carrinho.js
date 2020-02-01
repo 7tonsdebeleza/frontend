@@ -30,7 +30,7 @@ const Carrinho = (props) =>{
     {
       subtotal !== 0 ?
         <div className="subtotalQuantidade">
-          <b>SubTotal: R${ parseFloat((subtotal).toFixed(2))}</b>
+          <b>SubTotal: R${ parseFloat(subtotal).toFixed(2)}</b>
 
           <div className="nav botoesCarrinho">
             {
