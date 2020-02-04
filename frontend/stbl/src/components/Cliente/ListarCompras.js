@@ -31,7 +31,7 @@ const ListarCompras = (props) =>{
                                         <td>{reg.status}</td>
                                         <td>{reg.codigo}</td>
                                         <td>
-                                            <img id={"img"+listId} src={Info} width={18} height={18} alt='detalhes'/>
+                                            <img id={"img"+listId} src={Info} width={18} height={18} style={{cursor: 'pointer'}} alt='detalhes'/>
                                             <Modal listenersId={["img"+listId]}>
                                                 <h3>detalhes aqui...</h3>
                                             </Modal>

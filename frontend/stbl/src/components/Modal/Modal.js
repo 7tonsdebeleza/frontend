@@ -55,7 +55,7 @@ class Modal extends Component {
     }
 
     componentDidUpdate(){
-        if(this.state.actived !== this.props.actived){
+        if(this.state.actived !== this.props.actived && this.props.controller ){
             this.setState({
                 actived: this.props.actived,
             })
