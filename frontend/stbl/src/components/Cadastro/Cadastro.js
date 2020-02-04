@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from "react-router-dom";
 import Info from "../Images/information.svg";
+import Modal from "../Modal/Modal";
 import api from "../API/api";
 
 class Cadastro extends Component {
@@ -17,17 +18,16 @@ class Cadastro extends Component {
     alertMsg: "",
     informationemail: false,
     informationsenha: false,
+    modal: false,
   }
 
-  async cadastrar() {
+  cadastrar = () => {
     api.post('/criarusuario', {
       nome: this.state.nome,
       sobrenome: this.state.sobrenome,
       email: this.state.email,
       password: this.state.senha
     }).then(res => {
-      console.log(res)
-      alert("Cadastro realizado!"); //Melhorar UX
 
       this.setState({
         nome: "",
@@ -40,11 +40,12 @@ class Cadastro extends Component {
         alertMsg: "",
         informationemail: false,
         informationsenha: false,
+        modal: true,
       });
 
     }).catch(e => {
       console.log(e);
-      this.chamarAlerta("Erro inesperado... Tente novamente mais tarde!")
+      this.chamarAlerta("Erro inesperado... Tente novamente mais tarde!");
 
     })
 
@@ -61,11 +62,18 @@ class Cadastro extends Component {
   CliqueCriarConta = () => {
 
     //verificando e exibindo alertas
-    if (this.state.nome === "" || this.state.sobrenome === "" || this.state.email === "" || this.state.senha === "") return this.chamarAlerta("Preencha todos os dados")
-    if(!this.verifyEmail(this.state.email)) return this.chamarAlerta("Formato de email inválido!")
-    if(this.state.senha.length < 6) return this.chamarAlerta("Sua senha deve ter no mínimo 6 caracteres!")
-    if (this.state.email !== this.state.confirmaremail) return this.chamarAlerta("Emails não coincidem!")
-    if (this.state.senha !== this.state.confirmarsenha) return this.chamarAlerta("Senhas não coincidem!")
+    if (!this.state.nome || !this.state.sobrenome || !this.state.email || !this.state.senha
+      || !this.state.nome.toString().trim() || !this.state.sobrenome.toString().trim()
+      || !this.state.email.toString().trim() || !this.state.senha.toString().trim()) 
+      return this.chamarAlerta("Preencha todos os dados");
+    if(!this.verifyEmail(this.state.email))
+      return this.chamarAlerta("Formato de email inválido!");
+    if(this.state.senha.length < 6)
+      return this.chamarAlerta("Sua senha deve ter no mínimo 6 caracteres!");
+    if (this.state.email !== this.state.confirmaremail)
+      return this.chamarAlerta("Emails não coincidem!");
+    if (this.state.senha !== this.state.confirmarsenha)
+      return this.chamarAlerta("Senhas não coincidem!");
 
     return this.cadastrar();
   }
@@ -80,6 +88,10 @@ class Cadastro extends Component {
   chamarAlerta = (msg) => {
     this.setState({
       alert: msg,
+    }, () => 
+    {
+      let alertDiv = document.getElementById("alert-div");
+      if (alertDiv) alertDiv.scrollIntoView();
     })
   }
 
@@ -98,6 +110,12 @@ class Cadastro extends Component {
     this.setState({
       [e.target.name]: this.state[e.target.name] ? false : true
     })
+  }
+
+  // função para controle do modal
+  modalControl = () => {
+    this.setState({ modal: this.state.modal ? false : true });
+    return this.state.modal
   }
 
   render() {
@@ -119,38 +137,38 @@ class Cadastro extends Component {
 
             <label>Nome</label><em>*</em>
             <div>
-              <input className="inputt" type="text" name="nome" onChange={this.Submit}></input>
+              <input className="inputt" type="text" name="nome" onChange={this.Submit} value={this.state.nome} />
             </div>
 
             <label>Sobrenome</label><em>*</em>
             <div>
-              <input className="inputt" type="text" name="sobrenome" onChange={this.Submit}></input>
+              <input className="inputt" type="text" name="sobrenome" onChange={this.Submit} value={this.state.sobrenome} />
             </div>
 
             <label>Email</label><em>*&nbsp;&nbsp;</em><img name="informationemail" onMouseOver={this.Information} onMouseOut={this.Information} className="information" id="info" width='12' height='12' src={Info} alt='info' />
             {this.state.informationemail ? <p>Insira um email válido! </p> : ""}
             <div >
-              <input className="inputt" type="email" aria-describedby="emailHelp" name="email" onChange={this.Submit}></input>
+              <input className="inputt" type="email" name="email" onChange={this.Submit} value={this.state.email}/>
             </div>
 
             <label>Confirmar Email</label><em>*</em>
             <div >
-              <input className="inputt" type="email" name="confirmaremail" onChange={this.Submit}></input>
+              <input className="inputt" type="email" name="confirmaremail" onChange={this.Submit} value={this.state.confirmaremail} />
             </div>
 
             <label>Senha</label><em>*&nbsp;&nbsp;</em><img name="informationsenha" onMouseOver={this.Information} onMouseOut={this.Information} className="information" id="info" width='12' height='12' src={Info} alt='info' />
             {this.state.informationsenha ? <p>A senha deve conter no mínimo 6 caracteres! </p> : ""}
             <div>
-              <input className="inputt" type="password" name="senha" onChange={this.Submit}></input>
+              <input className="inputt" type="password" name="senha" onChange={this.Submit} value={this.state.senha} />
             </div>
 
             <label>Confirmar Senha</label><em>*</em>
             <div>
-              <input className="inputt" type="password" name="confirmarsenha" onChange={this.Submit}></input>
+              <input className="inputt" type="password" name="confirmarsenha" onChange={this.Submit} value={this.state.confirmarsenha}/>
             </div>
 
             <p className="btn-secundaryy">
-              <Link to="#" onClick={this.CliqueCriarConta}>Criar conta</Link>
+              <Link to="#" onClick={() => this.CliqueCriarConta()} >Criar conta</Link>
               <em className="obrigatorio">(* obrigatório)</em>
             </p>
 
@@ -159,10 +177,19 @@ class Cadastro extends Component {
           {/*Alertas de senha ou email incorretos */}
           <div>
               {this.state.alert ?
-                <div className="alertacadastro">{this.state.alert}
+                <div id="alert-div" className="alertacadastro">{this.state.alert}
                   <Link className="fecharalerta" name="alerta1" onClick={() => this.fecharAlerta()} to="#">X</Link>
                 </div> : null}
           </div>
+
+          <Modal actived={this.state.modal} controller={this.modalControl} >
+            <h1> Cadastro realizado com sucesso!</h1>
+            <p> Realize Login e aproveite nossos incríveis produtos! </p>
+            <p className="btn-secundaryy">
+              <Link to="/Login" onClick={this.CliqueCriarConta}>Login</Link>
+            </p>
+          </Modal>
+
       </div>
     </div>
     )

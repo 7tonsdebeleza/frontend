@@ -10,9 +10,12 @@ class Modal extends Component {
 
     //Alterna a visibilidade do modal
     change = () =>{
-        this.setState({
+        if(this.props.controller){
+            this.setState({ actived: this.props.controller() });
+        } 
+        else this.setState({
             actived: this.state.actived ? false : true,
-        })
+        });
     }
 
     render(){
@@ -47,6 +50,14 @@ class Modal extends Component {
                     }) 
                 }
                 
+            })
+        }
+    }
+
+    componentDidUpdate(){
+        if(this.state.actived !== this.props.actived){
+            this.setState({
+                actived: this.props.actived,
             })
         }
     }
