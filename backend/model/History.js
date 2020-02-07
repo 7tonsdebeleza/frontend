@@ -113,7 +113,7 @@ const HistorySchema = new mongoose.Schema({
     
 })
 
-module.exports = mongoose.model('HistorySchema',HistorySchema);
+module.exports = mongoose.model('History',HistorySchema);
 
 /*
 code: data.transaction.code._text,

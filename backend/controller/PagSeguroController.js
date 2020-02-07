@@ -145,6 +145,7 @@ module.exports = {
   },
 
   receiveStatus(req, res, next){
+
     // A PagSeguro usará esse método para fazer POST de um códio de notificação
     // A rota deste método deve ser configurada junto ao método de chekout na linha 113 deste arquivo
     // O POST da PagSeguro é insistente, caso não funcione na primeira tentativa, tentará novamente em alguns segundos (sandbox é manual)
