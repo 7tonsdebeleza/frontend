@@ -1,5 +1,7 @@
 const User = require("../model/User");
+const Produto = require('../model/Product');
 
+const mongoose = require('mongoose')
 const bcrypt = require("bcrypt");
 const data = require('../data/data');
 const jwt = require('jsonwebtoken');
@@ -7,6 +9,7 @@ const jwt = require('jsonwebtoken');
 process.env.SECRET_KEY = 'secret7tons';
 
 module.exports = {
+    
     async Store(req,res){
         const {nome,sobrenome,email,password,phoneAreaCode= " ",phoneNumber=" ",cep=" ",
         type =" ", 
@@ -189,9 +192,12 @@ module.exports = {
         }
 
         try{
+
+            const { email, titulo } = req.body
+
             //Encontra o usuario e o produto
-            const usuario = await User.findOne({email: req.body.email}, (err,data_user) => {
-                Produto.findOne({titulo: req.body.titulo}, (err,data_produto) => {
+            const usuario = await User.findOne({email}, (err,data_user) => {
+                Produto.findOne({titulo}, (err,data_produto) => {
                     
                     //Armazena as informações temporariamente
                     //para que seja enviado para a função adicionar_carrinho
@@ -238,9 +244,12 @@ module.exports = {
         }
         
         try{
+
+            const { email, titulo } = req.body
+
             //Encontra o usuario e o produto
-            const usuario = await User.findOne({email: req.body.email}, (err,data_user) => {
-                Produto.findOne({titulo: req.body.titulo}, (err,data_produto) => {
+            const usuario = await User.findOne({email}, (err,data_user) => {
+                Produto.findOne({titulo}, (err,data_produto) => {
                     
                     //Armazena as informações temporariamente
                     //para que seja enviado para a função remover_carrinho
@@ -267,6 +276,26 @@ module.exports = {
         }
     },
 
+    async getCarrinho(req,res){
+
+        async function getFullInfo(id_array){
+            const {carrinho} = id_array
+
+            const id_carrinho = carrinho.map(item => item[0])
+
+            const FullInfo = await Produto.find({_id: {$in: id_carrinho}})
+            
+            return FullInfo
+        }
+
+        const { email } = req.body
+
+        const id_array = await User.findOne({email})
+
+        const carrinho = await getFullInfo(id_array);
+
+        return res.send(carrinho)
+    },
     
     async Login(req,res){
         const {email,senha} = req.body
@@ -293,6 +322,7 @@ module.exports = {
         User.where({email: email}).findOne((e, data) => {
             //Casos de erro ao procurar usuário
             if(e) return res.send({error: e});
+
             if(!data) return res.send("Email inválido!")
             
             const senha_criptografada =  bcrypt.compareSync(senha,data.password)
