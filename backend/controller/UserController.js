@@ -65,7 +65,7 @@ module.exports = {
 
     },
 
-    async updateSurname(req,res){
+    async updateUsername(req,res){
 
         const {email, surname} = req.body;
         

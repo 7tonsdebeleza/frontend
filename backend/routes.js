@@ -43,7 +43,7 @@ routes.post('/Auth', UserController.Auth);
 //Atualizar nome
 routes.post('/updateName', UserController.updateName);
 //Atualizar sobrenome
-routes.post('/updateUsrname', UserController.updateSurname);
+routes.post('/updateUsername', UserController.updateUsername);
 //Atualizar email
 routes.post('/updateEmail', UserController.updateEmail);
 //Atualizar senha
