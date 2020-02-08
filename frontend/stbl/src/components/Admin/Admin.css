@@ -48,7 +48,7 @@
     text-align: center;
 }
 
-.admin-form input{
+.admin-form input, select, option{
     border: 1px solid #b4b4b4;
     width: 100%;
     min-height: 40px;
