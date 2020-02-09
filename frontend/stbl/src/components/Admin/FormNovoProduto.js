@@ -29,46 +29,88 @@ class FormNovoProduto extends Component {
     })
   }
 
+  chamarAlerta = (msg) => {
+    this.setState({
+      alert: msg,
+    }, () => 
+    {
+      let alertDiv = document.getElementById("alert-div");
+      if (alertDiv) alertDiv.scrollIntoView();
+    });
+  }
+
   imageInput = (e) =>{
     this.setState({img: e.target.files[0]});
   }
 
   enviar = async () =>{
 
-    // Checando se há algum campo vazio antes de enviar dados:
-    if(this.state.img && this.state.titulo && this.state.marca && this.state.preco &&
-        this.state.estoque && this.state.descricao && this.state.tipoProduto){
+    let {img, titulo, marca, preco, estoque, descricao, tipoProduto, formato,
+      comprimento, altura, largura, diametro, peso} = this.state;
 
-      let novoProduto = new FormData();
-      novoProduto.append('img',this.state.img)
-      novoProduto.append('titulo',this.state.titulo)
-      novoProduto.append('marca',this.state.marca)
-      novoProduto.append('descricao',this.state.descricao)
-      novoProduto.append('preco',this.state.preco)
-      novoProduto.append('estoque',this.state.estoque)
-      novoProduto.append('tipoProduto',this.state.tipoProduto)
+    // Correios: caso o produto tenha formato de envelope (3), altura deve ser 0
+    if(formato === 3) altura = 0;
 
-      const res = await api.post("/criarproduto",novoProduto)
+    // Verificação se todos os dados foram preenchidos
+    if(!img || !titulo || !marca || !preco || !estoque || !descricao || !tipoProduto
+      || !formato || !comprimento || !altura || !largura || !diametro || !peso
+      || !titulo.toString().trim() || !marca.toString().trim() || !preco.toString().trim()
+      || !estoque.toString().trim() || !descricao.toString().trim() || !tipoProduto.toString().trim()
+      || !formato.toString().trim() || !comprimento.toString().trim() || !altura.toString().trim()
+      || !largura.toString().trim() || !diametro.toString().trim() || !peso.toString().trim() )
+      return this.chamarAlerta("Preencha todos os dados!");
 
+    if(formato === 3 && peso > 1000) return this.chamarAlerta("O peso máximo para envelope é de 1kg (Correios)");
+
+    titulo = titulo.toString();
+    if(titulo.length > 100) return this.chamarAlerta("O título deve até 100 carecteres (PagSeguro)");
+
+    marca = marca.toString();
+
+    if(isNaN(preco) || preco < 0) return this.chamarAlerta("Formato inválido para preço!");
+    if(preco > 9999999) return this.chamarAlerta("Valor do produto não de exceder R$ 9.999.999,00 (PagSeguro)");
+    preco = parseFloat(preco).toFixed(2);
+
+    if(isNaN(estoque) || !Number.isInteger(estoque) || estoque < 0)
+      return this.chamarAlerta("Formato inválido para quantidade em estoque!");
+
+    tipoProduto = tipoProduto.toString();
+
+    if(isNaN(comprimento) || !Number.isInteger(comprimento) || comprimento < 0)
+      return this.chamarAlerta("Formato inválido para comprimento de encomenda (Correios)!");
+
+    if(isNaN(altura) || !Number.isInteger(altura) || altura < 0)
+      return this.chamarAlerta("Formato inválido para altura de encomenda (Correios)!");
+
+    if(isNaN(largura) || !Number.isInteger(largura) || largura < 0)
+      return this.chamarAlerta("Formato inválido para largura de encomenda (Correios)!");
+
+    if(isNaN(diametro) || !Number.isInteger(diametro) || diametro < 0)
+      return this.chamarAlerta("Formato inválido para diametro de encomenda (Correios)!");
+
+    if(isNaN(peso) || !Number.isInteger(peso) || peso < 0)
+      return this.chamarAlerta("Formato inválido para peso de encomenda (Correios)!");
+
+    if(peso > 30000) return this.chamarAlerta("A encomenda deve conter até 30kg (Correios)!");
+
+    const novoProduto = {img, titulo, marca, preco, estoque, descricao, tipoProduto, formato,
+      comprimento, altura, largura, diametro, peso}
+    
+    api.post("/criarproduto",novoProduto).then(res => {
       if(res.data === "Imagem já existente!" || res.data === "Titulo já existente!"){
-        this.setState({alert:true, errorMsg: res.data});
+        return this.setState({alert: res.data});
 
       } else{
         alert("Novo produto criado com exito! Esta página será recarregada...");
-        window.location.reload(true);
+        return window.location.reload(true);
 
       }
-        
-    } else {
 
-      console.log("ERRO");
-      this.setState({
-        alert: true,
-        errorMsg: "Por favor, preencha todos os dados..."
-      });
+    }).catch(e => {
+      console.log(e);
+      return this.chamarAlerta("Erro inesperado... Tente novamente mais tarde!");
+    })
 
-    }
-    
   }
 
 
@@ -175,8 +217,8 @@ class FormNovoProduto extends Component {
           <button className='btn-secundaryy' onClick={() =>{this.enviar()}}>Enviar</button>
           {
             this.state.alert ? 
-            (<div className="alertacadastro">{this.state.errorMsg}
-              <Link className="fecharalerta" onClick={() => this.setState({alert: false}) } to="#">X</Link>
+            (<div id="alert-div" className="alertacadastro">{this.state.alert}
+              <Link className="fecharalerta" onClick={() => this.setState({alert: null}) } to="#">X</Link>
             </div>)
             : null
           }
