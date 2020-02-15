@@ -13,7 +13,6 @@ class FormNovoProduto extends Component {
     estoque: '',
     tipoProduto: "",
     descricao: "",
-    formato: "",
     comprimento: "",
     altura: "",
     largura: "",
@@ -45,22 +44,17 @@ class FormNovoProduto extends Component {
 
   enviar = async () =>{
 
-    let {img, titulo, marca, preco, estoque, descricao, tipoProduto, formato,
+    let {img, titulo, marca, preco, estoque, descricao, tipoProduto,
       comprimento, altura, largura, diametro, peso} = this.state;
-
-    // Correios: caso o produto tenha formato de envelope (3), altura deve ser 0
-    if(formato === 3) altura = 0;
 
     // Verificação se todos os dados foram preenchidos
     if(!img || !titulo || !marca || !preco || !estoque || !descricao || !tipoProduto
-      || !formato || !comprimento || !altura || !largura || !diametro || !peso
+      || !comprimento || !altura || !largura || !diametro || !peso
       || !titulo.toString().trim() || !marca.toString().trim() || !preco.toString().trim()
       || !estoque.toString().trim() || !descricao.toString().trim() || !tipoProduto.toString().trim()
-      || !formato.toString().trim() || !comprimento.toString().trim() || !altura.toString().trim()
-      || !largura.toString().trim() || !diametro.toString().trim() || !peso.toString().trim() )
+      || !comprimento.toString().trim() || !altura.toString().trim() || !largura.toString().trim()
+      || !diametro.toString().trim() || !peso.toString().trim() )
       return this.chamarAlerta("Preencha todos os dados!");
-
-    if(formato === 3 && peso > 1000) return this.chamarAlerta("O peso máximo para envelope é de 1kg (Correios)");
 
     titulo = titulo.toString();
     if(titulo.length > 100) return this.chamarAlerta("O título deve até 100 carecteres (PagSeguro)");
@@ -71,36 +65,67 @@ class FormNovoProduto extends Component {
     if(preco > 9999999) return this.chamarAlerta("Valor do produto não de exceder R$ 9.999.999,00 (PagSeguro)");
     preco = parseFloat(preco).toFixed(2);
 
-    if(isNaN(estoque) || !Number.isInteger(estoque) || estoque < 0)
+    if(isNaN(estoque) || estoque < 0)
+      return this.chamarAlerta("Formato inválido para quantidade em estoque!");
+
+    estoque = parseFloat(estoque);
+
+    if(!Number.isInteger(estoque))
       return this.chamarAlerta("Formato inválido para quantidade em estoque!");
 
     tipoProduto = tipoProduto.toString();
 
-    if(isNaN(comprimento) || !Number.isInteger(comprimento) || comprimento < 0)
-      return this.chamarAlerta("Formato inválido para comprimento de encomenda (Correios)!");
+    if(isNaN(comprimento) || comprimento < 0)
+      return this.chamarAlerta("Formato inválido para comprimento de embalagem (Correios)! Insira um número válido!");
 
-    if(isNaN(altura) || !Number.isInteger(altura) || altura < 0)
-      return this.chamarAlerta("Formato inválido para altura de encomenda (Correios)!");
+    comprimento = parseFloat(comprimento);
 
-    if(isNaN(largura) || !Number.isInteger(largura) || largura < 0)
-      return this.chamarAlerta("Formato inválido para largura de encomenda (Correios)!");
+    if(!Number.isInteger(comprimento))
+      return this.chamarAlerta("Formato inválido para comprimento de embalagem (Correios)! Insira um valor inteiro!");
+      
+    if(isNaN(altura) || altura < 0)
+      return this.chamarAlerta("Formato inválido para altura de embalagem (Correios)!");
 
-    if(isNaN(diametro) || !Number.isInteger(diametro) || diametro < 0)
-      return this.chamarAlerta("Formato inválido para diametro de encomenda (Correios)!");
+    altura = parseFloat(altura);
 
-    if(isNaN(peso) || !Number.isInteger(peso) || peso < 0)
-      return this.chamarAlerta("Formato inválido para peso de encomenda (Correios)!");
+    if(!Number.isInteger(altura))
+      return this.chamarAlerta("Formato inválido para altura de embalagem (Correios)! Insira um valor inteiro!");
 
-    if(peso > 30000) return this.chamarAlerta("A encomenda deve conter até 30kg (Correios)!");
+    if(isNaN(largura) || largura < 0)
+      return this.chamarAlerta("Formato inválido para largura de embalagem (Correios)!");
 
-    const novoProduto = {img, titulo, marca, preco, estoque, descricao, tipoProduto, formato,
-      comprimento, altura, largura, diametro, peso}
+    largura = parseFloat(largura);
+
+    if(!Number.isInteger(largura))
+      return this.chamarAlerta("Formato inválido para largura de embalagem (Correios)! Insira um valor inteiro!");
+
+    if(isNaN(diametro) || diametro < 0)
+      return this.chamarAlerta("Formato inválido para diametro de embalagem (Correios)!");
+
+    diametro = parseFloat(diametro);
+
+    if(!Number.isInteger(diametro))
+      return this.chamarAlerta("Formato inválido para diametro de embalagem (Correios)! Insira um valor inteiro!");
+
+    if(isNaN(peso) || peso < 0)
+      return this.chamarAlerta("Formato inválido para peso do produto (Correios)!");
+
+    peso = parseFloat(peso);
+
+    if(!Number.isInteger(peso))
+      return this.chamarAlerta("Formato inválido para peso do produto (Correios)! Insira um valor inteiro!");
+
+    if(peso > 30000) return this.chamarAlerta("O produto deve ter peso máximo de até 30kg (Correios)!");
+
+    const novoProduto = {img, titulo, marca, preco, estoque, descricao,
+      tipoProduto, comprimento, altura, largura, diametro, peso}
     
     api.post("/criarproduto",novoProduto).then(res => {
       if(res.data === "Imagem já existente!" || res.data === "Titulo já existente!"){
         return this.setState({alert: res.data});
 
       } else{
+        console.log(res.data);
         alert("Novo produto criado com exito! Esta página será recarregada...");
         return window.location.reload(true);
 
@@ -172,16 +197,6 @@ class FormNovoProduto extends Component {
         <p><strong>DADOS DA ENCOMENDA</strong></p>
 
         <form className='admin-form'>
-          <div className='admin-form-item'>
-            <label htmlFor="inputFormato">FORMATO DA ENCOMENDA (INCLUINDO EMBALAGEM):</label><br/>
-            <select id="inputFormato" type="text" name="formato" value={this.state.formato} onChange={this.atualizarInput} defaultValue={""}>
-              <option value={""} ></option>
-              <option value={1}> Caixa/Pacote </option>
-              <option value={2}> Rolo/Prisma </option>
-              <option value={3}> Envelope </option>
-            </select>
-          </div>
-
           <div className='admin-form-item'>
             <label htmlFor="inputComprimento">COMPRIMENTO (cm):</label><br/>
             <input id="inputComprimento" type="number" min="0" step="1" name="comprimento" value={this.state.comprimento} onChange={this.atualizarInput}/>
