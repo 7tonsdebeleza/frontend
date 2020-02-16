@@ -6,13 +6,6 @@ import api from "../API/api";
 
 class ProdutoEditavel extends Component {
 
-  /*
-    State:
-    - ...:(this.props.dados) os dados de um produto a ser editado ou excluido
-    - newImage: guardará arquivo de imagem caso atualização seja feita
-    - alert: boolano que ficará true quando houver algum erro no processo de edição ou exclusão
-    - errorMsg: guardará string com mensagem de erro quando ocorrer.
-  */
   state = {
     dadosProduto: this.props.dados,
     id: this.props.dados.id,
@@ -23,9 +16,13 @@ class ProdutoEditavel extends Component {
     estoque: this.props.dados.estoque,
     tipoProduto: this.props.dados.tipoProduto,
     descricao: this.props.dados.descricao,
+    comprimento: this.props.dados.comprimento,
+    altura: this.props.dados.altura,
+    largura: this.props.dados.largura,
+    diametro: this.props.dados.diametro,
+    peso: this.props.dados.peso,
     newImage: null,
-    alert: false,
-    errorMsg: " "
+    alert: null,
     
   }
 
@@ -73,8 +70,16 @@ class ProdutoEditavel extends Component {
   //######### Salvar atualizações feitas
   salvar = async () =>{
 
+    let { titulo, marca, preco, estoque, descricao, tipoProduto,
+      comprimento, altura, largura, diametro, peso} = this.state;
+
     //Verificando se algum campo foi deixado vazio antes de atualizar dados:
-    if(this.state.id !== "" && this.state.titulo !== "" && this.state.marca !== "" && this.state.preco !== "" && this.state.estoque !== "" && this.state.descricao !== "" && this.state.tipoProduto !== ""){
+    if( !titulo || !marca || !preco || !estoque || !descricao || !tipoProduto
+      || !comprimento || !altura || !largura || !diametro || !peso
+      || !titulo.toString().trim() || !marca.toString().trim() || !preco.toString().trim()
+      || !estoque.toString().trim() || !descricao.toString().trim() || !tipoProduto.toString().trim()
+      || !comprimento.toString().trim() || !altura.toString().trim() || !largura.toString().trim()
+      || !diametro.toString().trim() || !peso.toString().trim() ){
       
       if(this.state.newImage !== null){
         const id = this.state.id
