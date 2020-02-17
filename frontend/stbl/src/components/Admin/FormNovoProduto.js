@@ -117,9 +117,20 @@ class FormNovoProduto extends Component {
 
     if(peso > 30000) return this.chamarAlerta("O produto deve ter peso máximo de até 30kg (Correios)!");
 
-    const novoProduto = {img, titulo, marca, preco, estoque, descricao,
-      tipoProduto, comprimento, altura, largura, diametro, peso}
-    
+    let novoProduto = new FormData();
+    novoProduto.append('img', img);
+    novoProduto.append('titulo', titulo);
+    novoProduto.append('marca', marca);
+    novoProduto.append('descricao', descricao);
+    novoProduto.append('preco', preco);
+    novoProduto.append('estoque', estoque);
+    novoProduto.append('tipoProduto', tipoProduto);
+    novoProduto.append('comprimento', comprimento);
+    novoProduto.append('altura', altura);
+    novoProduto.append('largura', largura);
+    novoProduto.append('diametro', comprimento);
+    novoProduto.append('peso', peso);
+
     api.post("/criarproduto",novoProduto).then(res => {
       if(res.data === "Imagem já existente!" || res.data === "Titulo já existente!"){
         return this.setState({alert: res.data});
@@ -180,12 +191,16 @@ class FormNovoProduto extends Component {
             </select>
           </div>
 
-          <div>
+          <br/>
+
+          <div className='admin-form-item'>
             <label htmlFor="inputDesc">DESCRIÇÃO:</label><br/>
             <textarea id="inputDesc" type="text" placeholder="DESCRIÇÃO DO PRODUTO" name="descricao" value={this.state.descricao} onChange={this.atualizarInput}/>
           </div>
 
-          <div>
+          <br/>
+
+          <div className='admin-form-item'>
             <label>IMAGEM:</label>
             <ThumbInput onChange={this.imageInput}/>
                        
