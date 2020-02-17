@@ -63,77 +63,197 @@ class ProdutoEditavel extends Component {
     botao.classList.remove('mostrarBotao');
   }
 
-  //######### Remover item do banco de dados (caso seje necessário outra informação além do id, basca pegar do state)
+  // Remover item do banco de dados
   removerItem = async (id) =>{
     //PopUp de confimação
     const res = await api.post("/removerproduto",{"_id":id});
-    console.log(res);
+    console.log(res.data._id);
 
-    //####### Caso dê certo, callback abaixo:
-    alert("Produto foi removido com êxito! Esta pagina será recarregada...");
-    window.location.reload();
+    if(res.data._id){
+      alert("Produto foi removido com êxito! Esta pagina será recarregada...");
+      window.location.reload();
+    } else {
+      this.chamarAlerta("Erro inesperado... Tente novamente mais tarde!")
+    }
 
-    //###### Caso não dê certo, callback abaixo:
-    //this.setState({alert:true, errorMsg: "Não foi possível remover este item, tente novamente mais tarde"})
   }
 
-  //######### Salvar atualizações feitas
+  // Salvar atualizações feitas
   salvar = async () =>{
 
     let { titulo, marca, preco, estoque, descricao, tipoProduto,
       comprimento, altura, largura, diametro, peso} = this.state;
 
+    let erro = false;
+
     //Verificando se algum campo foi deixado vazio antes de atualizar dados:
-    if( !titulo || !marca || !preco || !estoque || !descricao || !tipoProduto
-      || !comprimento || !altura || !largura || !diametro || !peso
-      || !titulo.toString().trim() || !marca.toString().trim() || !preco.toString().trim()
-      || !estoque.toString().trim() || !descricao.toString().trim() || !tipoProduto.toString().trim()
-      || !comprimento.toString().trim() || !altura.toString().trim() || !largura.toString().trim()
-      || !diametro.toString().trim() || !peso.toString().trim() ){
+    if( titulo && marca && preco && estoque && descricao && tipoProduto
+      && comprimento && altura && largura && diametro && peso
+      && titulo.toString().trim() && marca.toString().trim() && preco.toString().trim()
+      && estoque.toString().trim() && descricao.toString().trim() && tipoProduto.toString().trim()
+      && comprimento.toString().trim() && altura.toString().trim() && largura.toString().trim()
+      && diametro.toString().trim() && peso.toString().trim() ){
       
       if(this.state.newImage !== null){
-        const id = this.state.id
+        const id = this.state.id;
         const data = new FormData();
-        data.append('img',this.state.newImage)
+        data.append('img',this.state.newImage);
 
-        await api.post("/atualizarimagem",data,{
+        console.log("Atualizando imagem...");
+
+        const res = await api.post("/atualizarimagem",data,{
           headers: {id}
         });
+
+        console.log("Chamada de atualização ao produto foi realizada!");
+        console.log("retorno de id: " + res.data._id);
+
+        if(!res.data.id){
+          this.chamarAlerta("Erro inesperado... Tente novamente mais tarde!");
+          erro = true;
+        }
+
       }
 
-      if(this.state.titulo !== this.props.dados.titulo){
-        await api.post("/atualizartitulo",{"id":this.state.id,"novo_titulo":this.state.titulo})
+      if(titulo !== this.props.dados.titulo && !erro){
+        console.log("Atualizando titulo...");
+        const res = await api.post("/atualizartitulo",{"id":this.state.id,"novo_titulo":titulo});
+        console.log("Chamada de atualização ao produto foi realizada!");
+        console.log("retorno de id: " + res.data._id);
+
+        if(!res.data.id){
+          this.chamarAlerta("Erro inesperado... Tente novamente mais tarde!");
+          erro = true;
+        }
       }
 
-      if(this.state.marca !== this.props.dados.marca){
-        await api.post("/atualizarmarca",{"id":this.state.id,"nova_marca":this.state.marca})
+      if(marca !== this.props.dados.marca && !erro){
+        console.log("Atualizando marca...");
+        const res = await api.post("/atualizarmarca",{"id":this.state.id,"nova_marca":marca});
+        console.log("Chamada de atualização ao produto foi realizada!");
+        console.log("retorno de id: " + res.data._id);
+
+        if(!res.data.id){
+          this.chamarAlerta("Erro inesperado... Tente novamente mais tarde!");
+          erro = true;
+        }
       }
 
-      if(this.state.preco !== this.props.dados.preco){
-        await api.post("/atualizarpreco",{"id":this.state.id,"novo_preco":this.state.preco})
+      if(preco !== this.props.dados.preco && !erro){
+        console.log("Atualizando preço...");
+        const res = await api.post("/atualizarpreco",{"id":this.state.id,"novo_preco":preco});
+        console.log("Chamada de atualização ao produto foi realizada!");
+        console.log("retorno de id: " + res.data._id);
+
+        if(!res.data.id){
+          this.chamarAlerta("Erro inesperado... Tente novamente mais tarde!");
+          erro = true;
+        }
       }
 
-      if(this.state.estoque !== this.props.dados.estoque){
-        await api.post("/atualizarestoque",{"id":this.state.id,"novo_estoque":this.state.estoque})
+      if(estoque !== this.props.dados.estoque && !erro){
+        console.log("Atualizando qtd em estoque...");
+        const res = await api.post("/atualizarestoque",{"id":this.state.id,"novo_estoque":estoque});
+        console.log("Chamada de atualização ao produto foi realizada!");
+        console.log("retorno de id: " + res.data._id);
+
+        if(!res.data.id){
+          this.chamarAlerta("Erro inesperado... Tente novamente mais tarde!");
+          erro = true;
+        }
       }
 
-      if(this.state.descricao !== this.props.dados.descricao){
-        await api.post("/atualizardescricao",{"id":this.state.id,"nova_descricao":this.state.descricao})
+      if(descricao !== this.props.dados.descricao && !erro){
+        console.log("Atualizando descrição...");
+        const res = await api.post("/atualizardescricao",{"id":this.state.id,"nova_descricao":descricao});
+        console.log("Chamada de atualização ao produto foi realizada!");
+        console.log("retorno de id: " + res.data._id);
+
+        if(!res.data.id){
+          this.chamarAlerta("Erro inesperado... Tente novamente mais tarde!");
+          erro = true;
+        }
       }
 
-      if(this.state.tipoProduto !== this.props.dados.tipoProduto){
-        await api.post("/atualizartipo",{"id":this.state.id,"novo_tipo":this.state.tipoProduto})
+      if(tipoProduto !== this.props.dados.tipoProduto && !erro){
+        console.log("Atualizando categoria do produto...");
+        const res = await api.post("/atualizartipo",{"id":this.state.id,"novo_tipo":tipoProduto});
+        console.log("Chamada de atualização ao produto foi realizada!");
+        console.log("retorno de id: " + res.data._id);
+
+        if(!res.data.id){
+          this.chamarAlerta("Erro inesperado... Tente novamente mais tarde!");
+          erro = true;
+        }
       }
 
-      alert("Produto atualizado! Esta página será recarregada...");
-      window.location.reload(true);
+      if(comprimento !== this.props.dados.comprimento && !erro){
+        console.log("Atualizando comprimento...");
+        const res = await api.post("/atualizarcomprimento",{"id":this.state.id,"novo_comprimento":comprimento});
+        console.log("Chamada de atualização ao produto foi realizada!");
+        console.log("retorno de id: " + res.data._id);
 
-      //######### Caso ocorra algum erro, mudar state para alerta de erro
+        if(!res.data.id){
+          this.chamarAlerta("Erro inesperado... Tente novamente mais tarde!");
+          erro = true;
+        }
+      }
+
+      if(altura !== this.props.dados.altura && !erro){
+        console.log("Atualizando altura...");
+        const res = await api.post("/atualizaraltura",{"id":this.state.id,"nova_altura":altura});
+        console.log("Chamada de atualização ao produto foi realizada!");
+        console.log("retorno de id: " + res.data._id);
+
+        if(!res.data.id){
+          this.chamarAlerta("Erro inesperado... Tente novamente mais tarde!");
+          erro = true;
+        }
+      }
+
+      if(largura !== this.props.dados.largura && !erro){
+        console.log("Atualizando largura...");
+        const res = await api.post("/atualizarlargura",{"id":this.state.id,"nova_largura":largura});
+        console.log("Chamada de atualização ao produto foi realizada!");
+        console.log("retorno de id: " + res.data._id);
+
+        if(!res.data.id){
+          this.chamarAlerta("Erro inesperado... Tente novamente mais tarde!");
+          erro = true;
+        }
+      }
+
+      if(diametro !== this.props.dados.diametro && !erro){
+        console.log("Atualizando diametro...");
+        const res = await api.post("/atualizardiametro",{"id":this.state.id,"novo_diametro":diametro});
+        console.log("Chamada de atualização ao produto foi realizada!");
+        console.log("retorno de id: " + res.data._id);
+
+        if(!res.data.id){
+          this.chamarAlerta("Erro inesperado... Tente novamente mais tarde!");
+          erro = true;
+        }
+      }
+
+      if(peso !== this.props.dados.peso && !erro){
+        console.log("Atualizando diametro...");
+        const res = await api.post("/atualizardiametro",{"id":this.state.id,"novo_diametro":peso});
+        console.log("Chamada de atualização ao produto foi realizada!");
+        console.log("retorno de id: " + res.data._id);
+
+        if(!res.data.id){
+          this.chamarAlerta("Erro inesperado... Tente novamente mais tarde!");
+          erro = true;
+        }
+      }
+
+      if(!erro){
+        alert("Produto atualizado! Esta página será recarregada...");
+        window.location.reload(true);
+      }
+      
     } else {
-      this.setState({
-        alert: true,
-        errorMsg: "Todos os campos de texto devem estar preenchidos para essa ação"
-      })
+      this.chamarAlerta("Preencha todos os campos!");
     }
   }
 
@@ -171,7 +291,7 @@ class ProdutoEditavel extends Component {
           <div className="descricaoProduto" onClick={() => this.CliqueVerDetalhes(ProdutoId)}>
             <p className="marcadescricaoProduto">{this.props.dados.marca}</p>
             <p className="titulodescricaoProduto">{this.props.dados.titulo}</p>
-            <p className="precodescricaoProduto">R${this.props.dados.preco}</p>
+            <p className="precodescricaoProduto">R${ parseFloat(this.props.dados.preco).toFixed(2)}</p>
           </div>
 
         </div>
