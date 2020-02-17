@@ -26,6 +26,16 @@ class ProdutoEditavel extends Component {
     
   }
 
+  chamarAlerta = (msg) => {
+    this.setState({
+      alert: msg,
+    }, () => 
+    {
+      let alertDiv = document.getElementById("alert-div");
+      if (alertDiv) alertDiv.scrollIntoView();
+    });
+  }
+
   CliqueVerDetalhes = (ProdutoId) => { /* função para abrir o modal dos produtos*/
     const modal = document.getElementById(ProdutoId);
     modal.classList.add('mostrar');
@@ -144,6 +154,8 @@ class ProdutoEditavel extends Component {
     let BotaoId = ProdutoId + "Bta";
     let BotaoModal = ProdutoId + "Btamodal";
     let BotaoModalCancel = ProdutoId + "BtamodalCancel";
+
+    const categorias = ['Categoria 1', 'Categoria 2', 'Categoria 3'];
         
     return (
       <div >
@@ -175,7 +187,14 @@ class ProdutoEditavel extends Component {
                             
               <p>
                 <b>Tipo de Produto:</b>
-                <input className='admin-form' type='text' value={this.state.tipoProduto} name="tipoProduto" onChange={this.atualizarInput}/> 
+                <select  className='admin-form' type="text" placeholder="TIPO" name="tipoProduto" value={this.state.tipoProduto} onChange={this.atualizarInput}>
+                  <option key={0} value={''}></option>
+                  {
+                    categorias.map(cat => {
+                      return(<option key={cat} value={cat}> {cat} </option>)
+                    })
+                  }
+                </select>
               </p>
 
               <p>
@@ -195,13 +214,38 @@ class ProdutoEditavel extends Component {
               </p>
 
               <p>
-                <b>Preco:</b>
+                <b>Preco (R$):</b>
                 <input className='admin-form' type='number' value={this.state.preco} name="preco" onChange={this.atualizarInput}/>
               </p>
 
               <p>
                 <b>IMAGEM:</b>
                 <ThumbInput onChange={this.imageInput}/>
+              </p>
+
+              <p>
+                <b>Comprimento:</b>
+                <input className='admin-form' type='number' value={this.state.comprimento} name="comprimento" onChange={this.atualizarInput}/>
+              </p>
+
+              <p>
+                <b>Altura (cm):</b>
+                <input className='admin-form' type='number' value={this.state.altura} name="altura" onChange={this.atualizarInput}/>
+              </p>
+
+              <p>
+                <b>Largura (cm):</b>
+                <input className='admin-form' type='number' value={this.state.largura} name="largura" onChange={this.atualizarInput}/>
+              </p>
+
+              <p>
+                <b>Diametro (cm):</b>
+                <input className='admin-form' type='number' value={this.state.diametro} name="diametro" onChange={this.atualizarInput}/>
+              </p>
+
+              <p>
+                <b>Peso (g):</b>
+                <input className='admin-form' type='number' value={this.state.peso} name="peso" onChange={this.atualizarInput}/>
               </p>
 
               <button onClick={() =>{this.salvar()}}>Enviar</button>
@@ -216,7 +260,7 @@ class ProdutoEditavel extends Component {
 
               {
                 this.state.alert ? 
-                  (<div className="alertacadastro">{this.state.errorMsg}
+                  (<div id="alert-div" className="alertacadastro">{this.state.alert}
                     <Link className="fecharalerta" onClick={() => this.setState({alert: false}) } to="#">X</Link>
                   </div>) : null
               }
