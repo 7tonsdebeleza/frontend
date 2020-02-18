@@ -30,9 +30,11 @@ class Login extends Component {
   CliqueLogin = () => {
     
     //teste para saber se existe algum campo vazio, se existir exibir um alerta
-    if (this.state.email === "" || this.state.senha === "") return this.chemarAlerta("Preencha todos os campos!");
+    if (this.state.email === "" || this.state.senha === ""
+      || !this.state.email.toString().trim() || !this.state.senha.toString().trim())
+      return this.chamarAlerta("Preencha todos os campos!");
 
-    if (!this.verifyEmail(this.state.email)) return this.chemarAlerta("Formato de email inválido!");
+    if (!this.verifyEmail(this.state.email)) return this.chamarAlerta("Formato de email inválido!");
 
     //Criando objeto de usuário a ser logado
     let user = {
@@ -43,11 +45,11 @@ class Login extends Component {
     //Executando uma função herdada com os dados passados, res recebe retorno da função;
     this.props.login(user).then((res) => {
       console.log(res)
-      if(res.error) return this.chemarAlerta("Erro inesperado... Tente novamento mais tarde!");
-      if(res === "Email inválido!" || res === "Senha inválida!") return this.chemarAlerta(res);
+      if(res.error) return this.chamarAlerta("Erro inesperado... Tente novamento mais tarde!");
+      if(res === "Email inválido!" || res === "Senha inválida!") return this.chamarAlerta(res);
     }).catch(e => {
       console.log(e);
-      return this.chemarAlerta("Erro inesperado... Tente novamento mais tarde!");
+      return this.chamarAlerta("Erro inesperado... Tente novamento mais tarde!");
     });
     
   }
@@ -56,13 +58,6 @@ class Login extends Component {
   fecharAlerta = () => {
     this.setState({
       alert: null,
-    });
-  }
-
-  chemarAlerta = (msg) => {
-    this.setState({
-      error: true,
-      errorMsg: msg,
     });
   }
 
