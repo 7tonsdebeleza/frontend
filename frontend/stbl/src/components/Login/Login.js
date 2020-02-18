@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import Modal from '../Modal/Modal';
 import { Link } from "react-router-dom";
 
 class Login extends Component {
@@ -7,6 +8,9 @@ class Login extends Component {
     email: null,
     senha: null,
     alert: null,
+
+    novaSenha: null,
+    confirmarNovaSenha: null,
   }
 
   chamarAlerta = (msg) => {
@@ -88,13 +92,15 @@ class Login extends Component {
           <form>
             <label>Email</label><em>*&nbsp;&nbsp;</em>
             <div>
-              <input className="inputt" type="email" aria-describedby="emailHelp" name="email" onChange={this.Submit}></input>
+              <input className="inputt" type="email" name="email" onChange={this.Submit} value={this.state.email} ></input>
             </div>
 
             <label>Senha</label><em>*&nbsp;&nbsp;</em>
             <div>
-              <input className="inputt" type="password" name="senha" onChange={this.Submit}></input>
+              <input className="inputt" type="password" name="senha" onChange={this.Submit} value={this.state.senha}></input>
             </div>
+
+            <Link to="#">Esqueceu sua senha?</Link>
 
             <p className="btn-secundaryy">
               <Link to="#" onClick={this.CliqueLogin}>Entrar</Link>
@@ -108,6 +114,27 @@ class Login extends Component {
                 </div> : null}
             </div>
           </form>
+
+          <Modal actived={true}>
+            <h1>Deseja recuperar a senha do email abaixo?</h1>
+            <p> <em> {this.state.email} </em> </p>
+            <p> Lhe enviaremos um email automático para recuperação de senha! </p>
+
+            <label>Nova senha</label>
+            <div>
+              <input className="inputt" type="password" name="confirmarNovaSenha" onChange={this.Submit} value={this.state.novaSenha}></input>
+            </div>
+
+            <label>Confirmar nova senha</label>
+            <div>
+              <input className="inputt" type="password" name="confirmarNovaSenha" onChange={this.Submit} value={this.state.confirmarNovaSenha}></input>
+            </div>
+
+            <p className="btn-secundaryy">
+              <Link to="#">Confirmar</Link>
+            </p>
+
+          </Modal>
 
         </div>
       </div>
