@@ -62,7 +62,7 @@ class FormNovoProduto extends Component {
     marca = marca.toString();
 
     if(isNaN(preco) || preco < 0) return this.chamarAlerta("Formato inválido para preço!");
-    if(preco > 9999999) return this.chamarAlerta("Valor do produto não de exceder R$ 9.999.999,00 (PagSeguro)");
+    if(preco > 10000) return this.chamarAlerta("Valor do produto não de exceder R$ 10.000,00 (Correios)");
     preco = parseFloat(preco).toFixed(2);
 
     if(isNaN(estoque) || estoque < 0)
@@ -82,7 +82,10 @@ class FormNovoProduto extends Component {
 
     if(!Number.isInteger(comprimento))
       return this.chamarAlerta("Formato inválido para comprimento de embalagem (Correios)! Insira um valor inteiro!");
-      
+
+    if(comprimento > 105)
+      return this.chamarAlerta("O comprimento não pode exceder 105cm (Correios).");
+  
     if(isNaN(altura) || altura < 0)
       return this.chamarAlerta("Formato inválido para altura de embalagem (Correios)!");
 
@@ -90,6 +93,9 @@ class FormNovoProduto extends Component {
 
     if(!Number.isInteger(altura))
       return this.chamarAlerta("Formato inválido para altura de embalagem (Correios)! Insira um valor inteiro!");
+
+    if(altura > 105)
+      return this.chamarAlerta("A altura não pode exceder 105cm (Correios).");
 
     if(isNaN(largura) || largura < 0)
       return this.chamarAlerta("Formato inválido para largura de embalagem (Correios)!");
@@ -99,6 +105,12 @@ class FormNovoProduto extends Component {
     if(!Number.isInteger(largura))
       return this.chamarAlerta("Formato inválido para largura de embalagem (Correios)! Insira um valor inteiro!");
 
+    if(largura > 105)
+      return this.chamarAlerta("A largura não pode exceder 105cm (Correios).");
+
+    if(comprimento + altura + largura > 200)
+      return this.chamarAlerta("A soma resultante do comprimento + largura + altura não deve superar a 200cm (Correios)")
+
     if(isNaN(diametro) || diametro < 0)
       return this.chamarAlerta("Formato inválido para diametro de embalagem (Correios)!");
 
@@ -106,6 +118,12 @@ class FormNovoProduto extends Component {
 
     if(!Number.isInteger(diametro))
       return this.chamarAlerta("Formato inválido para diametro de embalagem (Correios)! Insira um valor inteiro!");
+
+    if(diametro > 91)
+      return this.chamarAlerta("O diametro não pode exceder 91cm (Correios).");
+
+    if( (2*diametro) + comprimento > 200)
+      return this.chamarAlerta("A  soma  resultante  do  comprimento  +  o  dobro  do  diâmetro  não  deve  superar  a 200cm (Correios)")
 
     if(isNaN(peso) || peso < 0)
       return this.chamarAlerta("Formato inválido para peso do produto (Correios)!");
