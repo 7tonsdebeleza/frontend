@@ -4,10 +4,19 @@ import { Link } from "react-router-dom";
 class Login extends Component {
 
   state = {
-    email: "",
-    senha: "",
-    error: false,
-    errorMsg: "",
+    email: null,
+    senha: null,
+    alert: null,
+  }
+
+  chamarAlerta = (msg) => {
+    this.setState({
+      alert: msg,
+    }, () => 
+    {
+      let alertDiv = document.getElementById("alert-div");
+      if (alertDiv) alertDiv.scrollIntoView();
+    });
   }
 
   // função que atualiza o state do email e senha
@@ -46,8 +55,7 @@ class Login extends Component {
   //função para fechar um alerta
   fecharAlerta = () => {
     this.setState({
-      error: false,
-      errorMsg: "",
+      alert: null,
     });
   }
 
@@ -99,8 +107,8 @@ class Login extends Component {
             </p>
 
             <div>
-              {this.state.error? 
-                <div className="alertacadastro">{this.state.errorMsg}
+              {this.state.alert? 
+                <div id="alert-div" className="alertacadastro">{this.state.alert}
                   <Link className="fecharalerta" name="alerta2" onClick={()=>this.fecharAlerta()} to="#">X</Link>
                 </div> : null}
             </div>
