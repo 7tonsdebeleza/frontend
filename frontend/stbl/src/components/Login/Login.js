@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Modal from '../Modal/Modal';
 import { Link } from "react-router-dom";
+import api from "../API/api";
 
 class Login extends Component {
 
@@ -11,6 +12,9 @@ class Login extends Component {
 
     novaSenha: null,
     confirmarNovaSenha: null,
+    modal: false,
+    alertModal: null,
+    modalSucess: false,
   }
 
   chamarAlerta = (msg) => {
@@ -65,7 +69,7 @@ class Login extends Component {
     });
   }
 
-  //Função para verificar validade de email
+  // Função para verificar validade de email
   verifyEmail = (emailString) => {
     const userString = emailString.substring(0, emailString.indexOf("@"));
     const dom = emailString.substring(emailString.indexOf("@")+ 1, emailString.length);
@@ -73,6 +77,68 @@ class Login extends Component {
     if ((userString.length >=1) && (dom.length >=3) && (userString.search("@")===-1) && (dom.search("@")===-1) && (userString.search(" ")===-1) && (dom.search(" ")===-1) && (dom.search(".")!==-1) &&(dom.indexOf(".") >=1) && (dom.lastIndexOf(".") < dom.length - 1)) {
       return true;
     } else return false;
+  }
+
+  chamarEsqueceSenha = () => {
+    const { email } = this.state;
+
+    if(!this.state.email || !this.state.email.toString().trim())
+      return this.chamarAlerta("Preecha o campo de email!");
+
+    if(!this.verifyEmail(email))
+      return this.chamarAlerta("Formato de email inválido!");
+    else {
+      this.setState({ modal: true });
+    }
+    
+  }
+
+  recuperarSenha = () =>{
+    const { novaSenha, confirmarNovaSenha } = this.state;
+
+    if(!novaSenha || !confirmarNovaSenha || !novaSenha.toString().trim()
+      || !confirmarNovaSenha.toString().trim())
+      return this.chamarAlertaModal("Preencha todos os campos!");
+
+    if(novaSenha.length < 6)
+      return this.chamarAlertaModal("Sua senha deve possuir no mínimo 6 caracteres");
+
+    if(novaSenha !== confirmarNovaSenha)
+      return this.chamarAlertaModal("A confirmação de senha não coincide!");
+
+    const req = { email: this.state.email, newPass: novaSenha };
+    api.post('/updatePassword', req).then(res => {
+      console.log("carregando...")
+      if(res.data.email) return this.setState({ modal: false, modalSucess: true });
+
+      else if(res.data === "Email não cadastrado!") return this.chamarAlertaModal("Email não cadastrado!");
+
+      else this.chamarAlertaModal("Erro inesperado... Tente novament mais tarde!");
+
+    }).catch(e => {
+      console.log(e);
+      return this.chamarAlertaModal("Erro inesperado... Tente mais tarde!");
+
+    })
+
+  }
+
+  fecharAlertaModal = () => {
+    this.setState({
+      alertModal: null,
+    });
+
+  }
+
+  chamarAlertaModal = (msg) => {
+    this.setState({
+      alertModal: msg,
+    }, () => 
+    {
+      let alertDiv = document.getElementById("alert-div-modal");
+      if (alertDiv) alertDiv.scrollIntoView();
+    });
+
   }
 
 
@@ -100,29 +166,30 @@ class Login extends Component {
               <input className="inputt" type="password" name="senha" onChange={this.Submit} value={this.state.senha}></input>
             </div>
 
-            <Link to="#">Esqueceu sua senha?</Link>
-
+            {!this.props.admin ? <p onClick={()=> this.chamarEsqueceSenha()}> <Link to="#"> Esqueceu sua senha? </Link></p> : null}
+            
             <p className="btn-secundaryy">
               <Link to="#" onClick={this.CliqueLogin}>Entrar</Link>
               <em className="obrigatorio">(* obrigatório)</em>
             </p>
 
             <div>
-              {this.state.alert? 
+              { this.state.alert? 
                 <div id="alert-div" className="alertacadastro">{this.state.alert}
                   <Link className="fecharalerta" name="alerta2" onClick={()=>this.fecharAlerta()} to="#">X</Link>
-                </div> : null}
+                </div> : null
+              }
             </div>
           </form>
 
-          <Modal actived={true}>
+          <Modal actived={this.state.modal} controller={()=>{ return false}}>
             <h1>Deseja recuperar a senha do email abaixo?</h1>
             <p> <em> {this.state.email} </em> </p>
-            <p> Lhe enviaremos um email automático para recuperação de senha! </p>
+            <p> Te enviaremos um email automático para recuperação de senha! </p>
 
             <label>Nova senha</label>
             <div>
-              <input className="inputt" type="password" name="confirmarNovaSenha" onChange={this.Submit} value={this.state.novaSenha}></input>
+              <input className="inputt" type="password" name="novaSenha" onChange={this.Submit} value={this.state.novaSenha}></input>
             </div>
 
             <label>Confirmar nova senha</label>
@@ -131,9 +198,20 @@ class Login extends Component {
             </div>
 
             <p className="btn-secundaryy">
-              <Link to="#">Confirmar</Link>
+              <Link to="#" onClick={() => this.recuperarSenha()} >Confirmar</Link>
             </p>
 
+            { this.state.alertModal ? 
+              <div id="alert-div-modal" className="alertacadastro">{this.state.alertModal}
+                <Link className="fecharalerta" name="alerta2" onClick={()=>this.fecharAlertaModal()} to="#">X</Link>
+              </div> : null
+            }
+
+          </Modal>
+
+          <Modal actived={this.state.modalSucess} controller={()=>{ return false}}>
+            <h1> Te enviamos um email de confirmação! </h1>
+            <p> Acesse seu email para finalizar o processo de recuperação de senha! </p>
           </Modal>
 
         </div>

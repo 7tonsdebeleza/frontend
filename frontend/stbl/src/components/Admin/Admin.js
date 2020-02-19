@@ -98,7 +98,7 @@ class Admin extends Component {
                     <AdminHeader user={admin} logout={admin? this.logout : null}/>
                     { !admin? <Redirect onUpdate={() => window.scrollTo(0,0)} to="/admin7tons"/> : null }
                     <Switch>
-                        <Route exact onUpdate={() => window.scrollTo(0,0)} path="/admin7tons" render={() => !admin ? <Login login={this.login}/> : <AdminInterface/>} />
+                        <Route exact onUpdate={() => window.scrollTo(0,0)} path="/admin7tons" render={() => !admin ? <Login login={this.login} admin/> : <AdminInterface/>} />
 
                         <Route exact path="/admin7tons/consulta" render = {() => <ListarConsultas compras={this.state.adminData}/>} />
 

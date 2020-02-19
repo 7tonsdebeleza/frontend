@@ -151,6 +151,8 @@ module.exports = {
                 return res.json(doc)
             })
 
+        if(!user) return res.status(404).send("Email não cadastrado!")
+
     },
 
     async updateEmail(req,res){
