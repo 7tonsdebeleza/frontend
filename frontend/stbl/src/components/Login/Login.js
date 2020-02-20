@@ -69,6 +69,17 @@ class Login extends Component {
     });
   }
 
+  // Função a ser passada para alternar state do modal
+  modalControl = () => {
+    this.setState({ modal: this.state.modal ? false : true });
+    return this.state.modal
+  }
+
+  modalControlSucess = () => {
+    this.setState({ modalSucess: this.state.modalSucess ? false : true });
+    return this.state.modalSucess
+  }
+
   // Função para verificar validade de email
   verifyEmail = (emailString) => {
     const userString = emailString.substring(0, emailString.indexOf("@"));
@@ -93,7 +104,7 @@ class Login extends Component {
     
   }
 
-  recuperarSenha = () =>{
+  recuperarSenha = async () =>{
     const { novaSenha, confirmarNovaSenha } = this.state;
 
     if(!novaSenha || !confirmarNovaSenha || !novaSenha.toString().trim()
@@ -107,19 +118,23 @@ class Login extends Component {
       return this.chamarAlertaModal("A confirmação de senha não coincide!");
 
     const req = { email: this.state.email, newPass: novaSenha };
-    api.post('/updatePassword', req).then(res => {
-      console.log("carregando...")
+    console.log("chamando api de reset de senha");
+    const res = await api.post('/updatePassword', req);
+
+    if(res.data){
+      console.log(res.data);
+
       if(res.data.email) return this.setState({ modal: false, modalSucess: true });
 
       else if(res.data === "Email não cadastrado!") return this.chamarAlertaModal("Email não cadastrado!");
 
       else this.chamarAlertaModal("Erro inesperado... Tente novament mais tarde!");
 
-    }).catch(e => {
-      console.log(e);
+    } else {
       return this.chamarAlertaModal("Erro inesperado... Tente mais tarde!");
+    }
 
-    })
+    console.log(res);
 
   }
 
@@ -182,7 +197,7 @@ class Login extends Component {
             </div>
           </form>
 
-          <Modal actived={this.state.modal} controller={()=>{ return false}}>
+          <Modal actived={this.state.modal} controller={this.modalControl}>
             <h1>Deseja recuperar a senha do email abaixo?</h1>
             <p> <em> {this.state.email} </em> </p>
             <p> Te enviaremos um email automático para recuperação de senha! </p>
@@ -209,7 +224,7 @@ class Login extends Component {
 
           </Modal>
 
-          <Modal actived={this.state.modalSucess} controller={()=>{ return false}}>
+          <Modal actived={this.state.modalSucess} controller={this.modalControlSucess}>
             <h1> Te enviamos um email de confirmação! </h1>
             <p> Acesse seu email para finalizar o processo de recuperação de senha! </p>
           </Modal>

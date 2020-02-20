@@ -140,7 +140,7 @@ module.exports = {
     },
 
     async updatePassword(req,res){
-        const [email, newPass] = req.body;
+        const {email, newPass} = req.body;
 
         const user = await User.findOneAndUpdate({email},{$set: {password: newPass}},
             {new:true}, (err,doc)=>{
@@ -148,10 +148,10 @@ module.exports = {
                     return res.send(err)
                 }
                 
-                return res.json(doc)
+                // return res.json(doc)
             })
 
-        if(!user) return res.status(404).send("Email não cadastrado!")
+        if(!user) return res.send("Email não cadastrado!")
 
     },
 
