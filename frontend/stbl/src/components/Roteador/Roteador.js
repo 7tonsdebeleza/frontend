@@ -78,12 +78,11 @@ class Roteador extends Component {
 
 	  } else {
 		//Salvando dados do usuário
-		this.setState({user:res.data});
+		this.setState({user:res.data}, this.loadCarrinho());
 	  }
 	})
   }
 	
-
   Clientelogout = () =>{
     // Removendo objeto do state e permanência do navegador
     this.setState({user: null});
@@ -105,8 +104,6 @@ class Roteador extends Component {
 		carregado: true,
 	  });
 
-	  this.loadCarrinho();
-
 
 	}).catch(e => {
 	  console.log(e);
@@ -123,6 +120,13 @@ class Roteador extends Component {
 	this.setState({
 	  dadosCarrinho: novaLista,
 	  qtdCarrinho: this.state.qtdCarrinho + dados.qtd
+	}, () => {
+	  if(this.state.user){
+		  console.log(dados)
+		  api.post('/adicionarcarrinho', {email: this.state.user.email, titulo: dados.titulo}).then(res => {
+			  console.log(res);
+		  })
+	  }
 	});
 		
   }
@@ -152,11 +156,9 @@ class Roteador extends Component {
 
   // Método para carregar carrinho do usuário no banco de dados
   loadCarrinho = () => {
-	// ####### Set provisório
-	let produto = this.state.dados[0];
-	produto.qtd = 1;
-	produto.noCarrinho = true;
-	this.addCarrinho(produto);
+	api.get('/pegarcarrinho', this.state.email).then(res => {
+	  console.log(res.data);
+	})
   }
 
   pesquisar = (string) =>{
