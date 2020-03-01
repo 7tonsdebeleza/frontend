@@ -121,6 +121,7 @@ class Roteador extends Component {
 	  dadosCarrinho: novaLista,
 	  qtdCarrinho: this.state.qtdCarrinho + dados.qtd
 	}, () => {
+	  // Caso haja login, bd do usuário deve ser atualizado
 	  if(this.state.user){
 		  console.log(dados)
 		  api.post('/adicionarcarrinho', {email: this.state.user.email, titulo: dados.titulo}).then(res => {
@@ -149,7 +150,15 @@ class Roteador extends Component {
 
 	this.setState({
 	  dadosCarrinho: newArray
-	});
+	}, () => {
+		// Caso haja login, bd do usuário deve ser atualizado
+		if(this.state.user){
+			console.log(dados)
+			api.post('/removercarrinho', {email: this.state.user.email, titulo: dados.titulo}).then(res => {
+				console.log(res);
+			})
+		}
+	  });
 
 	this.atualizarQtdCarrinho(dados.qtd*(-1));
   }
