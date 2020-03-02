@@ -35,7 +35,7 @@ routes.post('/adicionarcarrinho', UserController.adicionarCarrinho);
 //Remover do carrinho
 routes.post('/removercarrinho', UserController.removerCarrinho);
 //Pegar produtos no carrinho
-routes.get('/pegarcarrinho', UserController.getCarrinho)
+routes.post('/pegarcarrinho', UserController.getCarrinho)
 //Fazer login
 routes.post('/login',UserController.Login);
 //Fazer login com padrão jwt
