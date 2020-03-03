@@ -23,7 +23,7 @@ const Carrinho = (props) =>{
 
       :
 
-      <ListaProduto noCarrinho list={props.dados} atualizarQtdCarrinho={props.atualizarQtdCarrinho} removerCarrinho={props.removerCarrinho} naNavbar={props.naNavbar}/>
+      <ListaProduto noCarrinho list={props.dados} atualizarQtdCarrinho={props.atualizarQtdCarrinho} removerCarrinho={props.removerCarrinho} naNavbar={props.naNavbar} attQtdItem={props.attQtdItem}/>
 
     }
           

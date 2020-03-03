@@ -18,7 +18,7 @@ class ListaProduto extends Component {
                             id_number++
                             return(
                                 <li className="pro nav-item" key={id_number}>
-                                    <Produto noCarrinho={this.props.noCarrinho} dados={dados} addCarrinho={this.props.addCarrinho} atualizarQtdCarrinho={this.props.atualizarQtdCarrinho} removerCarrinho={this.props.removerCarrinho} naNavbar={this.props.naNavbar}/>
+                                    <Produto noCarrinho={this.props.noCarrinho} dados={dados} addCarrinho={this.props.addCarrinho} atualizarQtdCarrinho={this.props.atualizarQtdCarrinho} removerCarrinho={this.props.removerCarrinho} naNavbar={this.props.naNavbar} attQtdItem={this.props.attQtdItem}/>
                                 </li>
                             )
                         })

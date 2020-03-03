@@ -123,10 +123,23 @@ class Roteador extends Component {
 	}, () => {
 	  // Caso haja login, bd do usuário deve ser atualizado
 	  if(this.state.user){
-		  api.post('/adicionarcarrinho', {email: this.state.user.email, titulo: dados.titulo})
+		  api.post('/adicionarcarrinho', {email: this.state.user.email, titulo: dados.titulo, quantidade: 1})
 	  }
 	});
 		
+  }
+
+  // Adicionando quantidade de um item
+  attQtdItem = (qtd, produto) => {
+	//Testando se entrada é negativa, caso positivo, impedir decrementação negativa
+	if (qtd < 0) {
+	  if (produto.qtd === 1) {
+		return;
+	  }
+	}
+
+	api.post('/adicionarcarrinho', {email: this.state.user.email, titulo: produto.titulo, quantidade: qtd});
+	this.atualizarQtdCarrinho(qtd);
   }
 
   atualizarQtdCarrinho = (qtd) =>{
@@ -151,9 +164,7 @@ class Roteador extends Component {
 		// Caso haja login, bd do usuário deve ser atualizado
 		if(this.state.user){
 			console.log(dados)
-			api.post('/removercarrinho', {email: this.state.user.email, titulo: dados.titulo}).then(res => {
-				console.log(res);
-			})
+			api.post('/removercarrinho', {email: this.state.user.email, titulo: dados.titulo});
 		}
 	  });
 
@@ -165,11 +176,33 @@ class Roteador extends Component {
 	console.log('carregando carrinho...');
 
 	const res = await api.post('/pegarcarrinho', { teste: 'teste', email: this.state.user.email});
+
 	this.setState({
 		dadosCarrinho: res.data,
 		qtdCarrinho: res.data.length // ####### fazer calculo correto
-	})
+	});
+	this.loadItensQtd();
   }
+
+  loadItensQtd = () => {
+	let dadosCarrinho = this.state.dadosCarrinho;
+	const userCarrinho = this.state.user.carrinho;
+	let qtdCarrinho = 0;
+
+	dadosCarrinho.forEach(produto => {
+	  userCarrinho.forEach(produtoArray => {
+		if(produto._id === produtoArray[0]) produto.qtd = produtoArray[1];
+	  })
+	});
+
+	userCarrinho.forEach(produtoArray => {
+	  qtdCarrinho = qtdCarrinho + produtoArray[1];
+	})
+
+	this.setState({dadosCarrinho, qtdCarrinho});
+
+  }
+
 
   pesquisar = (string) =>{
 	//State recebe string de pesquisa e pesquisa é setada verdadeira
@@ -233,26 +266,26 @@ class Roteador extends Component {
 
 			  { this.state.pesquisaChamada ? this.setState({pesquisaChamada: false}) : null }
 
-			  <NavBar pesquisar={this.pesquisar} qtdCarrinho={this.state.qtdCarrinho} dados={this.state.dadosCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} removerCarrinho={this.removerCarrinho} botaoCarrinho={true} user={this.state.user} logout={this.Clientelogout} />
+			  <NavBar pesquisar={this.pesquisar} qtdCarrinho={this.state.qtdCarrinho} dados={this.state.dadosCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} attQtdItem={this.attQtdItem} removerCarrinho={this.removerCarrinho} botaoCarrinho={true} user={this.state.user} logout={this.Clientelogout} />
 
-			  <NavBarMobile pesquisar={this.pesquisar} qtdCarrinho={this.state.qtdCarrinho} dados={this.state.dadosCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} removerCarrinho={this.removerCarrinho} botaoCarrinho={true} user={this.state.user} logout={this.Clientelogout}/>
+			  <NavBarMobile pesquisar={this.pesquisar} qtdCarrinho={this.state.qtdCarrinho} dados={this.state.dadosCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} attQtdItem={this.attQtdItem} removerCarrinho={this.removerCarrinho} botaoCarrinho={true} user={this.state.user} logout={this.Clientelogout}/>
 					
 			  <Switch>
-				<Route exact path="/home" render={() => <Home dados={this.state.dados} addCarrinho={this.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} removerCarrinho={this.removerCarrinho}/>}/>
+				<Route exact path="/home" render={() => <Home dados={this.state.dados} addCarrinho={this.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} attQtdItem={this.attQtdItem} removerCarrinho={this.removerCarrinho}/>}/>
 
 				<Route exact path="/cadastro" render={() => this.state.user ? <Redirect to='/Cliente'/> : <Cadastro/>}/>
 
 				<Route exact path="/login" render={() => this.state.user ? <Redirect to='/Cliente'/> : <Login login={this.clientLogin}/>} />
 
-				<Route exact path="/lojavirtual" render={() => <LojaVirtual dados={this.state.dados} addCarrinho={this.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} removerCarrinho={this.removerCarrinho}/>}/>
+				<Route exact path="/lojavirtual" render={() => <LojaVirtual dados={this.state.dados} addCarrinho={this.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} attQtdItem={this.attQtdItem} removerCarrinho={this.removerCarrinho}/>}/>
 
 				<Route exact path="/marcas" component={Marcas}/>
 
 				<Route exact path="/faq" component={Faq}/>
 
-				<Route path="/buscar" component={() => this.state.pesquisa === "" ? <Redirect to='/home'/>:<Busca dados={this.state.dados} pesquisa={this.state.pesquisa} addCarrinho={this.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} removerCarrinho={this.removerCarrinho}/>}/>
+				<Route path="/buscar" component={() => this.state.pesquisa === "" ? <Redirect to='/home'/>:<Busca dados={this.state.dados} pesquisa={this.state.pesquisa} addCarrinho={this.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho}  attQtdItem={this.attQtdItem} removerCarrinho={this.removerCarrinho}/>}/>
 
-				<Route exact path="/carrinho" render={() => <Carrinho logado={this.state.user ? true : false} dados={this.state.dadosCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} removerCarrinho={this.removerCarrinho} botaoCarrinho={false} naNavbar={false}/>}/>
+				<Route exact path="/carrinho" render={() => <Carrinho logado={this.state.user ? true : false} dados={this.state.dadosCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} attQtdItem={this.attQtdItem} removerCarrinho={this.removerCarrinho} botaoCarrinho={false} naNavbar={false}/>}/>
 
 				<Route path="/checkout" render={() => <Checkout user={this.state.user} carrinho={this.state.dadosCarrinho} /> }/>
 

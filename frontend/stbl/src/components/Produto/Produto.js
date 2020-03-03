@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
-import Menos from "../Images/minus.svg"
-import Mais from "../Images/plus.svg"
-import Lixeira from "../Images/lixeira.svg"
+import React, { Component } from 'react';
+import Menos from "../Images/minus.svg";
+import Mais from "../Images/plus.svg";
+import Lixeira from "../Images/lixeira.svg";
 import { Link } from "react-router-dom";
 
 class Produto extends Component {
@@ -37,16 +37,9 @@ class Produto extends Component {
     }
 
     attQtd = (qtda) => {
-
-        //Testando se entrada é negativa, caso positivo, impedir decrementação negativa
-        if (qtda < 0) {
-            if (this.props.dados.qtd === 1) {
-                return;
-            }
-        }
+        const produto = this.props.dados;
+        this.props.attQtdItem(qtda, produto);
         this.props.dados.qtd = this.props.dados.qtd + qtda;
-
-        this.props.atualizarQtdCarrinho(qtda);
     }
 
     addCarrinho = () => {
