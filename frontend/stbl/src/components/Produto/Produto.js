@@ -36,9 +36,9 @@ class Produto extends Component {
         botao.classList.remove('mostrarBotao');
     }
 
-    attQtd = (qtda) => {
+    attQtd = async (qtda) => {
         const produto = this.props.dados;
-        this.props.attQtdItem(qtda, produto);
+        await this.props.attQtdItem(qtda, produto);
         this.props.dados.qtd = this.props.dados.qtd + qtda;
     }
 

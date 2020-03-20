@@ -25,6 +25,7 @@ import PostsList from "../Blog/PostsList";
 import Publicacao from "../Blog/Publicacao";
 import ErroInterface from "./ErroInterface";
 import api from "../API/api";
+import Frete from '../Frete/Frete';
 
 // Este componente serve como raiz da aplicação
 // Contendo as rotas e funções de fluxo de dados
@@ -114,8 +115,12 @@ class Roteador extends Component {
 
   //Esta função será passada aos componetes filhos onde houver componete produto
   addCarrinho = (dados) =>{
+	const frete = new Frete();
 	let novaLista = this.state.dadosCarrinho;
 	novaLista.push(dados);
+
+	// Caso dimensões das caixa com novo item passem do limite, item não será adcionado
+	if(!frete.test(novaLista)) return alert("Seu carrinho está cheio!");
 
 	this.setState({
 	  dadosCarrinho: novaLista,
@@ -130,16 +135,26 @@ class Roteador extends Component {
   }
 
   // Adicionando quantidade de um item
-  attQtdItem = (qtd, produto) => {
-	//Testando se entrada é negativa, caso positivo, impedir decrementação negativa
+  attQtdItem = async (qtd, produto) => {
+	// Testando se entrada é negativa, caso positivo, impedir decrementação negativa
 	if (qtd < 0) {
 	  if (produto.qtd === 1) {
 		return;
 	  }
 	}
 
-	api.post('/adicionarcarrinho', {email: this.state.user.email, titulo: produto.titulo, quantidade: qtd});
-	this.atualizarQtdCarrinho(qtd);
+	let novaLista = this.state.dadosCarrinho;
+	const target = novaLista.findIndex(item => item._id === produto._id)
+	novaLista[target].qtd = novaLista[target].qtd + qtd;
+
+	console.log(this.state.dadosCarrinho);
+
+	const frete = new Frete();
+	// Caso dimensões das caixa com novo item passem do limite, item não será adcionado
+	if(!frete.test(novaLista)) return alert("Seu carrinho está cheio!");
+
+	if(this.state.user) await api.post('/adicionarcarrinho', {email: this.state.user.email, titulo: produto.titulo, quantidade: qtd});
+	await this.atualizarQtdCarrinho(qtd);
   }
 
   atualizarQtdCarrinho = (qtd) =>{
@@ -202,7 +217,6 @@ class Roteador extends Component {
 	this.setState({dadosCarrinho, qtdCarrinho});
 
   }
-
 
   pesquisar = (string) =>{
 	//State recebe string de pesquisa e pesquisa é setada verdadeira
