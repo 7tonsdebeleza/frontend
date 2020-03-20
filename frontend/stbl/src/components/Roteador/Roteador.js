@@ -151,7 +151,10 @@ class Roteador extends Component {
 
 	const frete = new Frete();
 	// Caso dimensões das caixa com novo item passem do limite, item não será adcionado
-	if(!frete.test(novaLista)) return alert("Seu carrinho está cheio!");
+	if(!frete.test(novaLista)) {
+		novaLista[target].qtd = novaLista[target].qtd - qtd;
+		return alert("Seu carrinho está cheio!");
+	}
 
 	if(this.state.user) await api.post('/adicionarcarrinho', {email: this.state.user.email, titulo: produto.titulo, quantidade: qtd});
 	await this.atualizarQtdCarrinho(qtd);

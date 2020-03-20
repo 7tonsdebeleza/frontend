@@ -39,7 +39,6 @@ class Produto extends Component {
     attQtd = async (qtda) => {
         const produto = this.props.dados;
         await this.props.attQtdItem(qtda, produto);
-        this.props.dados.qtd = this.props.dados.qtd + qtda;
     }
 
     addCarrinho = () => {
