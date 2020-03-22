@@ -76,10 +76,26 @@ class Checkout extends Component {
 
   }
 
+  // Calculo de valor de frete
   getShipping = () =>{
-    // ####### Temporário até implementação real
-    this.setState({ freteValor: 100.00 })
+    const items = this.props.carrinho;
+    const cep = this.state.postalCode;
 
+    if(cep && cep.toString().trim()) {
+      const req = { items, cep };
+      console.log("Calculando valor de frete...");
+      
+      api.post('/getShippingPrice', req).then(res => {
+        console.log(res.data);
+
+      }).catch(e => {
+        console.log(e);
+        return this.chamarAlerta("Erro inesperado... Tente mais tarde!");
+
+      })
+    }
+
+    else return this.chamarAlerta("O cep deve ser preenchido!");
   }
 
   Submit = () =>{
@@ -123,6 +139,7 @@ class Checkout extends Component {
 
       let carrinho = [];
 
+      // convertendo array para formato aceitável na api
       this.props.carrinho.forEach(produto => {
         let item = {
           id: produto._id,

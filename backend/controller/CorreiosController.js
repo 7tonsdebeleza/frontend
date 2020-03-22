@@ -255,7 +255,7 @@ module.exports = {
     if(!caixa.test(items)) return res.send("Limite excedido");
 
     freteDim = caixa.getDimensions(items);
-    freteDim.diametro = frete.largura*freteDim.largura + freteDim.comprimento*freteDim.comprimento;
+    freteDim.diametro = freteDim.largura*freteDim.largura + freteDim.comprimento*freteDim.comprimento;
 
     let correios = new Correios();
 
@@ -266,7 +266,8 @@ module.exports = {
       sCepOrigem: config.CorreiosConfig.sCepOrigem,
 
       sCepDestino: req.body.cep,
-      nVlPeso: freteDim.peso,
+
+      nVlPeso: parseInt(freteDim.peso/1000),
       nCdFormato: 2, // caixa/pacote
       nVlComprimento: freteDim.comprimento,
       nVlAltura: freteDim.altura,
@@ -274,7 +275,7 @@ module.exports = {
       nVlDiametro: Math.sqrt(freteDim.diametro),
     }
 
-    correios.calcPrecoPrazo(args).then(result => {
+    correios.calcPreco(args).then(result => {
       console.log("Consulta realizada com sucesso");
       res.send(result);
 
