@@ -178,14 +178,15 @@ module.exports = {
       const resObj = JSON.parse(resjson);
 
       // Use abaixo, se precisar, para visualizar todos os dados do retorno
-      //console.log(res.Obj)
+      //console.log(resObj)
       
       // Separando informações da transação que serão guardadas no banco de dados, na tabela Transaction
       // Caso necessário, todos os campos abaixo estarão listados no final do arquivo
+
       const transData = {
         code: resObj.transaction.code._text,
         date: resObj.transaction.date._text,
-        //reference: resObj.transaction.reference._text,
+        reference: resObj.transaction.reference._text,
         status: resObj.transaction.status._text,
         /*
           1 = Aguardando pagamento

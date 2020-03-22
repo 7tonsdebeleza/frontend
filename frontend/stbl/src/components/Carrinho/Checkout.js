@@ -78,11 +78,11 @@ class Checkout extends Component {
 
   // Calculo de valor de frete
   getShipping = async () =>{
-    const items = this.props.carrinho;
+    // const items = this.props.carrinho;
     const cep = this.state.postalCode;
 
     if(cep && cep.toString().trim()) {
-      const req = { items, cep };
+      // const req = { items, cep };
       console.log("Calculando valor de frete...");
       
       /* await api.post('/getShippingPrice', req).then(res => {

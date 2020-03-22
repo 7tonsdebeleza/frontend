@@ -11,14 +11,14 @@ module.exports = {
             next()
         }
         else{
-            const {code, date, status, paymentMethod, grossAmount, discountAmount, intermediationRateAmount, 
+            const {code, date, reference, status, paymentMethod, grossAmount, discountAmount, intermediationRateAmount, 
                 intermediationFeeAmount, netAmount, extraAmount, installmentCount, itemCount, senderName,
                 senderEmail, senderPhoneAreaCode, senderPhoneNumber, shippingStreet, shippingNumber,
                 shippingComplement, shippingDistrict, shippingCity, shippingState, shippingCountry,
                 shippingPostalCode, shippingCost} = transData
 
             const history = await History.create(
-                {code, date, status, paymentMethod, grossAmount, discountAmount, intermediationRateAmount, 
+                {code, date, reference, status, paymentMethod, grossAmount, discountAmount, intermediationRateAmount, 
                     intermediationFeeAmount, netAmount, extraAmount, installmentCount, itemCount, senderName,
                     senderEmail, senderPhoneAreaCode, senderPhoneNumber, shippingStreet, shippingNumber,
                     shippingComplement, shippingDistrict, shippingCity, shippingState, shippingCountry,
