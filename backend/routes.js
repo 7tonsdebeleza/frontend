@@ -117,6 +117,10 @@ routes.post('/atualizardiametro',ProductController.UpdateDiametro)
 //Histórico
 //Criar um ítem de histórico
 routes.post('/criarHistorico',HistoryController.store)
+//Obter historico por ID
+routes.get('/getHistorybyID/:id', HistoryController.findHistoryById)
+//Obter todos os historicos
+routes.get('/getAllHistory/:page', HistoryController.findAllHistory)
 
 //Correio
 //Receber CEP

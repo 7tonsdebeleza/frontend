@@ -41,5 +41,22 @@ module.exports = {
                 return res.send(doc)
             }
         )
+    },
+
+    async findHistoryById(req,res){
+        const { id } = req.params
+
+        const historyByPerson = await History.find({reference: id});
+
+        return res.json(historyByPerson)
+    },
+
+
+    async findAllHistory(req,res){
+        const { page } = req.params
+
+        const allHistory = await History.find().skip(1*page).limit(1)
+        
+        return res.json(allHistory)
     }
 }
