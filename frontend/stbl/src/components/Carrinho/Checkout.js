@@ -77,7 +77,7 @@ class Checkout extends Component {
   }
 
   // Calculo de valor de frete
-  getShipping = () =>{
+  getShipping = async () =>{
     const items = this.props.carrinho;
     const cep = this.state.postalCode;
 
@@ -85,14 +85,16 @@ class Checkout extends Component {
       const req = { items, cep };
       console.log("Calculando valor de frete...");
       
-      api.post('/getShippingPrice', req).then(res => {
+      /* await api.post('/getShippingPrice', req).then(res => {
         console.log(res.data);
 
       }).catch(e => {
         console.log(e);
         return this.chamarAlerta("Erro inesperado... Tente mais tarde!");
 
-      })
+      }) */
+
+      this.setState({ freteValor: 77 });
     }
 
     else return this.chamarAlerta("O cep deve ser preenchido!");
