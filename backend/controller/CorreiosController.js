@@ -1,5 +1,4 @@
 const axios = require("axios");
-const Correios = require("node-correios");
 const config = require("../globalconfig");
 
 /*
@@ -257,8 +256,6 @@ module.exports = {
     freteDim = caixa.getDimensions(items);
     freteDim.diametro = freteDim.largura*freteDim.largura + freteDim.comprimento*freteDim.comprimento;
 
-    let correios = new Correios();
-
     let args = {
       nCdEmpresa: config.CorreiosConfig.nCdEmpresa,
       sDsSenha: config.CorreiosConfig.sDsSenha,
@@ -275,7 +272,20 @@ module.exports = {
       nVlDiametro: Math.sqrt(freteDim.diametro),
     }
 
-    correios.calcPreco(args).then(result => {
+    const url = `http://ws.correios.com.br/calculador/CalcPrecoPrazo.aspx?nCdEmpresa=08082650&sDsSenha=564321&sCepOrigem=70002900&sCepDestino=04547000&nVlPeso=1&nCdFormato=1&nVlComprimento=20&nVlAltura=20&nVlLargura=20&sCdMaoPropria=n&nVlValorDeclarado=0&sCdAvisoRecebimento=n&nCdServico=04510&nVlDiametro=0&StrRetorno=xml&nIndicaCalculo=3`;
+
+    console.log('calculando frete...')
+    axios.get( url, { timeout: 100000 }).then(response => {
+      console.log('funcionou');
+      console.log(response.data);
+      res.sendStatus(500);
+    }).catch(e => {
+      console.log(e.errno);
+      console.log('não funcionou')
+      res.sendStatus(500);
+    });
+
+    /*correios.calcPrecoPrazo(args).then(result => {
       console.log("Consulta realizada com sucesso");
       res.send(result);
 
@@ -284,7 +294,7 @@ module.exports = {
       console.log(error);
       res.sendStatus(500);
       
-    });
+    });*/
 
   }
 }
