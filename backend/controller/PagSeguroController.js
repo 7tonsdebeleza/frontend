@@ -1,8 +1,7 @@
-const pagseguro = require('pagseguro');
 const convert = require('xml-js');
 const config = require('../globalconfig');
 const axios = require('axios');
-
+const qs = require('qs');
 
 /*
   Métodos exportados:
@@ -11,7 +10,7 @@ const axios = require('axios');
 */
 
 module.exports = {
-  sendCheckout(req, res){
+  async sendCheckout(req, res){
     /* Estrutura da requisição
     {
       carrinho: [{ id: 'X', description: 'abc', amount: '00.00', quantity: 0, weight: '00' }],
@@ -41,13 +40,44 @@ module.exports = {
       frete.postalCode = cep;
     }
 
-    //Configurações do vendedor
-    let pag = new pagseguro(config.PagSeguroConfig);
-  
-    //Configurando moeda e referência da compra usanda para chaves extrangeiras
-    pag.currency('BRL');
-    pag.reference(comprador.ref);
-  
+    // POST para obtenção de código para redirecionamento de checkout
+    //const url = config.PagSeguroConfig.mode === 'sandbox' ? `https://ws.sandbox.pagseguro.uol.com.br/v3/checkout/email=${config.PagSeguroConfig.email}&token=${config.PagSeguroConfig.token}` : `https://ws.pagseguro.uol.com.br/v3/checkout/email=${config.PagSeguroConfig.email}&token=${config.PagSeguroConfig.token}`;
+    const url = 'https://ws.sandbox.pagseguro.uol.com.br/v2/checkout/';
+
+    let body = {};
+
+    // Moeda da transação (Apenas 'BRL');
+    body.currency = 'BRL';
+
+    // Endereço de redirecionamento após fim de checkout na PagSeguro
+    body.redirectURL = 'http://7tonsdebeleza.com.br/';
+
+    // Email visível para cliente após fim da compra
+    body.receiverEmail = config.PagSeguroConfig.email; 
+
+    // Guardando referência para comprador (ID)
+    body.reference = comprador.ref;
+    // Outros dados
+    body.senderName = comprador.name;
+    body.senderAreaCode = comprador.phoneAreaCode;
+    body.senderPhone = comprador.phoneNumber;
+    body.senderEmail = comprador.email;
+
+    // Configurando dados do frete
+    body.shippingAddressRequired = true;
+    body.shippingType = 3; // Tipo de frete não especificado (PAC ou SEDEX)
+    body.shippingCost = parseFloat(frete.shippingCost).toFixed(2);
+
+    body.shippingAddressStreet = frete.street;
+    body.shippingAddressNumber = frete.number;
+    body.shippingAddressComplement = frete.complement;
+    body.shippingAddressDistrict = frete.district;
+    body.shippingAddressCity = frete.city;
+    body.shippingAddressState = frete.state;
+    body.shippingAddressCountry = 'BRA';
+    body.shippingAddressPostalCode = frete.postalCode;
+
+    let countId = 1;
     let totalWeight = 0;
     let isValid = true;
     carrinho.forEach(produto => {
@@ -67,13 +97,14 @@ module.exports = {
       // Formatando preço
       let amountVal = parseFloat(produto.amount).toFixed(2);
 
-      pag.addItem({
-        id: produto.id,
-        description: produto.description,
-        amount: amountVal,
-        quantity: produto.quantity,
-        weight: produto.weight,
-      });
+      // Modando requisição de items
+      body[`itemId${countId}`] = produto.id;
+      body[`itemDescription${countId}`] = produto.description;
+      body[`itemAmount${countId}`] = amountVal;
+      body[`itemQuantity${countId}`] = produto.quantity;
+      body[`itemWeight${countId}`] = produto.weight;
+
+      countId ++;
     });
 
     if(!isValid) return res.sendStatus(500);
@@ -82,66 +113,32 @@ module.exports = {
     if(totalWeight > 30000) {
       console.log("Peso máximo de 30kg excedido! Peso (g):" + totalWeight);
       return res.sendStatus(500);
-    
+
     }
-  
-    // Configurando as informações do comprador
-    pag.buyer({
-      name: comprador.name,
-      email: comprador.email,
-      phoneAreaCode: comprador.phoneAreaCode,
-      phoneNumber: comprador.phoneNumber
+
+    await axios({
+      method: 'post',
+      url: url,
+      params: {
+        email: config.PagSeguroConfig.email,
+        token: config.PagSeguroConfig.token,
+      },
+      data: qs.stringify(body),
+      headers: {
+        'Content-type': 'application/x-www-form-urlencoded'
+      },
+    }).then(retorno => {
+      // Convertendo retorno XML para JSON
+      const retornoObj = JSON.parse(convert.xml2json(retorno.data, {compact: true, spaces: 4}));
+      return res.send(retornoObj);
+
+    }).catch(e => {
+      console.log("Erro na requisição de chave de redirecionamento!");
+      console.log(e.response.data);
+      return res.sendStatus(500);
+
     });
-     
-    // Configurando dados da entrega do pedido
-    pag.shipping({
-      type: 1,
-      street: frete.street,
-      number: frete.number,
-      complement: frete.complement,
-      district: frete.district,
-      postalCode: frete.postalCode,
-      city: frete.city,
-      state: frete.state,
-      country: frete.country,
-    });
-     
-    // Configuranto URLs de retorno e de notificação
-    pag.setRedirectURL("http://localhost:3000");
 
-    // 8080 or 3333
-    pag.setNotificationURL("http://localhost:3333/pagseguro/status");
-    
-    // Enviando dados e recebendo chave de redirecionamento
-    pag.send(function(err, pgres){
-  
-      // Caso de erro ao tentar solicitar chave
-      if (err) {
-        //Convertendo resposta xml para json
-        console.log("Erro ao tentar enviar solicitação de compra e buscar chave de redirecionamento");
-        console.log(err);
-        return res.send(convert.xml2json(err, {compact: true, spaces: 4}));
-
-      } else {
-
-        // Convertendo xml para json
-        let jsonRes = convert.xml2json(pgres, {compact: true, spaces: 4});
-        // Convertando json para objeto
-        let objRes = JSON.parse(jsonRes);
-
-        // Caso em para passados erros na requisição ao PagSeguro
-        if(!objRes.checkout){
-          console.log("Uma requisição ao PagSeguro teve retorno de erros!")
-          console.table(objRes.errors.error);
-          return res.sendStatus(500);
-        }
-
-        // Retorrnando uma chave para a redirecionamento
-        // A chave deve ser usada na url para acessar um link de checkout
-        // 'https://sandbox.pagseguro.uol.com.br/v2/checkout/payment.html?code='+key (sandbox)
-        return res.send(objRes);
-      } 
-    });
   },
 
   receiveStatus(req, res, next){

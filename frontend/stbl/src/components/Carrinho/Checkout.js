@@ -94,7 +94,7 @@ class Checkout extends Component {
 
       }) */
 
-      this.setState({ freteValor: 77 });
+      this.setState({ freteValor: '77.00' });
     }
 
     else return this.chamarAlerta("O cep deve ser preenchido!");
@@ -103,8 +103,6 @@ class Checkout extends Component {
   Submit = () =>{
     // Enviar dados para PagSeguro e receber link de redirecionamento para transação
     const st = this.state;
-
-    console.log(st.phoneNumber )
 
     if(st.phoneNumber.length < 8 || st.phoneNumber.length > 10 || !st.phoneAreaCode){
       return this.chamarAlerta("Insira um número de celular válido");
@@ -137,6 +135,7 @@ class Checkout extends Component {
         city: st.city,
         state: st.state,
         country: st.country,
+        shippingCost: st.freteValor,
       }
 
       let carrinho = [];
