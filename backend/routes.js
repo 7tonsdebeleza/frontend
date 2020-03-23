@@ -84,9 +84,13 @@ routes.post('/criarproduto',upload.single('img'),ProductController.Store);
 //Mostrar produtos
 routes.get('/mostrartodosprodutos',ProductController.Show);
 //Mostrar produtos pelo tipo
-routes.get('/mostrarprodutoportipo',ProductController.ShowTipo)
+routes.get('/mostrarprodutoportipo',ProductController.ShowTipo);
+//Mostrar produtos em novidades
+routes.get('/mostrarprodutonovidade', ProductController.ShowByNewer);
+//Mostrar produtos em promocao
+routes.get('/mostrarprodutopromocao', ProductController.ShowByPromotion);
 //Remover produto pelo ID
-routes.post('/removerproduto',ProductController.Destroy)
+routes.post('/removerproduto',ProductController.Destroy);
 //Atualizar imagem do prodtuto
 routes.post('/atualizarimagem',upload.single('img'),ProductController.UpdateImage);
 //Atualizar nome do produto
@@ -113,6 +117,10 @@ routes.post('/atualizaraltura',ProductController.UpdateAltura)
 routes.post('/atualizarlargura',ProductController.UpdateLargura)
 //Atualizar diametro
 routes.post('/atualizardiametro',ProductController.UpdateDiametro)
+//Atualizar novidade
+routes.post('/atualizarnovidade',ProductController.UpdateNovidade)
+//Atualizar promocao
+routes.post('/atualizarpromocao', ProductController.UpdatePromocao)
 
 //Histórico
 //Criar um ítem de histórico
