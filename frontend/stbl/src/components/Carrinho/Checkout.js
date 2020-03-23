@@ -104,14 +104,14 @@ class Checkout extends Component {
     // Enviar dados para PagSeguro e receber link de redirecionamento para transação
     const st = this.state;
 
-    if(st.phoneNumber.length < 8 || st.phoneNumber.length > 10 || !st.phoneAreaCode){
+    if(st.phoneNumber.toString().length !== 9){
       return this.chamarAlerta("Insira um número de celular válido");
     }
 
 
     if(st.phoneAreaCode && st.phoneNumber && st.street && st.number && 
       st.district && st.postalCode && st.city && st.state && st.country &&
-      st.phoneAreaCode.trim() && st.phoneNumber.trim() && st.street.trim() &&
+      st.phoneAreaCode.trim() && st.phoneNumber.toString().trim() && st.street.trim() &&
       st.number.trim() && st.district.trim() && st.postalCode.trim() &&
       st.city.trim() && st.state.trim() && st.country.trim()){
     
@@ -247,7 +247,7 @@ class Checkout extends Component {
                   }
                 </select>
                 <input style={{width: '320px'}} className="inputt" type="number" name="phoneNumber" 
-                  onChange={this.handleInput} placeholder="999999999" />
+                  onChange={this.handleInput} placeholder="900000000" />
 
               </div>
             </div>
