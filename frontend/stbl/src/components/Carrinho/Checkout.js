@@ -7,7 +7,7 @@ import api from "../API/api";
 class Checkout extends Component {
   state ={
     alert: null, // Guardará string caso ocorra erro de submissão
-
+    calculandoFrete: false,
     informationcep: false, // Indica se informativo sobre o cep deve aparecer
 
     // Dados do usuário e do carrinho estarão em props user e carrrinho
@@ -78,23 +78,27 @@ class Checkout extends Component {
 
   // Calculo de valor de frete
   getShipping = async () =>{
-    // const items = this.props.carrinho;
+    const items = this.props.carrinho;
     const cep = this.state.postalCode;
 
     if(cep && cep.toString().trim()) {
-      // const req = { items, cep };
-      console.log("Calculando valor de frete...");
+      const req = { items, cep };
+      this.setState({calculandoFrete: true});
       
-      /* await api.post('/getShippingPrice', req).then(res => {
-        console.log(res.data);
+      await api.post('/getShippingPrice', req).then(res => {
+        this.setState({calculandoFrete: false});
+
+        if(res.data === "Limite excedido") return this.chamarAlerta("Seu carrinho está muito cheio... Remova alguns itens para continuar");
+        else if(!res.data[0].error) return this.setState({freteValor: res.data[0].valor});
+        else return this.chamarAlerta("Erro ao tentar calcular frete... Tente novamente mais tarde!");
 
       }).catch(e => {
+        this.setState({calculandoFrete: false});
         console.log(e);
         return this.chamarAlerta("Erro inesperado... Tente mais tarde!");
 
-      }) */
+      })
 
-      this.setState({ freteValor: '77.00' });
     }
 
     else return this.chamarAlerta("O cep deve ser preenchido!");
@@ -107,7 +111,6 @@ class Checkout extends Component {
     if(st.phoneNumber.toString().length !== 9){
       return this.chamarAlerta("Insira um número de celular válido");
     }
-
 
     if(st.phoneAreaCode && st.phoneNumber && st.street && st.number && 
       st.district && st.postalCode && st.city && st.state && st.country &&
@@ -336,7 +339,7 @@ class Checkout extends Component {
             
             <p className="btn-secundaryy">
               <Link to="#" onClick={() => this.getShipping() } >Calcular frete</Link>
-              <em className="obrigatorio" style={{color: 'black'}}>{this.state.freteValor ? "FRETE: R$" + this.state.freteValor : null}</em>
+              <em className="obrigatorio" style={{color: 'black'}}> {this.state.calculandoFrete ? "Calculando..." : null} {this.state.freteValor ? "FRETE: R$" + this.state.freteValor : null}</em>
             </p>
             
             <p> <b>TOTAL: </b> <em className="obrigatorio" style={{color: 'black'}}>{this.state.freteValor ? "R$" + (parseFloat(this.state.subtotal) + parseFloat(this.state.freteValor)).toFixed(2) : null}</em>

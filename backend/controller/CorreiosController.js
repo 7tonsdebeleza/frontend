@@ -1,4 +1,5 @@
 const axios = require("axios");
+const Correios = require("node-correios");
 const config = require("../globalconfig");
 
 /*
@@ -244,15 +245,16 @@ module.exports = {
     
   },
 
-  getShippingPrice(req, res){
-
+  async getShippingPrice(req, res){
     const items = req.body.items;
 
     let caixa = new Caixa;
 
     // Caso items extralem limites de dimensões da caixa
-    if(!caixa.test(items)) return res.send("Limite excedido");
+    const test = await caixa.test(items);
+    if(!test) return res.send("Limite excedido");
 
+    // Dimensões para caixa de frete (largura, altura, comprimento e peso);
     freteDim = caixa.getDimensions(items);
     freteDim.diametro = freteDim.largura*freteDim.largura + freteDim.comprimento*freteDim.comprimento;
 
@@ -269,32 +271,28 @@ module.exports = {
       nVlComprimento: freteDim.comprimento,
       nVlAltura: freteDim.altura,
       nVlLargura: freteDim.largura,
-      nVlDiametro: Math.sqrt(freteDim.diametro),
+      nVlDiametro: Math.sqrt(freteDim.diametro).toFixed(2),
     }
 
-    const url = `http://ws.correios.com.br/calculador/CalcPrecoPrazo.aspx?nCdEmpresa=08082650&sDsSenha=564321&sCepOrigem=70002900&sCepDestino=04547000&nVlPeso=1&nCdFormato=1&nVlComprimento=20&nVlAltura=20&nVlLargura=20&sCdMaoPropria=n&nVlValorDeclarado=0&sCdAvisoRecebimento=n&nCdServico=04510&nVlDiametro=0&StrRetorno=xml&nIndicaCalculo=3`;
+    // Altura mínima de 2cm
+    if(args.nVlAltura < 2) args.nVlAltura = 2;
+    // Comprimento mínimo de 11cm
+    if(args.nVlComprimento < 11) args.nVlComprimento = 11;
+    // Largura mínima de 16cm
+    if(args.nVlLargura < 16) args.nVlLargura = 16;
+    // Peso mínimo de um 1kg
+    if(args.nVlPeso < 1) args.nVlPeso = 1;
 
-    console.log('calculando frete...')
-    axios.get( url, { timeout: 100000 }).then(response => {
-      console.log('funcionou');
-      console.log(response.data);
-      res.sendStatus(500);
-    }).catch(e => {
-      console.log(e.errno);
-      console.log('não funcionou')
-      res.sendStatus(500);
-    });
-
-    /*correios.calcPrecoPrazo(args).then(result => {
-      console.log("Consulta realizada com sucesso");
-      res.send(result);
+    const correios = new Correios();
+    await correios.calcPreco(args).then(result => {
+      return res.send(result);
 
     }).catch(error => {
       console.log("Erro inesperado...");
       console.log(error);
-      res.sendStatus(500);
+      return res.sendStatus(500);
       
-    });*/
+    });
 
   }
 }
