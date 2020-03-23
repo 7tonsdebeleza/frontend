@@ -2,7 +2,7 @@ const History = require('../model/History')
 
 module.exports = {
     async store(req,res,next){
-        const { transData } = req.body
+        const { transData, items } = req.body
         const preCode = transData.code
 
         const existHistory = await History.findOne({code: preCode})
@@ -15,14 +15,14 @@ module.exports = {
                 intermediationFeeAmount, netAmount, extraAmount, installmentCount, itemCount, senderName,
                 senderEmail, senderPhoneAreaCode, senderPhoneNumber, shippingStreet, shippingNumber,
                 shippingComplement, shippingDistrict, shippingCity, shippingState, shippingCountry,
-                shippingPostalCode, shippingCost} = transData
+                shippingPostalCode, shippingCost } = transData
 
             const history = await History.create(
                 {code, date, reference, status, paymentMethod, grossAmount, discountAmount, intermediationRateAmount, 
                     intermediationFeeAmount, netAmount, extraAmount, installmentCount, itemCount, senderName,
                     senderEmail, senderPhoneAreaCode, senderPhoneNumber, shippingStreet, shippingNumber,
                     shippingComplement, shippingDistrict, shippingCity, shippingState, shippingCountry,
-                    shippingPostalCode, shippingCost}
+                    shippingPostalCode, shippingCost, items}
             )
 
             return res.send(history)

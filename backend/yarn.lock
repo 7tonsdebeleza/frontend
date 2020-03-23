@@ -1121,11 +1121,6 @@ jsonwebtoken@^8.5.1:
     ms "^2.1.1"
     semver "^5.6.0"
 
-jstoxml@0.1.x:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/jstoxml/-/jstoxml-0.1.0.tgz#abf95d6d76cd9adbbfe4e37a09f68c4c0a43b20c"
-  integrity sha1-q/ldbXbNmtu/5ON6CfaMTApDsgw=
-
 jwa@^1.4.1:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/jwa/-/jwa-1.4.1.tgz#743c32985cb9e98655530d53641b66c8645b039a"
@@ -1647,14 +1642,6 @@ package-json@^4.0.0:
     registry-url "^3.0.3"
     semver "^5.1.0"
 
-pagseguro@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/pagseguro/-/pagseguro-0.1.0.tgz#51b56b9050491697019bbedb1767580869c544c5"
-  integrity sha1-UbVrkFBJFpcBm77bF2dYCGnFRMU=
-  dependencies:
-    jstoxml "0.1.x"
-    request "2.9.x"
-
 parseurl@~1.3.3:
   version "1.3.3"
   resolved "https://registry.yarnpkg.com/parseurl/-/parseurl-1.3.3.tgz#9da19e7bee8d12dff0513ed5b76957793bc2e8d4"
@@ -1732,6 +1719,11 @@ qs@6.7.0:
   version "6.7.0"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.7.0.tgz#41dc1a015e3d581f1621776be31afb2876a9b1bc"
   integrity sha512-VCdBRNFTX1fyE7Nb6FYoURo/SPe62QCaAyzJvUjwRaIsc+NePBEniHlvxFmmX56+HZphIGtV0XeCirBtpDrTyQ==
+
+qs@^6.9.2:
+  version "6.9.2"
+  resolved "https://registry.yarnpkg.com/qs/-/qs-6.9.2.tgz#a27b695006544a04bf0e6c6a7e8120778926d5bd"
+  integrity sha512-2eQ6zajpK7HwqrY1rRtGw5IZvjgtELXzJECaEDuzDFo2jjnIXpJSimzd4qflWZq6bLLi+Zgfj5eDrAzl/lptyg==
 
 range-parser@~1.2.1:
   version "1.2.1"
@@ -1832,11 +1824,6 @@ repeat-string@^1.6.1:
   version "1.6.1"
   resolved "https://registry.yarnpkg.com/repeat-string/-/repeat-string-1.6.1.tgz#8dcae470e1c88abc2d600fff4a776286da75e637"
   integrity sha1-jcrkcOHIirwtYA//Sndihtp15jc=
-
-request@2.9.x:
-  version "2.9.203"
-  resolved "https://registry.yarnpkg.com/request/-/request-2.9.203.tgz#6c1711a5407fb94a114219563e44145bcbf4723a"
-  integrity sha1-bBcRpUB/uUoRQhlWPkQUW8v0cjo=
 
 require_optional@^1.0.1:
   version "1.0.1"
