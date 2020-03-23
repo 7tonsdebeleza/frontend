@@ -54,6 +54,12 @@ const ProductSchema = new mongoose.Schema({
     diametro:{
         required: true,
         type: String
+    },
+    novidade:{
+        type: Boolean
+    },
+    promocao:{
+        type: Boolean
     }
 
     },{

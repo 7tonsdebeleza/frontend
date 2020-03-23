@@ -7,7 +7,7 @@ module.exports = {
             const img = req.file
             const imgPath = img.filename
             
-            const {titulo, marca, preco, estoque, tipoProduto, descricao,
+            const {titulo, marca, preco, estoque, tipoProduto, descricao, novidade = true, promocao = false,
                 peso =" ", formato =" ", comprimento =" ", altura =" ", largura =" ", diametro =" "}
                  = req.body;
             
@@ -34,7 +34,9 @@ module.exports = {
                 comprimento,
                 altura,
                 largura,
-                diametro
+                diametro,
+                novidade,
+                promocao
             },(e)=>{console.log(e)})
             
             return res.send(product)
@@ -71,6 +73,18 @@ module.exports = {
         const produtos = await Product.find({"tipoProduto":req.body.tipo});
 
         return res.send(produtos);
+    },
+
+    async ShowByNewer(req,res){
+        const produtos = await Product.find({"novidade": true});
+
+        return res.json(produtos)
+    },
+
+    async ShowByPromotion(req,res){
+        const produtos = await Product.find({"promocao": true});
+
+        return res.json(produtos)
     },
 
     async Destroy(req,res){
@@ -261,6 +275,32 @@ module.exports = {
         const {id, novo_diametro} = req.body
 
         Product.findByIdAndUpdate({_id: id},{$set: {diametro: novo_diametro}},
+            {new: true},(err,doc) =>{
+                if(err){
+                    return res.send(err)
+                }
+                return res.send(doc)
+            }
+        )
+    },
+
+    async UpdateNovidade(req,res){
+        const {id, novidade} = req.body
+
+        Product.findByIdAndUpdate({_id: id},{$set: {novidade}},
+            {new: true},(err,doc) =>{
+                if(err){
+                    return res.send(err)
+                }
+                return res.send(doc)
+            }
+        )
+    },
+
+    async UpdatePromocao(req,res){
+        const {id, promocao} = req.body
+
+        Product.findByIdAndUpdate({_id: id},{$set: {promocao}},
             {new: true},(err,doc) =>{
                 if(err){
                     return res.send(err)
