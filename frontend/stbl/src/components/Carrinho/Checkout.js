@@ -88,8 +88,13 @@ class Checkout extends Component {
       await api.post('/getShippingPrice', req).then(res => {
         this.setState({calculandoFrete: false});
 
+        console.log(res.data[0]);
+
         if(res.data === "Limite excedido") return this.chamarAlerta("Seu carrinho está muito cheio... Remova alguns itens para continuar");
-        else if(!res.data[0].error) return this.setState({freteValor: res.data[0].valor});
+        else if(!res.data[0].Erro){
+          const floatValFrete = res.data[0].Valor.replace(',','.');
+          return this.setState({freteValor: floatValFrete});
+        } 
         else return this.chamarAlerta("Erro ao tentar calcular frete... Tente novamente mais tarde!");
 
       }).catch(e => {

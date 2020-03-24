@@ -288,7 +288,7 @@ module.exports = {
       return res.send(result);
 
     }).catch(error => {
-      console.log("Erro inesperado...");
+      console.log("Erro inesperado ao tentar calcular frete...");
       console.log(error);
       return res.sendStatus(500);
       
