@@ -12,11 +12,11 @@ class FormNovoProduto extends Component {
     preco: '',
     estoque: '',
     tipoProduto: "",
+    promocao: false,
     descricao: "",
     comprimento: "",
     altura: "",
     largura: "",
-    diametro: "",
     peso: "",
     alert: false,
     errorMsg: "",
@@ -45,15 +45,15 @@ class FormNovoProduto extends Component {
   enviar = async () =>{
 
     let {img, titulo, marca, preco, estoque, descricao, tipoProduto,
-      comprimento, altura, largura, diametro, peso} = this.state;
+      comprimento, altura, largura, peso, promocao} = this.state;
 
     // Verificação se todos os dados foram preenchidos
     if(!img || !titulo || !marca || !preco || !estoque || !descricao || !tipoProduto
-      || !comprimento || !altura || !largura || !diametro || !peso
+      || !comprimento || !altura || !largura || !peso
       || !titulo.toString().trim() || !marca.toString().trim() || !preco.toString().trim()
       || !estoque.toString().trim() || !descricao.toString().trim() || !tipoProduto.toString().trim()
       || !comprimento.toString().trim() || !altura.toString().trim() || !largura.toString().trim()
-      || !diametro.toString().trim() || !peso.toString().trim() )
+      || !peso.toString().trim() )
       return this.chamarAlerta("Preencha todos os dados!");
 
     titulo = titulo.toString();
@@ -109,21 +109,7 @@ class FormNovoProduto extends Component {
       return this.chamarAlerta("A largura não pode exceder 105cm (Correios).");
 
     if(comprimento + altura + largura > 200)
-      return this.chamarAlerta("A soma resultante do comprimento + largura + altura não deve superar a 200cm (Correios)")
-
-    if(isNaN(diametro) || diametro < 0)
-      return this.chamarAlerta("Formato inválido para diametro de embalagem (Correios)!");
-
-    diametro = parseFloat(diametro);
-
-    if(!Number.isInteger(diametro))
-      return this.chamarAlerta("Formato inválido para diametro de embalagem (Correios)! Insira um valor inteiro!");
-
-    if(diametro > 91)
-      return this.chamarAlerta("O diametro não pode exceder 91cm (Correios).");
-
-    if( (2*diametro) + comprimento > 200)
-      return this.chamarAlerta("A  soma  resultante  do  comprimento  +  o  dobro  do  diâmetro  não  deve  superar  a 200cm (Correios)")
+      return this.chamarAlerta("A soma resultante do comprimento + largura + altura não deve superar a 200cm (Correios)");
 
     if(isNaN(peso) || peso < 0)
       return this.chamarAlerta("Formato inválido para peso do produto (Correios)!");
@@ -134,6 +120,8 @@ class FormNovoProduto extends Component {
       return this.chamarAlerta("Formato inválido para peso do produto (Correios)! Insira um valor inteiro!");
 
     if(peso > 30000) return this.chamarAlerta("O produto deve ter peso máximo de até 30kg (Correios)!");
+
+    promocao = promocao === 'on' ? true : false;
 
     let novoProduto = new FormData();
     novoProduto.append('img', img);
@@ -146,10 +134,12 @@ class FormNovoProduto extends Component {
     novoProduto.append('comprimento', comprimento);
     novoProduto.append('altura', altura);
     novoProduto.append('largura', largura);
-    novoProduto.append('diametro', comprimento);
     novoProduto.append('peso', peso);
+    novoProduto.append('promocao', promocao);
 
+    console.log(promocao);
     api.post("/criarproduto",novoProduto).then(res => {
+      // ###### analisar respostas 
       if(res.data === "Imagem já existente!" || res.data === "Titulo já existente!"){
         return this.setState({alert: res.data});
 
@@ -209,6 +199,11 @@ class FormNovoProduto extends Component {
             </select>
           </div>
 
+          <div className='admin-form-item' >
+            <label htmlFor="inputProm">PRODUTO EM PROMOÇÃO:</label>
+            <input id="inputProm" type="checkbox" name="promocao" onClick={this.atualizarInput}/>
+          </div>
+
           <br/>
 
           <div className='admin-form-item'>
@@ -244,15 +239,6 @@ class FormNovoProduto extends Component {
             <label htmlFor="inputLargura">LARGURA (cm):</label><br/>
             <input id="inputLargura" type="number" min="0" step="1" name="largura" value={this.state.largura} onChange={this.atualizarInput}/>
           </div>
-
-          {
-            this.state.formato !== 3 ?
-            <div className='admin-form-item'>
-              <label htmlFor="inputDiametro">DIAMETRO (cm):</label><br/>
-              <input id="inputDiametro" type="number" min="0" step="1" name="diametro" value={this.state.diametro} onChange={this.atualizarInput}/>
-            </div>
-            : null
-          }
 
           <div className='admin-form-item'>
             <label htmlFor="inputPeso">PESO (g):</label><br/>
