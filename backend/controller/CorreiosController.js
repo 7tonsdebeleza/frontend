@@ -267,7 +267,7 @@ module.exports = {
       sCepDestino: req.body.cep,
 
       nVlPeso: parseInt(freteDim.peso/1000),
-      nCdFormato: 2, // caixa/pacote
+      nCdFormato: 1, // caixa/pacote
       nVlComprimento: freteDim.comprimento,
       nVlAltura: freteDim.altura,
       nVlLargura: freteDim.largura,
@@ -276,10 +276,10 @@ module.exports = {
 
     // Altura mínima de 2cm
     if(args.nVlAltura < 2) args.nVlAltura = 2;
-    // Comprimento mínimo de 11cm
-    if(args.nVlComprimento < 11) args.nVlComprimento = 11;
-    // Largura mínima de 16cm
-    if(args.nVlLargura < 16) args.nVlLargura = 16;
+    // Comprimento mínimo de 16cm
+    if(args.nVlComprimento < 16) args.nVlComprimento = 16;
+    // Largura mínima de 11cm
+    if(args.nVlLargura < 11) args.nVlLargura = 11;
     // Peso mínimo de um 1kg
     if(args.nVlPeso < 1) args.nVlPeso = 1;
 

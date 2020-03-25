@@ -95,7 +95,7 @@ class Checkout extends Component {
           const floatValFrete = res.data[0].Valor.replace(',','.');
           return this.setState({freteValor: floatValFrete});
         } 
-        else return this.chamarAlerta("Erro ao tentar calcular frete... Tente novamente mais tarde!");
+        else return this.chamarAlerta("Erro ao tentar calcular frete... Tente novamente mais tarde ou verifique se sua região recebe frete por Correios!");
 
       }).catch(e => {
         this.setState({calculandoFrete: false});
