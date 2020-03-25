@@ -19,7 +19,6 @@ class ProdutoEditavel extends Component {
     comprimento: this.props.dados.comprimento,
     altura: this.props.dados.altura,
     largura: this.props.dados.largura,
-    diametro: this.props.dados.diametro,
     peso: this.props.dados.peso,
     newImage: null,
     alert: null,
@@ -82,17 +81,17 @@ class ProdutoEditavel extends Component {
   salvar = async () =>{
 
     let { titulo, marca, preco, estoque, descricao, tipoProduto,
-      comprimento, altura, largura, diametro, peso} = this.state;
+      comprimento, altura, largura, peso} = this.state;
 
     let erro = false;
 
     //Verificando se algum campo foi deixado vazio antes de atualizar dados:
     if( titulo && marca && preco && estoque && descricao && tipoProduto
-      && comprimento && altura && largura && diametro && peso
+      && comprimento && altura && largura && peso
       && titulo.toString().trim() && marca.toString().trim() && preco.toString().trim()
       && estoque.toString().trim() && descricao.toString().trim() && tipoProduto.toString().trim()
       && comprimento.toString().trim() && altura.toString().trim() && largura.toString().trim()
-      && diametro.toString().trim() && peso.toString().trim() ){
+      && peso.toString().trim() ){
 
       titulo = titulo.toString();
       if(titulo.length > 100) return this.chamarAlerta("O título deve até 100 carecteres (PagSeguro)");
@@ -146,20 +145,6 @@ class ProdutoEditavel extends Component {
     
       if(comprimento + altura + largura > 200)
         return this.chamarAlerta("A soma resultante do comprimento + largura + altura não deve superar a 200cm (Correios)")
-    
-      if(isNaN(diametro) || diametro < 0)
-        return this.chamarAlerta("Formato inválido para diametro de embalagem (Correios)!");
-    
-      diametro = parseFloat(diametro);
-    
-      if(!Number.isInteger(diametro))
-        return this.chamarAlerta("Formato inválido para diametro de embalagem (Correios)! Insira um valor inteiro!");
-    
-      if(diametro > 91)
-        return this.chamarAlerta("O diametro não pode exceder 91cm (Correios).");
-    
-      if( (2*diametro) + comprimento > 200)
-        return this.chamarAlerta("A  soma  resultante  do  comprimento  +  o  dobro  do  diâmetro  não  deve  superar  a 200cm (Correios)")
     
       if(isNaN(peso) || peso < 0)
         return this.chamarAlerta("Formato inválido para peso do produto (Correios)!");
@@ -300,21 +285,9 @@ class ProdutoEditavel extends Component {
         }
       }
 
-      if(diametro !== this.props.dados.diametro && !erro){
-        console.log("Atualizando diametro...");
-        const res = await api.post("/atualizardiametro",{"id":this.state.id,"novo_diametro":diametro});
-        console.log("Chamada de atualização ao produto foi realizada!");
-        console.log("retorno de id: " + res.data._id);
-
-        if(!res.data.id){
-          this.chamarAlerta("Erro inesperado... Tente novamente mais tarde!");
-          erro = true;
-        }
-      }
-
       if(peso !== this.props.dados.peso && !erro){
-        console.log("Atualizando diametro...");
-        const res = await api.post("/atualizardiametro",{"id":this.state.id,"novo_diametro":peso});
+        console.log("Atualizando peso...");
+        const res = await api.post("/atualizarpeso",{"id":this.state.id, "novo_peso":peso});
         console.log("Chamada de atualização ao produto foi realizada!");
         console.log("retorno de id: " + res.data._id);
 
@@ -433,11 +406,6 @@ class ProdutoEditavel extends Component {
               <p>
                 <b>Largura (cm):</b>
                 <input className='admin-form' type='number' value={this.state.largura} name="largura" onChange={this.atualizarInput}/>
-              </p>
-
-              <p>
-                <b>Diametro (cm):</b>
-                <input className='admin-form' type='number' value={this.state.diametro} name="diametro" onChange={this.atualizarInput}/>
               </p>
 
               <p>
