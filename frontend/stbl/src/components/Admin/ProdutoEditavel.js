@@ -13,6 +13,8 @@ class ProdutoEditavel extends Component {
     titulo: this.props.dados.titulo,
     marca: this.props.dados.marca,
     preco: this.props.dados.preco,
+    promocao: this.props.dados.promocao,
+    novidade: this.props.dados.novidade,
     estoque: this.props.dados.estoque,
     tipoProduto: this.props.dados.tipoProduto,
     descricao: this.props.dados.descricao,
@@ -22,6 +24,8 @@ class ProdutoEditavel extends Component {
     peso: this.props.dados.peso,
     newImage: null,
     alert: null,
+
+    atualizando: false,
     
   }
 
@@ -66,7 +70,6 @@ class ProdutoEditavel extends Component {
   removerItem = async (id) =>{
     //PopUp de confimação
     const res = await api.post("/removerproduto",{"_id":id});
-    console.log(res.data._id);
 
     if(res.data._id){
       alert("Produto foi removido com êxito! Esta pagina será recarregada...");
@@ -81,7 +84,7 @@ class ProdutoEditavel extends Component {
   salvar = async () =>{
 
     let { titulo, marca, preco, estoque, descricao, tipoProduto,
-      comprimento, altura, largura, peso} = this.state;
+      comprimento, altura, largura, peso, promocao, novidade} = this.state;
 
     let erro = false;
 
@@ -157,18 +160,16 @@ class ProdutoEditavel extends Component {
       if(peso > 30000) return this.chamarAlerta("O produto deve ter peso máximo de até 30kg (Correios)!");    
       
       if(this.state.newImage !== null){
+
+        this.setState({ atualizando: true });
+
         const id = this.state.id;
         const data = new FormData();
         data.append('img',this.state.newImage);
 
-        console.log("Atualizando imagem...");
-
         const res = await api.post("/atualizarimagem",data,{
           headers: {id}
         });
-
-        console.log("Chamada de atualização ao produto foi realizada!");
-        console.log("retorno de id: " + res.data._id);
 
         if(!res.data.id){
           this.chamarAlerta("Erro inesperado... Tente novamente mais tarde!");
@@ -178,10 +179,7 @@ class ProdutoEditavel extends Component {
       }
 
       if(titulo !== this.props.dados.titulo && !erro){
-        console.log("Atualizando titulo...");
         const res = await api.post("/atualizartitulo",{"id":this.state.id,"novo_titulo":titulo});
-        console.log("Chamada de atualização ao produto foi realizada!");
-        console.log("retorno de id: " + res.data._id);
 
         if(!res.data.id){
           this.chamarAlerta("Erro inesperado... Tente novamente mais tarde!");
@@ -190,10 +188,7 @@ class ProdutoEditavel extends Component {
       }
 
       if(marca !== this.props.dados.marca && !erro){
-        console.log("Atualizando marca...");
         const res = await api.post("/atualizarmarca",{"id":this.state.id,"nova_marca":marca});
-        console.log("Chamada de atualização ao produto foi realizada!");
-        console.log("retorno de id: " + res.data._id);
 
         if(!res.data.id){
           this.chamarAlerta("Erro inesperado... Tente novamente mais tarde!");
@@ -202,10 +197,7 @@ class ProdutoEditavel extends Component {
       }
 
       if(preco !== this.props.dados.preco && !erro){
-        console.log("Atualizando preço...");
         const res = await api.post("/atualizarpreco",{"id":this.state.id,"novo_preco":preco});
-        console.log("Chamada de atualização ao produto foi realizada!");
-        console.log("retorno de id: " + res.data._id);
 
         if(!res.data.id){
           this.chamarAlerta("Erro inesperado... Tente novamente mais tarde!");
@@ -214,10 +206,7 @@ class ProdutoEditavel extends Component {
       }
 
       if(estoque !== this.props.dados.estoque && !erro){
-        console.log("Atualizando qtd em estoque...");
         const res = await api.post("/atualizarestoque",{"id":this.state.id,"novo_estoque":estoque});
-        console.log("Chamada de atualização ao produto foi realizada!");
-        console.log("retorno de id: " + res.data._id);
 
         if(!res.data.id){
           this.chamarAlerta("Erro inesperado... Tente novamente mais tarde!");
@@ -226,10 +215,7 @@ class ProdutoEditavel extends Component {
       }
 
       if(descricao !== this.props.dados.descricao && !erro){
-        console.log("Atualizando descrição...");
         const res = await api.post("/atualizardescricao",{"id":this.state.id,"nova_descricao":descricao});
-        console.log("Chamada de atualização ao produto foi realizada!");
-        console.log("retorno de id: " + res.data._id);
 
         if(!res.data.id){
           this.chamarAlerta("Erro inesperado... Tente novamente mais tarde!");
@@ -238,10 +224,27 @@ class ProdutoEditavel extends Component {
       }
 
       if(tipoProduto !== this.props.dados.tipoProduto && !erro){
-        console.log("Atualizando categoria do produto...");
         const res = await api.post("/atualizartipo",{"id":this.state.id,"novo_tipo":tipoProduto});
-        console.log("Chamada de atualização ao produto foi realizada!");
-        console.log("retorno de id: " + res.data._id);
+
+        if(!res.data.id){
+          this.chamarAlerta("Erro inesperado... Tente novamente mais tarde!");
+          erro = true;
+        }
+      }
+
+      promocao = promocao === 'on' || promocao === true ? true : false ;
+      if(promocao !== this.props.dados.promocao && !erro){
+        const res = await api.post("/atualizarpromocao", {"id":this.state.id,"promocao":promocao});
+
+        if(!res.data.id){
+          this.chamarAlerta("Erro inesperado... Tente novamente mais tarde!");
+          erro = true;
+        }
+      }
+
+      novidade = novidade === 'on' || novidade === true ? true : false ;
+      if(novidade !== this.props.dados.novidade && !erro){
+        const res = await api.post("/atualizarnovidade", {"id":this.state.id,"novidade":novidade});
 
         if(!res.data.id){
           this.chamarAlerta("Erro inesperado... Tente novamente mais tarde!");
@@ -250,10 +253,7 @@ class ProdutoEditavel extends Component {
       }
 
       if(comprimento !== this.props.dados.comprimento && !erro){
-        console.log("Atualizando comprimento...");
         const res = await api.post("/atualizarcomprimento",{"id":this.state.id,"novo_comprimento":comprimento});
-        console.log("Chamada de atualização ao produto foi realizada!");
-        console.log("retorno de id: " + res.data._id);
 
         if(!res.data.id){
           this.chamarAlerta("Erro inesperado... Tente novamente mais tarde!");
@@ -262,10 +262,7 @@ class ProdutoEditavel extends Component {
       }
 
       if(altura !== this.props.dados.altura && !erro){
-        console.log("Atualizando altura...");
         const res = await api.post("/atualizaraltura",{"id":this.state.id,"nova_altura":altura});
-        console.log("Chamada de atualização ao produto foi realizada!");
-        console.log("retorno de id: " + res.data._id);
 
         if(!res.data.id){
           this.chamarAlerta("Erro inesperado... Tente novamente mais tarde!");
@@ -274,10 +271,7 @@ class ProdutoEditavel extends Component {
       }
 
       if(largura !== this.props.dados.largura && !erro){
-        console.log("Atualizando largura...");
         const res = await api.post("/atualizarlargura",{"id":this.state.id,"nova_largura":largura});
-        console.log("Chamada de atualização ao produto foi realizada!");
-        console.log("retorno de id: " + res.data._id);
 
         if(!res.data.id){
           this.chamarAlerta("Erro inesperado... Tente novamente mais tarde!");
@@ -286,10 +280,7 @@ class ProdutoEditavel extends Component {
       }
 
       if(peso !== this.props.dados.peso && !erro){
-        console.log("Atualizando peso...");
         const res = await api.post("/atualizarpeso",{"id":this.state.id, "novo_peso":peso});
-        console.log("Chamada de atualização ao produto foi realizada!");
-        console.log("retorno de id: " + res.data._id);
 
         if(!res.data.id){
           this.chamarAlerta("Erro inesperado... Tente novamente mais tarde!");
@@ -301,6 +292,8 @@ class ProdutoEditavel extends Component {
         alert("Produto atualizado! Esta página será recarregada...");
         window.location.reload(true);
       }
+
+      this.setState({ atualizando: false });
       
     } else {
       this.chamarAlerta("Preencha todos os campos!");
@@ -310,6 +303,14 @@ class ProdutoEditavel extends Component {
   atualizarInput = (e) =>{
     this.setState({
       [e.target.name]: e.target.value
+    })
+  }
+
+  atualizarInputCheckbox = (e) => {
+    console.log(e.target.value)
+    let last = this.state[e.target.name];
+    this.setState({
+      [e.target.name]: last ? false : true,
     })
   }
 
@@ -356,7 +357,7 @@ class ProdutoEditavel extends Component {
               </p>
                             
               <p>
-                <b>Tipo de Produto:</b>
+                <b>Categoria:</b>
                 <select  className='admin-form' type="text" placeholder="TIPO" name="tipoProduto" value={this.state.tipoProduto} onChange={this.atualizarInput}>
                   <option key={0} value={''}></option>
                   {
@@ -389,6 +390,17 @@ class ProdutoEditavel extends Component {
               </p>
 
               <p>
+                <b>Em promoção:</b>
+                <input className='admin-form' type='checkbox' checked={this.state.promocao} name="promocao" onClick={this.atualizarInputCheckbox}/>
+              </p>
+
+              <p>
+                <b>Novidade:</b>
+                <input className='admin-form' type='checkbox' checked={this.state.novidade} name="novidade" onClick={this.atualizarInputCheckbox}/>
+                <em>Produtos marcados como novidade aparecem em destaque na sua página inicial.</em>
+              </p>
+
+              <p>
                 <b>IMAGEM:</b>
                 <ThumbInput onChange={this.imageInput}/>
               </p>
@@ -414,6 +426,7 @@ class ProdutoEditavel extends Component {
               </p>
 
               <button onClick={() =>{this.salvar()}}>Enviar</button>
+              { this.state.atualizando ? <em> Enviando dados... </em> : null }
               <button id={BotaoModal}>Remover item</button>
 
               <Modal listenersId={[BotaoModal, BotaoModalCancel]} actived={false}>
