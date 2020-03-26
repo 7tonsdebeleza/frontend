@@ -28,6 +28,14 @@ class FormNovoProduto extends Component {
     })
   }
 
+  atualizarInputCheckbox = (e) => {
+    console.log(e.target.value)
+    let last = this.state[e.target.name];
+    this.setState({
+      [e.target.name]: last ? false : true,
+    })
+  }
+
   chamarAlerta = (msg) => {
     this.setState({
       alert: msg,
@@ -121,7 +129,7 @@ class FormNovoProduto extends Component {
 
     if(peso > 30000) return this.chamarAlerta("O produto deve ter peso máximo de até 30kg (Correios)!");
 
-    promocao = promocao === 'on' ? true : false;
+    promocao = promocao === 'on' || promocao === true ? true : false;
 
     let novoProduto = new FormData();
     novoProduto.append('img', img);
@@ -201,7 +209,7 @@ class FormNovoProduto extends Component {
 
           <div className='admin-form-item' >
             <label htmlFor="inputProm">PRODUTO EM PROMOÇÃO:</label>
-            <input id="inputProm" type="checkbox" name="promocao" onClick={this.atualizarInput}/>
+            <input id="inputProm" type="checkbox" value={this.props.promocao} name="promocao" onClick={this.atualizarInputCheckbox}/>
           </div>
 
           <br/>
