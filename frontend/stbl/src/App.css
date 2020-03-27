@@ -400,11 +400,14 @@ body{
     margin-bottom: 10%;
 }
 
+.banner{
+    min-height: 100vh;
+}
+
 .banner-paragrafo{
     position: relative;
     text-align: center;
     margin-top: -28%;
-    margin-bottom: 22%;
 }
 
 .banner-paragrafo2{
@@ -473,6 +476,9 @@ body{
     }
     .card-d{
         margin-top: 35%;
+    }
+    .banner{
+        min-height: auto;
     }
     .banner-paragrafo{
         margin-top: -48%;

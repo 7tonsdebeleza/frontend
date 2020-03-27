@@ -20,7 +20,7 @@ class LojaVirtual extends Component {
     if(categoria.request.toLowerCase() === 'todos'){
       this.setState({produtos: this.props.dados});
     } else {
-        let novaLista = [];
+      let novaLista = [];
 
       this.props.dados.map((produto) => {
         if(produto.tipoProduto.toLowerCase() === categoria.request.toLowerCase()){
@@ -194,17 +194,9 @@ class LojaVirtual extends Component {
 
 
 const categories = [
-  { title: "Comos De Milano", descri: "Categoria 1", index: 0, request: "todos" },
-  { title: "Lorem Et Dorus", descri: "Categoria 2", index: 1, request: "#" },
-  { title: " Lynn Cosmopolis", descri: "Categoria 3", index: 2, request: "#" },
-  { title: "Men", descri: "Categoria 4", index: 3, request: "#" },
-  { title: " Milancelos A Lanos", descri: "Categoria 5", index: 4, request: "#" },
-  { title: "New in", descri: "Categoria 6", index: 5, request: "#" },
-  { title: "Nor Loremirus", descri: "Categoria 7", index: 6, request: "#" },
-  { title: "Sale & Special Offers", descri: "Categoria 8", index: 7, request: "#" },
-  { title: "Top Brands", descri: "Categoria 9", index: 8, request: "#" },
-  { title: "Women", descri: "Categoria 10", index: 9, request: "#" },
-  { title: "Batom", descri: "Categoria 11", index: 10, request: "batom" },
+  { title: "Novidades", descri: "Lançamentos na Loja 7 Tons de Beleza", index: 0, request: "#" },
+  { title: "Promoções", descri: "Promoções especiais", index: 1, request: "#" },
+  { title: "Todos", descri: "Todos os produtos do nosso catálogo", index: 2, request: "#" },
 ]
 
 export default LojaVirtual
