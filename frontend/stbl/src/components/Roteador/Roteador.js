@@ -64,16 +64,17 @@ class Roteador extends Component {
   }
 
   //Função de autenticação de token
-  auth = (token) => {
+  auth = async (token) => {
 	console.log("Autenticando...");
 
-	api.post('/Auth',  {headers: {"Authorization" : token}}).then(res => {
+	await api.post('/Auth',  {headers: {"Authorization" : token}}).then(res => {
 	  if(res.data.error){
 		//Caso autenticação falhe, usuário será deslogado para gerar novo token
 		console.log(res.data.error);
 		this.Clientelogout();
 
 	  } else {
+		console.log('Autenticação realizada!');
 		//Salvando dados do usuário
 		this.setState({user:res.data}, () => this.loadCarrinho());
 	  }
@@ -87,7 +88,7 @@ class Roteador extends Component {
   }
 
   //Esta função será passada aos componetes filhos onde houver componete produto
-  addCarrinho = (dados) =>{
+  addCarrinho = (dados, qtd) =>{
 	const frete = new Frete();
 	let novaLista = this.state.dadosCarrinho;
 	novaLista.push(dados);
@@ -101,7 +102,7 @@ class Roteador extends Component {
 	}, () => {
 	  // Caso haja login, bd do usuário deve ser atualizado
 	  if(this.state.user){
-		  api.post('/adicionarcarrinho', {email: this.state.user.email, titulo: dados.titulo, quantidade: 1})
+		  api.post('/adicionarcarrinho', {email: this.state.user.email, titulo: dados.titulo, quantidade: qtd ? qtd : 1})
 	  }
 	});
 		
@@ -162,25 +163,42 @@ class Roteador extends Component {
   // Método para carregar carrinho do usuário no banco de dados
   loadCarrinho = async () => {
 
-	// Buscando informações dos itens que estão no carrinho do usuário (carrinho do usuário tem id e qtd)
-	const res = await api.post('/pegarcarrinho', { email: this.state.user.email});
-	const carrinhoBd = res.data.FullInfo;
-	const carrinhoFront = [];
+	// Caso já haja itens no carrinho, itens serão adicinados ao bd do usuário
+	const tempCarrinho = this.state.dadosCarrinho;
+	if(tempCarrinho.length > 0){
+	  console.log('Vinculando carrinho temporário a conta logada no banco de dados...')
+	  await tempCarrinho.forEach(async item => {
+		await this.addCarrinho(item, item.qtd);
+	  });
+	  console.log('Feito!');
+	  console.log('Página será recarregada!');
+	  window.location.reload();
 
-	carrinhoBd.map((obj)=>{
-      // Remove o path da imagem e seta como o link dela
-	  obj.img = obj.img_url;
-	  // Filtrando itens do carrinho que tenham estoque disponível
-	  if(obj.estoque > 0) carrinhoFront.push(obj);
-      return true
-	});
+	} else {
+	  // Buscando informações dos itens que estão no carrinho do usuário (carrinho do usuário tem id e qtd)
+	  console.log('Carregando carrinho vinculado a esta conta...');
+	  const res = await api.post('/pegarcarrinho', { email: this.state.user.email});
+	  const carrinhoBd = res.data.FullInfo;
+	  const carrinhoFront = [];
+
+	  carrinhoBd.map((obj)=>{
+      	// Remove o path da imagem e seta como o link dela
+	  	obj.img = obj.img_url;
+	  	// Filtrando itens do carrinho que tenham estoque disponível
+	  	if(obj.estoque > 0) carrinhoFront.push(obj);
+		return true;
+		
+	  });
 	  
-	this.setState({
+	  this.setState({
 		dadosCarrinho: carrinhoFront,
-	});
+	  });
+	  console.log('Feito!');
 
-	// Carregando qtd individual de cada item (juntando inforamções do carrinho do usuário e informações dos produtos)
-	this.loadItensQtd();
+	  // Carregando qtd individual de cada item (juntando inforamções do carrinho do usuário e informações dos produtos)
+	  this.loadItensQtd();
+	}
+	
   }
 
   loadItensQtd = () => {
@@ -242,13 +260,13 @@ class Roteador extends Component {
 		  <GoTop />
 
 		  <div style={{
-			  display:'flex',
-			  flex: 1,
-			  minHeight: '100vh',
-			  flexDirection: 'column',
+			display:'flex',
+			flex: 1,
+			minHeight: '100vh',
+			flexDirection: 'column',
 		  }}>
 			{ this.state.pesquisaChamada ? <Redirect to={'/buscar/busca='+this.state.pesquisa}/>: (null)
-				//Se houver pesquisa, página será redirecionada, depois disso, state é resetada
+			  //Se houver pesquisa, página será redirecionada, depois disso, state é resetada
 			}
 
 			{ this.state.pesquisaChamada ? this.setState({pesquisaChamada: false}) : null }
