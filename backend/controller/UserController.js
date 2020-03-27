@@ -280,23 +280,52 @@ module.exports = {
 
     async getCarrinho(req,res){
 
-        async function getFullInfo(id_array){
+        async function getFullInfo(id_array, email){
+            //Desestrutura carrinho
             const {carrinho} = id_array
+            let status = -1
 
+            //Cria array apenas com IDs
             const id_carrinho = carrinho.map(item => item[0])
-
-            const FullInfo = await Produto.find({_id: {$in: id_carrinho}})
             
-            return FullInfo
+            //Devolve lista de produtos do banco pelo array
+            const FullInfo = await Produto.find({_id: {$in: id_carrinho}})
+
+            //Se nenhum item tiver sido previamente deletado retorna FullInfo
+            if(FullInfo.length == id_carrinho.length){     
+                status = 0
+                return {FullInfo, status}
+            }
+            
+
+            //Se algum item tiver sido deletado, recriar array de carrinho
+            status = 1
+            const [fixedCarrinho] = FullInfo.map((item)=>{
+                const temp = []
+
+                carrinho.map((itemCarrinho)=>{
+                    if(itemCarrinho[0] == item._id){
+                        temp.push(itemCarrinho)
+                    }
+                })
+
+                return temp
+            })
+
+            await User.findOneAndUpdate({email},{$set: {carrinho: fixedCarrinho}})
+            
+            status = 1
+            return {FullInfo, status}
         }
 
         const { email } = req.body
 
-        const id_array = await User.findOne({email})
+        //Não deve atualizar
+        const userInfo = await User.findOne({email})
 
-        const carrinho = await getFullInfo(id_array);
-
-        return res.send(carrinho)
+        const {FullInfo, status} = await getFullInfo(userInfo, email);
+        
+        return res.json({FullInfo, status})
     },
     
     async Login(req,res){
