@@ -86,29 +86,6 @@ class Roteador extends Component {
     localStorage.removeItem("@stbl/client/user");
   }
 
-  //Função que executava a requisição com o banco de dados
-  mostra = () =>{
-
-	api.get('/mostrartodosprodutos').then(response => {
-	  response.data.map((obj)=>{
-		//Remove o path da imagem e seta como o link dela
-		obj.img = obj.img_url;
-		return true
-	  });
-			
-	  this.setState({
-		dados: response.data,
-		carregado: true,
-	  });
-
-
-	}).catch(e => {
-	  console.log(e);
-	  this.setState({error: true});
-	});
-		
-  }
-
   //Esta função será passada aos componetes filhos onde houver componete produto
   addCarrinho = (dados) =>{
 	const frete = new Frete();
@@ -143,8 +120,6 @@ class Roteador extends Component {
 	const target = novaLista.findIndex(item => item._id === produto._id)
 	novaLista[target].qtd = novaLista[target].qtd + qtd;
 
-	console.log(this.state.dadosCarrinho);
-
 	const frete = new Frete();
 	// Caso dimensões das caixa com novo item passem do limite, item não será adcionado
 	if(!frete.test(novaLista)) {
@@ -177,7 +152,6 @@ class Roteador extends Component {
 	}, () => {
 		// Caso haja login, bd do usuário deve ser atualizado
 		if(this.state.user){
-			console.log(dados)
 			api.post('/removercarrinho', {email: this.state.user.email, titulo: dados.titulo});
 		}
 	  });
@@ -187,13 +161,16 @@ class Roteador extends Component {
 
   // Método para carregar carrinho do usuário no banco de dados
   loadCarrinho = async () => {
-	console.log('carregando carrinho...');
 
-	const res = await api.post('/pegarcarrinho', { teste: 'teste', email: this.state.user.email});
-
+	const res = await api.post('/pegarcarrinho', { email: this.state.user.email});
+	res.data.map((obj)=>{
+      //Remove o path da imagem e seta como o link dela
+      obj.img = obj.img_url;
+      return true
+	});
+	  
 	this.setState({
 		dadosCarrinho: res.data,
-		qtdCarrinho: res.data.length // ####### fazer calculo correto
 	});
 	this.loadItensQtd();
   }

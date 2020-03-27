@@ -31,7 +31,6 @@ class Home extends Component {
         return true
       });
 
-      console.log(res.data);
       this.setState({ promocoes: res.data });
     })
 
@@ -41,7 +40,7 @@ class Home extends Component {
         obj.img = obj.img_url;
         return true
       });
-      
+
       this.setState({ novidades: res.data });
     })
   }
