@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import ListaProduto from '../Produto/ListaProduto';
 import './lojaVirtualStyle.css';
 import BannerLV from '../Images/bannerlv.jpg';
-
+import api from '../API/api';
 
 class LojaVirtual extends Component {
   //State altera menu lateral de categorias
@@ -11,30 +11,45 @@ class LojaVirtual extends Component {
     categoryIndex: 0, //Aponta um indice da lista de categorias
     itemOver: null, //Dinamiza hover do menu de categoiras
     dropped: false, //State para menu do modo mobile
-    produtos: this.props.dados,
+    produtos: [],
   }
 
-  novaCategoria = (categoria) =>{
+  novaCategoria = async (categoria) =>{
     this.setState({ categoryIndex: categoria.index });
 
-    if(categoria.request.toLowerCase() === 'todos'){
-      this.setState({produtos: this.props.dados});
-    } else {
-      let novaLista = [];
-
-      this.props.dados.map((produto) => {
-        if(produto.tipoProduto.toLowerCase() === categoria.request.toLowerCase()){
-          novaLista.push(produto);
-        }
-        return true;
+    await api.get(categoria.request).then(res => {
+      res.data.map((obj)=>{
+        //Remove o path da imagem e seta como o link dela
+        obj.img = obj.img_url;
+        return true
       });
       
-      this.setState({produtos: novaLista});
+      this.setState({ produtos: res.data });
 
-    }
+    }).catch(e => {
+      console.log(e);
+      alert("Erro ao tentar carregar produtos... Tente novamente mais tarde!");
+
+    });
     
   }
 
+  componentWillMount(){
+    api.get('/mostrartodosprodutos').then(res => {
+      res.data.map((obj)=>{
+        //Remove o path da imagem e seta como o link dela
+        obj.img = obj.img_url;
+        return true
+      });
+
+      this.setState({produtos: res.data});
+
+    }).catch(e => {
+      console.log(e);
+      alert("Erro ao tentar carregar produtos... Tente novamente mais tarde!");
+
+    });
+  }
 
   render() {
 
@@ -194,9 +209,9 @@ class LojaVirtual extends Component {
 
 
 const categories = [
-  { title: "Novidades", descri: "Lançamentos na Loja 7 Tons de Beleza", index: 0, request: "#" },
-  { title: "Promoções", descri: "Promoções especiais", index: 1, request: "#" },
-  { title: "Todos", descri: "Todos os produtos do nosso catálogo", index: 2, request: "#" },
+  { title: "Todos", descri: "Todos os produtos do nosso catálogo", index: 0, request: '/mostrartodosprodutos' },
+  { title: "Promoções", descri: "Promoções especiais", index: 1, request: '/mostrarprodutopromocao' },
+  { title: "Novidades", descri: "Lançamentos na Loja 7 Tons de Beleza", index: 2, request: '/mostrarprodutonovidade' },
 ]
 
 export default LojaVirtual

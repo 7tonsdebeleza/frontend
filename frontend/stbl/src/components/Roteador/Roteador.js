@@ -17,13 +17,11 @@ import Carrinho from '../Carrinho/Carrinho';
 import Checkout from '../Carrinho/Checkout';
 import { Compras, Public } from '../Produto/Dados'; //Dados provisórios para listas de produtos
 import Busca from '../Produto/Busca';
-import Carregamento from '../Carregamento/Carregamento';
 import Cliente from "../Cliente/Cliente";
 import AtualizarClienteInfo from "../Cliente/AtualizarClienteInfo";
 import GoTop from "./GoTop";
 import PostsList from "../Blog/PostsList";
 import Publicacao from "../Blog/Publicacao";
-import ErroInterface from "./ErroInterface";
 import api from "../API/api";
 import Frete from '../Frete/Frete';
 
@@ -37,9 +35,7 @@ class Roteador extends Component {
 	pesquisa: "",
 	pesquisaChamada: false,
 	dados: [],
-	carregado: false,
 	user: null,
-	error: false,
   }
 
   //Função que será herdada pelo componente de login do cliente
@@ -245,9 +241,6 @@ class Roteador extends Component {
   }
 
   componentDidMount(){
-	//Carregando produtos do banco de dados 
-	this.mostra();
-
 	//recuperando estado de usuário logado
 	let token = localStorage.getItem("@stbl/client/user");
     if(token !== null){
@@ -255,83 +248,73 @@ class Roteador extends Component {
 	  //##### Implementar função para conectar carrinho do cliente logado
 
 	  this.auth(token);
-    }
+	}	
   }
 
   render() {
-	//Caso haja erro na api
-	if(this.state.error) return <ErroInterface />;
+	return (
+	  <BrowserRouter>	
+		<div>
+		  <GoTop />
 
-	//Os componentes são renderizados apenas se requisião ao banco de dados tiver finalizado
-	if(!this.state.carregado) return <Carregamento />;
-
-	else {
-	  return (
-		<BrowserRouter>	
-		  <div>
-			<GoTop />
-
-			<div style={{
+		  <div style={{
 			  display:'flex',
 			  flex: 1,
 			  minHeight: '100vh',
 			  flexDirection: 'column',
-			}}>
-			  { this.state.pesquisaChamada ? <Redirect to={'/buscar/busca='+this.state.pesquisa}/>: (null)
+		  }}>
+			{ this.state.pesquisaChamada ? <Redirect to={'/buscar/busca='+this.state.pesquisa}/>: (null)
 				//Se houver pesquisa, página será redirecionada, depois disso, state é resetada
-			  }
+			}
 
-			  { this.state.pesquisaChamada ? this.setState({pesquisaChamada: false}) : null }
+			{ this.state.pesquisaChamada ? this.setState({pesquisaChamada: false}) : null }
 
-			  <NavBar pesquisar={this.pesquisar} qtdCarrinho={this.state.qtdCarrinho} dados={this.state.dadosCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} attQtdItem={this.attQtdItem} removerCarrinho={this.removerCarrinho} botaoCarrinho={true} user={this.state.user} logout={this.Clientelogout} />
+			<NavBar pesquisar={this.pesquisar} qtdCarrinho={this.state.qtdCarrinho} dados={this.state.dadosCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} attQtdItem={this.attQtdItem} removerCarrinho={this.removerCarrinho} botaoCarrinho={true} user={this.state.user} logout={this.Clientelogout} />
 
-			  <NavBarMobile pesquisar={this.pesquisar} qtdCarrinho={this.state.qtdCarrinho} dados={this.state.dadosCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} attQtdItem={this.attQtdItem} removerCarrinho={this.removerCarrinho} botaoCarrinho={true} user={this.state.user} logout={this.Clientelogout}/>
+			<NavBarMobile pesquisar={this.pesquisar} qtdCarrinho={this.state.qtdCarrinho} dados={this.state.dadosCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} attQtdItem={this.attQtdItem} removerCarrinho={this.removerCarrinho} botaoCarrinho={true} user={this.state.user} logout={this.Clientelogout}/>
 					
-			  <Switch>
-				<Route exact path="/home" render={() => <Home dados={this.state.dados} addCarrinho={this.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} attQtdItem={this.attQtdItem} removerCarrinho={this.removerCarrinho}/>}/>
+			<Switch>
+			  <Route exact path="/home" render={() => <Home dados={this.state.dados} addCarrinho={this.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} attQtdItem={this.attQtdItem} removerCarrinho={this.removerCarrinho}/>}/>
 
-				<Route exact path="/cadastro" render={() => this.state.user ? <Redirect to='/Cliente'/> : <Cadastro/>}/>
+			  <Route exact path="/cadastro" render={() => this.state.user ? <Redirect to='/Cliente'/> : <Cadastro/>}/>
 
-				<Route exact path="/login" render={() => this.state.user ? <Redirect to='/Cliente'/> : <Login login={this.clientLogin}/>} />
+			  <Route exact path="/login" render={() => this.state.user ? <Redirect to='/Cliente'/> : <Login login={this.clientLogin}/>} />
 
-				<Route exact path="/lojavirtual" render={() => <LojaVirtual dados={this.state.dados} addCarrinho={this.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} attQtdItem={this.attQtdItem} removerCarrinho={this.removerCarrinho}/>}/>
+			  <Route exact path="/lojavirtual" render={() => <LojaVirtual addCarrinho={this.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} attQtdItem={this.attQtdItem} removerCarrinho={this.removerCarrinho}/>}/>
 
-				<Route exact path="/marcas" component={Marcas}/>
+			  <Route exact path="/marcas" component={Marcas}/>
 
-				<Route exact path="/faq" component={Faq}/>
+			  <Route exact path="/faq" component={Faq}/>
 
-				<Route path="/buscar" component={() => this.state.pesquisa === "" ? <Redirect to='/home'/>:<Busca dados={this.state.dados} pesquisa={this.state.pesquisa} addCarrinho={this.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho}  attQtdItem={this.attQtdItem} removerCarrinho={this.removerCarrinho}/>}/>
+			  <Route path="/buscar" component={() => this.state.pesquisa === "" ? <Redirect to='/home'/>:<Busca dados={this.state.dados} pesquisa={this.state.pesquisa} addCarrinho={this.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho}  attQtdItem={this.attQtdItem} removerCarrinho={this.removerCarrinho}/>}/>
 
-				<Route exact path="/carrinho" render={() => <Carrinho logado={this.state.user ? true : false} dados={this.state.dadosCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} attQtdItem={this.attQtdItem} removerCarrinho={this.removerCarrinho} botaoCarrinho={false} naNavbar={false}/>}/>
+			  <Route exact path="/carrinho" render={() => <Carrinho logado={this.state.user ? true : false} dados={this.state.dadosCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} attQtdItem={this.attQtdItem} removerCarrinho={this.removerCarrinho} botaoCarrinho={false} naNavbar={false}/>}/>
 
-				<Route path="/checkout" render={() => <Checkout user={this.state.user} carrinho={this.state.dadosCarrinho} /> }/>
+			  <Route path="/checkout" render={() => <Checkout user={this.state.user} carrinho={this.state.dadosCarrinho} /> }/>
 
-				<Route path="/admin7tons" render={() => <Admin produtos={this.state.dados} consultas={Compras} publics={Public}/>}/>
+			  <Route path="/admin7tons" render={() => <Admin produtos={this.state.dados} consultas={Compras} publics={Public}/>}/>
 
-				<Route exact path="/"  render={() => <Home dados={this.state.dados} addCarrinho={this.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} removerCarrinho={this.removerCarrinho} />}/>
+			  <Route exact path="/"  render={() => <Home dados={this.state.dados} addCarrinho={this.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} removerCarrinho={this.removerCarrinho} />}/>
 
-				<Route exact path="/cliente" render={() => this.state.user? <Cliente user={this.state.user}/> : <Redirect to="/login"/> }/>
+			  <Route exact path="/cliente" render={() => this.state.user? <Cliente user={this.state.user}/> : <Redirect to="/login"/> }/>
 
-				<Route exact path="/cliente/atualizar" render={() => this.state.user? <AtualizarClienteInfo user={this.state.user}/> : <Redirect to="/login"/> }/>
+			  <Route exact path="/cliente/atualizar" render={() => this.state.user? <AtualizarClienteInfo user={this.state.user}/> : <Redirect to="/login"/> }/>
 
+			  {/*Rotas para publicações na aba blog*/}
 
-				{/*Rotas para publicações na aba blog*/}
+			  <Route exact path="/blog" component={() => <Blog publics={Public}><PostsList publics={Public}/></Blog> } /> 
+              <Route path="/blog/posts/" component={() => <Blog publics={Public}><Publicacao publics={Public}/></Blog> } />
 
-				<Route exact path="/blog" component={() => <Blog publics={Public}><PostsList publics={Public}/></Blog> } /> 
-                <Route path="/blog/posts/" component={() => <Blog publics={Public}><Publicacao publics={Public}/></Blog> } />
+			  <Route component={NotFound}/>    			
+			</Switch>
 
-				<Route component={NotFound}/>    			
-			  </Switch>
-
-			  <BotaoTop/>
+			<BotaoTop/>
 					
-			</div>
-			<Footer/>
 		  </div>
-		</BrowserRouter>
-	  );
-	}
-		
+		  <Footer/>
+		</div>
+	  </BrowserRouter>
+	);
   }
 }
 

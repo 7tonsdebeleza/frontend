@@ -15,6 +15,7 @@ import Temp2 from '../Images/tem2.jpg';
 import Temp3 from '../Images/tem3.jpg';
 import Temp4 from '../Images/temp4.jpg';
 import Temp5 from '../Images/temp5.jpg';
+import api from '../API/api';
 
 class Home extends Component {
   state = {
@@ -23,7 +24,26 @@ class Home extends Component {
   }
 
   componentWillMount(){
-    // Carregar produtos da home
+    api.get('/mostrarprodutopromocao').then(res => {
+      res.data.map((obj)=>{
+        //Remove o path da imagem e seta como o link dela
+        obj.img = obj.img_url;
+        return true
+      });
+
+      console.log(res.data);
+      this.setState({ promocoes: res.data });
+    })
+
+    api.get('/mostrarprodutonovidade').then(res => {
+      res.data.map((obj)=>{
+        //Remove o path da imagem e seta como o link dela
+        obj.img = obj.img_url;
+        return true
+      });
+      
+      this.setState({ novidades: res.data });
+    })
   }
 
   render(){
@@ -78,7 +98,7 @@ class Home extends Component {
           this.state.promocoes.length > 0 ?
 
           <div className='container'>
-            <div className='p-4 d-flex flex-row justify-content-center align-items-center text-center d-flex'>
+            <div className=' d-flex flex-row justify-content-center align-items-center text-center d-flex'>
               <div className='col'><hr/></div>
               <div className='col-md-auto spotlight wow fadeIn'>Promoções</div>
               <div className='col'><hr/></div>
@@ -114,7 +134,7 @@ class Home extends Component {
 
         {
           this.state.novidades.length > 0 ?
-          <div className='container undercard' style={{marginTop: "80px"}}>
+          <div className='container undercard'>
             <div className=' d-flex flex-row justify-content-center align-items-center text-center d-flex'>
               <div className='col'><hr/></div>
               <div className='col-md-auto spotlight wow fadeIn'> Novidades </div>
