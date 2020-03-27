@@ -162,16 +162,24 @@ class Roteador extends Component {
   // Método para carregar carrinho do usuário no banco de dados
   loadCarrinho = async () => {
 
+	// Buscando informações dos itens que estão no carrinho do usuário (carrinho do usuário tem id e qtd)
 	const res = await api.post('/pegarcarrinho', { email: this.state.user.email});
-	res.data.map((obj)=>{
-      //Remove o path da imagem e seta como o link dela
-      obj.img = obj.img_url;
+	const carrinhoBd = res.data.FullInfo;
+	const carrinhoFront = [];
+
+	carrinhoBd.map((obj)=>{
+      // Remove o path da imagem e seta como o link dela
+	  obj.img = obj.img_url;
+	  // Filtrando itens do carrinho que tenham estoque disponível
+	  if(obj.estoque > 0) carrinhoFront.push(obj);
       return true
 	});
 	  
 	this.setState({
-		dadosCarrinho: res.data,
+		dadosCarrinho: carrinhoFront,
 	});
+
+	// Carregando qtd individual de cada item (juntando inforamções do carrinho do usuário e informações dos produtos)
 	this.loadItensQtd();
   }
 
@@ -182,13 +190,12 @@ class Roteador extends Component {
 
 	dadosCarrinho.forEach(produto => {
 	  userCarrinho.forEach(produtoArray => {
-		if(produto._id === produtoArray[0]) produto.qtd = produtoArray[1];
+		if(produto._id === produtoArray[0]) {
+		  produto.qtd = produtoArray[1];
+		  qtdCarrinho += produtoArray[1];
+		}
 	  })
 	});
-
-	userCarrinho.forEach(produtoArray => {
-	  qtdCarrinho = qtdCarrinho + produtoArray[1];
-	})
 
 	this.setState({dadosCarrinho, qtdCarrinho});
 
