@@ -88,12 +88,10 @@ class Checkout extends Component {
       await api.post('/getShippingPrice', req).then(res => {
         this.setState({calculandoFrete: false});
 
-        console.log(res.data[0]);
-
         if(res.data === "Limite excedido") return this.chamarAlerta("Seu carrinho está muito cheio... Remova alguns itens para continuar");
         else if(!res.data[0].Erro){
           const floatValFrete = res.data[0].Valor.replace(',','.');
-          return this.setState({freteValor: floatValFrete});
+          return this.setState({freteValor: parseFloat(floatValFrete).toFixed(2)});
         } 
         else return this.chamarAlerta("Erro ao tentar calcular frete... Tente novamente mais tarde ou verifique se sua região recebe frete por Correios!");
 
@@ -340,7 +338,7 @@ class Checkout extends Component {
                 placeholder="Insira um complemento (opcional)" />
             </div>
 
-            <p> <b>SUBTOTAL: </b> <em className="obrigatorio" style={{color: 'black'}}> R${parseFloat((this.state.subtotal).toFixed(2))} </em></p>
+            <p> <b>SUBTOTAL: </b> <em className="obrigatorio" style={{color: 'black'}}> R${parseFloat(this.state.subtotal).toFixed(2)} </em></p>
             
             <p className="btn-secundaryy">
               <Link to="#" onClick={() => this.getShipping() } >Calcular frete</Link>
