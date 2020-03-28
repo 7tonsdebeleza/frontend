@@ -138,7 +138,7 @@ routes.post('/getShippingPrice',CorreiosController.getShippingPrice)
 
 //PAGSEGURO
 //Recebe status do PagSeguro
-routes.post('/pagseguro/status', [PagSeguroController.receiveStatus, HistoryController.store, HistoryController.updateHistory] );
+routes.post('/pagseguro/status', [PagSeguroController.receiveStatus, HistoryController.store, HistoryController.updateHistory, ProductController.Comprar]);
 //Fazer Checkout
 routes.post('/pagseguro/checkout',PagSeguroController.sendCheckout);
 

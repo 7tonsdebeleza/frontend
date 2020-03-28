@@ -47,7 +47,14 @@ module.exports = {
     },
 
     async Comprar(req,res){
-        const estoque = Product.findById({_id: req.body.id}, (err,data) =>{
+        const { items } = req.body;
+        console.log("O estoque dos itens a seguir deve ser atualziado no BD:")
+        console.table(items);
+
+        // Retorno para PagSeguro não spamar
+        return res.send("Status de transação paga salvo com estoque atualizado");
+
+        /*const estoque = Product.findById({_id: req.body.id}, (err,data) =>{
             if(data.estoque >= req.body.quantidade){
                 Product.findByIdAndUpdate({_id: req.body.id},{$set: {estoque: data.estoque - req.body.quantidade}},
                     {new: true},(err,doc) =>{
@@ -59,7 +66,7 @@ module.exports = {
                     }
                 )
             }
-        })
+        })*/
 
     },
 

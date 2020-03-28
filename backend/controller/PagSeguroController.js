@@ -41,8 +41,7 @@ module.exports = {
     }
 
     // POST para obtenção de código para redirecionamento de checkout
-    //const url = config.PagSeguroConfig.mode === 'sandbox' ? `https://ws.sandbox.pagseguro.uol.com.br/v3/checkout/email=${config.PagSeguroConfig.email}&token=${config.PagSeguroConfig.token}` : `https://ws.pagseguro.uol.com.br/v3/checkout/email=${config.PagSeguroConfig.email}&token=${config.PagSeguroConfig.token}`;
-    const url = 'https://ws.sandbox.pagseguro.uol.com.br/v2/checkout/';
+    const url = config.PagSeguroConfig.mode === 'sandbox' ? 'https://ws.sandbox.pagseguro.uol.com.br/v2/checkout/' : 'https://ws.pagseguro.uol.com.br/v2/checkout/';
 
     let body = {};
 
@@ -51,6 +50,9 @@ module.exports = {
 
     // Endereço de redirecionamento após fim de checkout na PagSeguro
     body.redirectURL = 'http://7tonsdebeleza.com.br/';
+
+    // Endereço para envio de notificação ########## deve ser alterado em produção
+    body.notificationURL = 'http://localhost:3333/pagseguro/status';
 
     // Email visível para cliente após fim da compra
     body.receiverEmail = config.PagSeguroConfig.email; 
