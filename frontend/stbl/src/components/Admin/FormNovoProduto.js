@@ -20,6 +20,8 @@ class FormNovoProduto extends Component {
     peso: "",
     alert: false,
     errorMsg: "",
+
+    carregando: false,
   }
 
   atualizarInput = (e) =>{
@@ -145,8 +147,9 @@ class FormNovoProduto extends Component {
     novoProduto.append('peso', peso);
     novoProduto.append('promocao', promocao);
 
-    console.log(promocao);
-    api.post("/criarproduto",novoProduto).then(res => {
+    this.setState({ carregando: true });
+
+    await api.post("/criarproduto",novoProduto).then(res => {
       // ###### analisar respostas 
       if(res.data === "Imagem já existente!" || res.data === "Titulo já existente!"){
         return this.setState({alert: res.data});
@@ -161,7 +164,10 @@ class FormNovoProduto extends Component {
     }).catch(e => {
       console.log(e);
       return this.chamarAlerta("Erro inesperado... Tente novamente mais tarde!");
-    })
+
+    });
+
+    this.setState({ carregando: false });
 
   }
 
@@ -256,7 +262,7 @@ class FormNovoProduto extends Component {
         </form>
 
         <div className='admin-form-item'>
-          <button className='btn-secundaryy' onClick={() =>{this.enviar()}}>Enviar</button>
+          <button className='btn-secundaryy' onClick={() =>{this.enviar()}}> { this.state.carregando ? "Enviando..." : "Enviar" } </button>
           {
             this.state.alert ? 
             (<div id="alert-div" className="alertacadastro">{this.state.alert}

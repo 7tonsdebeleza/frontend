@@ -15,6 +15,8 @@ class Login extends Component {
     modal: false,
     alertModal: null,
     modalSucess: false,
+
+    carregando: false,
   }
 
   chamarAlerta = (msg) => {
@@ -35,7 +37,7 @@ class Login extends Component {
   }
 
   //função chamada clicando no botao Login
-  CliqueLogin = () => {
+  CliqueLogin = async () => {
     
     //teste para saber se existe algum campo vazio, se existir exibir um alerta
     if (this.state.email === "" || this.state.senha === ""
@@ -47,18 +49,23 @@ class Login extends Component {
     //Criando objeto de usuário a ser logado
     let user = {
       email: this.state.email,
-      senha: this.state.senha
+      senha: this.state.senha,
     }
 
+    this.setState({carregando: true});
+
     //Executando uma função herdada com os dados passados, res recebe retorno da função;
-    this.props.login(user).then((res) => {
+    await this.props.login(user).then((res) => {
       console.log(res)
       if(res.error) return this.chamarAlerta("Erro inesperado... Tente novamento mais tarde!");
       if(res === "Email inválido!" || res === "Senha inválida!") return this.chamarAlerta(res);
     }).catch(e => {
       console.log(e);
       return this.chamarAlerta("Erro inesperado... Tente novamento mais tarde!");
+
     });
+
+    this.setState({ carregando: false });
     
   }
 
@@ -184,7 +191,7 @@ class Login extends Component {
             {!this.props.admin ? <p onClick={()=> this.chamarEsqueceSenha()}> <Link to="#"> Esqueceu sua senha? </Link></p> : null}
             
             <p className="btn-secundaryy">
-              <Link to="#" onClick={this.CliqueLogin}>Entrar</Link>
+              <Link to="#" onClick={this.CliqueLogin}> { this.state.carregando ? 'Entrando...' : 'Entrar' } </Link>
               <em className="obrigatorio">(* obrigatório)</em>
             </p>
 

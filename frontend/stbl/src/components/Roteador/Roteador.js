@@ -44,28 +44,28 @@ class Roteador extends Component {
 
   	console.log("Gerando token...");
   	const res = await api.post('/Sign',{
-	  email: user.email,
-	  senha: user.senha
+	  	email: user.email,
+	  	senha: user.senha
   	});		
         
   	//Caso login não funcione
   	if(res.data.error) return res.data.error;
 
   	if(res.data === "Email inválido!" || res.data === "Senha inválida!"){
-	  return res.data;
+	  	return res.data;
 	
   	} else {
 	  //Salvando token para permância de login
       localStorage.setItem('@stbl/client/user', res.data.token);
-	  this.auth(res.data.token);
-	  return true;
+	  	this.auth(res.data.token);
+	  	return true;
 
   	}
   }
 
   //Função de autenticação de token
   auth = async (token) => {
-	console.log("Autenticando...");
+		console.log("Autenticando...");
 
 	await api.post('/Auth',  {headers: {"Authorization" : token}}).then(res => {
 	  if(res.data.error){

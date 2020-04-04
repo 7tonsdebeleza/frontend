@@ -19,10 +19,14 @@ class Cadastro extends Component {
     informationemail: false,
     informationsenha: false,
     modal: false,
+
+    carregando: false,
   }
 
-  cadastrar = () => {
-    api.post('/criarusuario', {
+  cadastrar = async () => {
+    this.setState({ carregando: true });
+
+    await api.post('/criarusuario', {
       nome: this.state.nome,
       sobrenome: this.state.sobrenome,
       email: this.state.email,
@@ -47,7 +51,9 @@ class Cadastro extends Component {
       console.log(e);
       this.chamarAlerta("Erro inesperado... Tente novamente mais tarde!");
 
-    })
+    });
+
+    this.setState({ carregando: false });
 
   }
 
@@ -168,7 +174,7 @@ class Cadastro extends Component {
             </div>
 
             <p className="btn-secundaryy">
-              <Link to="#" onClick={() => this.CliqueCriarConta()} >Criar conta</Link>
+              <Link to="#" onClick={() => this.CliqueCriarConta()} > { this.state.carregando ? "Cadastrando..." : "Criar conta" } </Link>
               <em className="obrigatorio">(* obrigatório)</em>
             </p>
 
