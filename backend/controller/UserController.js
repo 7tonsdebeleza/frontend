@@ -49,9 +49,11 @@ module.exports = {
                 frete,
                 carrinho: []
             })
+         
+         return res.json({newUser: true})
         }
 
-        return res.json(user)
+        return res.json({newUser: false})
     },
 
     async updateName(req,res){

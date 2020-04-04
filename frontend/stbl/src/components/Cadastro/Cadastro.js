@@ -33,19 +33,24 @@ class Cadastro extends Component {
       password: this.state.senha
     }).then(res => {
 
-      this.setState({
-        nome: "",
-        sobrenome: "",
-        email: "",
-        senha: "",
-        confirmaremail: "",
-        confirmarsenha: "",
+      if(res.data.newUser){
+        this.setState({
+          nome: "",
+          sobrenome: "",
+          email: "",
+          senha: "",
+          confirmaremail: "",
+          confirmarsenha: "",
 
-        alertMsg: "",
-        informationemail: false,
-        informationsenha: false,
-        modal: true,
-      });
+          alertMsg: "",
+          informationemail: false,
+          informationsenha: false,
+          modal: true,
+        });
+      } else {
+        this.chamarAlerta("Esse email já possui cadastrado...");
+      }
+      
 
     }).catch(e => {
       console.log(e);
