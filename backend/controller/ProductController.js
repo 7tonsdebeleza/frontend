@@ -58,8 +58,8 @@ module.exports = {
         items.map(async (item)=>{
             try{
                 await Product.findByIdAndUpdate({_id: item.id},(err,data)=>{
-                    if(data.estoque >= req.body.quantidade){
-                        Product.findByIdAndUpdate({_id: req.body.id},{$set: {estoque: data.estoque - req.body.quantidade}},
+                    if(data.estoque >= item.quantity){
+                        Product.findByIdAndUpdate({_id: item.id},{$set: {estoque: data.estoque - item.quantity}},
                             {new: true},(err,doc) =>{
                                 if(err){
                                     return res.send(err)
@@ -70,35 +70,13 @@ module.exports = {
                         )
                     }
 
-                    return res.send({error: `Quantidade insiponível em estoque para produto de ID:${data.id}`})
+                    return res.send({error: `Quantidade indisponível em estoque para produto de ID:${data.id}`})
                 })
 
             }catch(e){
-                return e
+                return res.send(e);
             }
-        })
-
-        /*
-        console.log("O estoque dos itens a seguir deve ser atualziado no BD:")
-        console.table(items);
-        
-        // Retorno para PagSeguro não spamar
-        return res.send("Status de transação paga salvo com estoque atualizado");
-        
-        const estoque = Product.findById({_id: req.body.id}, (err,data) =>{
-            if(data.estoque >= req.body.quantidade){
-                Product.findByIdAndUpdate({_id: req.body.id},{$set: {estoque: data.estoque - req.body.quantidade}},
-                    {new: true},(err,doc) =>{
-                        if(err){
-                            return res.send(err)
-                        }
-
-                        return res.send(doc)
-                    }
-                )
-            }
-        })*/
-
+        });
     },
 
     async Show(req,res){
