@@ -83,7 +83,7 @@ const HistorySchema = new mongoose.Schema({
         type: String
     },
     shippingComplement:  {
-        required: true,
+        required: false,
         type: String
     },
     shippingDistrict:  {
