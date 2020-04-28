@@ -12,10 +12,10 @@ const CorreiosController = require('./controller/CorreiosController');
 const PagSeguroController = require('./controller/PagSeguroController');
 const HistoryController = require('./controller/HistoryController')
 
-/*
+
 const EmailController = require('./controller/EmailController');
-routes.get('/emailteste',EmailController.teste)
-*/
+routes.post('/emailteste',EmailController.teste)
+
 
 //PELO AMOR DE DEUS APAGAR
 const AdminController = require("./controller/AdminController");

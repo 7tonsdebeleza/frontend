@@ -1,30 +1,31 @@
-const mailer = require('nodemailer');
 
-const transporter = mailer.createTransport({
-    service: 'gmail',
-    auth:{
-        user: 'pvocufc@gmail.com',
-        pass: 'Pvoc@87835018'
-    }
-})
+const { mailConfig } = require('../globalconfig')
 
-const mailOption = {
-    from: 'pvocufc@gmail.com',
-    to: ['hybraimaraujo@usp.br'],
-    subject: 'Envio automatico',
-    html: '<p>Click <a href="http://localhost:3000">here</a> to reset your password</p>'
+const SendGridMail = require("@sendgrid/mail")
 
-}
+SendGridMail.setApiKey(mailConfig.key)
 
 module.exports={
     async teste(req,res){
-        transporter.sendMail(mailOption, function(err, info){
-            if(err){
-                return res.json(err)
+        const msg = {
+            to: 'stormsamurai1@yahoo.com.br',
+            from: 'stormsamurai1@yahoo.com.br',
+            subject: 'Verificação de email',
+            text: 'Clique para verificar',
+            html: '<strong>entre na sua sessão da 7tons e confirme o email</strong>',
+          };
+        try{
+            const x = await SendGridMail.send(msg);
+            console.log(x)
+            return res.send("It Works")
+        }catch(e){
+            console.log(`[Error]: ${e}`)
+
+            if(e.response){
+                console.log(`[Error response]: ${e.response}`)
             }
-            else{
-                res.json(info.response)
-            }
-        })
+
+            return res.send(e)
+        }
     }
 }
