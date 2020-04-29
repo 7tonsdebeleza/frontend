@@ -9,7 +9,7 @@ module.exports={
     async teste(req,res){
         const msg = {
             to: 'stormsamurai1@yahoo.com.br',
-            from: 'stormsamurai1@yahoo.com.br',
+            from: 'pvocufc@gmail.com',
             subject: 'Verificação de email',
             text: 'Clique para verificar',
             html: '<strong>entre na sua sessão da 7tons e confirme o email</strong>',
