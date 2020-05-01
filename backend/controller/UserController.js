@@ -22,6 +22,8 @@ module.exports = {
         state=" ",
         country=" "} = req.body
         
+        const emailConfirmado = false
+        
         let user = await User.findOne({email})
 
         if(!user){
@@ -47,6 +49,7 @@ module.exports = {
                 phoneNumber,
                 cep,
                 frete,
+                emailConfirmado,
                 carrinho: []
             })
          
@@ -395,5 +398,23 @@ module.exports = {
 
         })
     },
-         
+    
+    async ConfirmarEmail(req,res){
+        const { id } = req.params
+    
+        const user = await User.findOne({_id: id})
+
+        if(user.emailConfirmado === true){
+            return res.json({"Error": 'Email confirmado'})
+        }
+
+        await User.findOneAndUpdate({_id:id}, {$set: {emailConfirmado: true}},
+            {new:true}, (err,doc)=>{
+                if(err){
+                    return res.send(err)
+                }
+                
+                return res.json({"Status": 200})
+            })
+    }
 }
