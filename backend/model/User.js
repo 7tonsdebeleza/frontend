@@ -46,8 +46,12 @@ const UserSchema = new mongoose.Schema({
     emailConfirmado:{
         required: true,
         type: Boolean
+    },
+    senhaAntiga:{
+        required: true,
+        type: String
     }
-    
+
     },{
         timestamps: true,
         //toJSON: {virtuals: true},
