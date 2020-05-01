@@ -23,6 +23,7 @@ module.exports = {
         country=" "} = req.body
         
         const emailConfirmado = false
+        const senhaAntiga = " "
         
         let user = await User.findOne({email})
 
@@ -50,6 +51,7 @@ module.exports = {
                 cep,
                 frete,
                 emailConfirmado,
+                senhaAntiga,
                 carrinho: []
             })
          
@@ -145,21 +147,37 @@ module.exports = {
     },
 
     async updatePassword(req,res){
-        const {email, newPass} = req.body;
+        const {id, newPass} = req.body;
 
-        const user = await User.findOneAndUpdate({email},{$set: {password: newPass}},
+        const user = await User.findOne({_id: id})
+
+        if(!user) return res.send("Email não cadastrado!")
+
+        await User.findOneAndUpdate({_id: id},{$set: {password: bcrypt.hashSync(newPass, data.salt), senhaAntiga: user.password}},
             {new:true}, (err,doc)=>{
                 if(err){
                     return res.send(err)
                 }
                 
-                // return res.json(doc)
+                return res.json(doc)
             })
+    },
+    async resetPassword(req,res){
+        const {id} = req.params;
+
+        const user = await User.findOne({_id: id})
 
         if(!user) return res.send("Email não cadastrado!")
 
+        await User.findOneAndUpdate({_id: id},{$set: {password: user.senhaAntiga, senhaAntiga: " "}},
+            {new:true}, (err,doc)=>{
+                if(err){
+                    return res.send(err)
+                }
+                
+                return res.json(doc)
+            })
     },
-
     async updateEmail(req,res){
 
         const [email, newEmail] = req.body;
