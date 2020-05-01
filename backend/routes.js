@@ -11,10 +11,11 @@ const FreteController = require("./controller/FreteController");
 const CorreiosController = require('./controller/CorreiosController');
 const PagSeguroController = require('./controller/PagSeguroController');
 const HistoryController = require('./controller/HistoryController')
-
-
 const EmailController = require('./controller/EmailController');
-routes.post('/emailteste',EmailController.teste)
+
+//Confirmar Email
+routes.post('/confirmaremail', EmailController.ConfirmarEmail)
+routes.get('/confirmaremail/:id', UserController.ConfirmarEmail)
 
 
 //PELO AMOR DE DEUS APAGAR

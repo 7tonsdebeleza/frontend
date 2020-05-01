@@ -42,8 +42,12 @@ const UserSchema = new mongoose.Schema({
     },
     carrinho: {
         type: []
+    },
+    emailConfirmado:{
+        required: true,
+        type: Boolean
     }
-
+    
     },{
         timestamps: true,
         //toJSON: {virtuals: true},
