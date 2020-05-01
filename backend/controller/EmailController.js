@@ -6,18 +6,20 @@ const SendGridMail = require("@sendgrid/mail")
 SendGridMail.setApiKey(mailConfig.key)
 
 module.exports={
-    async teste(req,res){
+    async ConfirmarEmail(req,res){
+        const { id, email } = req.body
+
         const msg = {
-            to: 'stormsamurai1@yahoo.com.br',
+            to: `${email}`,
             from: 'pvocufc@gmail.com',
             subject: 'Verificação de email',
             text: 'Clique para verificar',
-            html: '<strong>entre na sua sessão da 7tons e confirme o email</strong>',
+            html: `<a href="http://localhost:3333/confirmaremail/${id}">Clique para confirmar seu email</a>`,
           };
         try{
             const x = await SendGridMail.send(msg);
-            console.log(x)
-            return res.send("It Works")
+            
+            return res.json({'status': 200})
         }catch(e){
             console.log(`[Error]: ${e}`)
 
