@@ -431,7 +431,7 @@ class ProdutoEditavel extends Component {
 
               <Modal listenersId={[BotaoModal, BotaoModalCancel]} actived={false}>
                 <h3>Tem certeza que deseja remover este item?</h3>
-                <p>O produto será removido completamnte do catálogo da loja virtual e não poderá ser recuperado!</p>
+                <p>O produto será removido completamente do catálogo da loja virtual e não poderá ser recuperado!</p>
                 <div><button onClick={() =>{this.removerItem(this.props.dados.id)}}>Continuar</button></div>
                 <div><button id={BotaoModalCancel} >Cancelar</button></div>
               </Modal>

@@ -75,7 +75,7 @@ class Footer extends Component {
                 </div>
                 <div className="footer-bottom container">
                     <div className="footer-corp">
-                        © 2019 Todos os direitos reservados. 7 Tons de Beleza.  <br></br> Ecommerce desenvolvido por <a href='http://www.ceos.ufc.br/'>CEOS.</a> 
+                        © 2020 Todos os direitos reservados. 7 Tons de Beleza.  <br></br> Ecommerce desenvolvido por <a href='http://www.ceos.ufc.br/'>CEOS.</a> 
                     </div>
                     <div>
                         <ul className="footer-payments nav">

@@ -3,6 +3,7 @@ import ProdutoEditavel from "./ProdutoEditavel";
 import { Link } from "react-router-dom";
 import Search2 from '../Images/iconsearch2.png';
 import Buscador from '../Produto/Buscador';
+import api from '../API/api';
 
 class ListaProdutoEditavel extends Component {
     /*
@@ -13,21 +14,21 @@ class ListaProdutoEditavel extends Component {
 
     */
     state = {
-        produtos: this.props.list,
+        produtos: [],
         pesquisa: "",
         pesquisado: ''
     }
 
     //Atualização de input de pesquisa
-    inputPesquisa = (e) =>{
+    inputPesquisa = (e) => {
         this.setState({
             pesquisa: e.target.value
         })
     }
 
     //Gerar novo filtro de pesquisa
-    pesquisar = (busca) =>{
-        let novaLista = Buscador(busca, this.props.list);
+    pesquisar = (busca) => {
+        let novaLista = Buscador(busca, this.state.produtos);
         this.setState({
             produtos: novaLista,
             pesquisado: this.state.pesquisa
@@ -41,9 +42,24 @@ class ListaProdutoEditavel extends Component {
         input.addEventListener("keyup", (event) => {
             // codigo 13 para enter
             if (event.keyCode === 13) {
-              // Clicando no icone de lupa de pesquisa
-              this.pesquisar(this.state.pesquisa);
+                // Clicando no icone de lupa de pesquisa
+                this.pesquisar(this.state.pesquisa);
             }
+        });
+
+        api.get('/mostrartodosprodutos').then(res => {
+            res.data.map((obj) => {
+                //Remove o path da imagem e seta como o link dela
+                obj.img = obj.img_url;
+                return true
+            });
+
+            this.setState({ produtos: res.data });
+
+        }).catch(e => {
+            console.log(e);
+            alert("Erro ao tentar carregar produtos... Tente novamente mais tarde!");
+
         });
 
     }
@@ -53,26 +69,26 @@ class ListaProdutoEditavel extends Component {
             <div>
                 <div className='admin-form'>
                     <p>PESQUISAR:</p>
-                    <input className='admin-form' id="adminPesquisa" type='text' value={this.state.pesquisa} onChange={this.inputPesquisa}/>
-                    <img className='admin-pesquisa' onClick={() => { this.pesquisar(this.state.pesquisa) }} width='20' height='20' src={Search2} alt='pesquisa'/>
+                    <input className='admin-form' id="adminPesquisa" type='text' value={this.state.pesquisa} onChange={this.inputPesquisa} />
+                    <img className='admin-pesquisa' onClick={() => { this.pesquisar(this.state.pesquisa) }} width='20' height='20' src={Search2} alt='pesquisa' />
                     <p>Exibindo resultados para '{this.state.pesquisado}':</p>
                 </div>
-                
+
 
                 <div className="listaProduto">
-                <ul className="nav container d-flex">
+                    <ul className="nav container d-flex">
 
-                    {
-                        this.state.produtos.map((dados) => {
-                            return(
-                                <li className="pro nav-item" key={dados.id}>
-                                    <ProdutoEditavel dados={dados}/>
-                                </li>
-                            )
-                        })
-                    }
-                    
-                </ul>
+                        {
+                            this.state.produtos.map((dados) => {
+                                return (
+                                    <li className="pro nav-item" key={dados.id}>
+                                        <ProdutoEditavel dados={dados} />
+                                    </li>
+                                )
+                            })
+                        }
+
+                    </ul>
                 </div>
                 <p className="btn-secundaryy">
                     <Link to="/admin7tons"> &larr; Retornar</Link>
