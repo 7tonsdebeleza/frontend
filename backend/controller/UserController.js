@@ -61,9 +61,9 @@ module.exports = {
                 req.body.id = user._id;
                 next();
             } catch (e) {
-                return res.status(500).json({ error: e, message: 'falha ao tentar criar usuário'})
+                return res.status(500).json({ error: e, message: 'falha ao tentar criar usuário' })
             }
-         
+
         } else return res.status(409).json({ message: 'usuário já está cadastrado' });
     },
 
@@ -153,20 +153,47 @@ module.exports = {
     },
 
     async updatePassword(req, res) {
-        const { id, newPass } = req.body;
 
-        const user = await User.findOne({ _id: id })
+        const { token } = req.params;
 
-        if (!user) return res.send("Email não cadastrado!")
+        jwt.verify(token, process.env.SECRET_KEY, async function (err, decode) {
+            if (err) {
+                //Caso em que token se expirou ou houve algum erro interno
+                if (err.name === 'TokenExpiredError')
+                    return res.send('Este pedido expirou... Retorne ao site da 7 Tons e tente recuperar sua senha novamente!');
 
-        await User.findOneAndUpdate({ _id: id }, { $set: { password: bcrypt.hashSync(newPass, data.salt), senhaAntiga: user.password } },
-            { new: true }, (err, doc) => {
-                if (err) {
-                    return res.send(err)
-                }
+                console.log(err);
+                return res.send('Erro inesperado... Tente novamente mais tarde!');
+            }
 
-                return res.json(doc)
-            })
+            await User.findOneAndUpdate({
+                _id: decode.id },
+                { $set: { password: bcrypt.hashSync(decode.newPass, data.salt), senhaAntiga: decode.senhaAntiga } },
+                { new: true }, (err, doc) => {
+                    if (err) {
+                        return res.send('Erro inesperado... Tente novamente mais tarde!');
+                    }
+
+                    return res.send('Senha atualizada com sucesso! Retorne ao site da 7 Tons e realize login com sua nova senha!');
+                })
+
+        })
+
+
+        // const { id, newPass } = req.body;
+
+        // const user = await User.findOne({ _id: id })
+
+        // if (!user) return res.send("Email não cadastrado!")
+
+        // await User.findOneAndUpdate({ _id: id }, { $set: { password: bcrypt.hashSync(newPass, data.salt), senhaAntiga: user.password } },
+        //     { new: true }, (err, doc) => {
+        //         if (err) {
+        //             return res.send(err)
+        //         }
+
+        //         return res.json(doc)
+        //     })
     },
     async resetPassword(req, res) {
         const { id } = req.params;
@@ -391,7 +418,7 @@ module.exports = {
                 return res.send("Senha inválida!")
             }
 
-            if (!data.emailConfirmado){
+            if (!data.emailConfirmado) {
                 return res.send('Confirme seu email!');
             }
 
@@ -421,7 +448,7 @@ module.exports = {
             User.where({ email: decode.email }).findOne((e, data) => {
                 if (e) return res.send({ error: e })
                 if (!data) return res.send("Usuário não encontrado")
-                if (!data.emailConfirmado){
+                if (!data.emailConfirmado) {
                     return res.send('Confirme seu email!');
                 }
                 return res.send(data)

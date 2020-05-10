@@ -17,9 +17,8 @@ const EmailController = require('./controller/EmailController');
 routes.post('/confirmaremail', EmailController.ConfirmarEmail)
 routes.get('/confirmaremail/:id', UserController.ConfirmarEmail)
 routes.post('/trocarsenha', EmailController.TrocarSenha)
-routes.put('/trocarsenha', UserController.updatePassword)
+routes.get('/trocarsenha/:token', UserController.updatePassword)
 routes.put('/revertersenha/:id', UserController.resetPassword)
-
 
 //PELO AMOR DE DEUS APAGAR
 const AdminController = require("./controller/AdminController");

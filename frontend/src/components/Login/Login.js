@@ -58,10 +58,6 @@ class Login extends Component {
     await this.props.login(user).then((res) => {
       if(res.error) return this.chamarAlerta("Erro inesperado... Tente novamento mais tarde!");
       if(res === "Email inválido!" || res === "Senha inválida!" || res === 'Confirme seu email!') return this.chamarAlerta(res);
-      if(!res.token){
-        console.log(res)
-        return this.chamarAlerta("Erro inesperado... Tente novamento mais tarde!");
-      }
     
     }).catch(e => {
       console.log(e);
@@ -129,13 +125,15 @@ class Login extends Component {
       return this.chamarAlertaModal("A confirmação de senha não coincide!");
 
     const req = { email: this.state.email, newPass: novaSenha };
-    console.log("chamando api de reset de senha");
-    const res = await api.post('/updatePassword', req);
+    console.log("chamando api de alteração de senha de senha");
+    this.setState({ carregando: true });
+    const res = await api.post('/trocarsenha', req);
+    this.setState({ carregando: false});
 
     if(res.data){
       console.log(res.data);
 
-      if(res.data.email) return this.setState({ modal: false, modalSucess: true });
+      if(res.data.status) return this.setState({ modal: false, modalSucess: true });
 
       else if(res.data === "Email não cadastrado!") return this.chamarAlertaModal("Email não cadastrado!");
 
@@ -143,7 +141,7 @@ class Login extends Component {
 
     } else {
       return this.chamarAlertaModal("Erro inesperado... Tente mais tarde!");
-    }
+    } 
 
     console.log(res);
 
@@ -224,7 +222,7 @@ class Login extends Component {
             </div>
 
             <p className="btn-secundaryy">
-              <Link to="#" onClick={() => this.recuperarSenha()} >Confirmar</Link>
+              <Link to="#" onClick={() => this.recuperarSenha()} > { !this.state.carregando? 'Confirmar' : 'Enviando...' } </Link>
             </p>
 
             { this.state.alertModal ? 
