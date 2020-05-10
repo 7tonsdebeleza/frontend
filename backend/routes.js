@@ -32,8 +32,8 @@ routes.post('/Authadmin',AdminController.Auth);
 //SERIO VEY APAGA
 
 //Usuarios
-//Criar usuarios
-routes.post('/criarusuario', UserController.Store);
+//Criar usuarios (depois pede confirmação por email)
+routes.post('/criarusuario', [UserController.Store, EmailController.ConfirmarEmail ]);
 //Adicionar no carrinho
 routes.post('/adicionarcarrinho', UserController.adicionarCarrinho);
 //Remover do carrinho

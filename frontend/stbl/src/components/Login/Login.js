@@ -56,9 +56,13 @@ class Login extends Component {
 
     //Executando uma função herdada com os dados passados, res recebe retorno da função;
     await this.props.login(user).then((res) => {
-      console.log(res)
       if(res.error) return this.chamarAlerta("Erro inesperado... Tente novamento mais tarde!");
-      if(res === "Email inválido!" || res === "Senha inválida!") return this.chamarAlerta(res);
+      if(res === "Email inválido!" || res === "Senha inválida!" || res === 'Confirme seu email!') return this.chamarAlerta(res);
+      if(!res.token){
+        console.log(res)
+        return this.chamarAlerta("Erro inesperado... Tente novamento mais tarde!");
+      }
+    
     }).catch(e => {
       console.log(e);
       return this.chamarAlerta("Erro inesperado... Tente novamento mais tarde!");

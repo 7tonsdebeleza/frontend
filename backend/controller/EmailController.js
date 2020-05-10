@@ -8,7 +8,7 @@ SendGridMail.setApiKey(mailConfig.key)
 module.exports={
     async ConfirmarEmail(req,res){
         const { id, email } = req.body
-
+        
         const msg = {
             to: `${email}`,
             from: 'pvocufc@gmail.com',

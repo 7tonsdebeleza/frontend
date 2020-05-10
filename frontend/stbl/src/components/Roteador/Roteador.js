@@ -51,7 +51,7 @@ class Roteador extends Component {
   	//Caso login não funcione
   	if(res.data.error) return res.data.error;
 
-  	if(res.data === "Email inválido!" || res.data === "Senha inválida!"){
+  	if(res.data === "Email inválido!" || res.data === "Senha inválida!" || res.data === "Confirme seu email!"){
 	  	return res.data;
 	
   	} else {
@@ -68,7 +68,7 @@ class Roteador extends Component {
 		console.log("Autenticando...");
 
 	await api.post('/Auth',  {headers: {"Authorization" : token}}).then(res => {
-	  if(res.data.error){
+	  if(res.data.error || res.data === "Confirme seu email!"){
 		//Caso autenticação falhe, usuário será deslogado para gerar novo token
 		console.log(res.data.error);
 		this.Clientelogout();
@@ -78,6 +78,11 @@ class Roteador extends Component {
 		//Salvando dados do usuário
 		this.setState({user:res.data}, () => this.loadCarrinho());
 	  }
+	}).catch(e => {
+		console.log(e);
+		console.log('falha na autenticação... deslogando conta.');
+		this.Clientelogout();
+
 	})
   }
 	
