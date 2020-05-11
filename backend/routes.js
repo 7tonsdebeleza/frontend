@@ -23,10 +23,10 @@ routes.put('/revertersenha/:id', UserController.resetPassword)
 //PELO AMOR DE DEUS APAGAR
 const AdminController = require("./controller/AdminController");
 routes.post('/criaradmin',AdminController.Store);
-routes.post('/loginadmin',AdminController.Find);
+//routes.post('/loginadmin',AdminController.Find);
 
 routes.post('/Signadmin',AdminController.Sign);
-routes.post('/Authadmin',AdminController.Auth);
+routes.post('/Authadmin',[AdminController.Auth, AdminController.Sign]);
 
 //SERIO VEY APAGA
 
@@ -34,23 +34,23 @@ routes.post('/Authadmin',AdminController.Auth);
 //Criar usuarios (depois pede confirmação por email)
 routes.post('/criarusuario', [UserController.Store, EmailController.ConfirmarEmail ]);
 //Adicionar no carrinho
-routes.post('/adicionarcarrinho', UserController.adicionarCarrinho);
+routes.post('/adicionarcarrinho', UserController.Auth, UserController.adicionarCarrinho);
 //Remover do carrinho
-routes.post('/removercarrinho', UserController.removerCarrinho);
+routes.post('/removercarrinho', UserController.Auth, UserController.removerCarrinho);
 //Pegar produtos no carrinho
 routes.post('/pegarcarrinho', UserController.getCarrinho)
 //Fazer login
-routes.post('/login',UserController.Login);
+//routes.post('/login',UserController.Login);
 //Fazer login com padrão jwt
 routes.post('/Sign',UserController.Sign);
 //Fazer autheticação de token jwt
-routes.post('/Auth', UserController.Auth);
+routes.post('/Auth', [UserController.Auth, UserController.Sign]);
 //Atualizar nome
-routes.post('/updateName', UserController.updateName);
+routes.post('/updateName', UserController.Auth, UserController.updateName);
 //Atualizar sobrenome
-routes.post('/updateUsername', UserController.updateUsername);
+routes.post('/updateUsername', UserController.Auth, UserController.updateUsername);
 //Atualizar email
-routes.post('/updateEmail', UserController.updateEmail);
+routes.post('/updateEmail', UserController.Auth, UserController.updateEmail);
 //Atualizar senha
 //routes.post('/updatePassword', UserController.updatePassword);
 //Atualizar código de área
@@ -59,7 +59,6 @@ routes.post('/insertPhoneAreaCode', UserController.insertPhoneAreaCode)
 routes.post('/insertPhoneNumber', UserController.insertPhoneNumber)
 //Atualizar CEP
 routes.post('/insertCep',UserController.insertCep)
-
 
 //Propriedade Frete de Usuarios
 //Atualizar tipo

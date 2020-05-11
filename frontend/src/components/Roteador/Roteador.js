@@ -56,7 +56,7 @@ class Roteador extends Component {
 			} else {
 				//Salvando token para permância de login
 				localStorage.setItem('@stbl/client/user', res.data.token);
-				this.auth(res.data.token);
+				this.setState({ user: res.data.user }, () => this.loadCarrinho());
 				return true;
 
 			}
@@ -72,7 +72,7 @@ class Roteador extends Component {
 	auth = async (token) => {
 		console.log("Autenticando...");
 
-		await api.post('/Auth', { headers: { "Authorization": token } }).then(res => {
+		await api.post('/Auth', null, { headers: { authorization: token } }).then(res => {
 			if (res.data.error || res.data === "Confirme seu email!") {
 				//Caso autenticação falhe, usuário será deslogado para gerar novo token
 				console.log(res.data.error);
@@ -81,7 +81,7 @@ class Roteador extends Component {
 			} else {
 				console.log('Autenticação realizada!');
 				//Salvando dados do usuário
-				this.setState({ user: res.data }, () => this.loadCarrinho());
+				this.setState({ user: res.data.user }, () => this.loadCarrinho());
 			}
 		}).catch(e => {
 			console.log(e);
@@ -112,7 +112,10 @@ class Roteador extends Component {
 		}, () => {
 			// Caso haja login, bd do usuário deve ser atualizado
 			if (this.state.user) {
-				api.post('/adicionarcarrinho', { email: this.state.user.email, titulo: dados.titulo, quantidade: qtd ? qtd : 1 })
+				const token = localStorage.getItem('@stbl/client/user');
+				api.post('/adicionarcarrinho', { email: this.state.user.email, titulo: dados.titulo, quantidade: qtd ? qtd : 1 }, {
+					headers: { authorization: token }
+				})
 			}
 		});
 
@@ -138,7 +141,12 @@ class Roteador extends Component {
 			return alert("Seu carrinho está cheio!");
 		}
 
-		if (this.state.user) await api.post('/adicionarcarrinho', { email: this.state.user.email, titulo: produto.titulo, quantidade: qtd });
+		if (this.state.user) {
+			const token = localStorage.getItem('@stbl/client/user');
+			await api.post('/adicionarcarrinho', { email: this.state.user.email, titulo: produto.titulo, quantidade: qtd }, {
+				headers: { authorization: token }
+			});
+		}
 		await this.atualizarQtdCarrinho(qtd);
 	}
 
@@ -163,7 +171,11 @@ class Roteador extends Component {
 		}, () => {
 			// Caso haja login, bd do usuário deve ser atualizado
 			if (this.state.user) {
-				api.post('/removercarrinho', { email: this.state.user.email, titulo: dados.titulo });
+				const token = localStorage.getItem('@stbl/client/user');
+
+				api.post('/removercarrinho', { email: this.state.user.email, titulo: dados.titulo }, {
+					headers: { authorization: token }
+				});
 			}
 		});
 
@@ -187,26 +199,31 @@ class Roteador extends Component {
 		} else {
 			// Buscando informações dos itens que estão no carrinho do usuário (carrinho do usuário tem id e qtd)
 			console.log('Carregando carrinho vinculado a esta conta...');
-			const res = await api.post('/pegarcarrinho', { email: this.state.user.email });
-			const carrinhoBd = res.data.FullInfo;
-			const carrinhoFront = [];
+			await api.post('/pegarcarrinho', { email: this.state.user.email }).then(res => {
+				const carrinhoBd = res.data.FullInfo;
+				const carrinhoFront = [];
 
-			carrinhoBd.map((obj) => {
-				// Remove o path da imagem e seta como o link dela
-				obj.img = obj.img_url;
-				// Filtrando itens do carrinho que tenham estoque disponível
-				if (obj.estoque > 0) carrinhoFront.push(obj);
-				return true;
+				carrinhoBd.map((obj) => {
+					// Remove o path da imagem e seta como o link dela
+					obj.img = obj.img_url;
+					// Filtrando itens do carrinho que tenham estoque disponível
+					if (obj.estoque > 0) carrinhoFront.push(obj);
+					return true;
 
+				});
+
+				this.setState({
+					dadosCarrinho: carrinhoFront,
+				});
+				console.log('Feito!');
+
+				// Carregando qtd individual de cada item (juntando inforamções do carrinho do usuário e informações dos produtos)
+				this.loadItensQtd();
+			}).catch(error => {
+				console.log('Não foi possível carregar carrinho...');
+				console.log(error);
 			});
 
-			this.setState({
-				dadosCarrinho: carrinhoFront,
-			});
-			console.log('Feito!');
-
-			// Carregando qtd individual de cada item (juntando inforamções do carrinho do usuário e informações dos produtos)
-			this.loadItensQtd();
 		}
 
 	}
@@ -256,9 +273,6 @@ class Roteador extends Component {
 		//recuperando estado de usuário logado
 		let token = localStorage.getItem("@stbl/client/user");
 		if (token !== null) {
-
-			//##### Implementar função para conectar carrinho do cliente logado
-
 			this.auth(token);
 		}
 	}

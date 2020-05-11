@@ -62,7 +62,7 @@ class Admin extends Component {
                 return 'Erro inesperado... tente mais tarde';
             } else {
                 //Salvando dados do usuário
-                this.setState({ adminLogin: res.data })
+                this.setState({ adminLogin: res.data.user })
             }
         }).catch(error => {
             console.log(error);

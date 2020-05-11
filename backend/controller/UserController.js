@@ -167,7 +167,8 @@ module.exports = {
             }
 
             await User.findOneAndUpdate({
-                _id: decode.id },
+                _id: decode.id
+            },
                 { $set: { password: bcrypt.hashSync(decode.newPass, data.salt), senhaAntiga: decode.senhaAntiga } },
                 { new: true }, (err, doc) => {
                     if (err) {
@@ -213,7 +214,7 @@ module.exports = {
     },
     async updateEmail(req, res) {
 
-        const [email, newEmail] = req.body;
+        const { email, newEmail } = req.body;
 
         const user = await User.findOneAndUpdate({ email }, { $set: { email: newEmail } },
             { new: true }, (err, doc) => {
@@ -404,13 +405,16 @@ module.exports = {
 
     //Função retorna um token para autenicação
     async Sign(req, res) {
-        const { email, senha } = req.body
+        const { email, senha } = req.body;
+        const token = req.headers.authorization
 
         User.where({ email: email }).findOne((e, data) => {
             //Casos de erro ao procurar usuário
             if (e) return res.send({ error: e });
 
-            if (!data) return res.send("Email inválido!")
+            if (!data) return res.send("Email inválido!");
+
+            if (token) return res.send({ token, user: data })
 
             const senha_criptografada = bcrypt.compareSync(senha, data.password)
 
@@ -428,7 +432,7 @@ module.exports = {
                     console.log(err)
                     return res.send({ error: "Erro inesperado..." })
                 }
-                return res.send({ token: token })
+                return res.send({ token, user: data })
             })
 
         });
@@ -436,9 +440,12 @@ module.exports = {
     },
 
     //Função para autenticação de tokens
-    Auth(req, res) {
+    Auth(req, res, next) {
+
+        const token = req.headers.authorization
+
         //Decodificando token
-        jwt.verify(req.body.headers['Authorization'], process.env.SECRET_KEY, (err, decode) => {
+        jwt.verify(token, process.env.SECRET_KEY, (err, decode) => {
             if (err) {
                 //Caso em que token se expirou ou houve algum erro interno
                 return res.send({ error: err })
@@ -446,12 +453,16 @@ module.exports = {
 
             //Buscando dados do usuário
             User.where({ email: decode.email }).findOne((e, data) => {
-                if (e) return res.send({ error: e })
-                if (!data) return res.send("Usuário não encontrado")
-                if (!data.emailConfirmado) {
+                if (e) return res.status(401).send({ error: e })
+                else if (!data) return res.send("Usuário não encontrado")
+                else if (!data.emailConfirmado) {
                     return res.send('Confirme seu email!');
                 }
-                return res.send(data)
+                else {
+                    req.body.email = data.email;
+                    req.body.senha = data.password;
+                    next();
+                }
             })
 
         })

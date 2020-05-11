@@ -38,12 +38,17 @@ module.exports = {
 
     //Função retorna um token para autenicação
     async Sign(req, res) {
-        const { email, senha } = req.body
+        const { email, senha } = req.body;
+
+        const token = req.headers['authorization'];
 
         Admin.where({ email: email }).findOne((e, data) => {
             //Casos de erro ao procurar usuário
             if (e) return res.send({ error: e });
             if (!data) return res.send("Email inválido!")
+            
+            // Caso de reautenticação, retornando dados sem necessidade de login e senha
+            if(token) return res.send({ token: token, user: data });
 
             //const senha_criptografada =  bcrypt.compareSync(senha,data.password)
 
@@ -79,13 +84,15 @@ module.exports = {
             Admin.where({ email: decode.email }).findOne((e, data) => {
                 if (e) {
                     console.log('erro ao buscar usuário');
-                    return res.status(409).send({ error: e });
+                    return res.status(401).send({ error: e });
 
-                } else if (!data){
-                  return res.send("Usuário não encontrado");  
+                } else if (!data) {
+                    return res.send("Usuário não encontrado");
                 } else {
-                  next();  
-                } 
+                    req.body.email = data.email;
+                    req.body.senha = data.password;
+                    next();
+                }
             })
 
         })
