@@ -52,7 +52,7 @@ routes.post('/updateUsername', UserController.updateUsername);
 //Atualizar email
 routes.post('/updateEmail', UserController.updateEmail);
 //Atualizar senha
-routes.post('/updatePassword', UserController.updatePassword);
+//routes.post('/updatePassword', UserController.updatePassword);
 //Atualizar código de área
 routes.post('/insertPhoneAreaCode', UserController.insertPhoneAreaCode)
 //Atualizar numéro de celular
@@ -83,7 +83,7 @@ routes.post('/updateCountry',FreteController.updateCountry)
 
 //Produtos
 //Criar produto
-routes.post('/criarproduto',upload.single('img'),ProductController.Store);
+routes.post('/criarproduto',upload.single('img'), [ AdminController.Auth, ProductController.Store]);
 //Mostrar produtos
 routes.get('/mostrartodosprodutos',ProductController.Show);
 //Mostrar produtos pelo tipo
@@ -93,41 +93,41 @@ routes.get('/mostrarprodutonovidade', ProductController.ShowByNewer);
 //Mostrar produtos em promocao
 routes.get('/mostrarprodutopromocao', ProductController.ShowByPromotion);
 //Remover produto pelo ID
-routes.post('/removerproduto',ProductController.Destroy);
+routes.post('/removerproduto', [ AdminController.Auth, ProductController.Destroy] );
 //Atualizar imagem do prodtuto
-routes.post('/atualizarimagem',upload.single('img'),ProductController.UpdateImage);
+routes.post('/atualizarimagem',upload.single('img'), [AdminController.Auth,ProductController.UpdateImage ] );
 //Atualizar nome do produto
-routes.post('/atualizartitulo',ProductController.UpdateTitle);
+routes.post('/atualizartitulo', [ AdminController.Auth, ProductController.UpdateTitle] );
 //Atualizar marca
-routes.post('/atualizarmarca',ProductController.UpdateMarca);
+routes.post('/atualizarmarca', [ AdminController.Auth,  ProductController.UpdateMarca] );
 //Atualizar preço
-routes.post('/atualizarpreco',ProductController.UpdatePrice);
+routes.post('/atualizarpreco', [ AdminController.Auth, ProductController.UpdatePrice] );
 //Atualizar estoque
-routes.post('/atualizarestoque',ProductController.UpdateEstoque);
+routes.post('/atualizarestoque', [ AdminController.Auth,  ProductController.UpdateEstoque ]);
 //Atualizar descrição
-routes.post('/atualizardescricao',ProductController.UpdateDescription);
+routes.post('/atualizardescricao', [ AdminController.Auth, ProductController.UpdateDescription  ] );
 //Atualizar tipoProduto
-routes.post('/atualizartipo',ProductController.UpdateType)
+routes.post('/atualizartipo', [ AdminController.Auth, ProductController.UpdateType ] )
 //Atualizar peso
-routes.post('/atualizarpeso',ProductController.UpdatePeso)
+routes.post('/atualizarpeso', [ AdminController.Auth, ProductController.UpdatePeso ] )
 //Atualizar formato
-routes.post('/atualizarformato',ProductController.UpdateFormato)
+routes.post('/atualizarformato', [ AdminController.Auth, ProductController.UpdateFormato ] )
 //Atualizar comprimento
-routes.post('/atualizarcomprimento',ProductController.UpdateComprimento)
+routes.post('/atualizarcomprimento', [ AdminController.Auth, ProductController.UpdateComprimento ] )
 //Atualizar altura
-routes.post('/atualizaraltura',ProductController.UpdateAltura)
+routes.post('/atualizaraltura', [ AdminController.Auth, ProductController.UpdateAltura ])
 //Atualizar largura
-routes.post('/atualizarlargura',ProductController.UpdateLargura)
+routes.post('/atualizarlargura', [ AdminController.Auth, ProductController.UpdateLargura ] )
 //Atualizar diametro
-routes.post('/atualizardiametro',ProductController.UpdateDiametro)
+routes.post('/atualizardiametro', [ AdminController.Auth, ProductController.UpdateDiametro]  )
 //Atualizar novidade
-routes.post('/atualizarnovidade',ProductController.UpdateNovidade)
+routes.post('/atualizarnovidade', [ AdminController.Auth, ProductController.UpdateNovidade ] )
 //Atualizar promocao
-routes.post('/atualizarpromocao', ProductController.UpdatePromocao)
+routes.post('/atualizarpromocao', [ AdminController.Auth,ProductController.UpdatePromocao ] )
 
 //Histórico
 //Criar um ítem de histórico
-routes.post('/criarHistorico',HistoryController.store)
+//routes.post('/criarHistorico',HistoryController.store)
 //Obter historico por ID
 routes.get('/getHistorybyID/:id', HistoryController.findHistoryById)
 //Obter todos os historicos

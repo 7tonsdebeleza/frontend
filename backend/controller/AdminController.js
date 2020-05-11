@@ -4,12 +4,12 @@ const jwt = require('jsonwebtoken');
 process.env.SECRET_KEY = 'secret7tons';
 
 module.exports = {
-    async Store(req,res){
-        const {nome,email,password} = req.body
-        
-        let admin = await Admin.findOne({email, password})
+    async Store(req, res) {
+        const { nome, email, password } = req.body
 
-        if(!admin){
+        let admin = await Admin.findOne({ email, password })
+
+        if (!admin) {
             admin = await Admin.create({
                 nome,
                 email,
@@ -20,16 +20,16 @@ module.exports = {
         return res.json(admin)
     },
 
-    async Find(req,res){
-        const {email, senha} = req.body;
+    async Find(req, res) {
+        const { email, senha } = req.body;
 
-        let response = await Admin.findOne({email});
+        let response = await Admin.findOne({ email });
 
-        if(!response){
+        if (!response) {
             return res.send("Email inválido!")
         }
 
-        if(response.password == senha){
+        if (response.password == senha) {
             return res.send(response);
         }
 
@@ -37,27 +37,27 @@ module.exports = {
     },
 
     //Função retorna um token para autenicação
-    async Sign(req,res){
-        const {email,senha} = req.body
-        
-        Admin.where({email: email}).findOne((e, data) => {
+    async Sign(req, res) {
+        const { email, senha } = req.body
+
+        Admin.where({ email: email }).findOne((e, data) => {
             //Casos de erro ao procurar usuário
-            if(e) return res.send({error: e});
-            if(!data) return res.send("Email inválido!")
-            
+            if (e) return res.send({ error: e });
+            if (!data) return res.send("Email inválido!")
+
             //const senha_criptografada =  bcrypt.compareSync(senha,data.password)
 
             //if(!senha_criptografada){
-                //return res.send("Senha inválida!")
+            //return res.send("Senha inválida!")
             //}
 
             //Gerando token com dados do usuário encontrado
-            jwt.sign(data.toJSON(), process.env.SECRET_KEY, {expiresIn: '7d'}, (err, token) => {
-                if(err){
+            jwt.sign(data.toJSON(), process.env.SECRET_KEY, { expiresIn: '1d' }, (err, token) => {
+                if (err) {
                     console.log(err)
-                    return res.send({error: "Erro inesperado..."})
-                } 
-                return res.send({token: token})
+                    return res.send({ error: "Erro inesperado..." })
+                }
+                return res.send({ token: token, user: data });
             })
 
         });
@@ -65,19 +65,27 @@ module.exports = {
     },
 
     //Função para autenticação de tokens
-    Auth(req, res){
+    Auth(req, res, next) {
+        const token = req.headers['authorization'];
+
         //Decodificando token
-        jwt.verify(req.body.headers['Authorization'], process.env.SECRET_KEY, (err, decode) =>{
-            if(err){
+        jwt.verify(token, process.env.SECRET_KEY, (err, decode) => {
+            if (err) {
                 //Caso em que token se expirou ou houve algum erro interno
-                return res.send({error: err})
+                return res.send({ error: err })
             }
 
             //Buscando dados do usuário
-            Admin.where({email: decode.email}).findOne((e, data) => {
-                if(e) return res.send({error: e})
-                if(!data) return res.send("Usuário não encontrado")
-                return res.send(data)
+            Admin.where({ email: decode.email }).findOne((e, data) => {
+                if (e) {
+                    console.log('erro ao buscar usuário');
+                    return res.status(409).send({ error: e });
+
+                } else if (!data){
+                  return res.send("Usuário não encontrado");  
+                } else {
+                  next();  
+                } 
             })
 
         })
