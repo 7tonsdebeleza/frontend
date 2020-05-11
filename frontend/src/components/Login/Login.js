@@ -15,6 +15,7 @@ class Login extends Component {
     modal: false,
     alertModal: null,
     modalSucess: false,
+    modalEmail: false,
 
     carregando: false,
   }
@@ -57,7 +58,8 @@ class Login extends Component {
     //Executando uma função herdada com os dados passados, res recebe retorno da função;
     await this.props.login(user).then((res) => {
       if(res.error) return this.chamarAlerta("Erro inesperado... Tente novamento mais tarde!");
-      if(res === "Email inválido!" || res === "Senha inválida!" || res === 'Confirme seu email!') return this.chamarAlerta(res);
+      if(res === "Email inválido!" || res === "Senha inválida!") return this.chamarAlerta(res);
+      if( res === 'Confirme seu email!') this.setState({ modalEmail: true });
     
     }).catch(e => {
       console.log(e);
@@ -85,6 +87,11 @@ class Login extends Component {
   modalControlSucess = () => {
     this.setState({ modalSucess: this.state.modalSucess ? false : true });
     return this.state.modalSucess
+  }
+
+  modalControlEmail = () => {
+    this.setState({ modalSucess: this.state.modalEmail ? false : true });
+    return this.state.modalEmail
   }
 
   // Função para verificar validade de email
@@ -165,6 +172,22 @@ class Login extends Component {
 
   }
 
+  sendEmail = async () => {
+    this.setState({ carregando: true });
+    await api.post('/confirmaremail', { email: this.state.email }).then(res => {
+      if (res.data.status === 200) this.setState({ modalEmail: false, modalSucess: true });
+      else this.chamarAlertaModal("Erro inesperado... Tente novament mais tarde!");
+      console.log(res);
+
+    }).catch(e => {
+      console.log(e);
+      this.chamarAlertaModal("Erro inesperado... Tente novament mais tarde!");
+
+    })
+
+    this.setState({ carregando: false });
+  }
+
 
   render() {
     return (
@@ -235,7 +258,23 @@ class Login extends Component {
 
           <Modal actived={this.state.modalSucess} controller={this.modalControlSucess}>
             <h1> Te enviamos um email de confirmação! </h1>
-            <p> Acesse seu email para finalizar o processo de recuperação de senha! </p>
+            <p> Acesse seu email para finalizar esse processo! </p>
+          </Modal>
+
+          <Modal actived={this.state.modalEmail} controller={this.modalControlEmail}>
+            <h1> Seu email ainda não foi confirmado! </h1>
+            <p> Para efetuar o login é preciso confirmar seu email <strong>{this.state.email}</strong> através do link na mensagem que te enviamos. </p>
+
+            <p className="btn-secundaryy">
+              <Link to="#" onClick={() => this.sendEmail()} > { !this.state.carregando? 'Reenviar mensagem' : 'Enviando...' } </Link>
+            </p>
+
+            { this.state.alertModal ? 
+              <div id="alert-div-modal" className="alertacadastro">{this.state.alertModal}
+                <Link className="fecharalerta" name="alerta2" onClick={()=>this.fecharAlertaModal()} to="#">X</Link>
+              </div> : null
+            }
+
           </Modal>
 
         </div>

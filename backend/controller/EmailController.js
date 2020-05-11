@@ -13,14 +13,16 @@ process.env.SECRET_KEY = 'secret7tons';
 
 module.exports = {
     async ConfirmarEmail(req, res) {
-        const { id, email } = req.body
+        const { email } = req.body
+
+        const user = await User.findOne({ email });
 
         const msg = {
             to: `${email}`,
             from: 'pvocufc@gmail.com',
             subject: 'Verificação de email',
             text: 'Clique para verificar',
-            html: `<a href="http://localhost:3333/confirmaremail/${id}">Clique para confirmar seu email</a>`,
+            html: `<a href="http://localhost:3333/confirmaremail/${user._id}">Clique para confirmar seu email</a>`,
         };
         try {
             const x = await SendGridMail.send(msg);
