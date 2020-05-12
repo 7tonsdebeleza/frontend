@@ -84,13 +84,15 @@ routes.post('/updateCountry',FreteController.updateCountry)
 //Criar produto
 routes.post('/criarproduto',upload.single('img'), [ AdminController.Auth, ProductController.Store]);
 //Mostrar produtos
-routes.get('/mostrartodosprodutos',ProductController.Show);
+routes.get('/mostrartodosprodutos/:pagina',ProductController.Show);
 //Mostrar produtos pelo tipo
-routes.get('/mostrarprodutoportipo',ProductController.ShowTipo);
+routes.get('/mostrarprodutoportipo/:tipo/:pagina',ProductController.ShowByTipo);
 //Mostrar produtos em novidades
-routes.get('/mostrarprodutonovidade', ProductController.ShowByNewer);
+routes.get('/mostrarprodutonovidade/:pagina', ProductController.ShowByNewer);
 //Mostrar produtos em promocao
-routes.get('/mostrarprodutopromocao', ProductController.ShowByPromotion);
+routes.get('/mostrarprodutopromocao/:pagina', ProductController.ShowByPromotion);
+//Mostra produtos pelo nome
+routes.get('/mostrarprodutopornome/:nome/:pagina', ProductController.ShowByName)
 //Remover produto pelo ID
 routes.post('/removerproduto', [ AdminController.Auth, ProductController.Destroy] );
 //Atualizar imagem do prodtuto

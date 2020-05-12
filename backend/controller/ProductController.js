@@ -80,27 +80,46 @@ module.exports = {
     },
 
     async Show(req,res){
-        const produtos = await Product.find().populate().sort({updatedAt: -1});
+        const { pagina } = req.params
+
+        const produtos = await Product.find().populate().sort({updatedAt: -1}).limit(20).skip(20 * (pagina - 1));
 
         return res.send(produtos);
     },
 
-    async ShowTipo(req,res){
-        const produtos = await Product.find({"tipoProduto":req.body.tipo});
+    async ShowByTipo(req,res){
+        const { tipo, pagina } = req.params;
+
+        const produtos = await Product.find({"tipoProduto": tipo}).limit(20).skip(20 * (pagina - 1));
 
         return res.send(produtos);
     },
 
     async ShowByNewer(req,res){
-        const produtos = await Product.find({"novidade": true});
+        const { pagina } = req.params;
+
+        const produtos = await Product.find({"novidade": true}).limit(20).skip(20 * (pagina - 1));
 
         return res.json(produtos)
     },
 
     async ShowByPromotion(req,res){
-        const produtos = await Product.find({"promocao": true});
+        const { pagina } = req.params;
+
+        const produtos = await Product.find({"promocao": true}).limit(20).skip(20 * (pagina - 1));
 
         return res.json(produtos)
+    },
+
+    async ShowByName(req,res){
+        const { nome, pagina } = req.params
+    
+        //Busca por titulo usando RegEx
+        //o indicador 'i' faz uma busca Case Insensitive
+        const produtos = await Product.find({titulo: new RegExp(nome,'i')}).limit(20).skip(20 * (pagina - 1));
+
+        return res.json(produtos)
+    
     },
 
     async Destroy(req,res){
