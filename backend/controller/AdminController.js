@@ -1,5 +1,8 @@
 const Admin = require("../model/Admin")
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt')
+
+const data = require('../data/data')
 
 process.env.SECRET_KEY = 'secret7tons';
 
@@ -13,7 +16,7 @@ module.exports = {
             admin = await Admin.create({
                 nome,
                 email,
-                password
+                password: bcrypt.hashSync(password, data.salt)
             })
         }
 
@@ -39,7 +42,7 @@ module.exports = {
     //Função retorna um token para autenicação
     async Sign(req, res) {
         const { email, senha } = req.body;
-
+        
         const token = req.headers['authorization'];
 
         Admin.where({ email: email }).findOne((e, data) => {
@@ -50,11 +53,11 @@ module.exports = {
             // Caso de reautenticação, retornando dados sem necessidade de login e senha
             if(token) return res.send({ token: token, user: data });
 
-            //const senha_criptografada =  bcrypt.compareSync(senha,data.password)
+            const senha_criptografada =  bcrypt.compareSync(senha,data.password)
 
-            //if(!senha_criptografada){
-            //return res.send("Senha inválida!")
-            //}
+            if(!senha_criptografada){
+            return res.send("Senha inválida!")
+            }
 
             //Gerando token com dados do usuário encontrado
             jwt.sign(data.toJSON(), process.env.SECRET_KEY, { expiresIn: '1d' }, (err, token) => {
