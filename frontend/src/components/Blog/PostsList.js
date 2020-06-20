@@ -11,7 +11,7 @@ const PostsList = (props) => {
                         return(
                           <li key={p.id}>
                             <h3 className="article-title">
-                              <Link to={"/blog/posts/"+p.local}>{p.titulo}</Link>
+                              <Link to={"/blog/posts/"+p.id}>{p.titulo}</Link>
                             </h3>
                             <p className="blog_author">
                               <span className="article_date">
@@ -20,12 +20,12 @@ const PostsList = (props) => {
                             </p>
                             <div className="article-details">
                               <p className="article-img">
-                                <Link to={"/blog/posts/"+p.local}><img className="article_image" src={p.capa} alt='capa do blog'></img></Link>
+                                <Link to={"/blog/posts/"+p.id}><img className="article_image" src={p.capa} alt='capa do blog'></img></Link>
                               </p>
                               <div className="rte article-excerpt">
                                 <div className="desc">{p.preExibicao}</div>
                                 <p className="button">
-                                  <Link to={"/blog/posts/"+p.local} className="btn-secondary" href="#">Ler mais</Link>
+                                  <Link to={"/blog/posts/"+p.id} className="btn-secondary" href="#">Ler mais</Link>
                                 </p>
                               </div>
                             </div>

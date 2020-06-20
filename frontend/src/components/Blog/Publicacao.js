@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import NotFound from "../NotFound/NotFound";
 import PathTrigger from "./PathTrigger";
-
+import Blog from './Blog';
 import "./styleBlog.css";
 
 class Publicacao extends Component {
@@ -18,10 +18,10 @@ class Publicacao extends Component {
 
     loadPublic = () => {
         //Verificando se endereço bate com alguma publicação da lista
-        let adress = window.location.pathname.replace("/blog/posts/", "");
+        const adress = this.props.match.params.id;
 
         let post = this.props.publics.find((obj) => {
-            return obj.local === adress;
+            return obj.id === adress;
         })
 
         if(post !== undefined){
@@ -49,6 +49,7 @@ class Publicacao extends Component {
     render(){
         if(this.state.open)
             return(
+                <Blog publics={this.props.publics}>
                 <div>
                     <PathTrigger callBack = {() => this.loadPublic()}/>
                     <h3 className="article-title">
@@ -71,9 +72,10 @@ class Publicacao extends Component {
                     </div>
                     </div>
                 </div>
+                </Blog>
             )
 
-        else return(<NotFound/>)
+        else return( <Blog publics={this.props.publics}><NotFound/></Blog>)
     }
 }
 

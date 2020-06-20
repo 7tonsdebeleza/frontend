@@ -25,14 +25,14 @@ const Blog = (props) =>{
                     <ul>
                     <li className="article">
                       <p> 
-                        <Link to={"/blog/posts/" + props.publics[0].local}> <span>{props.publics[0].titulo}</span> </Link>
+                        <Link to={"/blog/posts/" + props.publics[0].id}> <span>{props.publics[0].titulo}</span> </Link>
                         <em>{props.publics[0].data}</em>
                       </p>
 
                       {
                           props.publics.length > 1 ? 
                           <p>
-                              <Link to={"/blog/posts/" + props.publics[1].local}>
+                              <Link to={"/blog/posts/" + props.publics[1].id}>
                                   <span>{props.publics[1].titulo}</span>
                               </Link>
                               <em>{props.publics[1].data}</em>
@@ -44,7 +44,7 @@ const Blog = (props) =>{
                       {
                           props.publics.length > 2 ? 
                           <p>
-                              <Link to={"/blog/posts/" + props.publics[2].local}>
+                              <Link to={"/blog/posts/" + props.publics[2].id}>
                                   <span>{props.publics[2].titulo}</span>
                               </Link>
                               <em>{props.publics[2].data}</em>

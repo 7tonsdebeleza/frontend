@@ -329,7 +329,7 @@ class Roteador extends Component {
 							{/*Rotas para publicações na aba blog*/}
 
 							<Route exact path="/blog" component={() => <Blog publics={Public}><PostsList publics={Public} /></Blog>} />
-							<Route path="/blog/posts/" component={() => <Blog publics={Public}><Publicacao publics={Public} /></Blog>} />
+							<Route path="/blog/posts/:id" component={(props) => <Publicacao {...props} publics={Public} />} />
 
 							<Route component={NotFound} />
 						</Switch>
