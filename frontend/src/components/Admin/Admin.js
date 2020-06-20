@@ -4,7 +4,7 @@ import AdminInterface from './AdminInterface';
 import ListarConsultas from './ListarConsultas';
 import FormNovoProduto from './FormNovoProduto';
 import ListaProdutoEditavel from './ListaProdutoEditavel';
-import BlogEditor from './BlogEditor';
+import BlogEditor from './Blog/BlogEditor';
 import Login from '../Login/Login';
 import { Compras } from '../Produto/Dados'; //###### Dados provisórios
 import api from "../API/api";
@@ -44,6 +44,7 @@ class Admin extends Component {
                 return true;
             }
         }).catch(error => {
+            console.log(error);
             return 'erro inespereado... tente novamente mais tarde!';
         })
 
