@@ -26,8 +26,9 @@ class Admin extends Component {
     //Função que será herdada pela coponente login, login para admin diferenciado
     login = async (user) => {
         //Fazendo login do banco de dados
-        await api.post("/Signadmin", user).then(res => {
+        return await api.post("/Signadmin", user).then(res => {
             //Caso login não funcione
+            console.log(res)
             if (res.data.error) return res.data.error
             if (res.data === "Email inválido!" || res.data === "Senha inválida!") {
                 return res.data;
@@ -43,7 +44,6 @@ class Admin extends Component {
                 return true;
             }
         }).catch(error => {
-            console.log(error);
             return 'erro inespereado... tente novamente mais tarde!';
         })
 

@@ -43,7 +43,7 @@ class Roteador extends Component {
 	clientLogin = async (user) => {
 
 		console.log("Gerando token...");
-		await api.post('/Sign', {
+		return await api.post('/Sign', {
 			email: user.email,
 			senha: user.senha
 		}).then(res => {
