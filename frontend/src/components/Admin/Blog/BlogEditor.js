@@ -5,7 +5,7 @@ import ListaPostagemAdmin from './ListaPostagemAdmin';
 import { Public } from '../../Produto/Dados';
 import '../../Blog/styleBlog.css';
 
-const BlogEditor = (props) => {
+const BlogEditor = () => {
   return (
     <>
       <div className="blog container">

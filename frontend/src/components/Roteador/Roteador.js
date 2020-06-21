@@ -26,6 +26,7 @@ import ListarConsultas from '../Admin/ListarConsultas';
 import FormNovoProduto from '../Admin/FormNovoProduto';
 import ListaProdutoEditavel from '../Admin/ListaProdutoEditavel';
 import BlogEditor from '../Admin/Blog/BlogEditor';
+import FormNovaPostagem from '../Admin/Blog/FormNovaPostagem';
 import api from "../API/api";
 import Frete from '../Frete/Frete';
 
@@ -415,6 +416,8 @@ class Roteador extends Component {
 							<Route exact path="/admin7tons/editarprodutos" component={(props) => !admin ? <Redirect to="/admin7tons" /> : <AdminHeader {...props} user={admin} logout={this.adminLogout}><ListaProdutoEditavel /></AdminHeader>} />
 
 							<Route exact path="/admin7tons/blog" component={(props) => !admin ? <Redirect to="/admin7tons" /> : <AdminHeader {...props} user={admin} logout={this.adminLogout}> <BlogEditor public={this.props.publics} /></AdminHeader>} />
+
+							<Route exact path="/admin7tons/blog/nova-postagem" component={(props) => !admin ? <Redirect to="/admin7tons" /> : <AdminHeader {...props} user={admin} logout={this.adminLogout}> <FormNovaPostagem/></AdminHeader>} />
 
 							<Route component={NotFound} />
 						</Switch>
