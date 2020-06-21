@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import { BrowserRouter, Route, Switch, Redirect, Link } from "react-router-dom";
 import NavBar from "../NavBar/NavBar";
 import NavBarMobile from "../NavBar/NavBarMobile";
 import Home from "../Home/Home";
@@ -12,7 +12,6 @@ import Blog from '../Blog/Blog';
 import Footer from '../Footer/Footer';
 import BotaoTop from '../BotaoTop/BotaoTop';
 import Login from '../Login/Login';
-import Admin from '../Admin/Admin';
 import Carrinho from '../Carrinho/Carrinho';
 import Checkout from '../Carrinho/Checkout';
 import { Compras, Public } from '../Produto/Dados'; //Dados provisórios para listas de produtos
@@ -22,6 +21,11 @@ import AtualizarClienteInfo from "../Cliente/AtualizarClienteInfo";
 import GoTop from "./GoTop";
 import PostsList from "../Blog/PostsList";
 import Publicacao from "../Blog/Publicacao";
+import AdminInterface from '../Admin/AdminInterface';
+import ListarConsultas from '../Admin/ListarConsultas';
+import FormNovoProduto from '../Admin/FormNovoProduto';
+import ListaProdutoEditavel from '../Admin/ListaProdutoEditavel';
+import BlogEditor from '../Admin/Blog/BlogEditor';
 import api from "../API/api";
 import Frete from '../Frete/Frete';
 
@@ -36,6 +40,8 @@ class Roteador extends Component {
 		pesquisaChamada: false,
 		dados: [],
 		user: null,
+		admin: null,
+		carregado: false
 	}
 
 	//Função que será herdada pelo componente de login do cliente
@@ -68,6 +74,33 @@ class Roteador extends Component {
 
 	}
 
+	adminLogin = async (user) => {
+		//Fazendo login do banco de dados
+		return await api.post("/Signadmin", user).then(res => {
+			//Caso login não funcione
+			console.log(res)
+			if (res.data.error) return res.data.error
+			if (res.data === "Email inválido!" || res.data === "Senha inválida!") {
+				return res.data;
+			} else {
+				//Caso funcione, salvando para permanencia do login
+				localStorage.setItem('@stbl/admin/user', res.data.token);
+
+				//Autenticando token
+				//this.auth(res.data.token)
+				//Salvando dados do usuário
+				this.setState({ adminLogin: res.data.user })
+
+				return true;
+			}
+		}).catch(error => {
+			console.log(error);
+			return 'erro inespereado... tente novamente mais tarde!';
+		})
+
+	}
+
+
 	//Função de autenticação de token
 	auth = async (token) => {
 		console.log("Autenticando...");
@@ -88,13 +121,41 @@ class Roteador extends Component {
 			console.log('falha na autenticação... deslogando conta.');
 			this.Clientelogout();
 
-		})
+		});
+
+	}
+
+	//Função de autenticação de token
+	authAdmin = async (token) => {
+		console.log("Autenticando...")
+		await api.post('/Authadmin', null, { headers: { authorization: token } }).then(res => {
+			if (res.data.error) {
+				//Caso autenticação falhe, usuário será deslogado para gerar novo token
+				console.log('erro aqui');
+				console.log(res.data.error)
+				this.logout();
+				return 'Erro inesperado... tente mais tarde';
+			} else {
+				//Salvando dados do usuário
+				this.setState({ admin: res.data.user })
+			}
+		}).catch(error => {
+			console.log(error);
+			return 'Erro inesperado... tente mais tarde';
+		});
+
 	}
 
 	Clientelogout = () => {
 		// Removendo objeto do state e permanência do navegador
 		this.setState({ user: null });
 		localStorage.removeItem("@stbl/client/user");
+	}
+
+	adminLogout = () => {
+		// Removendo objeto do state e permanência do navegador
+		this.setState({ admin: null });
+		localStorage.removeItem("@stbl/admin/user");
 	}
 
 	//Esta função será passada aos componetes filhos onde houver componete produto
@@ -255,6 +316,23 @@ class Roteador extends Component {
 		});
 	}
 
+	checkAuths = async () => {
+		let tokenCliente = localStorage.getItem("@stbl/client/user");
+		if (tokenCliente) {
+			await this.auth(tokenCliente);
+		}
+
+		let adminToken = localStorage.getItem("@stbl/admin/user");
+		if (adminToken) {
+			//auteticando token guardada
+			await this.authAdmin(adminToken);
+
+		}
+
+		this.setState({ carregado: true });
+
+	}
+
 	componentWillMount() {
 		//Fazendo verificações do endereço
 		let adress = window.location.pathname;
@@ -265,19 +343,16 @@ class Roteador extends Component {
 				pesquisaChamada: true,
 				pesquisa: adress.replace("/buscar/busca=", "").toString()
 			});
-		}
+		}//recuperando estado de usuário logado
 
-	}
-
-	componentDidMount() {
-		//recuperando estado de usuário logado
-		let token = localStorage.getItem("@stbl/client/user");
-		if (token !== null) {
-			this.auth(token);
-		}
+		this.checkAuths();
 	}
 
 	render() {
+		const admin = this.state.admin;
+
+		if (!this.state.carregado) return <Carregamento />
+
 		return (
 			<BrowserRouter>
 				<div>
@@ -318,8 +393,6 @@ class Roteador extends Component {
 
 							<Route path="/checkout" render={() => <Checkout user={this.state.user} carrinho={this.state.dadosCarrinho} />} />
 
-							<Route path="/admin7tons" render={() => <Admin produtos={this.state.dados} consultas={Compras} publics={Public} />} />
-
 							<Route exact path="/" render={() => <Home dados={this.state.dados} addCarrinho={this.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} removerCarrinho={this.removerCarrinho} />} />
 
 							<Route exact path="/cliente" render={() => this.state.user ? <Cliente user={this.state.user} /> : <Redirect to="/login" />} />
@@ -330,6 +403,18 @@ class Roteador extends Component {
 
 							<Route exact path="/blog" component={() => <Blog publics={Public}><PostsList publics={Public} /></Blog>} />
 							<Route path="/blog/posts/:id" component={(props) => <Publicacao {...props} publics={Public} />} />
+
+							{/* Rotas admin */}
+
+							<Route exact path="/admin7tons" component={(props) => !admin ? <AdminHeader {...props} user={null}><Login login={this.login} admin /></AdminHeader> : <AdminHeader {...props} user={admin} logout={this.adminLogout}> <AdminInterface /> </AdminHeader>} />
+
+							<Route exact path="/admin7tons/consulta" component={(props) => !admin ? <Redirect to="/admin7tons" /> : <AdminHeader {...props} user={admin} logout={this.adminLogout}><ListarConsultas compras={Compras} /></AdminHeader>} />
+
+							<Route exact path="/admin7tons/novoproduto" component={(props) => !admin ? <Redirect to="/admin7tons" /> : <AdminHeader {...props} user={admin} logout={this.adminLogout}> <FormNovoProduto /> </AdminHeader>} />
+
+							<Route exact path="/admin7tons/editarprodutos" component={(props) => !admin ? <Redirect to="/admin7tons" /> : <AdminHeader {...props} user={admin} logout={this.adminLogout}><ListaProdutoEditavel /></AdminHeader>} />
+
+							<Route exact path="/admin7tons/blog" component={(props) => !admin ? <Redirect to="/admin7tons" /> : <AdminHeader {...props} user={admin} logout={this.adminLogout}> <BlogEditor public={this.props.publics} /></AdminHeader>} />
 
 							<Route component={NotFound} />
 						</Switch>
@@ -345,3 +430,48 @@ class Roteador extends Component {
 }
 
 export default Roteador;
+
+const AdminHeader = (props) => {
+	return (
+		<div className="login container">
+			<div className="bread">
+				<Link to="/home" >Home</Link>
+				<span className="arrow">/</span>
+				<span>Área Administrativa</span>
+			</div>
+			<div className="criar-conta login">
+				<header className="page-header">
+					<h1>Área Administrativa</h1>
+					{
+						props.logout ?
+							<p className="btn-secundaryy" style={{ float: "right", marginTop: "10px" }}>
+								<button onClick={() => props.logout()}> &larr; Desconectar</button>
+							</p> : null
+					}
+				</header>
+				<p className="title">
+					{props.user !== undefined && props.user ? (<div>Bem vindo(a) <b>{props.user.nome}</b>! </div>) : null}
+									Área exclusiva para administração da loja virtual 7 Tons de Beleza.
+							</p>
+
+			</div>
+			{props.children}
+		</div>
+	)
+}
+
+const Carregamento = () => {
+	return (
+		<div>
+			<div className="batom"></div>
+			<div className="quadrado1"></div>
+			<div className="quadrado2"></div>
+			<div className="spinner">
+				<div className="bounce1"></div>
+				<div className="bounce2"></div>
+				<div className="bounce3"></div>
+			</div>
+
+		</div>
+	)
+}
