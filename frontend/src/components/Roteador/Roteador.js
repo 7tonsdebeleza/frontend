@@ -79,7 +79,6 @@ class Roteador extends Component {
 		//Fazendo login do banco de dados
 		return await api.post("/Signadmin", user).then(res => {
 			//Caso login não funcione
-			console.log(res)
 			if (res.data.error) return res.data.error
 			if (res.data === "Email inválido!" || res.data === "Senha inválida!") {
 				return res.data;
@@ -90,7 +89,7 @@ class Roteador extends Component {
 				//Autenticando token
 				//this.auth(res.data.token)
 				//Salvando dados do usuário
-				this.setState({ adminLogin: res.data.user })
+				this.setState({ admin: res.data.user })
 
 				return true;
 			}
@@ -407,7 +406,7 @@ class Roteador extends Component {
 
 							{/* Rotas admin */}
 
-							<Route exact path="/admin7tons" component={(props) => !admin ? <AdminHeader {...props} user={null}><Login login={this.login} admin /></AdminHeader> : <AdminHeader {...props} user={admin} logout={this.adminLogout}> <AdminInterface /> </AdminHeader>} />
+							<Route exact path="/admin7tons" component={(props) => !admin ? <AdminHeader {...props} user={null}><Login login={this.adminLogin} admin /></AdminHeader> : <AdminHeader {...props} user={admin} logout={this.adminLogout}> <AdminInterface /> </AdminHeader>} />
 
 							<Route exact path="/admin7tons/consulta" component={(props) => !admin ? <Redirect to="/admin7tons" /> : <AdminHeader {...props} user={admin} logout={this.adminLogout}><ListarConsultas compras={Compras} /></AdminHeader>} />
 
@@ -418,6 +417,8 @@ class Roteador extends Component {
 							<Route exact path="/admin7tons/blog" component={(props) => !admin ? <Redirect to="/admin7tons" /> : <AdminHeader {...props} user={admin} logout={this.adminLogout}> <BlogEditor public={this.props.publics} /></AdminHeader>} />
 
 							<Route exact path="/admin7tons/blog/nova-postagem" component={(props) => !admin ? <Redirect to="/admin7tons" /> : <AdminHeader {...props} user={admin} logout={this.adminLogout}> <FormNovaPostagem/></AdminHeader>} />
+
+							<Route exact path="/admin7tons/blog/editar/:id" component={(props) => !admin ? <Redirect to="/admin7tons" /> : <AdminHeader {...props} user={admin} logout={this.adminLogout}> <FormNovaPostagem {...props} update /></AdminHeader>} />
 
 							<Route component={NotFound} />
 						</Switch>

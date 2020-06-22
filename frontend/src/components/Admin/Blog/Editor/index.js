@@ -2,7 +2,7 @@ import React from 'react';
 import Toolbar from './components/Toolbar';
 import './styles.css';
 
-export default function Editor({ style, onSubmit }) {
+export default function Editor({ style }) {
 
   return (
     <div>
