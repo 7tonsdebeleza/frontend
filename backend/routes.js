@@ -12,6 +12,7 @@ const CorreiosController = require('./controller/CorreiosController');
 const PagSeguroController = require('./controller/PagSeguroController');
 const HistoryController = require('./controller/HistoryController')
 const EmailController = require('./controller/EmailController');
+const BlogController = require('./controller/BlogController')
 
 //Confirmar Email
 routes.post('/confirmaremail', EmailController.ConfirmarEmail)
@@ -29,6 +30,20 @@ routes.post('/Signadmin',AdminController.Sign);
 routes.post('/Authadmin',[AdminController.Auth, AdminController.Sign]);
 
 //SERIO VEY APAGA
+
+//Blog
+//Criar post
+routes.post('/posts',upload.single('img'),BlogController.store)
+//Listar todos os post
+routes.get('/posts',BlogController.index)
+//Pegar post por id
+routes.get('/posts/:id',BlogController.show)
+//Deletar por id
+routes.delete('/posts/:id',BlogController.destroy)
+//Atualizar por ID
+routes.put('/posts/:id',BlogController.update)
+//Atualizar Imagem por ID
+routes.post('/posts/:id',upload.single('img'),BlogController.UpdateImage)
 
 //Usuarios
 //Criar usuarios (depois pede confirmação por email)
