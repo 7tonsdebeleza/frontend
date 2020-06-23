@@ -37,7 +37,7 @@ module.exports = {
                 diametro,
                 novidade,
                 promocao
-            },(e)=>{console.log(e)})
+            })
             
             return res.send(product)
         
