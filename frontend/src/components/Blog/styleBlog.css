@@ -83,10 +83,21 @@
 .article_image{
     transition: .5s all;
     max-width: 100%;
-    height: auto;
+    max-height: 200px;
 }
+
 .article_image:hover{
     opacity: 0.7;
+}
+
+.article-img-content{
+    display: flex;
+    flex: 1;
+    width: 100%;
+    min-height: 100px;
+    align-items: center;
+    justify-content: center;
+    background-color: #d0d0d0;
 }
 
 .list-blog h3 a{
