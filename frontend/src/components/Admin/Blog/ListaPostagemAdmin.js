@@ -33,7 +33,7 @@ export default function ListaPostagemAdmin() {
       console.log(res);
       let attPublics = [];
       publics.forEach(post => {
-        if(post._id != id){
+        if(post._id !== id){
           attPublics.push(post);
         }
       });

@@ -137,7 +137,8 @@ class Roteador extends Component {
 				return 'Erro inesperado... tente mais tarde';
 			} else {
 				//Salvando dados do usuário
-				this.setState({ admin: res.data.user })
+				this.setState({ admin: res.data.user });
+				console.log('Autenticação realizada!');
 			}
 		}).catch(error => {
 			console.log(error);
@@ -454,7 +455,7 @@ const AdminHeader = (props) => {
 					}
 				</header>
 				<p className="title">
-					{props.user !== undefined && props.user ? (<div>Bem vindo(a) <b>{props.user.nome}</b>! </div>) : null}
+					{props.user !== undefined && props.user ? (<span>Bem vindo(a) <b>{props.user.nome}</b>! </span>) : null}
 									Área exclusiva para administração da loja virtual 7 Tons de Beleza.
 							</p>
 
