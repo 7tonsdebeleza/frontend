@@ -14,7 +14,8 @@ class Publicacao extends Component {
     */
 
     state = {
-        open: null
+        open: null,
+        loading: true,
     }
 
     loadPublic = async () => {
@@ -27,7 +28,9 @@ class Publicacao extends Component {
             this.setState({
                 open: post.data,
             })
-        } else this.setState({ open: null })
+        } else this.setState({ open: null });
+
+        this.setState({ loading: false })
     }
 
     //Função para ler string HTML contida no objeto
@@ -55,16 +58,18 @@ class Publicacao extends Component {
             return (
                 <Blog publics={this.props.publics}>
                     <div>
-                        <PathTrigger callBack={() => this.loadPublic()} />
-                        <h3 className="article-title">
-                            {this.state.open.titulo}
-                        </h3>
-                        <p className="blog_author">
-                            <span className="article_date">
-                                <time>{convertDate(this.state.open.data)}</time>
-                            </span>
-                        </p>
-                        <div className="article-details">
+                        <header>
+                            <PathTrigger callBack={() => this.loadPublic()} />
+                            <h3 className="article-title">
+                                {this.state.open.titulo}
+                            </h3>
+                            <p className="blog_author">
+                                <span className="article_date">
+                                    <time>{convertDate(this.state.open.data)}</time>
+                                </span>
+                            </p>
+                        </header>
+                        <section className="article-details">
                             <p className="article-img article-img-content">
                                 <Link to="#">
                                     <img className="article_image" src={this.state.open.capa} onError={this.cover} alt='Capa de publicação' />
@@ -76,12 +81,14 @@ class Publicacao extends Component {
                                     <Link className="btn-secondaryy" to="/blog">&larr; Voltar</Link>
                                 </p>
                             </div>
-                        </div>
+                        </section>
                     </div>
                 </Blog>
             )
 
-        else return (<Blog publics={this.props.publics}><NotFound /></Blog>)
+        else if (this.state.loading) {
+            return (<Blog> <h3 className="article-title"> CARREGANDO... </h3> </Blog>)
+        } else return (<Blog><NotFound /></Blog>)
     }
 }
 

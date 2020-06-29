@@ -15,7 +15,7 @@
 
 body{
     font-family: 'Arimo', sans-serif; /*fonte do template*/
-    
+    overflow-x: hidden;    
 }
 /*-------------------------------------------------------*/
 /*Modal Ver Detalhes do Produto*/

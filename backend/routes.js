@@ -39,9 +39,9 @@ routes.get('/posts',BlogController.index)
 //Pegar post por id
 routes.get('/posts/:id',BlogController.show)
 //Deletar por id
-routes.delete('/posts/:id',BlogController.destroy)
+routes.delete('/posts/:id', [AdminController.Auth, BlogController.destroy])
 //Atualizar por ID
-routes.put('/posts/:id',BlogController.update)
+routes.put('/posts/:id', [AdminController.Auth, BlogController.update])
 //Atualizar Imagem por ID
 routes.post('/posts/:id',upload.single('img'),BlogController.UpdateImage)
 

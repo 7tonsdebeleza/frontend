@@ -10,8 +10,10 @@ const PostsList = () => {
   const [page, setPage] = useState(1);
 
   function cover(e) {
-    e.target.src = pencil;
     e.target.width = 60;
+    e.target.className = "article_image";
+    e.target.src = pencil;
+    
   }
 
   useEffect(() => {
@@ -63,7 +65,7 @@ const PostsList = () => {
                 <div className="article-details">
                   <p className="article-img article-img-content">
                     <Link to={"/blog/posts/" + p._id}>
-                      <img className="article_image" src={p.capa} onError={cover} alt='capa do blog' />
+                      <img className="article_image d-block w-100" src={p.capa} onError={cover} alt='capa do blog' />
                     </Link>
                   </p>
                   <div className="rte article-excerpt">

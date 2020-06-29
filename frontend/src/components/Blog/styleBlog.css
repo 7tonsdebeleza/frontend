@@ -82,8 +82,8 @@
 
 .article_image{
     transition: .5s all;
-    max-width: 100%;
-    max-height: 200px;
+    min-width: 100%;
+    max-height: 100%;
 }
 
 .article_image:hover{
