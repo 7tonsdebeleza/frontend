@@ -33,28 +33,17 @@ class Publicacao extends Component {
         this.setState({ loading: false })
     }
 
-    //Função para ler string HTML contida no objeto
-    //Só pode ser usada após o carregamento do componente
-    loadText = () => {
-        let field = document.getElementById("body-blog");
-        if (field && this.state.open) field.innerHTML = this.state.open.texto;
-    }
-
     cover = (e) => {
         e.target.src = pencil;
         e.target.width = 60;
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.loadPublic();
     }
 
-    componentDidMount() {
-        this.loadText();
-    }
-
     render() {
-        if (this.state.open)
+        if (this.state.open) {
             return (
                 <Blog publics={this.props.publics}>
                     <div>
@@ -76,7 +65,7 @@ class Publicacao extends Component {
                                 </Link>
                             </p>
                             <div className="rte article-excerpt">
-                                <div className="desc" id="body-blog"> {this.state.open.texto} </div>
+                                <div className="desc" id="body-blog" dangerouslySetInnerHTML={{__html: this.state.open.texto}}/>
                                 <p className="btn-secundaryy">
                                     <Link className="btn-secondaryy" to="/blog">&larr; Voltar</Link>
                                 </p>
@@ -86,7 +75,7 @@ class Publicacao extends Component {
                 </Blog>
             )
 
-        else if (this.state.loading) {
+        } else if (this.state.loading) {
             return (<Blog> <h3 className="article-title"> CARREGANDO... </h3> </Blog>)
         } else return (<Blog><NotFound /></Blog>)
     }

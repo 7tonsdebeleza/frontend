@@ -86,7 +86,7 @@ export default function ListaPostagemAdmin() {
   return (
     <div className="content-blog">
       <ul className="list-blog blog-list">
-        {
+        { publics.length > 0 ?
           publics.map((p) => {
             return (
               <li key={p._id}>
@@ -121,7 +121,7 @@ export default function ListaPostagemAdmin() {
                 </div>
               </li>
             )
-          })
+          }) : <em>Nenhuma publicação no momento</em>
         }
       </ul>
 

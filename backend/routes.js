@@ -33,7 +33,7 @@ routes.post('/Authadmin',[AdminController.Auth, AdminController.Sign]);
 
 //Blog
 //Criar post
-routes.post('/posts',upload.single('img'),BlogController.store)
+routes.post('/posts',upload.single('img'), [ AdminController.Auth, BlogController.store])
 //Listar todos os post
 routes.get('/posts',BlogController.index)
 //Pegar post por id
