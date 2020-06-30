@@ -61,7 +61,7 @@ class Publicacao extends Component {
                         <section className="article-details">
                             <p className="article-img article-img-content">
                                 <Link to="#">
-                                    <img className="article_image" src={this.state.open.capa} onError={this.cover} alt='Capa de publicação' />
+                                    <img className="article_image d-block w-100" src={this.state.open.capa_url} onError={this.cover} alt='Capa de publicação' />
                                 </Link>
                             </p>
                             <div className="rte article-excerpt">

@@ -8,6 +8,7 @@ const PostsList = () => {
 
   const [publics, setPublics] = useState([]);
   const [page, setPage] = useState(1);
+  const [carregado, setCarregado] = useState(false);
 
   function cover(e) {
     e.target.width = 60;
@@ -34,6 +35,7 @@ const PostsList = () => {
     async function fetchPage1() {
       if (publics.length === 0 && page === 1) {
         await fetchNextPage();
+        setCarregado(true);
       }
     };
 
@@ -51,6 +53,7 @@ const PostsList = () => {
     <div className="content-blog">
       <ul className="list-blog blog-list">
         {
+          !carregado? <h3> carregando... </h3> :
           publics.length > 0 ?
           publics.map((p) => {
             return (
@@ -66,7 +69,7 @@ const PostsList = () => {
                 <div className="article-details">
                   <p className="article-img article-img-content">
                     <Link to={"/blog/posts/" + p._id}>
-                      <img className="article_image d-block w-100" src={p.capa} onError={cover} alt='capa do blog' />
+                      <img className="article_image d-block w-100" src={p.capa_url} onError={cover} alt='capa da postagem' />
                     </Link>
                   </p>
                   <div className="rte article-excerpt">
