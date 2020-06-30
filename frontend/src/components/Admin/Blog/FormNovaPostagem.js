@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import Editor from './Editor';
 import ThumbInput from '../../ThumbInput/ThumbInput';
-import { Public } from '../../Produto/Dados';
 import api from '../../API/api';
 import '../Admin.css';
 
@@ -13,6 +12,7 @@ export default function FormNovaPostagem({ update, match }) {
   const [preExibe, setPreExibe] = useState('');
   const [alerta, setAlert] = useState(false);
   const [enviando, setEnviando] = useState(false);
+  const [fetchedPost, setPost] = useState(false);
 
   const history = useHistory();
 
@@ -24,52 +24,93 @@ export default function FormNovaPostagem({ update, match }) {
   async function submit() {
     const editor = document.getElementById('editor');
 
-    if (!capa || !titulo || !preExibe || editor.innerHTML.length === 0)
+    if (!titulo || !preExibe || editor.innerHTML.length === 0)
       return setAlert('Preencha todos os campos!');
 
-    let novaPostagem = new FormData();
-    novaPostagem.append('img', capa);
-    novaPostagem.append('titulo', titulo);
-    novaPostagem.append('texto', editor.innerHTML);
-    novaPostagem.append('preExibicao', preExibe);
+    if (update) {
+      const req = { titulo, preExibicao: preExibe, texto: editor.innerHTML, data: fetchedPost.data }
+      const token = localStorage.getItem("@stbl/admin/user");
+      setEnviando(true);
+      await api.put(`/posts/${fetchedPost._id}`, req, { headers: { authorization: token } }).then(() => {
+        return history.push('/admin7tons/blog');
 
-    const token = localStorage.getItem("@stbl/admin/user");
-    setEnviando(true);
-    await api.post('/posts', novaPostagem,  { headers: { authorization: token } }).then(() => {
-      return history.push('/admin7tons/blog');
-
-    }).catch(error => {
-      if(error.response){
-        console.log(error.response);
-        if(error.response.status === 400)
-          setAlert('O título já existe!');
-
-      } else {
+      }).catch(error => {
         console.log(error);
+        alert('Erro inesperado... tente novamente mais tarde!');
+
+      })
+
+      if (capa) {
+        console.log('atualizando imagem...');
+
+        let reqImg = new FormData();
+        reqImg.append('img', capa);
+
+        const token = localStorage.getItem("@stbl/admin/user");
+        setEnviando(true);
+        await api.post(`/posts/${fetchedPost._id}`, reqImg, { headers: { authorization: token } }).then(() => {
+          return history.push('/admin7tons/blog');
+
+        }).catch(error => {
+          console.log(error);
+          alert('Erro inesperado... tente novamente mais tarde!');
+
+        });
 
       }
-      
-    });
+      return setEnviando(false);
 
-    return setEnviando(false);
+    } else {
+
+      if (!capa) return setAlert('Preencha todos os campos!');
+
+      let novaPostagem = new FormData();
+      novaPostagem.append('img', capa);
+      novaPostagem.append('titulo', titulo);
+      novaPostagem.append('texto', editor.innerHTML);
+      novaPostagem.append('preExibicao', preExibe);
+
+      const token = localStorage.getItem("@stbl/admin/user");
+      setEnviando(true);
+      await api.post('/posts', novaPostagem, { headers: { authorization: token } }).then(() => {
+        return history.push('/admin7tons/blog');
+
+      }).catch(error => {
+        if (error.response) {
+          console.log(error.response);
+          if (error.response.status === 400)
+            setAlert('O título já existe!');
+
+        } else {
+          console.log(error);
+          alert('Erro inesperado... tente novamente mais tarde!')
+        }
+
+      });
+
+      return setEnviando(false);
+    }
   }
 
   useEffect(() => {
-    //Verificando se endereço bate com alguma publicação da lista
-    if (update) {
+    async function fetchPost() {
       const adress = match.params.id;
 
-      let post = Public.find((obj) => {
-        return obj.id === adress;
-      })
+      const post = await api.get(`/posts/${adress}`);
 
-      if (post !== undefined) {
-        setTiulo(post.titulo);
-        setPreExibe(post.preExibicao)
+      if (post) {
+        setTiulo(post.data.titulo);
+        setPreExibe(post.data.preExibicao)
         let editor = document.getElementById('editor');
-        editor.innerHTML = post.texto;
+        editor.innerHTML = post.data.texto;
+        setPost(post.data);
 
       } else alert(`não foi encontrado uma publicação de id ${adress}`);
+    }
+
+    //Verificando se endereço bate com alguma publicação da lista
+    if (update) {
+      fetchPost();
     }
 
   }, [update, match]);
@@ -114,7 +155,7 @@ export default function FormNovaPostagem({ update, match }) {
           <Link to="/admin7tons/blog"> &larr; Retornar</Link>
         </p>
         <p onClick={() => submit()} className="btn-secundaryy" >
-          <Link to="#"> { enviando ? 'Enviando...' : 'Publicar'} </Link>
+          <Link to="#"> {enviando ? 'Enviando...' : 'Publicar'} </Link>
         </p>
       </div>
 

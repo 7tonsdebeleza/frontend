@@ -101,7 +101,7 @@ module.exports = {
             
             await Blog.findByIdAndUpdate({_id: id}, {$set: {titulo, data, preExibicao, texto}}, {new:true}, (err,doc)=>{
                 if(err){
-                    return res.send(err)
+                    return res.status(500).send(err)
                 }
                 
                 return res.send(doc)
@@ -125,11 +125,11 @@ module.exports = {
 
         await Blog.findByIdAndUpdate({_id: id},{$set: {capa:imgPath}},{new: true}, (err,doc)=>{
             if(err){
-                return res.send(err)
+                return res.status(500).send(err)
             }
             fs.unlink(`./uploads/${capaAntiga}`,(err)=>{
                 if(err){
-                    return res.send(err)
+                    return res.status(500).send(err)
                 }
             })
     

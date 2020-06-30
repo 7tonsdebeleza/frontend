@@ -43,7 +43,7 @@ routes.delete('/posts/:id', [AdminController.Auth, BlogController.destroy])
 //Atualizar por ID
 routes.put('/posts/:id', [AdminController.Auth, BlogController.update])
 //Atualizar Imagem por ID
-routes.post('/posts/:id',upload.single('img'),BlogController.UpdateImage)
+routes.post('/posts/:id',upload.single('img'), [AdminController.Auth, BlogController.UpdateImage])
 
 //Usuarios
 //Criar usuarios (depois pede confirmação por email)

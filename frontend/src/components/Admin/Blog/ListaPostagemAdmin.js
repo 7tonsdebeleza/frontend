@@ -12,6 +12,7 @@ export default function ListaPostagemAdmin() {
   const [publics, setPublics] = useState([]);
   const [page, setPage] = useState(1);
   const [selectedPost, setPost] = useState({});
+  const [carregado, setCarregado] = useState(false);
 
   function cover(e) {
     e.target.width = 60;
@@ -70,6 +71,7 @@ export default function ListaPostagemAdmin() {
     async function fetchPage1() {
       if (publics.length === 0 && page === 1) {
         await fetchNextPage();
+        setCarregado(true);
       }
     };
 
@@ -86,7 +88,7 @@ export default function ListaPostagemAdmin() {
   return (
     <div className="content-blog">
       <ul className="list-blog blog-list">
-        { publics.length > 0 ?
+        { !carregado? <h3> carregadno... </h3> : publics.length > 0 ?
           publics.map((p) => {
             return (
               <li key={p._id}>
