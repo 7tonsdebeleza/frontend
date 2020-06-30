@@ -22,8 +22,15 @@ const BlogSchema = new mongoose.Schema({
         required: true,
         type: String
     }
-    },{
-    timestamps: true
+    },
+    {      
+    timestamps: true,
+    toJSON: {virtuals: true},
+    toObject: {virtuals: true}
+})
+
+BlogSchema.virtual('capa_url').get(function(){
+    return `http://localhost:3333/files/${this.capa}`
 })
 
 module.exports = mongoose.model("Blog",BlogSchema);
