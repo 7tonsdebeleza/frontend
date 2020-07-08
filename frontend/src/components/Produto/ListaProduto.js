@@ -13,7 +13,7 @@ class ListaProduto extends Component {
                 <div className="listaProduto">
                 <ul className="nav container d-flex">
 
-                    {
+                    {   this.props.list.length > 0 ?
                         this.props.list.map((dados) => {
                             id_number++
                             return(
@@ -21,7 +21,7 @@ class ListaProduto extends Component {
                                     <Produto noCarrinho={this.props.noCarrinho} dados={dados} addCarrinho={this.props.addCarrinho} atualizarQtdCarrinho={this.props.atualizarQtdCarrinho} removerCarrinho={this.props.removerCarrinho} naNavbar={this.props.naNavbar} attQtdItem={this.props.attQtdItem}/>
                                 </li>
                             )
-                        })
+                        }) : <i> nenhum produto no momento </i>
                     }
                     
                 </ul>

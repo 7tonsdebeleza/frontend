@@ -26,7 +26,6 @@ function LojaVirtual({ addCarrinho, match }) {
 
     async function fetchPage1() {
       setCaregory(categoriaIndex);
-      console.log(categories[categoriaIndex].request)
       await api.get(`${categories[categoriaIndex].request}/1`).then(res => {
         res.data.forEach((obj) => {
           //Remove o path da imagem e seta como o link dela
