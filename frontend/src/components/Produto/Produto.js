@@ -7,7 +7,7 @@ import makeup from '../Images/makeup.svg'
 
 class Produto extends Component {
     state = {
-        cor: ""
+        noCarrinho: this.props.dados.noCarrinho
     }
 
     /* função para abrir o modal dos produtos*/
@@ -47,7 +47,7 @@ class Produto extends Component {
         let dados = this.props.dados;
         dados.qtd = 1;
         dados.noCarrinho = true;
-        dados.cor = this.state.cor;
+        this.setState({ noCarrinho: true });
         //Eviando dados para pai:
         this.props.addCarrinho(dados);
 
@@ -62,6 +62,12 @@ class Produto extends Component {
     cover = (e) => {
         e.target.src = makeup;
         e.target.width = 60;
+    }
+
+    componentDidMount(){
+        // Chegando se produt está no carrinho global
+        const finded = this.props.carrinho.find(item => item._id === this.props.dados._id);
+        this.setState({ noCarrinho: finded ? true : false });
     }
 
     render() {
@@ -79,8 +85,6 @@ class Produto extends Component {
         }
 
         BotaoId = ProdutoId + "Bta";
-
-        console.log(this.props.dados);
 
         return (
             <div>
@@ -134,7 +138,7 @@ class Produto extends Component {
                             <h2><b>R$ {parseFloat(this.props.dados.preco).toFixed(2)}</b></h2>
 
 
-                            {this.props.dados.estoque !== 0 ? this.props.dados.noCarrinho ?
+                            {this.props.dados.estoque !== 0 ? this.state.noCarrinho ?
                                 <div>
                                     <button className="botaoAddCarrinhoDisabilitado"> PRODUTO ADICIONADO AO CARRINHO</button>
                                     <div className="nav botoesCarrinho">
@@ -159,7 +163,6 @@ class Produto extends Component {
                                     </div>
                                 </div>
                             }
-
 
                         </div>
                     </div>

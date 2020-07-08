@@ -160,7 +160,7 @@ class Roteador extends Component {
 	}
 
 	//Esta função será passada aos componetes filhos onde houver componete produto
-	addCarrinho = (dados, qtd) => {
+	addCarrinho = async (dados, qtd) => {
 		const frete = new Frete();
 		let novaLista = this.state.dadosCarrinho;
 		novaLista.push(dados);
@@ -171,11 +171,11 @@ class Roteador extends Component {
 		this.setState({
 			dadosCarrinho: novaLista,
 			qtdCarrinho: this.state.qtdCarrinho + dados.qtd
-		}, () => {
+		}, async () => {
 			// Caso haja login, bd do usuário deve ser atualizado
 			if (this.state.user) {
 				const token = localStorage.getItem('@stbl/client/user');
-				api.post('/adicionarcarrinho', { email: this.state.user.email, titulo: dados.titulo, quantidade: qtd ? qtd : 1 }, {
+				await api.post('/adicionarcarrinho', { email: this.state.user.email, titulo: dados.titulo, quantidade: qtd ? qtd : 1 }, {
 					headers: { authorization: token }
 				})
 			}
@@ -382,8 +382,8 @@ class Roteador extends Component {
 
 							<Route exact path="/login" render={() => this.state.user ? <Redirect to='/Cliente' /> : <Login login={this.clientLogin} />} />
 
-							<Route exact path="/lojavirtual/:categoria" render={() => <LojaVirtual addCarrinho={this.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} attQtdItem={this.attQtdItem} removerCarrinho={this.removerCarrinho} />} />
-							<Route exact path="/lojavirtual/" render={() => <LojaVirtual addCarrinho={this.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} attQtdItem={this.attQtdItem} removerCarrinho={this.removerCarrinho} />} />
+							<Route exact path="/lojavirtual/:categoria" render={() => <LojaVirtual addCarrinho={this.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} attQtdItem={this.attQtdItem} removerCarrinho={this.removerCarrinho} carrinho={this.state.dadosCarrinho} />} />
+							<Route exact path="/lojavirtual/" render={() => <LojaVirtual addCarrinho={this.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} attQtdItem={this.attQtdItem} removerCarrinho={this.removerCarrinho} carrinho={this.state.dadosCarrinho} />} />
 
 							<Route exact path="/marcas" component={Marcas} />
 

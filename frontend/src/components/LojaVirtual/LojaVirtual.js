@@ -5,7 +5,7 @@ import './lojaVirtualStyle.css';
 import BannerLV from '../Images/bannerlv.jpg';
 import api from '../API/api';
 
-function LojaVirtual({ addCarrinho, match }) {
+function LojaVirtual({ addCarrinho, match, carrinho, atualizarQtdCarrinho, attQtdItem, removerCarrinho }) {
 
   const [categoryIndex, setCaregory] = useState(0);
   const [itemOver, setItemOver] = useState(null);
@@ -212,7 +212,7 @@ function LojaVirtual({ addCarrinho, match }) {
 
           <hr />
           {/*Produtos com renderização dinâmica:*/}
-          <ListaProduto list={produtos} addCarrinho={addCarrinho} />
+          <ListaProduto list={produtos} addCarrinho={addCarrinho} atualizarQtdCarrinho={atualizarQtdCarrinho} attQtdItem={attQtdItem} removerCarrinho={removerCarrinho} carrinho={carrinho}/>
         </div>
 
       </div>
