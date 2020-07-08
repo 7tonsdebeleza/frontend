@@ -382,7 +382,8 @@ class Roteador extends Component {
 
 							<Route exact path="/login" render={() => this.state.user ? <Redirect to='/Cliente' /> : <Login login={this.clientLogin} />} />
 
-							<Route exact path="/lojavirtual" render={() => <LojaVirtual addCarrinho={this.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} attQtdItem={this.attQtdItem} removerCarrinho={this.removerCarrinho} />} />
+							<Route exact path="/lojavirtual/:categoria" render={() => <LojaVirtual addCarrinho={this.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} attQtdItem={this.attQtdItem} removerCarrinho={this.removerCarrinho} />} />
+							<Route exact path="/lojavirtual/" render={() => <LojaVirtual addCarrinho={this.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} attQtdItem={this.attQtdItem} removerCarrinho={this.removerCarrinho} />} />
 
 							<Route exact path="/marcas" component={Marcas} />
 
