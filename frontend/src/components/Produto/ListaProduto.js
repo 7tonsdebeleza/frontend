@@ -11,7 +11,7 @@ class ListaProduto extends Component {
         return (
             <div>
                 <div className="listaProduto">
-                <ul className="nav container d-flex">
+                <ul className="nav container d-flex" style={{ justifyContent: 'center' }} >
 
                     {   this.props.list.length > 0 ?
                         this.props.list.map((dados) => {

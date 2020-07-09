@@ -24,7 +24,7 @@ class Home extends Component {
   }
 
   componentWillMount(){
-    api.get('/mostrarprodutopromocao').then(res => {
+    api.get('/mostrarprodutopromocao/1').then(res => {
       res.data.map((obj)=>{
         //Remove o path da imagem e seta como o link dela
         obj.img = obj.img_url;
@@ -34,7 +34,7 @@ class Home extends Component {
       this.setState({ promocoes: res.data });
     })
 
-    api.get('/mostrarprodutonovidade').then(res => {
+    api.get('/mostrarprodutonovidade/1').then(res => {
       res.data.map((obj)=>{
         //Remove o path da imagem e seta como o link dela
         obj.img = obj.img_url;
@@ -103,7 +103,7 @@ class Home extends Component {
               <div className='col'><hr/></div>
             </div>
 
-            <ListaProduto list={this.state.promocoes} addCarrinho={this.props.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} removerCarrinho={this.removerCarrinho}/>
+            <ListaProduto list={this.state.promocoes} addCarrinho={this.props.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} removerCarrinho={this.removerCarrinho} carrinho={this.props.carrinho} />
                 
           </div> : null
         }
@@ -140,7 +140,7 @@ class Home extends Component {
               <div className='col'><hr/></div>
             </div>
 
-            <ListaProduto list={this.state.novidades} addCarrinho={this.props.addCarrinho} atualizarQtdCarrinho={this.props.atualizarQtdCarrinho} removerCarrinho={this.props.removerCarrinho}/>
+            <ListaProduto list={this.state.novidades} addCarrinho={this.props.addCarrinho} atualizarQtdCarrinho={this.props.atualizarQtdCarrinho} removerCarrinho={this.props.removerCarrinho} carrinho={this.props.carrinho} />
         
           </div> : null
         }

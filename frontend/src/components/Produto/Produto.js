@@ -164,6 +164,9 @@ class Produto extends Component {
                                 </div>
                             }
 
+                            <div className="button-pri">
+                                <Link to={`/produtos/${this.props.dados._id}`}> MAIS INFORMAÇÕES </Link>
+                            </div>
                         </div>
                     </div>
                 </div>
