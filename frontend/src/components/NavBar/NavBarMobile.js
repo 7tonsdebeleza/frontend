@@ -174,7 +174,6 @@ class NavBarMobile extends Component {
                         <ul className="nav-item" onClick={this.CliqueLink.bind(this)}>
                             <li className="item" id="item"><Link to="/home">Home</Link></li>
                             <li className="item" id="item"><Link to="/lojavirtual">Loja Virtual</Link></li>
-                            <li className="item" id="item"><Link to="/marcas">Marcas</Link></li>
                             <li className="item" id="item"><Link to="/faq">FAQ</Link></li>
                             <li className="item" id="item"><Link to="/blog">Dicas de Beleza</Link></li>
                         </ul>

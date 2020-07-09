@@ -6,7 +6,6 @@ import Home from "../Home/Home";
 import Cadastro from "../Cadastro/Cadastro";
 import LojaVirtual from "../LojaVirtual/LojaVirtual";
 import NotFound from "../NotFound/NotFound";
-import Marcas from "../Marcas/Marcas";
 import Faq from "../Faq/Faq";
 import Blog from '../Blog/Blog';
 import Footer from '../Footer/Footer';
@@ -387,8 +386,6 @@ class Roteador extends Component {
 
 							<Route exact path="/lojavirtual/:categoria" render={() => <LojaVirtual addCarrinho={this.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} attQtdItem={this.attQtdItem} removerCarrinho={this.removerCarrinho} carrinho={this.state.dadosCarrinho} />} />
 							<Route exact path="/lojavirtual/" render={() => <LojaVirtual addCarrinho={this.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} attQtdItem={this.attQtdItem} removerCarrinho={this.removerCarrinho} carrinho={this.state.dadosCarrinho} />} />
-
-							<Route exact path="/marcas" component={Marcas} />
 
 							<Route exact path="/faq" component={Faq} />
 

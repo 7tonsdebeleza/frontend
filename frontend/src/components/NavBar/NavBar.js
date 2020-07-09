@@ -192,11 +192,7 @@ class NavBar extends Component {
                                         <Link to="/lojavirtual" style={{ color: 'white' }}>Loja Virtual</Link>
                                     </div>
                                 </li>
-                                <li className='nav-item'>
-                                    <div className='nav-link'>
-                                        <Link to="/marcas" style={{ color: 'white' }}>Marcas</Link>
-                                    </div>
-                                </li>
+
                                 <li className='nav-item'>
                                     <div className='nav-link'>
                                         <Link to="/faq" style={{ color: 'white' }}>FAQ</Link>
@@ -231,11 +227,6 @@ class NavBar extends Component {
                                 <li className='nav-item'>
                                     <div className='nav-link'>
                                         <Link to="/lojavirtual" style={{ color: 'white' }}>Loja Virtual</Link>
-                                    </div>
-                                </li>
-                                <li className='nav-item'>
-                                    <div className='nav-link'>
-                                        <Link to="/marcas" style={{ color: 'white' }}>Marcas</Link>
                                     </div>
                                 </li>
                                 <li className='nav-item'>
