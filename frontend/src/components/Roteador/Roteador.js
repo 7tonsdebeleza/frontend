@@ -376,6 +376,9 @@ class Roteador extends Component {
 						<NavBarMobile pesquisar={this.pesquisar} qtdCarrinho={this.state.qtdCarrinho} dados={this.state.dadosCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} attQtdItem={this.attQtdItem} removerCarrinho={this.removerCarrinho} botaoCarrinho={true} user={this.state.user} logout={this.Clientelogout} />
 
 						<Switch>
+
+							<Route exact path="/" render={() => <Home dados={this.state.dados} addCarrinho={this.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} attQtdItem={this.attQtdItem} removerCarrinho={this.removerCarrinho} carrinho={this.state.dadosCarrinho} />} />
+
 							<Route exact path="/home" render={() => <Home dados={this.state.dados} addCarrinho={this.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} attQtdItem={this.attQtdItem} removerCarrinho={this.removerCarrinho} carrinho={this.state.dadosCarrinho} />} />
 
 							<Route exact path="/cadastro" render={() => this.state.user ? <Redirect to='/Cliente' /> : <Cadastro />} />
@@ -394,8 +397,6 @@ class Roteador extends Component {
 							<Route exact path="/carrinho" render={() => <Carrinho logado={this.state.user ? true : false} dados={this.state.dadosCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} attQtdItem={this.attQtdItem} removerCarrinho={this.removerCarrinho} botaoCarrinho={false} naNavbar={false} />} />
 
 							<Route path="/checkout" render={() => <Checkout user={this.state.user} carrinho={this.state.dadosCarrinho} />} />
-
-							<Route exact path="/" render={() => <Home dados={this.state.dados} addCarrinho={this.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} removerCarrinho={this.removerCarrinho} />} />
 
 							<Route exact path="/cliente" render={() => this.state.user ? <Cliente user={this.state.user} /> : <Redirect to="/login" />} />
 
@@ -418,7 +419,7 @@ class Roteador extends Component {
 
 							<Route exact path="/admin7tons/blog" component={(props) => !admin ? <Redirect to="/admin7tons" /> : <AdminHeader {...props} user={admin} logout={this.adminLogout}> <BlogEditor public={this.props.publics} /></AdminHeader>} />
 
-							<Route exact path="/admin7tons/blog/nova-postagem" component={(props) => !admin ? <Redirect to="/admin7tons" /> : <AdminHeader {...props} user={admin} logout={this.adminLogout}> <FormNovaPostagem/></AdminHeader>} />
+							<Route exact path="/admin7tons/blog/nova-postagem" component={(props) => !admin ? <Redirect to="/admin7tons" /> : <AdminHeader {...props} user={admin} logout={this.adminLogout}> <FormNovaPostagem /></AdminHeader>} />
 
 							<Route exact path="/admin7tons/blog/editar/:id" component={(props) => !admin ? <Redirect to="/admin7tons" /> : <AdminHeader {...props} user={admin} logout={this.adminLogout}> <FormNovaPostagem {...props} update /></AdminHeader>} />
 
