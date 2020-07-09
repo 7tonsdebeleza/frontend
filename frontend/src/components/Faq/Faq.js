@@ -13,7 +13,7 @@ const Faq = () => {
 
             <h3 className="spotlight" style={tituloPeriferico}>Perguntas Frequentes </h3>
             <hr/>
-            <p className="text-center discreet-arimo" style={textoPeriferico}>
+            <p id="contato" className="text-center discreet-arimo" style={textoPeriferico}>
                 Abaixo em nosso FAQ estão algumas preocupações comuns de nossos clientes antes de comprar um produto, se você tiver outras perguntas, por favor, basta enviá-lo para support@email.com.
             </p>
 

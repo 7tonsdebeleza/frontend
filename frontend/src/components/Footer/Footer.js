@@ -1,14 +1,14 @@
-import React, { Component } from 'react'
-import { Link } from "react-router-dom";
+import React, { Component } from 'react';
+import { HashLink as Link } from 'react-router-hash-link';
 
-import IconFacebook from "../Images/iconfacebook2.png"
-import IconFacebookHover from "../Images/iconfacebook.png"
-import IconInstragram from "../Images/iconinstagram2.png"
-import IconInstragramHover from "../Images/iconinstagram.png"
-import IconVisa from "../Images/visa.png"
-import IconMasterCard from "../Images/mastercard.png"
-import IconAmerican from "../Images/american.png"
-import IconPaypal from "../Images/paypal.png"
+import IconFacebook from "../Images/iconfacebook2.png";
+import IconFacebookHover from "../Images/iconfacebook.png";
+import IconInstragram from "../Images/iconinstagram2.png";
+import IconInstragramHover from "../Images/iconinstagram.png";
+import IconVisa from "../Images/visa.png";
+import IconMasterCard from "../Images/mastercard.png";
+import IconAmerican from "../Images/american.png";
+import IconPaypal from "../Images/paypal.png";
 
 class Footer extends Component {
 
@@ -38,20 +38,16 @@ class Footer extends Component {
                     <div className="item-footer">
                         <ul className="nav-item">
                             <h1 className="footertitles">Loja</h1>
-                            <li ><Link to="/lojavirtual"><span>Lançamentos</span></Link></li>
-                            <li><Link to="/lojavirtual"><span>Lorem Et Dorus</span></Link></li>
-                            <li><Link to="/lojavirtual"><span>Comos De Milano</span></Link></li>
-                            <li><Link to="/marcas"><span>Nossas Marcas</span></Link></li>
-                            <li><Link to="/lojavirtual"><span>Ofertas</span></Link></li>
+                            <li ><Link to="/lojavirtual/Novidades"><span>Lançamentos</span></Link></li>
+                            <li><Link to="/lojavirtual/Promoções"><span>Ofertas</span></Link></li>
+                            <li><Link to="/lojavirtual"><span>Categorias</span></Link></li>
                         </ul>
                     </div>
                     <div className="item-footer">
                         <ul className="nav-item">
                             <h1 className="footertitles">Informações</h1>
-                            <li><Link to="/"><span>Sobre</span></Link></li>
-                            <li><Link to="/"><span>Serviços</span></Link></li>
-                            <li><Link to="/"><span>Política de Privacidade</span></Link></li>
-                            <li><Link to="/"><span>Termos e condições</span></Link></li>
+                            <li><Link to="/home#sobreALoja"><span>Sobre a Loja</span></Link></li>
+                            <li><Link to="/home#sobre7tons"><span>Sobre a Marca</span></Link></li>
                             <li><Link to="/blog"><span>Blog</span></Link></li>
                         </ul>
                     </div>
@@ -59,17 +55,15 @@ class Footer extends Component {
                         <ul className="nav-item">
                             <h1 className="footertitles">Serviços</h1>
                             <li><Link to="/"><span>Pesquisa</span></Link></li>
-                            <li><Link to="/"><span>Pedidos e entregas</span></Link></li>
-                            <li><Link to="/"><span>Contato</span></Link></li>
-                            <li><Link to="/faq"><span>Faq</span></Link></li>
-                            <li><Link to="/"><span>Estoque</span></Link></li>
+                            <li><Link to="/faq"><span>FAQ e Contatos</span></Link></li>
+                            <li><Link to="/lojavirtual"><span>Estoque</span></Link></li>
                         </ul>
                     </div>
                     <div className="footer-social">
                         <h1 className="footertitles">Redes Sociais</h1>
                         <ul className="social-icons nav">
-                            <li><a href="http://facebook.com"><img className='iconface' id='iconface' onMouseOver={this.FacebookHover.bind(this)} onMouseOut={this.FacebookNotHover.bind(this)} width='50' height='50' src={IconFacebook} alt='iconfacebook' /></a></li>
-                            <li><a href="http://instagram.com"><img className='iconinstagram' id='iconinstagram' onMouseOver={this.InstagramHover.bind(this)} onMouseOut={this.InstagramNotHover.bind(this)} width='50' height='50' src={IconInstragram} alt='iconfacebook' /></a></li>
+                            <li><a target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/7tonsdebeleza/about/"><img className='iconface' id='iconface' onMouseOver={this.FacebookHover.bind(this)} onMouseOut={this.FacebookNotHover.bind(this)} width='50' height='50' src={IconFacebook} alt='iconfacebook' /></a></li>
+                            <li><a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/7tonsdebeleza/?hl=pt-br"><img className='iconinstagram' id='iconinstagram' onMouseOver={this.InstagramHover.bind(this)} onMouseOut={this.InstagramNotHover.bind(this)} width='50' height='50' src={IconInstragram} alt='iconfacebook' /></a></li>
                         </ul>
                     </div>
                 </div>

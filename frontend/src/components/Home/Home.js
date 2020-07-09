@@ -10,11 +10,6 @@ import Apr from '../Images/apresentLogo.png';
 import Logos from '../Images/logos.png';
 import Sete from '../Images/sete.jpg';
 import Banner3 from '../Images/banner3.jpg';
-import Temp1 from '../Images/temp1.jpg';
-import Temp2 from '../Images/tem2.jpg';
-import Temp3 from '../Images/tem3.jpg';
-import Temp4 from '../Images/temp4.jpg';
-import Temp5 from '../Images/temp5.jpg';
 import api from '../API/api';
 
 class Home extends Component {
@@ -108,12 +103,12 @@ class Home extends Component {
           </div> : null
         }
 
-        <div className='banner wow fadeInUp' style={{ minHeight: '90vh'}} >
+        <div id="sobreALoja" className='banner wow fadeInUp' style={{ minHeight: '90vh'}} >
           <img className="d-block w-100" src={Banner3} alt='img-card'/>
           <div className="wow slideInLeft">
             <div className='justify-content-center text-center'>                            
               <div className='banner-paragrafo2 banner-paragrafo-rightinle'>
-                <h2 className='spotlight banner-titulo-natural'>SOBRE A MARCA</h2>
+                <h2 className='spotlight banner-titulo-natural'>SOBRE A LOJA</h2>
                 <div className='divider'></div>
                 <p className='banner-texto-inline discreet-arimo'>Somos a <strong>7 Tons de Beleza</strong> surgimos com o desejo de despertar nas pessoas as emoções transformadoras que a maquiagem causa, possibilitanddo um momento mágico onde tudo é possível. O importante é ser feliz!</p>
 
@@ -145,10 +140,10 @@ class Home extends Component {
           </div> : null
         }
 
-        <div className='container'>
+        <div id="sobre7tons" className='container'>
           <div className='p-4 d-flex flex-row justify-content-center align-items-center text-center d-flex'>
             <div className='col'><hr/></div>
-            <div className='col-md-auto spotlight wow fadeIn'>Sobre a 7 Tons de Beleza</div>
+            <div className='col-md-auto spotlight wow fadeIn'>Sobre a Marca</div>
             <div className='col'><hr/></div>
           </div>
 
@@ -193,11 +188,11 @@ class Home extends Component {
         <div className='pink-card'>
           <div className='container text-center'>
             <h3 className="pink-card-title"> 7 Tons de Beleza no instagram</h3>
-            <p className='discreet-arimo'>Acompanhe nossa loja física na rede social.</p>
+            <p className='discreet-arimo'>Acompanhe nossa loja física na rede social em @7tonsdebeleza.</p>
                     
             <SliderCenter lista={imagesInst} large={true}/>
 
-            <p className="button-pri"><Link to="#">VISITAR GALERIA <span/></Link></p>
+            <p className="button-pri"><a href="https://www.instagram.com/7tonsdebeleza/?hl=pt-br" target="_blank" rel="noopener noreferrer" >VISITAR GALERIA <span/></a></p>
                     
           </div>
         </div>
@@ -209,23 +204,31 @@ class Home extends Component {
 export default Home;
 
 const imagesInst = [
-    (<img src={Temp1} alt='instagram image1' style={{
+    (<img src='https://instagram.ffor15-1.fna.fbcdn.net/v/t51.2885-15/e35/83944431_1442992535867541_3666757036980951424_n.jpg?_nc_ht=instagram.ffor15-1.fna.fbcdn.net&_nc_cat=109&_nc_ohc=Yh0gexUi-48AX-Co0wR&oh=42ce1308f70d9126f61147a31f05ca08&oe=5F30FA0D' alt='instagram image1' style={{
         maxWidth: '100%',
         height: 'auto'
     }}/>),
-    (<img src={Temp2} alt='instagram image2' style={{
+    (<img src='https://instagram.ffor15-1.fna.fbcdn.net/v/t51.2885-15/e35/84434530_237786930578740_5844669268744842502_n.jpg?_nc_ht=instagram.ffor15-1.fna.fbcdn.net&_nc_cat=104&_nc_ohc=mCmEjMthcuAAX8VhMPt&oh=74cbd41598ada59d54842f8248e0a148&oe=5F2F3D26' alt='instagram image2' style={{
         maxWidth: '100%',
         height: 'auto'
     }}/>),
-    (<img src={Temp3} alt='instagram image3' style={{
+    (<img src='https://instagram.ffor15-1.fna.fbcdn.net/v/t51.2885-15/e35/82182990_189738182343790_5717396868312932372_n.jpg?_nc_ht=instagram.ffor15-1.fna.fbcdn.net&_nc_cat=110&_nc_ohc=fiCTLA8B-aEAX8_2SaR&oh=108831ca65ae796d61a8f5a0b755a3cb&oe=5F2FC391' alt='instagram image3' style={{
         maxWidth: '100%',
         height: 'auto'
     }}/>),
-    (<img src={Temp4} alt='instagram image4' style={{
+    (<img src='https://instagram.ffor15-1.fna.fbcdn.net/v/t51.2885-15/e35/s1080x1080/85041661_666180170791325_8456388879783590449_n.jpg?_nc_ht=instagram.ffor15-1.fna.fbcdn.net&_nc_cat=105&_nc_ohc=DuIRgclhw10AX_mLoPt&oh=1900373766ecb53c8a1b548f44660721&oe=5F300018' alt='instagram image4' style={{
         maxWidth: '100%',
         height: 'auto'
     }}/>),
-    (<img src={Temp5} alt='instagram image5' style={{
+    (<img src='https://instagram.ffor15-1.fna.fbcdn.net/v/t51.2885-15/e35/84966390_184679492809073_6508670658211222983_n.jpg?_nc_ht=instagram.ffor15-1.fna.fbcdn.net&_nc_cat=105&_nc_ohc=HDt3BV5brY0AX-vptGb&oh=354bb1ebaa122de1fd9f1884b394f3b9&oe=5F2F6FD1' alt='instagram image5' style={{
+        maxWidth: '100%',
+        height: 'auto'
+    }}/>),
+    (<img src='https://instagram.ffor15-1.fna.fbcdn.net/v/t51.2885-15/e35/84030964_608926876337004_5188085532859743400_n.jpg?_nc_ht=instagram.ffor15-1.fna.fbcdn.net&_nc_cat=100&_nc_ohc=Ed-6fRqiw1UAX_kiMpG&oh=60758da1aa3cd2e1982ad333930f3403&oe=5F2FD964' alt='instagram image6' style={{
+        maxWidth: '100%',
+        height: 'auto'
+    }}/>),
+    (<img src='https://instagram.ffor15-1.fna.fbcdn.net/v/t51.2885-15/e35/85127084_101949294708281_4533182564647832042_n.jpg?_nc_ht=instagram.ffor15-1.fna.fbcdn.net&_nc_cat=105&_nc_ohc=QbQn6DdmKvgAX9BcAUp&oh=d0efc7bf58d7a1f55613482f4bbdebf1&oe=5F2FE523' alt='instagram image7' style={{
         maxWidth: '100%',
         height: 'auto'
     }}/>),
