@@ -11,6 +11,7 @@ class Busca extends Component {
         pesquisa: '',
         dados: [],
         carregando: true,
+        pagina: 1
     }
 
     fetchProdutos = async () => {
@@ -47,7 +48,34 @@ class Busca extends Component {
     }
 
     componentDidMount() {
+        const fetchNextPage = async () =>{
+            const page = this.state.pagina;
+            const produtos = this.state.dados;
+    
+            await api.get(`/mostrarprodutopornome/${this.state.pesquisa}/${page + 1}`).then(res => {
+                if (res.data.length > 0) {
+                    res.data.forEach((obj) => {
+                        //Remove o path da imagem e seta como o link dela
+                        obj.img = obj.img_url;
+                    });
+    
+                    const newProdutos = produtos.concat(res.data);
+                    this.setState({ pagina: page + 1, dados: newProdutos });
+    
+                }
+            }).catch(error => {
+                console.log(error);
+    
+            });
+        }
+    
+
         this.getQuery();
+        window.onscroll = async () => {
+            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+                await fetchNextPage();
+            }
+        }
     }
 
     render() {
@@ -61,7 +89,7 @@ class Busca extends Component {
                     </div>
                 </div>
 
-                <hr/>
+                <hr />
                 {
                     this.state.carregando ? <p className="bread">CARREGANDO...</p> : this.state.dados.length > 0 ?
                         <ListaProduto list={this.state.dados} addCarrinho={this.props.addCarrinho} atualizarQtdCarrinho={this.props.atualizarQtdCarrinho} attQtdItem={this.props.attQtdItem} removerCarrinho={this.props.removerCarrinho} carrinho={this.props.carrinho} />
