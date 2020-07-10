@@ -121,7 +121,14 @@ module.exports = {
         return res.json(produtos)
     
     },
+    async ShowById(req,res){
 
+        const _id = req.params.id
+        const produto = await Product.findById({_id})
+
+        return res.send(produto)
+    },
+ 
     async Destroy(req,res){
 
         const {_id} = req.body

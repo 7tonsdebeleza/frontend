@@ -107,7 +107,9 @@ routes.get('/mostrarprodutonovidade/:pagina', ProductController.ShowByNewer);
 //Mostrar produtos em promocao
 routes.get('/mostrarprodutopromocao/:pagina', ProductController.ShowByPromotion);
 //Mostra produtos pelo nome
-routes.get('/mostrarprodutopornome/:nome/:pagina', ProductController.ShowByName)
+routes.get('/mostrarprodutopornome/:nome/:pagina', ProductController.ShowByName);
+//Mostra produto por id
+routes.get('/mostrarprodutosporid/:id', ProductController.ShowById);
 //Remover produto pelo ID
 routes.post('/removerproduto', [ AdminController.Auth, ProductController.Destroy] );
 //Atualizar imagem do prodtuto
