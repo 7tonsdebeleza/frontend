@@ -163,7 +163,9 @@ class NavBarMobile extends Component {
                     <input className="buscar" style={{ width: '100%' }} id="pesqMobile" type="search" placeholder="Buscar" aria-label="Search" onChange={this.pesquisa} value={this.state.pesquisa}/>
                 </div>
 
-                <img onClick={() => { this.props.pesquisar(this.state.pesquisa) }} className="img-pesq3" id="img-pesquisa3" width='28' height='29' src={Search2} alt='pesquisa' />
+                <Link to={`/busca/search?q=${this.state.pesquisa}`} >
+                <img className="img-pesq3" id="img-pesquisa3" width='28' height='29' src={Search2} alt='pesquisa' />
+                </Link>
 
                 {/* menu mobile*/}
 

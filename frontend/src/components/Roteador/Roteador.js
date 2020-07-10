@@ -35,10 +35,8 @@ import Frete from '../Frete/Frete';
 class Roteador extends Component {
 	state = {
 		dadosCarrinho: [],
+		pesquisa: false,
 		qtdCarrinho: 0,
-		pesquisa: "",
-		pesquisaChamada: false,
-		dados: [],
 		user: null,
 		admin: null,
 		carregado: false
@@ -132,7 +130,7 @@ class Roteador extends Component {
 				//Caso autenticação falhe, usuário será deslogado para gerar novo token
 				console.log('erro aqui');
 				console.log(res.data.error)
-				this.logout();
+				this.adminLogout();
 				return 'Erro inesperado... tente mais tarde';
 			} else {
 				//Salvando dados do usuário
@@ -308,12 +306,7 @@ class Roteador extends Component {
 	}
 
 	pesquisar = (string) => {
-		//State recebe string de pesquisa e pesquisa é setada verdadeira
-
-		this.setState({
-			pesquisa: string,
-			pesquisaChamada: true,
-		});
+		return this.setState({ pesquisa: string });
 	}
 
 	checkAuths = async () => {
@@ -334,17 +327,6 @@ class Roteador extends Component {
 	}
 
 	componentWillMount() {
-		//Fazendo verificações do endereço
-		let adress = window.location.pathname;
-
-		//Caso endereço seja de página de busca
-		if (adress.includes("/buscar/busca=")) {
-			this.setState({
-				pesquisaChamada: true,
-				pesquisa: adress.replace("/buscar/busca=", "").toString()
-			});
-		}//recuperando estado de usuário logado
-
 		this.checkAuths();
 	}
 
@@ -364,15 +346,12 @@ class Roteador extends Component {
 						minHeight: '100vh',
 						flexDirection: 'column',
 					}}>
-						{this.state.pesquisaChamada ? <Redirect to={'/buscar/busca=' + this.state.pesquisa} /> : (null)
-							//Se houver pesquisa, página será redirecionada, depois disso, state é resetada
-						}
-
-						{this.state.pesquisaChamada ? this.setState({ pesquisaChamada: false }) : null}
-
+						
 						<NavBar pesquisar={this.pesquisar} qtdCarrinho={this.state.qtdCarrinho} dados={this.state.dadosCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} attQtdItem={this.attQtdItem} removerCarrinho={this.removerCarrinho} botaoCarrinho={true} user={this.state.user} logout={this.Clientelogout} />
 
 						<NavBarMobile pesquisar={this.pesquisar} qtdCarrinho={this.state.qtdCarrinho} dados={this.state.dadosCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} attQtdItem={this.attQtdItem} removerCarrinho={this.removerCarrinho} botaoCarrinho={true} user={this.state.user} logout={this.Clientelogout} />
+
+						{ this.state.pesquisa ? <Redirect to={`/busca/search?q=${this.state.pesquisa}`} /> : null }
 
 						<Switch>
 
@@ -385,11 +364,11 @@ class Roteador extends Component {
 							<Route exact path="/login" render={() => this.state.user ? <Redirect to='/Cliente' /> : <Login login={this.clientLogin} />} />
 
 							<Route exact path="/lojavirtual/:categoria" render={() => <LojaVirtual addCarrinho={this.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} attQtdItem={this.attQtdItem} removerCarrinho={this.removerCarrinho} carrinho={this.state.dadosCarrinho} />} />
-							<Route exact path="/lojavirtual/" render={() => <LojaVirtual addCarrinho={this.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} attQtdItem={this.attQtdItem} removerCarrinho={this.removerCarrinho} carrinho={this.state.dadosCarrinho} />} />
+							<Route exact path="/lojavirtual" render={() => <LojaVirtual addCarrinho={this.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} attQtdItem={this.attQtdItem} removerCarrinho={this.removerCarrinho} carrinho={this.state.dadosCarrinho} />} />
+
+							<Route path="/busca" render={(props) => <Busca {...props} addCarrinho={this.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} attQtdItem={this.attQtdItem} removerCarrinho={this.removerCarrinho} carrinho={this.state.dadosCarrinho}/>} />
 
 							<Route exact path="/faq" component={Faq} />
-
-							<Route path="/buscar" component={() => this.state.pesquisa === "" ? <Redirect to='/home' /> : <Busca dados={this.state.dados} pesquisa={this.state.pesquisa} addCarrinho={this.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} attQtdItem={this.attQtdItem} removerCarrinho={this.removerCarrinho} />} />
 
 							<Route exact path="/carrinho" render={() => <Carrinho logado={this.state.user ? true : false} dados={this.state.dadosCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} attQtdItem={this.attQtdItem} removerCarrinho={this.removerCarrinho} botaoCarrinho={false} naNavbar={false} />} />
 

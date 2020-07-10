@@ -1,37 +1,77 @@
 import React, { Component } from 'react';
+import { withRouter } from "react-router-dom";
+import queryString from 'query-string';
 import ListaProduto from './ListaProduto';
-import Buscador from './Buscador';
+import api from '../API/api';
+
+//import Buscador from './Buscador';
 
 class Busca extends Component {
     state = {
-        pesquisa: this.props.pesquisa.toLowerCase().replace(/%20/g, " "),
-        dados: this.props.dados,
+        pesquisa: '',
+        dados: [],
+        carregando: true,
     }
 
-    componentDidMount(){
-        let novaLista = Buscador(this.state.pesquisa, this.state.dados);
-        this.setState({dados: novaLista});
+    fetchProdutos = async () => {
+        this.setState({ dados: [] });
+
+        await api.get(`/mostrarprodutopornome/${this.state.pesquisa}/1`).then(res => {
+            res.data.forEach((obj) => {
+                //Remove o path da imagem e seta como o link dela
+                obj.img = obj.img_url;
+            });
+
+            this.setState({ dados: res.data });
+        }).catch(error => {
+            console.log(error);
+            alert('Falha ao tentar carregar produtos, tente novamente mais tarde...');
+        });
+
+        this.setState({ carregando: false });
     }
 
-    render(){
-        return(
+    getQuery = () => {
+        const values = queryString.parse(this.props.location.search);
+        this.setState({ pesquisa: values.q }, () => this.fetchProdutos());
+    }
+
+    componentWillReceiveProps() {
+        this.getQuery();
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.location !== prevProps.location) {
+            this.getQuery();
+        }
+    }
+
+    componentDidMount() {
+        this.getQuery();
+    }
+
+    render() {
+        return (
             <div className="container">
-                <div style={{
+                <div className="shopify-section col-xs-12 col-sm-9 col-main" style={{
                     marginTop: '20px'
                 }}>
                     <div className="page-header">
-                        <h1><span>EXIBINDO RESULTADOS PARA '{this.state.pesquisa}'</span></h1>
+                        <h1><span>EXIBINDO RESULTADOS PARA PESQUISA '{this.state.pesquisa}'</span></h1>
                     </div>
                 </div>
-                
+
+                <hr/>
                 {
-                    (this.state.dados.length > 0) ? <ListaProduto list={this.state.dados} addCarrinho={this.props.addCarrinho}/> : <p className="bread">NENHUM RESULTADO ECONTRADO...</p>
+                    this.state.carregando ? <p className="bread">CARREGANDO...</p> : this.state.dados.length > 0 ?
+                        <ListaProduto list={this.state.dados} addCarrinho={this.props.addCarrinho} atualizarQtdCarrinho={this.props.atualizarQtdCarrinho} attQtdItem={this.props.attQtdItem} removerCarrinho={this.props.removerCarrinho} carrinho={this.props.carrinho} />
+                        : <p className="bread">NENHUM RESULTADO ECONTRADO...</p>
                 }
-                
+
             </div>
-            
+
         )
     }
 }
 
-export default Busca;
+export default withRouter(Busca);

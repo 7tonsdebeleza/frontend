@@ -47,8 +47,8 @@ class NavBar extends Component {
         inputNavbar.addEventListener("keyup", (event) => {
             // codigo 13 para enter
             if (event.keyCode === 13) {
-              // Clicando no icone de lupa de pesquisa
-              this.props.pesquisar(this.state.pesquisa);
+                // Clicando no icone de lupa de pesquisa
+                this.props.pesquisar(this.state.pesquisa);
             }
         });
 
@@ -56,8 +56,8 @@ class NavBar extends Component {
         inputNavbarHide.addEventListener("keyup", (event) => {
             // codigo 13 para enter
             if (event.keyCode === 13) {
-              // Clicando no icone de lupa de pesquisa
-              this.props.pesquisar(this.state.pesquisa);
+                // Clicando no icone de lupa de pesquisa
+                this.props.pesquisar(this.state.pesquisa);
             }
         });
 
@@ -78,7 +78,7 @@ class NavBar extends Component {
             }
         });
     }
-    
+
 
     render() {
         return (
@@ -105,9 +105,11 @@ class NavBar extends Component {
                                             </div>
                                             <div className='nav-item'>
                                                 <div className='nav-link'>
-                                                    <input className="buscar" id="pesquisaInput" type="search" placeholder="Buscar" aria-label="Search" onChange={this.pesquisa} value={this.state.pesquisa}/>
+                                                    <input className="buscar" id="pesquisaInput" type="search" placeholder="Buscar" aria-label="Search" onChange={this.pesquisa} value={this.state.pesquisa} />
 
-                                                    <img onClick={() => { this.props.pesquisar(this.state.pesquisa) }} className="img-pesq" id="img-pesquisa" width='28' height='28' src={Search2} alt='pesquisa' style={{ marginTop: '-2px' }} />
+                                                    <Link to={`/busca/search?q=${this.state.pesquisa}`} >
+                                                        <img className="img-pesq" id="img-pesquisa" width='28' height='28' src={Search2} alt='pesquisa' style={{ marginTop: '-2px' }} />
+                                                    </Link>
 
                                                 </div>
                                             </div>
@@ -151,18 +153,18 @@ class NavBar extends Component {
                                                 <div className='nav-link'>
 
                                                     {
-                                                        this.props.user ? 
-                                                        (<div>
-                                                            <Link to="/Cliente" style={{ color: 'black' }}>Minha conta</Link>
+                                                        this.props.user ?
+                                                            (<div>
+                                                                <Link to="/Cliente" style={{ color: 'black' }}>Minha conta</Link>
                                                             &nbsp;
                                                             &nbsp;
-                                                            <Link to="/#" onClick={() => this.props.logout()} style={{ color: 'black' }}>Sair</Link>
-                                                        </div>) 
-                                                        : (<div>
-                                                            <Link to="/login" style={{ color: 'black' }}>Entre</Link>
+                                                                <Link to="/#" onClick={() => this.props.logout()} style={{ color: 'black' }}>Sair</Link>
+                                                            </div>)
+                                                            : (<div>
+                                                                <Link to="/login" style={{ color: 'black' }}>Entre</Link>
                                                             &nbsp;ou&nbsp;
-                                                            <Link to="/cadastro" style={{ color: 'black' }}>Cadastrar-se</Link>
-                                                        </div>)
+                                                                <Link to="/cadastro" style={{ color: 'black' }}>Cadastrar-se</Link>
+                                                            </div>)
                                                     }
 
                                                 </div>
@@ -246,12 +248,14 @@ class NavBar extends Component {
 
                                 <li>
                                     <div id="search" className="pesquisa nav-link">
-                                        <input className="buscar" style={{ marginTop: '-5%', marginBottom: '-5%' }} id="pesqHideNavbar" type="search" placeholder="Buscar" aria-label="Search" onChange={this.pesquisa} value={this.state.pesquisa}/>
+                                        <input className="buscar" style={{ marginTop: '-5%', marginBottom: '-5%' }} id="pesqHideNavbar" type="search" placeholder="Buscar" aria-label="Search" onChange={this.pesquisa} value={this.state.pesquisa} />
                                     </div>
                                 </li>
-                                
+
                                 <div>
-                                    <img onClick={() => { this.props.pesquisar(this.state.pesquisa) }} className="img-pesq2" id="img-pesquisa2" width='28' height='29' src={Search2} alt='pesquisa' />
+                                    <Link to={`/busca/search?q=${this.state.pesquisa}`} >
+                                        <img className="img-pesq2" id="img-pesquisa2" width='28' height='29' src={Search2} alt='pesquisa' />
+                                    </Link>
                                 </div>
                                 <li className="licarrinhonav" onMouseOver={() => this.aparecerCarrinho()} >
                                     <div className="imgcarrinho nav-link">
@@ -280,7 +284,7 @@ class NavBar extends Component {
 
 
                     <div className="modalcarrinhonav" id="modalcarrinhonav" >
-                        <Carrinho logado={this.props.user ? true : false} dados={this.props.dados} atualizarQtdCarrinho={this.props.atualizarQtdCarrinho} removerCarrinho={this.props.removerCarrinho} botaoCarrinho={this.props.botaoCarrinho} naNavbar attQtdItem={this.props.attQtdItem}/>
+                        <Carrinho logado={this.props.user ? true : false} dados={this.props.dados} atualizarQtdCarrinho={this.props.atualizarQtdCarrinho} removerCarrinho={this.props.removerCarrinho} botaoCarrinho={this.props.botaoCarrinho} naNavbar attQtdItem={this.props.attQtdItem} />
                     </div>
                 </div>
 
