@@ -3,7 +3,7 @@ import Menos from "../Images/minus.svg";
 import Mais from "../Images/plus.svg";
 import Lixeira from "../Images/lixeira.svg";
 import { Link } from "react-router-dom";
-import makeup from '../Images/makeup.svg'
+import makeup from '../Images/makeup.svg';
 
 class Produto extends Component {
     state = {

@@ -12,6 +12,7 @@ function LojaVirtual({ addCarrinho, match, carrinho, atualizarQtdCarrinho, attQt
   const [dropped, setDropped] = useState(false);
   const [produtos, setProdutos] = useState([]);
   const [page, setPage] = useState(1);
+  const [carregando, setCarregando] = useState(true);
 
   useEffect(() => {
     let categoriaAdress;
@@ -39,6 +40,8 @@ function LojaVirtual({ addCarrinho, match, carrinho, atualizarQtdCarrinho, attQt
         alert("Erro ao tentar carregar produtos... Tente novamente mais tarde!");
 
       });
+
+      setCarregando(false);
     }
 
     fetchPage1();
@@ -211,8 +214,10 @@ function LojaVirtual({ addCarrinho, match, carrinho, atualizarQtdCarrinho, attQt
           </p>
 
           <hr />
-          {/*Produtos com renderização dinâmica:*/}
-          <ListaProduto list={produtos} addCarrinho={addCarrinho} atualizarQtdCarrinho={atualizarQtdCarrinho} attQtdItem={attQtdItem} removerCarrinho={removerCarrinho} carrinho={carrinho}/>
+          {/*Produtos com renderização dinâmica:*/}{
+            carregando ? <i> carregando... </i> : <ListaProduto list={produtos} addCarrinho={addCarrinho} atualizarQtdCarrinho={atualizarQtdCarrinho} attQtdItem={attQtdItem} removerCarrinho={removerCarrinho} carrinho={carrinho}/>
+          }
+          
         </div>
 
       </div>

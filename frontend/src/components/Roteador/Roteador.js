@@ -5,6 +5,7 @@ import NavBarMobile from "../NavBar/NavBarMobile";
 import Home from "../Home/Home";
 import Cadastro from "../Cadastro/Cadastro";
 import LojaVirtual from "../LojaVirtual/LojaVirtual";
+import ProdutosDetalhes from "../Produto/ProdutoDetalhes";
 import NotFound from "../NotFound/NotFound";
 import Faq from "../Faq/Faq";
 import Blog from '../Blog/Blog';
@@ -365,7 +366,7 @@ class Roteador extends Component {
 
 							<Route exact path="/lojavirtual/:categoria" render={() => <LojaVirtual addCarrinho={this.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} attQtdItem={this.attQtdItem} removerCarrinho={this.removerCarrinho} carrinho={this.state.dadosCarrinho} />} />
 							<Route exact path="/lojavirtual" render={() => <LojaVirtual addCarrinho={this.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} attQtdItem={this.attQtdItem} removerCarrinho={this.removerCarrinho} carrinho={this.state.dadosCarrinho} />} />
-
+							<Route exact path="/produtos/:id" render={ (props)=> <ProdutosDetalhes {...props} addCarrinho={this.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} attQtdItem={this.attQtdItem} removerCarrinho={this.removerCarrinho} carrinho={this.state.dadosCarrinho} /> }/>
 							<Route path="/busca" render={(props) => <Busca {...props} addCarrinho={this.addCarrinho} atualizarQtdCarrinho={this.atualizarQtdCarrinho} attQtdItem={this.attQtdItem} removerCarrinho={this.removerCarrinho} carrinho={this.state.dadosCarrinho}/>} />
 
 							<Route exact path="/faq" component={Faq} />
