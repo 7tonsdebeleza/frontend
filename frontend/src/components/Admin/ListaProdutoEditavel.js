@@ -16,7 +16,8 @@ class ListaProdutoEditavel extends Component {
     state = {
         produtos: [],
         pesquisa: "",
-        pesquisado: ''
+        pesquisado: '',
+        pagina: 1
     }
 
     //Atualização de input de pesquisa
@@ -28,6 +29,8 @@ class ListaProdutoEditavel extends Component {
 
     //Gerar novo filtro de pesquisa
     pesquisar = async () => {
+        this.setState({ pagina: 1 });
+        
         await api.get(`/mostrarprodutopornome/${this.state.pesquisa}/1`).then(res => {
             res.data.forEach((obj) => {
                 //Remove o path da imagem e seta como o link dela
@@ -70,6 +73,34 @@ class ListaProdutoEditavel extends Component {
             alert("Erro ao tentar carregar produtos... Tente novamente mais tarde!");
 
         });
+
+        const fetchNextPage = async () =>{
+            const page = this.state.pagina;
+            const produtos = this.state.produtos;
+            const url = this.state.pesquisado ? `/mostrarprodutopornome/${this.state.pesquisa}/${page + 1}` : `/mostrartodosprodutos/${page + 1}`;
+    
+            await api.get(url).then(res => {
+                if (res.data.length > 0) {
+                    res.data.forEach((obj) => {
+                        //Remove o path da imagem e seta como o link dela
+                        obj.img = obj.img_url;
+                    });
+    
+                    const newProdutos = produtos.concat(res.data);
+                    this.setState({ pagina: page + 1, produtos: newProdutos });
+    
+                }
+            }).catch(error => {
+                console.log(error);
+    
+            });
+        }
+    
+        window.onscroll = async () => {
+            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+                await fetchNextPage();
+            }
+        }
 
     }
 
