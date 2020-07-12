@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import ThumbInput from '../ThumbInput/ThumbInput';
 import Modal from "../Modal/Modal";
+import makeup from '../Images/makeup.svg';
 import api from "../API/api";
 
 class ProdutoEditavel extends Component {
@@ -27,6 +28,11 @@ class ProdutoEditavel extends Component {
 
     atualizando: false,
 
+  }
+
+  cover = (e) => {
+    e.target.src = makeup;
+    e.target.width = 60;
   }
 
   chamarAlerta = (msg) => {
@@ -185,9 +191,11 @@ class ProdutoEditavel extends Component {
       }
 
       if (titulo !== this.props.dados.titulo && !erro) {
-        const res = await api.post("/atualizartitulo", { "id": this.state.id, "novo_titulo": titulo }, { headers: {
-          authorization: token
-        } });
+        const res = await api.post("/atualizartitulo", { "id": this.state.id, "novo_titulo": titulo }, {
+          headers: {
+            authorization: token
+          }
+        });
 
         if (!res.data.id) {
           this.chamarAlerta("Erro inesperado... Tente novamente mais tarde!");
@@ -196,9 +204,11 @@ class ProdutoEditavel extends Component {
       }
 
       if (marca !== this.props.dados.marca && !erro) {
-        const res = await api.post("/atualizarmarca", { "id": this.state.id, "nova_marca": marca }, { headers: {
-          authorization: token
-        } });
+        const res = await api.post("/atualizarmarca", { "id": this.state.id, "nova_marca": marca }, {
+          headers: {
+            authorization: token
+          }
+        });
 
         if (!res.data.id) {
           this.chamarAlerta("Erro inesperado... Tente novamente mais tarde!");
@@ -207,9 +217,11 @@ class ProdutoEditavel extends Component {
       }
 
       if (preco !== this.props.dados.preco && !erro) {
-        const res = await api.post("/atualizarpreco", { "id": this.state.id, "novo_preco": preco }, { headers: {
-          authorization: token
-        } });
+        const res = await api.post("/atualizarpreco", { "id": this.state.id, "novo_preco": preco }, {
+          headers: {
+            authorization: token
+          }
+        });
 
         if (!res.data.id) {
           this.chamarAlerta("Erro inesperado... Tente novamente mais tarde!");
@@ -218,9 +230,11 @@ class ProdutoEditavel extends Component {
       }
 
       if (estoque !== this.props.dados.estoque && !erro) {
-        const res = await api.post("/atualizarestoque", { "id": this.state.id, "novo_estoque": estoque }, { headers: {
-          authorization: token
-        } });
+        const res = await api.post("/atualizarestoque", { "id": this.state.id, "novo_estoque": estoque }, {
+          headers: {
+            authorization: token
+          }
+        });
 
         if (!res.data.id) {
           this.chamarAlerta("Erro inesperado... Tente novamente mais tarde!");
@@ -229,9 +243,11 @@ class ProdutoEditavel extends Component {
       }
 
       if (descricao !== this.props.dados.descricao && !erro) {
-        const res = await api.post("/atualizardescricao", { "id": this.state.id, "nova_descricao": descricao }, { headers: {
-          authorization: token
-        } });
+        const res = await api.post("/atualizardescricao", { "id": this.state.id, "nova_descricao": descricao }, {
+          headers: {
+            authorization: token
+          }
+        });
 
         if (!res.data.id) {
           this.chamarAlerta("Erro inesperado... Tente novamente mais tarde!");
@@ -240,9 +256,11 @@ class ProdutoEditavel extends Component {
       }
 
       if (tipoProduto !== this.props.dados.tipoProduto && !erro) {
-        const res = await api.post("/atualizartipo", { "id": this.state.id, "novo_tipo": tipoProduto }, { headers: {
-          authorization: token
-        } });
+        const res = await api.post("/atualizartipo", { "id": this.state.id, "novo_tipo": tipoProduto }, {
+          headers: {
+            authorization: token
+          }
+        });
 
         if (!res.data.id) {
           this.chamarAlerta("Erro inesperado... Tente novamente mais tarde!");
@@ -252,9 +270,11 @@ class ProdutoEditavel extends Component {
 
       promocao = promocao === 'on' || promocao === true ? true : false;
       if (promocao !== this.props.dados.promocao && !erro) {
-        const res = await api.post("/atualizarpromocao", { "id": this.state.id, "promocao": promocao }, { headers: {
-          authorization: token
-        } });
+        const res = await api.post("/atualizarpromocao", { "id": this.state.id, "promocao": promocao }, {
+          headers: {
+            authorization: token
+          }
+        });
 
         if (!res.data.id) {
           this.chamarAlerta("Erro inesperado... Tente novamente mais tarde!");
@@ -264,9 +284,11 @@ class ProdutoEditavel extends Component {
 
       novidade = novidade === 'on' || novidade === true ? true : false;
       if (novidade !== this.props.dados.novidade && !erro) {
-        const res = await api.post("/atualizarnovidade", { "id": this.state.id, "novidade": novidade }, { headers: {
-          authorization: token
-        } });
+        const res = await api.post("/atualizarnovidade", { "id": this.state.id, "novidade": novidade }, {
+          headers: {
+            authorization: token
+          }
+        });
 
         if (!res.data.id) {
           this.chamarAlerta("Erro inesperado... Tente novamente mais tarde!");
@@ -275,9 +297,11 @@ class ProdutoEditavel extends Component {
       }
 
       if (comprimento !== this.props.dados.comprimento && !erro) {
-        const res = await api.post("/atualizarcomprimento", { "id": this.state.id, "novo_comprimento": comprimento }, { headers: {
-          authorization: token
-        } });
+        const res = await api.post("/atualizarcomprimento", { "id": this.state.id, "novo_comprimento": comprimento }, {
+          headers: {
+            authorization: token
+          }
+        });
 
         if (!res.data.id) {
           this.chamarAlerta("Erro inesperado... Tente novamente mais tarde!");
@@ -286,9 +310,11 @@ class ProdutoEditavel extends Component {
       }
 
       if (altura !== this.props.dados.altura && !erro) {
-        const res = await api.post("/atualizaraltura", { "id": this.state.id, "nova_altura": altura }, { headers: {
-          authorization: token
-        } });
+        const res = await api.post("/atualizaraltura", { "id": this.state.id, "nova_altura": altura }, {
+          headers: {
+            authorization: token
+          }
+        });
 
         if (!res.data.id) {
           this.chamarAlerta("Erro inesperado... Tente novamente mais tarde!");
@@ -297,9 +323,11 @@ class ProdutoEditavel extends Component {
       }
 
       if (largura !== this.props.dados.largura && !erro) {
-        const res = await api.post("/atualizarlargura", { "id": this.state.id, "nova_largura": largura }, { headers: {
-          authorization: token
-        } });
+        const res = await api.post("/atualizarlargura", { "id": this.state.id, "nova_largura": largura }, {
+          headers: {
+            authorization: token
+          }
+        });
 
         if (!res.data.id) {
           this.chamarAlerta("Erro inesperado... Tente novamente mais tarde!");
@@ -308,9 +336,11 @@ class ProdutoEditavel extends Component {
       }
 
       if (peso !== this.props.dados.peso && !erro) {
-        const res = await api.post("/atualizarpeso", { "id": this.state.id, "novo_peso": peso }, { headers: {
-          authorization: token
-        } });
+        const res = await api.post("/atualizarpeso", { "id": this.state.id, "novo_peso": peso }, {
+          headers: {
+            authorization: token
+          }
+        });
 
         if (!res.data.id) {
           this.chamarAlerta("Erro inesperado... Tente novamente mais tarde!");
@@ -363,7 +393,7 @@ class ProdutoEditavel extends Component {
         {/* Produto: imagem, marca, titulo, preço e botao de ver detalhes*/}
         <div className="produto" onMouseOver={() => this.AparecerBotaoDetalhes(BotaoId)} onMouseOut={() => this.DesaparecerBotaoDetalhes(BotaoId)} >
           <div>
-            <img src={this.props.dados.img} alt="img" className="imagemProduto" onClick={() => this.CliqueVerDetalhes(ProdutoId)} />
+            <img src={this.props.dados.img} alt="img" className="imagemProduto" onError={this.cover} onClick={() => this.CliqueVerDetalhes(ProdutoId)} />
             <div className="divbotaoVerDetalhes">
               <button onClick={() => this.CliqueVerDetalhes(ProdutoId)} className="botaoVerDetalhes" id={BotaoId}>Editar</button>
 
@@ -379,7 +409,7 @@ class ProdutoEditavel extends Component {
         {/* Modal com as informações mais detalhadas do produto a serem editadas*/}
         <div id={ProdutoId} className="modal-container">
           <div className="modal admin-form">
-            <div><img src={this.props.dados.img} alt="img" className="imagemProdutoModal" /></div>
+            <div><img src={this.props.dados.img} alt="img" className="imagemProdutoModal" onError={this.cover} /></div>
             <div className="descricaoProdutoModal">
               <p>
                 <b>Título:</b>

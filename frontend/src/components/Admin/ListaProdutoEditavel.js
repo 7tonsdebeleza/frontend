@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ProdutoEditavel from "./ProdutoEditavel";
 import { Link } from "react-router-dom";
 import Search2 from '../Images/iconsearch2.png';
-import Buscador from '../Produto/Buscador';
+//import Buscador from '../Produto/Buscador';
 import api from '../API/api';
 
 class ListaProdutoEditavel extends Component {
@@ -23,16 +23,25 @@ class ListaProdutoEditavel extends Component {
     inputPesquisa = (e) => {
         this.setState({
             pesquisa: e.target.value
-        })
+        });
     }
 
     //Gerar novo filtro de pesquisa
-    pesquisar = (busca) => {
-        let novaLista = Buscador(busca, this.state.produtos);
-        this.setState({
-            produtos: novaLista,
-            pesquisado: this.state.pesquisa
+    pesquisar = async () => {
+        await api.get(`/mostrarprodutopornome/${this.state.pesquisa}/1`).then(res => {
+            res.data.forEach((obj) => {
+                //Remove o path da imagem e seta como o link dela
+                obj.img = obj.img_url;
+            });
+
+            this.setState({ produtos: res.data });
+        }).catch(error => {
+            console.log(error);
+            alert('Falha ao tentar carregar produtos, tente novamente mais tarde...');
         });
+
+        this.setState({ pesquisado: this.state.pesquisa });
+
     }
 
     componentDidMount() {
@@ -47,7 +56,7 @@ class ListaProdutoEditavel extends Component {
             }
         });
 
-        api.get('/mostrartodosprodutos').then(res => {
+        api.get('/mostrartodosprodutos/1').then(res => {
             res.data.map((obj) => {
                 //Remove o path da imagem e seta como o link dela
                 obj.img = obj.img_url;
@@ -69,8 +78,10 @@ class ListaProdutoEditavel extends Component {
             <div>
                 <div className='admin-form'>
                     <p>PESQUISAR:</p>
-                    <input className='admin-form' id="adminPesquisa" type='text' value={this.state.pesquisa} onChange={this.inputPesquisa} />
-                    <img className='admin-pesquisa' onClick={() => { this.pesquisar(this.state.pesquisa) }} width='20' height='20' src={Search2} alt='pesquisa' />
+                    <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }} >
+                        <input id="adminPesquisa" type='text' value={this.state.pesquisa} onChange={this.inputPesquisa} />
+                        <img onClick={() => { this.pesquisar(this.state.pesquisa) }} width='20' height='20' style={{ marginLeft: '10px' }} src={Search2} alt='pesquisa' />
+                    </div>
                     <p>Exibindo resultados para '{this.state.pesquisado}':</p>
                 </div>
 

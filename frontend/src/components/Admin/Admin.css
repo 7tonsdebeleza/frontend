@@ -44,10 +44,6 @@
     text-decoration:none; 
 }
 
-.admin-form{
-    text-align: center;
-}
-
 .admin-form input, select, option{
     border: 1px solid #b4b4b4;
     width: 100%;
@@ -57,7 +53,7 @@
 
 .admin-form textarea{
     border: 1px solid #b4b4b4;
-    width: 100%;
+    width: 90%;
     min-height: 80px;
     padding: 8px;
 }
@@ -91,8 +87,8 @@
     text-decoration:none; 
 }
 
-.admin-pesquisa{
+/* .admin-pesquisa{
     position: absolute;
     right: 10%;
     margin-top: 8px;
-}
+} */
