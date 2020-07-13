@@ -163,7 +163,7 @@ class NavBar extends Component {
                                                             : (<div>
                                                                 <Link to="/login" style={{ color: 'black' }}>Entre</Link>
                                                             &nbsp;ou&nbsp;
-                                                                <Link to="/cadastro" style={{ color: 'black' }}>Cadastrar-se</Link>
+                                                                <Link to="/cadastro" style={{ color: 'black' }}>Cadastre-se</Link>
                                                             </div>)
                                                     }
 
