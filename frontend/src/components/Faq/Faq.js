@@ -123,7 +123,87 @@ const Faq = () => {
             <br/>
             <div>
                 <Question dropped = {false} texts = {{
-                        quest: "Nascetur ridiculus mus mauris vitae ultricies leo integer?",
+                        quest: "Como funciona o pagamento com Cartão de Crédito?",
+                        answer: "Você pode pagar com cartões de crédito das bandeiras visa, mastercard, hipercard, elo, amex e diners club,Cielo e o valor pode ser dividido em até 03 vezes sem juros, com parcelas mínimas de R$ 50,00."
+                    }
+                }/>
+            </div>
+            <br/>
+            <div>
+                <Question dropped = {false} texts = {{
+                        quest: "Como funciona o pagamento com Boleto Bancário?",
+                        answer: "É muito fácil pagar com boleto bancário! Primeiro, você precisa imprimir o boleto clicando no botão imprimir no boleto que aparece quando você finaliza o seu pedido, ou na seção meus pedidos, ou ainda no email que a gente vai te mandar confirmando a sua encomenda. Depois disso, é só pagar no seu banco ou pela internet, no home banking. O seu pagamento é validado em até três dias úteis, e o prazo estimado de entrega começa a valer a partir dessa data, tá? O prazo para pagamento está descrito no seu boleto e se não for pago é cancelado automaticamente. Se for cancelado não tem como emitir a segunda via, aí você tem que ir até o seu carrinho de compras de novo, e fazer uma nova compra. Ah, caso o vencimento caia em um final de semana ou feriado, pode pagar no dia útil seguinte."
+                    }
+                }/>
+            </div>
+            <br/>
+            <div>
+                <Question dropped = {false} texts = {{
+                        quest: "Como faço para imprimir a 2ª via e/ou prorrogar de boleto?",
+                        answer: 'Para 2 vias é só entrar na área "meus pedidos" no nosso site, e ao lado do pedido clicar na opção "imprimir boleto". Ah, você também pode imprimir pela opção de "imprimir boleto" que aparece no e-mail de "pedido recebido". Caso a data de vencimento do boleto já tenha ultrapassado, ele ficará inválido e o seu pedido é cancelado automaticamente. Nesse caso, é só fazer um novo pedido.'
+                    }
+                }/>
+            </div>
+            <br/>
+            <div>
+                <Question dropped = {false} texts = {{
+                        quest: "Onde eu pago o boleto bancário?",
+                        answer: "Até a data de vencimento o boleto bancário pode ser pago em qualquer banco ou pela sua internet banking."
+                    }
+                }/>
+            </div>
+            <br/>
+            <div>
+                <Question dropped = {false} texts = {{
+                        quest: "Como faço para cancelar o boleto?",
+                        answer: "Não  precisa nem pedir o cancelamento do boleto, o pedido é cancelado automaticamente no caso de não pagamento. Ah, não se preocupa que neste caso não tem cobrança de nenhuma taxa de multa."
+                    }
+                }/>
+            </div>
+            <br/>
+            <div>
+                <Question dropped = {false} texts = {{
+                        quest: "Vocês possuem algum desconto?",
+                        answer: <p> Nossa loja é recheada de produtos, promoções e descontos incríveis! Pra checar todos  as  promoçõe  s  que  estão  ativas  no  momento,  é  só  acessar <Link to={'/lojavirtual/Promoções'}> Nossas promoções</Link>. Corre pra aproveitar! </p>
+                    }
+                }/>
+            </div>
+            <br/>
+            <div>
+                <Question dropped = {false} texts = {{
+                        quest: "Como faço para cancelar meu pedido?",
+                        answer: "É importante a gente te falar que todos os pedidos passam por uma avaliação. Fez o pedido, mas desistiu? Se você quiser cancelar o seu pedido voçê pode! Depois do cancelamento faremos o estorno do valor para a sua conta. Vale lembrar que o valor devolvido é sempre o valor do pedido mais o frete, ou seja. O valor da sua NFe, ok?"
+                    }
+                }/>
+            </div>
+            <br/>
+            <div>
+                <Question dropped = {false} texts = {{
+                        quest: "Como sei se o meu pedido já foi enviado?",
+                        answer: 'Após concluir sua compra, acompanhe o status do seu pedido em "minha conta"!'
+                    }
+                }/>
+            </div>
+            <br/>
+            <div>
+                <Question dropped = {false} texts = {{
+                        quest: "Vocês vendem em atacado?",
+                        answer: "No momento não trabalhamos com condições especiais para atacado. Assim, por não existir uma quantidade mínima ou máxima de compra por produtos, você pode adquirir quantas unidades desejar. Além disso, nossos produtos  já são super baratinhos e sempre oferecemos descontos e promoções incríveis no site!Más no futuro ire mos atender nosso cliente também no atacado."
+                    }
+                }/>
+            </div>
+            <br/>
+            <div>
+                <Question dropped = {false} texts = {{
+                        quest: "Como solicitar a troca/devolução?",
+                        answer: "Você pode solicitar a troca ou devolução de um produto entrando em contato com a gente por meio da nossa Central de Atendimento, em até 7 dias após o recebimento. O item para troca não pode ter marcas de uso e precisa estar com a embalagem intacta. Vamos te enviar um código de postagem para que você nos mande o produto por uma agência dos correios (exceto compras de Fortaleza – CE). Assim que ele chegar ao nosso centro de distribuição, vamos analisar e efetuar a restituição de acordo com a sua escolha no momento da solicitação. Qualquer dúvida, é só falar com a gente que com certeza vamos te ajudar! Não se preocupe que iremos retira o pedido no local de entrega sem nenhum custo. Depois que o seu pedido/produto voltar para a gente, vamos fazer o estorno do valor para sua conta, ou enviar um vale no valor da sua compra ou se preferir um produto novinho para você. Vale lembrar que o valor devolvido é sempre o valor do pedido mais o frete, ou seja, o valor da sua NFe, ok?"
+                    }
+                }/>
+            </div>
+            <br/>
+            <div>
+                <Question dropped = {false} texts = {{
+                        quest: "Imperdiet massa tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada?",
                         answer: "Turpis egestas pretium aenean pharetra magna ac placerat vestibulum. Erat velit scelerisque in dictum non. Dolor sit amet consectetur adipiscing"
                     }
                 }/>
@@ -137,7 +217,111 @@ const Faq = () => {
                 }/>
             </div>
             <br/>
-
+            <div>
+                <Question dropped = {false} texts = {{
+                        quest: "Imperdiet massa tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada?",
+                        answer: "Turpis egestas pretium aenean pharetra magna ac placerat vestibulum. Erat velit scelerisque in dictum non. Dolor sit amet consectetur adipiscing"
+                    }
+                }/>
+            </div>
+            <br/>
+            <div>
+                <Question dropped = {false} texts = {{
+                        quest: "Imperdiet massa tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada?",
+                        answer: "Turpis egestas pretium aenean pharetra magna ac placerat vestibulum. Erat velit scelerisque in dictum non. Dolor sit amet consectetur adipiscing"
+                    }
+                }/>
+            </div>
+            <br/>
+            <div>
+                <Question dropped = {false} texts = {{
+                        quest: "Imperdiet massa tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada?",
+                        answer: "Turpis egestas pretium aenean pharetra magna ac placerat vestibulum. Erat velit scelerisque in dictum non. Dolor sit amet consectetur adipiscing"
+                    }
+                }/>
+            </div>
+            <br/>
+            <div>
+                <Question dropped = {false} texts = {{
+                        quest: "Imperdiet massa tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada?",
+                        answer: "Turpis egestas pretium aenean pharetra magna ac placerat vestibulum. Erat velit scelerisque in dictum non. Dolor sit amet consectetur adipiscing"
+                    }
+                }/>
+            </div>
+            <br/>
+            <div>
+                <Question dropped = {false} texts = {{
+                        quest: "Imperdiet massa tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada?",
+                        answer: "Turpis egestas pretium aenean pharetra magna ac placerat vestibulum. Erat velit scelerisque in dictum non. Dolor sit amet consectetur adipiscing"
+                    }
+                }/>
+            </div>
+            <br/>
+            <div>
+                <Question dropped = {false} texts = {{
+                        quest: "Imperdiet massa tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada?",
+                        answer: "Turpis egestas pretium aenean pharetra magna ac placerat vestibulum. Erat velit scelerisque in dictum non. Dolor sit amet consectetur adipiscing"
+                    }
+                }/>
+            </div>
+            <br/>
+            <div>
+                <Question dropped = {false} texts = {{
+                        quest: "Imperdiet massa tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada?",
+                        answer: "Turpis egestas pretium aenean pharetra magna ac placerat vestibulum. Erat velit scelerisque in dictum non. Dolor sit amet consectetur adipiscing"
+                    }
+                }/>
+            </div>
+            <br/>
+            <div>
+                <Question dropped = {false} texts = {{
+                        quest: "Imperdiet massa tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada?",
+                        answer: "Turpis egestas pretium aenean pharetra magna ac placerat vestibulum. Erat velit scelerisque in dictum non. Dolor sit amet consectetur adipiscing"
+                    }
+                }/>
+            </div>
+            <br/>
+            <div>
+                <Question dropped = {false} texts = {{
+                        quest: "Imperdiet massa tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada?",
+                        answer: "Turpis egestas pretium aenean pharetra magna ac placerat vestibulum. Erat velit scelerisque in dictum non. Dolor sit amet consectetur adipiscing"
+                    }
+                }/>
+            </div>
+            <br/>
+            <div>
+                <Question dropped = {false} texts = {{
+                        quest: "Imperdiet massa tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada?",
+                        answer: "Turpis egestas pretium aenean pharetra magna ac placerat vestibulum. Erat velit scelerisque in dictum non. Dolor sit amet consectetur adipiscing"
+                    }
+                }/>
+            </div>
+            <br/>
+            <div>
+                <Question dropped = {false} texts = {{
+                        quest: "Imperdiet massa tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada?",
+                        answer: "Turpis egestas pretium aenean pharetra magna ac placerat vestibulum. Erat velit scelerisque in dictum non. Dolor sit amet consectetur adipiscing"
+                    }
+                }/>
+            </div>
+            <br/>
+            <div>
+                <Question dropped = {false} texts = {{
+                        quest: "Imperdiet massa tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada?",
+                        answer: "Turpis egestas pretium aenean pharetra magna ac placerat vestibulum. Erat velit scelerisque in dictum non. Dolor sit amet consectetur adipiscing"
+                    }
+                }/>
+            </div>
+            <br/>
+            <div>
+                <Question dropped = {false} texts = {{
+                        quest: "Imperdiet massa tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada?",
+                        answer: "Turpis egestas pretium aenean pharetra magna ac placerat vestibulum. Erat velit scelerisque in dictum non. Dolor sit amet consectetur adipiscing"
+                    }
+                }/>
+            </div>
+            <br/>
+            
         </div>
     )
 }
