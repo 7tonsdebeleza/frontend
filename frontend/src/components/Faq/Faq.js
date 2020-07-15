@@ -203,80 +203,80 @@ const Faq = () => {
             <br/>
             <div>
                 <Question dropped = {false} texts = {{
-                        quest: "Imperdiet massa tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada?",
-                        answer: "Turpis egestas pretium aenean pharetra magna ac placerat vestibulum. Erat velit scelerisque in dictum non. Dolor sit amet consectetur adipiscing"
+                        quest: "Quais os motivos que posso solicitar troca/ devolução do produto?",
+                        answer: "Seu produto pode ser trocado se estiver danificado, algum defeito de fábrica. Também podemos trocar o mimo caso você se arrependa da comprinha ou tenha recebido o produto errado. Estamos sempre aqui para te ajudar da melhor forma possível."
                     }
                 }/>
             </div>
             <br/>
             <div>
                 <Question dropped = {false} texts = {{
-                        quest: "Imperdiet massa tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada?",
-                        answer: "Turpis egestas pretium aenean pharetra magna ac placerat vestibulum. Erat velit scelerisque in dictum non. Dolor sit amet consectetur adipiscing"
+                        quest: "Em que condições o produto deverá estar para realizar troca/devolução?",
+                        answer: "Para realizar troca ou devolução de um produto, com exceção daquele que apresentar defeito de fábrica, é preciso que ele esteja com o lacre intacto, dentro da embalagem original e sem indícios de uso ou estrago por mau uso. Se você tiver dúvidas sobre algum produto que comprou e deseja trocar ou devolver, é só falar com a gente que vamos te ajudar!"
                     }
                 }/>
             </div>
             <br/>
             <div>
                 <Question dropped = {false} texts = {{
-                        quest: "Imperdiet massa tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada?",
-                        answer: "Turpis egestas pretium aenean pharetra magna ac placerat vestibulum. Erat velit scelerisque in dictum non. Dolor sit amet consectetur adipiscing"
+                        quest: "Fiz minha compra pelo site e queria muito trocar na loja. Dá para fazer isso?",
+                        answer: "Será um prazer em receber você, em nossa loja, só apresentar sua nota fiscal (impressa). Vamos trocar para vocês! Para dar tudo certo, o produto precisa estar lacrado e sem marcas de uso, tudo certo? Então tá."
                     }
                 }/>
             </div>
             <br/>
             <div>
                 <Question dropped = {false} texts = {{
-                        quest: "Imperdiet massa tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada?",
-                        answer: "Turpis egestas pretium aenean pharetra magna ac placerat vestibulum. Erat velit scelerisque in dictum non. Dolor sit amet consectetur adipiscing"
+                        quest: "Tenho quantos dias para trocar um produto comprado na loja física? É se tiver comprado no site, prazo mudar?",
+                        answer: "Você tem até 07 dias para trocar um produto na loja física. É só apresentar a sua nota fiscal ou o número do CPF, que vamos encontrar sua compra no sistema e realizar a troca. O produto precisa estar lacrado e sem marcas de uso. Se a compra tiver sido feita pelo site, o prazo será de 15 dias corridos."
                     }
                 }/>
             </div>
             <br/>
             <div>
                 <Question dropped = {false} texts = {{
-                        quest: "Imperdiet massa tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada?",
-                        answer: "Turpis egestas pretium aenean pharetra magna ac placerat vestibulum. Erat velit scelerisque in dictum non. Dolor sit amet consectetur adipiscing"
+                        quest: "Recebi e não gostei. E agora?",
+                        answer: "Se você não gostou do produto, não tem problema. Em caso de arrependimento de compras, a gente troca qualquer produto em até 7 dias depois da entrega. Se ele tiver algum defeito aparente, o prazo é de 15 dias contado da data de entrega. Basta entrar em contato pelo nosso email e a gente te ensina na o passo a passo para devolver o seu produto e você pode escolher entre trocar por outro que tenha sua cara e o mesmo valorou receber seu dinheiro de volta. Só não esquece de enviar o produto com a nota fiscal, tá?"
                     }
                 }/>
             </div>
             <br/>
             <div>
                 <Question dropped = {false} texts = {{
-                        quest: "Imperdiet massa tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada?",
-                        answer: "Turpis egestas pretium aenean pharetra magna ac placerat vestibulum. Erat velit scelerisque in dictum non. Dolor sit amet consectetur adipiscing"
+                        quest: "O produto chegou com defeito, o que eu faço?",
+                        answer: "O produto chegou com defeito? Não tem problema, a gente troca por outro em até 15 dias depois da entrega. É só ligar pra gente ou mandar e-mail. A gente te ensina o passo a passo para você devolver o produto, daí você pode escolher entre trocar por outro produto que você goste e o mesmo valor ou receber seu dinheiro de volta. Só não esquece de enviar o produto junto com a nota fiscal, tá?"
                     }
                 }/>
             </div>
             <br/>
             <div>
                 <Question dropped = {false} texts = {{
-                        quest: "Imperdiet massa tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada?",
-                        answer: "Turpis egestas pretium aenean pharetra magna ac placerat vestibulum. Erat velit scelerisque in dictum non. Dolor sit amet consectetur adipiscing"
+                        quest: "Como faço para escolher a cor da minha base?",
+                        answer: "Sabendo a base que você costuma usar (e que a gente venda na nossa loja) e a que você deseja comprar e experimentar, podemos comparar as duas e te dizer qual tom (das opções que a nova base possui) mais se aproxima à sua pele. Todas as tonalidades são formadas pela mistura de quatro cores: branco, preto, vermelho e amarelo. A única diferença é a concentração das cores. Exemplo: uma base ou pó bege claro tem bem mais branco do que preto em sua formação.Estamos aqui para te ajudar de todas as formas possíveis, é só entrar em contato com a gente por meio do Whats (85) 9 9996854."
                     }
                 }/>
             </div>
             <br/>
             <div>
                 <Question dropped = {false} texts = {{
-                        quest: "Imperdiet massa tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada?",
-                        answer: "Turpis egestas pretium aenean pharetra magna ac placerat vestibulum. Erat velit scelerisque in dictum non. Dolor sit amet consectetur adipiscing"
+                        quest: "Cor do fundo?",
+                        answer: "Tom de fundo da sua pele. Algumas peles têm tom de fundo amarelado, outras, rosado. Para saber o seu, aí vai uma dica: se quando toma sol você se bronzeia, seu tom de fundo tende a ser amarelado, mas se você fica com a pele vermelha, deve ter tom de fundo rosado. Outra opção é fazer o teste do apertão: aperte de leve o maxilar (abaixo da maçã do rosto) com o dedo indicador por 5 segundos. Quando soltar, veja como ficou: se ficar claro – é provável que seu tom de fundo seja amarelado, se ficar avermelhado, seu tom de fundo deve ser rosado."
                     }
                 }/>
             </div>
             <br/>
             <div>
                 <Question dropped = {false} texts = {{
-                        quest: "Imperdiet massa tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada?",
-                        answer: "Turpis egestas pretium aenean pharetra magna ac placerat vestibulum. Erat velit scelerisque in dictum non. Dolor sit amet consectetur adipiscing"
+                        quest: "Comprei uma base e ficou no tom errado. Como faço para corrigir?",
+                        answer: "Se você comprou uma base e ela não está no tom certinho da sua pele, é possível reaproveitar esse produto usando de muitas outras formas. Podemos te ajudar! Se a base ficou mais escura, é só misturá-la com uma base ou corretivo de cor clara até chegar ao tom da sua pele. O mesmo vale para bases claras que você quer escurecer. Outra dica é aplicar bases mais escuras como contorno facial e bases mais claras como corretivo. Aqui na 7 Tons de Beleza, você ainda encontra produtos mágicos que corrigem o tom da sua base, a deixando mais clara ou escura de acordo com a sua necessidade se continuar com dúvidas, é só falar com a gente, iremos amar falar com você, através do watts (85) 9 9996.8549!"
                     }
                 }/>
             </div>
             <br/>
             <div>
                 <Question dropped = {false} texts = {{
-                        quest: "Imperdiet massa tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada?",
-                        answer: "Turpis egestas pretium aenean pharetra magna ac placerat vestibulum. Erat velit scelerisque in dictum non. Dolor sit amet consectetur adipiscing"
+                        quest: "Uniformizar ou Equilibrar?",
+                        answer: "Já sabe seu tom e seu fundo? Ótimo, o próximo passo é experimentar a base ou pó na pele do rosto. Escolha duas ou três opções que parecem mais próximas ao seu tom e passe um pouco no maxilar. Veja qual das cores combina mais e escolha."
                     }
                 }/>
             </div>
