@@ -276,52 +276,43 @@ const Faq = () => {
             <div>
                 <Question dropped = {false} texts = {{
                         quest: "Uniformizar ou Equilibrar?",
-                        answer: "Já sabe seu tom e seu fundo? Ótimo, o próximo passo é experimentar a base ou pó na pele do rosto. Escolha duas ou três opções que parecem mais próximas ao seu tom e passe um pouco no maxilar. Veja qual das cores combina mais e escolha."
+                        answer: "Já sabe seu tom e seu fundo? Ótimo, o próximo passo é experimentar a base ou pó na pele do rosto. Escolha duas ou três opções que parecem mais próximas ao seu tom e passe um pouco no maxilar. Veja qual das cores combina mais e escolha. Para escolher sua base ou pó, pense no que você prefere:Uniformizar a pele – usar uma base ou pó com a mesma cor de fundo da sua pele. Exemplo: se você tem tom de fundo amarelado, pode usar uma base ou pó com fundo amarelo e uniformizar toda a sua pele vai ficar bem natural. Equilibrar a pele – usar uma base ou pó com a cor de fundo oposta a da sua pele. Exemplo: se você tem tom de fundo amarelado, pode usar uma base ou pó com fundo rosado, para equilibrar. O efeito é de uma pele neutra, pronta para receber a maquiagem!"
                     }
                 }/>
             </div>
             <br/>
             <div>
                 <Question dropped = {false} texts = {{
-                        quest: "Imperdiet massa tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada?",
-                        answer: "Turpis egestas pretium aenean pharetra magna ac placerat vestibulum. Erat velit scelerisque in dictum non. Dolor sit amet consectetur adipiscing"
+                        quest: "Quero um produto, mas ele está esgotado. E agora?",
+                        answer: "Sabemos como é angustiante querer um produto é não encontrarmos! Por esse, motivo estamos sempre em contato com os nossos fornecedores para trazer os seus produtos o mais rápido possível."
                     }
                 }/>
             </div>
             <br/>
             <div>
                 <Question dropped = {false} texts = {{
-                        quest: "Imperdiet massa tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada?",
-                        answer: "Turpis egestas pretium aenean pharetra magna ac placerat vestibulum. Erat velit scelerisque in dictum non. Dolor sit amet consectetur adipiscing"
+                        quest: "O que são demaquilante?",
+                        answer: "Demaquilantes são produtos que servem pra tirar a maquiagem. Eles podem ser de vários jeitos: líquidos, cremosos, em lenços, em gel, espuma, sabonete líquido demaquilante etc. experimente e escolha o melhor para você! Na nossa linha existem quatro tipos de demaquilantes: 1. Demaquilante aquoso: feito à base de água, este demaquilante é indicado para o rosto inteiro e pescoço, pois remove a maquiagem sem deixar a pele oleosa. Ele é feito sem óleo, fragrância ou corante. Além de limpar, ele também tonifica, refresca e hidrata a pele. 2. Demaquilante bifásico: a gente chama de bifásico porque este demaquilante tem duas “partes”, uma aquosa e outra oleosa. A fórmula dele tem ingredientes emolientes que ajudam a dissolver os produtos mais resistentes como máscaras e batons longa duração. Por isso a gente indica o uso dele nos olhos e na boca. 3. Lenço demaquilante 4 em 1: os lenços demaquilantes combinam o melhor dos dois produtos aí em cima. Além de limpar, tonificar, refrescar e hidratar a pele tiram a maquiagem mais pesada, inclusive a prova d’água. Sem contar que são ótimos pra levar em viagens, na bolsa, no carro, pois vêm numa embalagem superprática. 4. Sabonete líquido demaquilante: que além de limpar o rosto, tira a maquiagem no banho. A gente sabe que maquiagem à prova d'água e aquele olhão marcado escuro são mais difíceis de tirar. Se a sua maquiagem não sair totalmente no banho os outros demaquilantes podem dar uma ajudinha"
                     }
                 }/>
             </div>
             <br/>
             <div>
                 <Question dropped = {false} texts = {{
-                        quest: "Imperdiet massa tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada?",
-                        answer: "Turpis egestas pretium aenean pharetra magna ac placerat vestibulum. Erat velit scelerisque in dictum non. Dolor sit amet consectetur adipiscing"
+                        quest: "Como eu faço para limpar os pinceis de maquiagem? E com qual frequência  eu devo fazer isso?",
+                        answer: "É indicado que você limpe os seus pincéis a cada quinze dias. Vale usar o limpa-pincéis para tirar os restos de maquiagem, limpando muito bem as cerdas, sem estragar.É só espirrar o limpa-pincéis nas cerdas e esperar um pouco para fazer efeito. Depois use um pano para tirar os restos de maquiagem. Enxágue com bastante água, tire o excesso de água com um papel absorvente e deixe secar. Uma vez por mês também indicamos lavar os pincéis com água e xampu neutro, esfregando as cerdas devagarinho. Depois deixe secar e só guarde quando as cerdas estiverem bem sequinhas. Assim seus queridos pincéis duram mais!"
                     }
                 }/>
             </div>
             <br/>
             <div>
                 <Question dropped = {false} texts = {{
-                        quest: "Imperdiet massa tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada?",
-                        answer: "Turpis egestas pretium aenean pharetra magna ac placerat vestibulum. Erat velit scelerisque in dictum non. Dolor sit amet consectetur adipiscing"
+                        quest: "Qual a melhor maneira de guardar meus produtos?",
+                        answer: "O melhor é guardar seus produtos sempre em locais frescos, ventilados, longe do calor excessivo, da luz e do sol. ah, não se esqueça de deixar tudo bem fechado, assim eles duram mais tempo."
                     }
                 }/>
             </div>
             <br/>
-            <div>
-                <Question dropped = {false} texts = {{
-                        quest: "Imperdiet massa tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada?",
-                        answer: "Turpis egestas pretium aenean pharetra magna ac placerat vestibulum. Erat velit scelerisque in dictum non. Dolor sit amet consectetur adipiscing"
-                    }
-                }/>
-            </div>
-            <br/>
-            
         </div>
     )
 }
