@@ -245,6 +245,33 @@ module.exports = {
 
     })
       
+  },
+
+  async estornar(req, res){
+    // POST para estornar uma trasação (feito pelo admin, ou em caso de estoque vazio)
+    const url = config.PagSeguroConfig.mode === 'sandbox' ? `https://ws.sandbox.pagseguro.uol.com.br/v2/transactions/refunds?email=${config.PagSeguroConfig.email}&token=${config.PagSeguroConfig.token}` : `https://ws.pagseguro.uol.com.br/v2/transactions/refunds`;
+
+    const { code } = req.body.transData;
+    
+    await axios({
+      method: 'post',
+      url: url,
+      data: {
+        transactionCode: code,
+      }
+    }).then(response => {
+      // Convertendo o retorno de XML para JSON
+      const resjson = convert.xml2json(response.data, {compact: true, spaces: 4});
+      // Convertendo o JSON para um objeto
+      const resObj = JSON.parse(resjson);
+
+      return res.send({ message: `A transação de código ${code} foi estornada!`, respostaPagSeguro: resObj});
+
+    }).catch(error => {
+      return res.status(400).send(error);
+
+    });
+
   }
 }
 
