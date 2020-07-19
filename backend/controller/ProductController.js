@@ -62,7 +62,7 @@ module.exports = {
                         Product.findByIdAndUpdate({ _id: item.id }, { $set: { estoque: data.estoque - item.quantity } },
                             { new: true }, (err, doc) => {
                                 if (err) {
-                                    return res.send(err)
+                                    return res.status(500).send(err)
                                 }
 
                                 //return res.send(doc)
