@@ -77,7 +77,7 @@ class ListaProdutoEditavel extends Component {
         const fetchNextPage = async () =>{
             const page = this.state.pagina;
             const produtos = this.state.produtos;
-            const url = this.state.pesquisado ? `/mostrarprodutopornome/${this.state.pesquisa}/${page + 1}` : `/mostrartodosprodutos/${page + 1}`;
+            const url = this.state.pesquisado ? `/mostrarprodutopornome/${this.state.pesquisado}/${page + 1}` : `/mostrartodosprodutos/${page + 1}`;
     
             await api.get(url).then(res => {
                 if (res.data.length > 0) {

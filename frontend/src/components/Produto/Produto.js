@@ -7,7 +7,8 @@ import makeup from '../Images/makeup.svg';
 
 class Produto extends Component {
     state = {
-        noCarrinho: this.props.dados.noCarrinho
+        noCarrinho: this.props.dados.noCarrinho,
+        ref: 0,
     }
 
     /* função para abrir o modal dos produtos*/
@@ -64,10 +65,12 @@ class Produto extends Component {
         e.target.width = 60;
     }
 
-    componentDidMount(){
+    componentDidMount() {
         // Chegando se produt está no carrinho global
-        const finded = this.props.carrinho.find(item => item._id === this.props.dados._id);
-        this.setState({ noCarrinho: finded ? true : false });
+        const finded = this.props.carrinho.findIndex(item => item._id === this.props.dados._id);
+        if(finded !== -1){
+            this.setState({ noCarrinho: true, ref: finded });
+        }
     }
 
     render() {
@@ -120,8 +123,8 @@ class Produto extends Component {
                 <div id={ProdutoId} className="modal-container">
                     <div className="modal">
                         <div>
-                        {this.props.dados.novidade ? <span className="botaoAddCarrinho" style={{ background: '#e95144' }} > NOVIDADE </span> : null}
-                        {this.props.dados.promocao ? <span className="botaoAddCarrinho" style={{ background: '#e95144' }} > PROMOÇÃO ESPECIAL </span> : null}
+                            {this.props.dados.novidade ? <span className="botaoAddCarrinho" style={{ background: '#e95144' }} > NOVIDADE </span> : null}
+                            {this.props.dados.promocao ? <span className="botaoAddCarrinho" style={{ background: '#e95144' }} > PROMOÇÃO ESPECIAL </span> : null}
 
                         </div>
                         <div>
@@ -141,6 +144,15 @@ class Produto extends Component {
                             {this.props.dados.estoque !== 0 ? this.state.noCarrinho ?
                                 <div>
                                     <button className="botaoAddCarrinhoDisabilitado"> PRODUTO ADICIONADO AO CARRINHO</button>
+                                    {
+                                        //Botões de edição que aparecem somente no produto do carrinho
+                                    }
+                                    <div>
+                                        <button onClick={() => this.attQtd(-1)} className="botoesQuantidade menos"><img src={Menos} width='15' height='15' alt='menos'></img></button>
+                                        {this.props.carrinho[this.state.ref].qtd}
+                                        <button onClick={() => this.attQtd(1)} className="botoesQuantidade mais"><img src={Mais} width='15' height='15' alt='Mais'></img></button>
+                                        <img onClick={() => this.removerCarrinho()} className="iconelixeira" src={Lixeira} width='25' height='25' alt='lixeira'></img>
+                                    </div>
                                     <div className="nav botoesCarrinho">
                                         <p className="nav-item button-pri botaomodal1">
                                             <Link to="/lojavirtual" className="irlojavirtual">Ver outros produtos</Link>
