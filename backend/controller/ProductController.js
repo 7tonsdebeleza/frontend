@@ -57,12 +57,12 @@ module.exports = {
 
         items.map(async (item) => {
             try {
-                await Product.findByIdAndUpdate({ _id: item.id }, (err, data) => {
-                    if (data.estoque >= item.quantity) {
-                        Product.findByIdAndUpdate({ _id: item.id }, { $set: { estoque: data.estoque - item.quantity } },
-                            { new: true }, (err, doc) => {
-                                if (err) {
-                                    return res.status(500).send(err)
+                await Product.findByIdAndUpdate({ _id: item.id._text }, (err, data) => {
+                    if (data.estoque >= parseInt(item.quantity._text)) {
+                        Product.findByIdAndUpdate({ _id: item.id }, { $set: { estoque: data.estoque - parseInt(item.quantity._text) } },
+                            { new: true }, (error, doc) => {
+                                if (error) {
+                                    return res.status(500).send(error)
                                 }
 
                                 //return res.send(doc)

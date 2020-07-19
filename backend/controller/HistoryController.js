@@ -51,7 +51,7 @@ module.exports = {
             await History.findOneAndUpdate({code},{$set: {status}},
                 {new: true},(err,doc) =>{
                     if(err){
-                        return res.send(err)
+                        return res.status(500).send(err)
                     }
 
                     // Caso compra tenha atualizado seu status para paga (3), o estoque deve ser atualizado
