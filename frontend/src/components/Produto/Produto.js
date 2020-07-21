@@ -39,8 +39,10 @@ class Produto extends Component {
     }
 
     attQtd = async (qtda) => {
-        const produto = this.props.dados;
-        await this.props.attQtdItem(qtda, produto);
+        if (!(qtda < 0 && this.props.carrinho[this.state.ref].qtd === 1)) {
+            const produto = this.props.dados;
+            await this.props.attQtdItem(qtda, produto);
+        }
     }
 
     addCarrinho = () => {
@@ -48,7 +50,7 @@ class Produto extends Component {
         let dados = this.props.dados;
         dados.qtd = 1;
         dados.noCarrinho = true;
-        this.setState({ noCarrinho: true });
+        this.setState({ noCarrinho: true, ref: this.props.carrinho.length });
         //Eviando dados para pai:
         this.props.addCarrinho(dados);
 
@@ -68,7 +70,7 @@ class Produto extends Component {
     componentDidMount() {
         // Chegando se produt está no carrinho global
         const finded = this.props.carrinho.findIndex(item => item._id === this.props.dados._id);
-        if(finded !== -1){
+        if (finded !== -1) {
             this.setState({ noCarrinho: true, ref: finded });
         }
     }
