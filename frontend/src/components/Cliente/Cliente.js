@@ -2,41 +2,42 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import ListarCompras from "./ListarCompras";
 
-class Cliente extends Component{
+class Cliente extends Component {
 
     state = {
         compras: []
     }
 
-    componentDidMount(){
+    componentDidMount() {
         //##### Carregar as compras no bd
-        this.setState({compras: testeCompras}) 
+        this.setState({ compras: testeCompras })
     }
 
-    render(){
-        return(
-        <div className="login container">
-            <div className="bread">
-                <Link to="/home" >Home</Link>
-                <span className="arrow">/</span>
-                <span>Minha conta</span>
-            </div>
-            <div className="criar-conta login">
-                <header className="page-header">
-                    <h1>Área do Cliente</h1>
-                </header>
-                <p className="title">
-                    Bem vindo(a) <b>{this.props.user.nome}</b>!
-                </p>
-                
-            </div>
-            <ListarCompras compras={this.state.compras} />
+    render() {
+        return (
+            <div className="login container">
+                <div className="bread">
+                    <Link to="/home" >Home</Link>
+                    <span className="arrow">/</span>
+                    <span>Minha conta</span>
+                </div>
+                <div className="criar-conta login">
+                    <header className="page-header">
+                        <h1>Área do Cliente</h1>
+                    </header>
+                    <p className="title">
+                        Bem vindo(a) <b>{this.props.user.nome}</b>!
+                        <p className="btn-secundaryy" style={{ float: "right", marginTop: '4px', marginBottom: '4px' }}>
+                            <Link to="/cliente/atualizar"> Atualizar suas informações </Link>
+                        </p>
+                    </p>
 
-            <hr/>
-            <p className="btn-secundaryy">
-                <Link to="/cliente/atualizar"> Atualizar suas informações </Link>
-            </p>
-        </div>
+                </div>
+                <ListarCompras compras={this.state.compras} user={this.props.user} />
+
+                <hr />
+
+            </div>
         )
     }
 }
