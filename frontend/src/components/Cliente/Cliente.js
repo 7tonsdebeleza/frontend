@@ -27,9 +27,9 @@ class Cliente extends Component {
                     </header>
                     <p className="title">
                         Bem vindo(a) <b>{this.props.user.nome}</b>!
-                        <p className="btn-secundaryy" style={{ float: "right", marginTop: '4px', marginBottom: '4px' }}>
+                        <span className="btn-secundaryy" style={{ float: "right", marginTop: '4px', marginBottom: '4px' }}>
                             <Link to="/cliente/atualizar"> Atualizar suas informações </Link>
-                        </p>
+                        </span>
                     </p>
 
                 </div>
