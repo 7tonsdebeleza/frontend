@@ -19,9 +19,9 @@
     min-width: 80vw;
     padding: 35px;
     position: relative;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    overflow: auto;
+    overflow-y: auto;
 }
 
 .editor-modal-closer{

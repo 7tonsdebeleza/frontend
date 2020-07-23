@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import Info from "../Images/information.svg";
 import Modal from "../Modal/Modal";
 import api from '../API/api';
@@ -7,6 +8,61 @@ function ListarCompras({ user }) {
 
   const [registros, setRegistros] = useState([]);
   const [load, setLoad] = useState(false);
+
+  function traduzirStatusTrans(code) {
+    switch (code) {
+      case '1':
+        return 'Aguardando pagamento';
+
+      case '2':
+        return 'Em análise';
+
+      case '3':
+        return 'Pago';
+
+      case '4':
+        return 'Disponível';
+
+      case '5':
+        return 'Em disputa';
+
+      case '6':
+        return 'Devolvida';
+
+      case '7':
+        return 'Cancelada';
+
+      case '8':
+        return 'Debitada';
+
+      default:
+        return 'Indefinido';
+
+    }
+  }
+
+  function traduzirFormaPagamento(code) {
+    switch (code) {
+      case '1':
+        return 'Cartão de crétido';
+
+      case '2':
+        return 'Boleto';
+
+      case '3':
+        return 'Débito online (TEF)';
+
+      case '4':
+        return 'Saldo PagSeguro';
+
+      case '7':
+        return 'Depóstio em Conta';
+
+      default:
+        return 'Indefinido';
+
+    }
+  }
 
   useEffect(() => {
     async function fetchRegs() {
@@ -51,19 +107,7 @@ function ListarCompras({ user }) {
                   return (
                     <tr key={listId}>
                       <td>{new Date(reg.date).toLocaleDateString()}</td>
-                      <td>
-                        {
-                          parseInt(reg.status) === 1 ? 'Aguardando pagamento' :
-                            parseInt(reg.status) === 2 ? 'Em análise' :
-                              parseInt(reg.status) === 3 ? 'Pago' :
-                                parseInt(reg.status) === 4 ? 'Disponível' :
-                                  parseInt(reg.status) === 5 ? 'Em disputa' :
-                                    parseInt(reg.status) === 6 ? 'Devolvida' :
-                                      parseInt(reg.status) === 7 ? 'Cancelada' :
-                                        parseInt(reg.status) === 8 ? 'Debitda' :
-                                          'Retenção temporária'
-                        }
-                      </td>
+                      <td>{traduzirStatusTrans(reg.status)}</td>
                       <td>{reg.statusFrete ? reg.statusFrete : 'No estoque'}</td>
                       <td>Em breve</td>
                       <td>
@@ -79,8 +123,23 @@ function ListarCompras({ user }) {
                               </li>
 
                               <li className="list-group-item d-flex justify-content-between align-items-center">
+                                <strong> EMAIL FORNECIDO NA COMPRA: </strong>
+                                <span> {reg.senderEmail} </span>
+                              </li>
+
+                              <li className="list-group-item d-flex justify-content-between align-items-center">
+                                <strong> TELEFONE FORNECIDO NA COMPRA: </strong>
+                                <span> {reg.senderPhoneAreaCode} {reg.senderPhoneNumber} </span>
+                              </li>
+
+                              <li className="list-group-item d-flex justify-content-between align-items-center">
+                                <strong> STATUS DA TRANSAÇÃO: </strong>
+                                <strong> {traduzirStatusTrans(reg.status)} </strong>
+                              </li>
+
+                              <li className="list-group-item d-flex justify-content-between align-items-center">
                                 <strong> FORMA DE PAGAMENTO: </strong>
-                                <span> {reg.paymentMethod} </span>
+                                <span> {traduzirFormaPagamento(reg.paymentMethod)} </span>
                               </li>
 
                               <li className="list-group-item d-flex justify-content-between align-items-center">
@@ -109,6 +168,35 @@ function ListarCompras({ user }) {
 
                             <hr />
                             <h3 className="spotlight"> PRODUTOS </h3>
+
+                            <table className="table">
+                              <thead >
+                                <tr>
+                                  <th scope="col">#</th>
+                                  <th scope="col">TÍTULO</th>
+                                  <th scope="col">QUANTIDADE</th>
+                                  <th scope="col">VALOR</th>
+                                  <th scope="col">LINK</th>
+                                </tr>
+                              </thead>
+
+                              <tbody>
+                                {
+                                  reg.items.map((item, index) => {
+                                    return <tr key={index}>
+                                      <td> { index+1 } </td>
+                                      <td> { item.description._text } </td>
+                                      <td> { item.quantity._text } </td>
+                                      <td> <strong> {parseFloat(item.amount._text).toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })} </strong> </td>
+                                      <td> <Link to={`/produtos/${item.id._text}`}> Ver produto </Link> </td>
+
+                                    </tr>
+                                  })
+                                }
+                              </tbody>
+                            </table>
+
+
                             <hr />
                             <h3 className="spotlight"> DETALHES DA ENTREGA </h3>
 
