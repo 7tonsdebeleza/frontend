@@ -48,18 +48,37 @@ module.exports = {
 
     async Comprar(req, res, next) {
         const { items } = req.body;
-        /*
-         Model: id
-                description
-                quantity
-                amount
-        */
+        
+        if (items.length > 0) {
+            items.map(async (item) => {
+                try {
+                    await Product.findByIdAndUpdate({ _id: item.id._text }, (err, data) => {
+                        if (data.estoque >= parseInt(item.quantity._text)) {
+                            Product.findByIdAndUpdate({ _id: item.id }, { $set: { estoque: data.estoque - parseInt(item.quantity._text) } },
+                                { new: true }, (error, doc) => {
+                                    if (error) {
+                                        return res.status(500).send(error)
+                                    }
 
-        items.map(async (item) => {
+                                    //return res.send(doc)
+                                }
+                            )
+                        } else {
+
+                            console.log(`Quantidade indisponível em estoque para produto de ID:${data.id}`)
+                            return next();
+                        }
+                    })
+
+                } catch (e) {
+                    return res.status(500).send(e);
+                }
+            });
+        } else {
             try {
-                await Product.findByIdAndUpdate({ _id: item.id._text }, (err, data) => {
-                    if (data.estoque >= parseInt(item.quantity._text)) {
-                        Product.findByIdAndUpdate({ _id: item.id }, { $set: { estoque: data.estoque - parseInt(item.quantity._text) } },
+                await Product.findByIdAndUpdate({ _id: items.id._text }, (err, data) => {
+                    if (data.estoque >= parseInt(items.quantity._text)) {
+                        Product.findByIdAndUpdate({ _id: items.id }, { $set: { estoque: data.estoque - parseInt(items.quantity._text) } },
                             { new: true }, (error, doc) => {
                                 if (error) {
                                     return res.status(500).send(error)
@@ -78,7 +97,7 @@ module.exports = {
             } catch (e) {
                 return res.status(500).send(e);
             }
-        });
+        }
 
         return res.send('ok');
     },
