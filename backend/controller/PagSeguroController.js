@@ -204,7 +204,7 @@ module.exports = {
           2 = Boleto
           3 = Débito online
         */
-        paymentMethodCode: resObj.transaction.paymentMethod.code._text, // código para tipo específico de pagamento (bandeira, etc)
+        paymentCode: resObj.transaction.paymentMethod.code._text, // código para tipo específico de pagamento (bandeira, etc)
         paymentLink: resObj.transaction.paymentLink, // link para imprimir boleto
         
         grossAmount: resObj.transaction.grossAmount._text,
