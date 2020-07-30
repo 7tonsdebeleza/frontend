@@ -12,17 +12,26 @@ module.exports = {
             next()
         } else {
             const {code, date, reference, status, paymentMethod, grossAmount, discountAmount, intermediationRateAmount, 
-                intermediationFeeAmount, netAmount, extraAmount, installmentCount, itemCount, senderName,
+                intermediationFeeAmount, netAmount, installmentCount, itemCount, senderName,
                 senderEmail, senderPhoneAreaCode, senderPhoneNumber, shippingStreet, shippingNumber,
                 shippingComplement, shippingDistrict, shippingCity, shippingState, shippingCountry,
-                shippingPostalCode, shippingCost } = transData
+                shippingPostalCode, shippingCost,
+                statusFrete= " ",
+                codRastreio= " ",
+                paymentCode = " ",
+                paymentLink = " " } = transData
 
             const history = await History.create(
                 {code, date, reference, status, paymentMethod, grossAmount, discountAmount, intermediationRateAmount, 
-                    intermediationFeeAmount, netAmount, extraAmount, installmentCount, itemCount, senderName,
+                    intermediationFeeAmount, netAmount, installmentCount, itemCount, senderName,
                     senderEmail, senderPhoneAreaCode, senderPhoneNumber, shippingStreet, shippingNumber,
                     shippingComplement, shippingDistrict, shippingCity, shippingState, shippingCountry,
-                    shippingPostalCode, shippingCost, items}
+                    shippingPostalCode, shippingCost, 
+                    statusFrete,
+                    codRastreio,
+                    paymentCode,
+                    paymentLink,
+                    items}
             )
 
             // Quando status estiver em 3 (paga), o estoque do banco de dados deve ser atualizado com a compra
@@ -63,6 +72,32 @@ module.exports = {
         }
 
         
+    },
+
+    async updateStatusFrete(req,res){
+        const { code, statusFrete } = req.body
+
+        await History.findOne({code},{$set: {statusFrete}}, {new: true},
+            (err, doc)=>{
+                if(err){
+                    return res.status(500).send(err.message)
+                }
+                return res.send(doc)
+            }
+        )
+    },
+
+    async updateCodRastreio(req,res){
+        const { code, codRastreio } = req.body
+
+        await History.findOne({code},{$set: {codRastreio}}, {new: true},
+            (err, doc)=>{
+                if(err){
+                    return res.status(500).send(err.message)
+                }
+                return res.send(doc)
+            }
+        )
     },
 
     async findHistoryById(req,res){

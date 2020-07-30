@@ -21,6 +21,12 @@ const HistorySchema = new mongoose.Schema({
         required: true,
         type: String
     },
+    paymentMethodCode:{
+        type: String
+    },
+    paymentLink:{
+        type: String
+    },
     grossAmount:  {
         required: true,
         type: String
@@ -40,10 +46,6 @@ const HistorySchema = new mongoose.Schema({
     },
     
     netAmount:  {
-        required: true,
-        type: String
-    },
-    extraAmount:  {
         required: true,
         type: String
     },
@@ -110,7 +112,13 @@ const HistorySchema = new mongoose.Schema({
         required: true,
         type: String
     },
-    
+    statusFrete:{
+        type: String
+    },
+    codRastreio:{
+        type: String
+    },
+
     items:{
         required: true,
         type: []

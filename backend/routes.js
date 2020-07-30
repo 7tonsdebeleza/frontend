@@ -150,6 +150,11 @@ routes.post('/atualizarpromocao', [ AdminController.Auth,ProductController.Updat
 routes.get('/getHistorybyID/:id', HistoryController.findHistoryById)
 //Obter todos os historicos
 routes.get('/getAllHistory/:page', HistoryController.findAllHistory)
+//Atualizar StatusFrete
+routes.put('/updateStatusFrete', HistoryController.updateStatusFrete)
+//Atualizar codRastreio
+routes.put('/updateCodRastreio', HistoryController.updateCodRastreio)
+
 
 //Correio
 //Receber CEP
