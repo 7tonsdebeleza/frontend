@@ -204,13 +204,16 @@ module.exports = {
           2 = Boleto
           3 = Débito online
         */
+        paymentMethodCode: resObj.transaction.paymentMethod.code._text, // código para tipo específico de pagamento (bandeira, etc)
+        paymentLink: resObj.transaction.paymentLink, // link para imprimir boleto
+        
         grossAmount: resObj.transaction.grossAmount._text,
         discountAmount: resObj.transaction.discountAmount._text,
         intermediationRateAmount: resObj.transaction.creditorFees.intermediationRateAmount._text,
         intermediationFeeAmount: resObj.transaction.creditorFees.intermediationFeeAmount._text,
         netAmount: resObj.transaction.netAmount._text,
-        extraAmount: resObj.transaction.extraAmount._text,
         installmentCount: resObj.transaction.installmentCount._text,
+
         itemCount: resObj.transaction.itemCount._text,
         senderName: resObj.transaction.sender.name._text,
         senderEmail: resObj.transaction.sender.email._text,
@@ -234,7 +237,6 @@ module.exports = {
       // console.table(items)
 
       // Repassando dados para controller de histórico
-      // !!!! Lembrar de passar resposta para PagSeguro para esse controller
       req.body = { transData, items };
       next();
 
