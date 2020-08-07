@@ -64,6 +64,12 @@ function ListarCompras({ user }) {
     }
   }
 
+  function traduzirCodPagamento(cod) {
+    const meio = meiosDePagamento.find((meio) => meio.cod === cod)
+    if(meio) return `- ${meio.text}`
+    else return null
+  }
+
   useEffect(() => {
     async function fetchRegs() {
       await api.get(`/getHistorybyID/${user._id}`).then(res => {
@@ -108,7 +114,7 @@ function ListarCompras({ user }) {
                     <tr key={listId}>
                       <td>{new Date(reg.date).toLocaleDateString()}</td>
                       <td>{traduzirStatusTrans(reg.status)}</td>
-                      <td>{reg.statusFrete ? reg.statusFrete : 'No estoque'}</td>
+                      <td>{!!reg.statusFrete.trim() ? reg.statusFrete : 'No estoque'}</td>
                       <td>Em breve</td>
                       <td>
                         <img id={"img" + listId} src={Info} width={18} height={18} style={{ cursor: 'pointer' }} alt='detalhes' />
@@ -139,7 +145,7 @@ function ListarCompras({ user }) {
 
                               <li className="list-group-item d-flex justify-content-between align-items-center">
                                 <strong> FORMA DE PAGAMENTO: </strong>
-                                <span> {traduzirFormaPagamento(reg.paymentMethod)} </span>
+                                <span> {traduzirFormaPagamento(reg.paymentMethod)} {traduzirCodPagamento(reg.paymentCod)}  </span>
                               </li>
 
                               <li className="list-group-item d-flex justify-content-between align-items-center">
@@ -166,6 +172,8 @@ function ListarCompras({ user }) {
 
                             </ul>
 
+                            {!!reg.paymentLink.trim() ? <a href={reg.paymentLink} target='_blank' rel="noopener noreferrer"> Imprimir boleto </a> : null }
+
                             <hr />
                             <h3 className="spotlight"> PRODUTOS </h3>
 
@@ -184,9 +192,9 @@ function ListarCompras({ user }) {
                                 {
                                   reg.items.map((item, index) => {
                                     return <tr key={index}>
-                                      <td> { index+1 } </td>
-                                      <td> { item.description._text } </td>
-                                      <td> { item.quantity._text } </td>
+                                      <td> {index + 1} </td>
+                                      <td> {item.description._text} </td>
+                                      <td> {item.quantity._text} </td>
                                       <td> <strong> {parseFloat(item.amount._text).toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })} </strong> </td>
                                       <td> <Link to={`/produtos/${item.id._text}`}> Ver produto </Link> </td>
 
@@ -214,5 +222,40 @@ function ListarCompras({ user }) {
     </div>
   )
 }
+
+const meiosDePagamento = [
+  { cod: '101', text: 'Visa' },
+  { cod: '102', text: 'MasterCard' },
+  { cod: '103', text: 'American Express' },
+  { cod: '104', text: 'Diners' },
+  { cod: '105', text: 'Hipercard' },
+  { cod: '106', text: 'Aura' },
+  { cod: '107', text: 'Elo' },
+  { cod: '108', text: 'PLENOCard' },
+  { cod: '109', text: 'PersonalCard' },
+  { cod: '110', text: 'JCB' },
+  { cod: '111', text: 'Discover' },
+  { cod: '112', text: 'BrasilCard' },
+  { cod: '113', text: 'FORTBRASIL' },
+  { cod: '114', text: 'CARDBAN' },
+  { cod: '115', text: 'VALECARD' },
+  { cod: '116', text: 'Cabal' },
+  { cod: '117', text: 'Mais' },
+  { cod: '118', text: 'Avista' },
+  { cod: '119', text: 'GRANDCARD' },
+  { cod: '120', text: 'Sorocred' },
+  { cod: '122', text: 'Up Policard' },
+  { cod: '123', text: 'Banese Card' },
+  { cod: '201', text: 'Bradesco' },
+  { cod: '202', text: 'Santander' },
+  { cod: '301', text: 'Bradesco' },
+  { cod: '302', text: 'Itaú' },
+  { cod: '303', text: 'Unibanco' },
+  { cod: '304', text: 'Banco do Brasil' },
+  { cod: '305', text: 'Banco Real' },
+  { cod: '306', text: 'Banrisul' },
+  { cod: '307', text: 'HSBC' },
+  { cod: '701', text: 'Banco Brasil' },
+]
 
 export default ListarCompras;
