@@ -21,7 +21,7 @@ const HistorySchema = new mongoose.Schema({
         required: true,
         type: String
     },
-    paymentMethodCode:{
+    paymentCode:{
         type: String
     },
     paymentLink:{
