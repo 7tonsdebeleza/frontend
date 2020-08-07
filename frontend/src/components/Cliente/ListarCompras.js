@@ -66,7 +66,7 @@ function ListarCompras({ user }) {
 
   function traduzirCodPagamento(cod) {
     const meio = meiosDePagamento.find((meio) => meio.cod === cod)
-    if(meio) return `- ${meio.text}`
+    if (meio) return `- ${meio.text}`
     else return null
   }
 
@@ -115,7 +115,7 @@ function ListarCompras({ user }) {
                       <td>{new Date(reg.date).toLocaleDateString()}</td>
                       <td>{traduzirStatusTrans(reg.status)}</td>
                       <td>{!!reg.statusFrete.trim() ? reg.statusFrete : 'No estoque'}</td>
-                      <td>Em breve</td>
+                      <td>{!!reg.codRastreio.trim() ? reg.codRastreio : <i> Indisponível no momento </i>}</td>
                       <td>
                         <img id={"img" + listId} src={Info} width={18} height={18} style={{ cursor: 'pointer' }} alt='detalhes' />
                         <Modal listenersId={["img" + listId]}>
@@ -171,10 +171,10 @@ function ListarCompras({ user }) {
                               </li>
 
                             </ul>
-
-                            {!!reg.paymentLink.trim() ? <a href={reg.paymentLink} target='_blank' rel="noopener noreferrer"> Imprimir boleto </a> : null }
-
                             <hr />
+
+                            {!!reg.paymentLink.trim() ? <a href={reg.paymentLink} target='_blank' rel="noopener noreferrer" style={{ float: 'right' }} > Imprimir boleto &rarr; </a> : null}
+
                             <h3 className="spotlight"> PRODUTOS </h3>
 
                             <table className="table">
@@ -207,6 +207,62 @@ function ListarCompras({ user }) {
 
                             <hr />
                             <h3 className="spotlight"> DETALHES DA ENTREGA </h3>
+
+                            <ul className="list-group list-group-flush">
+                              <li className="list-group-item d-flex justify-content-between align-items-center">
+                                <strong> ESTADO: </strong>
+                                <span> {reg.shippingState}</span>
+                              </li>
+
+                              <li className="list-group-item d-flex justify-content-between align-items-center">
+                                <strong> CIDADE: </strong>
+                                <span> {reg.shippingCity}</span>
+                              </li>
+
+                              <li className="list-group-item d-flex justify-content-between align-items-center">
+                                <strong> BAIRRO: </strong>
+                                <span> {reg.shippingDistrict}</span>
+                              </li>
+
+                              <li className="list-group-item d-flex justify-content-between align-items-center">
+                                <strong> CEP: </strong>
+                                <span> {reg.shippingPostalCode}</span>
+                              </li>
+
+                              <li className="list-group-item d-flex justify-content-between align-items-center">
+                                <strong> RUA: </strong>
+                                <span> {reg.shippingStreet}</span>
+                              </li>
+
+                              <li className="list-group-item d-flex justify-content-between align-items-center">
+                                <strong> NÚMERO: </strong>
+                                <span> {reg.shippingNumber}</span>
+                              </li>
+
+                              <li className="list-group-item d-flex justify-content-between align-items-center">
+                                <strong> COMPLEMENTO: </strong>
+                                <span> {reg.shippingComplement ? reg.shippingComplement : <i> nenhum </i> }</span>
+                              </li>
+
+                              <li className="list-group-item d-flex justify-content-between align-items-center">
+                                <strong> VALOR DO FRETE: </strong>
+                                <span>{parseFloat(reg.shippingCost).toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })}</span>
+                              </li>
+
+                              <li className="list-group-item d-flex justify-content-between align-items-center">
+                                <strong> STATUS DA ENTREGA: </strong>
+                                <span>{!!reg.statusFrete.trim() ? reg.statusFrete : 'No estoque'}</span>
+                              </li>
+
+                              <li className="list-group-item d-flex justify-content-between align-items-center">
+                                <strong> CÓDIGO DE RASTREIO: </strong>
+                                <span>{!!reg.codRastreio.trim() ? reg.codRastreio : <i> Indisponível no momento </i>}</span>
+                              </li>
+                            </ul>
+
+                            <hr />
+                            
+                            {!!reg.codRastreio.trim() ? <a href={'https://www2.correios.com.br/sistemas/rastreamento/'} target='_blank' rel="noopener noreferrer" style={{ float: 'right' }} > Rastrear via Correios &rarr; </a> : null}
 
                           </section>
                         </Modal>
