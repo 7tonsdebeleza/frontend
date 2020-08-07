@@ -164,6 +164,7 @@ class Checkout extends Component {
       api.post("/pagseguro/checkout", req).then((res) => {
         console.log("Redirecionando...");
         let redirectKey = res.data.checkout.code._text;
+        alert('Você será redirecionado para um ambiente seguro onde poderá finalizar sua compra!')
         window.location = `https://sandbox.pagseguro.uol.com.br/v2/checkout/payment.html?code=${redirectKey}`
       
       }).catch((e) => {
