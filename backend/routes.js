@@ -161,6 +161,8 @@ routes.put('/updateCodRastreio', HistoryController.updateCodRastreio)
 routes.get('/getAdress/:cep',CorreiosController.AdressGeter)
 //Calcular preço do frete
 routes.post('/getShippingPrice',CorreiosController.getShippingPrice)
+//Rastrear um pacote
+routes.get('/tracking/:cod', CorreiosController.tracking);
 
 //PAGSEGURO
 //Recebe status do PagSeguro
