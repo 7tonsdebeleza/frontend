@@ -103,7 +103,7 @@ module.exports = {
     async findHistoryById(req,res){
         const { id } = req.params
 
-        const historyByPerson = await History.find({reference: id});
+        const historyByPerson = await History.find({reference: id}).populate().sort({ updateAt: -1 });
 
         return res.json(historyByPerson)
     },
@@ -112,7 +112,7 @@ module.exports = {
     async findAllHistory(req,res){
         const { page } = req.params
 
-        const allHistory = await History.find().skip(4*(page - 1)).limit(4)
+        const allHistory = await History.find().skip(4*(page - 1)).limit(4).populate().sort({ updateAt: -1 });
         
         return res.json(allHistory)
     }
