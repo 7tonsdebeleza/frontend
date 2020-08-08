@@ -298,7 +298,7 @@ module.exports = {
   },
 
   tracking(req, res) {
-    const codRastreio = req.params // array de códigos de rastreios
+    const codRastreio = req.params.cod // array de códigos de rastreios
 
     rastrearEncomendas([codRastreio]).then((response) => {
       return res.send(response);
