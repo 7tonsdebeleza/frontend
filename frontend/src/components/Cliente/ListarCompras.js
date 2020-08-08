@@ -73,7 +73,6 @@ function ListarCompras({ user }) {
   useEffect(() => {
     async function fetchRegs() {
       await api.get(`/getHistorybyID/${user._id}`).then(res => {
-        console.log(res.data);
         setRegistros(res.data);
 
       }).catch(error => {
@@ -101,7 +100,7 @@ function ListarCompras({ user }) {
                 <th scope="col">STATUS DA TRASAÇÃO</th>
                 <th scope="col">STATUS DA ENTREGA</th>
                 <th scope="col">CÓDIGO DE RASTREIO</th>
-                <th scope="col">DATALHES</th>
+                <th scope="col">DETALHES</th>
               </tr>
             </thead>
 
