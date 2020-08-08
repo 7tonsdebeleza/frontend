@@ -9,7 +9,6 @@ function ListarConsultas() {
     const [registros, setRegistros] = useState([]);
     const [load, setLoad] = useState(false);
     const [page, setPage] = useState(1);
-
   
     function traduzirStatusTrans(code) {
       switch (code) {
@@ -73,10 +72,25 @@ function ListarConsultas() {
     }
   
     useEffect(() => {
+      async function rastrear(cod) {
+        const res = await api.get(`/tracking/${cod}`);
+        if (res) return res.data[0];
+        else return null;
+      }
+
       async function fetchNextPage() {
-        await api.get(`/getAllHistory/${page}`).then(res => {
+        await api.get(`/getAllHistory/${page}`).then(async res => {
           if(res.data.length > 0){
             const newRegs = registros.concat(res.data);
+            const promises = await newRegs.map(async reg => {
+              //reg.codRastreio = 'PW935793588BR';
+              if (!!reg.codRastreio.trim()) {
+                reg.rastreio = await rastrear(reg.codRastreio);
+              }
+              return true
+            });
+    
+            await Promise.all(promises);
             setRegistros(newRegs);
             setPage(page + 1);
 

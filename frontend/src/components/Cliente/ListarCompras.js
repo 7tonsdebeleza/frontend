@@ -71,8 +71,26 @@ function ListarCompras({ user }) {
   }
 
   useEffect(() => {
+
+    async function rastrear(cod) {
+      const res = await api.get(`/tracking/${cod}`);
+      if (res) return res.data[0];
+      else return null;
+    }
+
     async function fetchRegs() {
-      await api.get(`/getHistorybyID/${user._id}`).then(res => {
+      await api.get(`/getHistorybyID/${user._id}`).then(async res => {
+
+        const promises = await res.data.map(async reg => {
+          //reg.codRastreio = 'PW935793588BR';
+          if (!!reg.codRastreio.trim()) {
+            reg.rastreio = await rastrear(reg.codRastreio);
+          }
+          return true
+        })
+
+        await Promise.all(promises);
+
         setRegistros(res.data);
 
       }).catch(error => {
@@ -113,7 +131,7 @@ function ListarCompras({ user }) {
                     <tr key={listId}>
                       <td>{new Date(reg.date).toLocaleDateString()}</td>
                       <td>{traduzirStatusTrans(reg.status)}</td>
-                      <td>{!!reg.statusFrete.trim() ? reg.statusFrete : 'No estoque'}</td>
+                      <td>{reg.rastreio ? !!reg.codRastreio.trim() ? reg.rastreio[reg.rastreio.length - 1].status : reg.statusFrete : 'No estoque'}</td>
                       <td>{!!reg.codRastreio.trim() ? reg.codRastreio : <i> Indisponível no momento </i>}</td>
                       <td>
                         <img id={"img" + listId} src={Info} width={18} height={18} style={{ cursor: 'pointer' }} alt='detalhes' />
@@ -240,7 +258,7 @@ function ListarCompras({ user }) {
 
                               <li className="list-group-item d-flex justify-content-between align-items-center">
                                 <strong> COMPLEMENTO: </strong>
-                                <span> {reg.shippingComplement ? reg.shippingComplement : <i> nenhum </i> }</span>
+                                <span> {reg.shippingComplement ? reg.shippingComplement : <i> nenhum </i>}</span>
                               </li>
 
                               <li className="list-group-item d-flex justify-content-between align-items-center">
@@ -260,7 +278,38 @@ function ListarCompras({ user }) {
                             </ul>
 
                             <hr />
-                            
+
+                            {
+                              reg.rastreio ?
+                                <>
+                                  <h3 className="spotlight"> RASTREIO </h3>
+                                  <table className="table">
+                                    <thead>
+                                      <tr>
+                                        <th scope="col">STATUS</th>
+                                        <th scope="col">DATA</th>
+                                        <th scope="col">HORA</th>
+                                        <th scope="col">ORIGEM</th>
+                                        <th scope="col">DESTINO</th>
+                                      </tr>
+                                    </thead>
+
+                                    <tbody>
+                                      {reg.rastreio.map((item, index) => {
+                                        return (
+                                          <tr key={item.data + item.hora + index}>
+                                            <td>{item.status}</td>
+                                            <td>{item.data}</td>
+                                            <td>{item.hora}</td>
+                                            <td>{item.origem ? item.origem : item.local}</td>
+                                            <td>{item.destino ? item.destino : '--'}</td>
+                                          </tr>
+                                        )
+                                      })}
+                                    </tbody>
+                                  </table> </> : null
+                            }
+
                             {!!reg.codRastreio.trim() ? <a href={'https://www2.correios.com.br/sistemas/rastreamento/'} target='_blank' rel="noopener noreferrer" style={{ float: 'right' }} > Rastrear via Correios &rarr; </a> : null}
 
                           </section>
