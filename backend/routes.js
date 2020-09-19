@@ -23,31 +23,31 @@ routes.put('/revertersenha/:id', UserController.resetPassword)
 
 //PELO AMOR DE DEUS APAGAR
 const AdminController = require("./controller/AdminController");
-routes.post('/criaradmin',AdminController.Store);
+routes.post('/criaradmin', AdminController.Store);
 //routes.post('/loginadmin',AdminController.Find);
 
-routes.post('/Signadmin',AdminController.Sign);
-routes.post('/Authadmin',[AdminController.Auth, AdminController.Sign]);
+routes.post('/Signadmin', AdminController.Sign);
+routes.post('/Authadmin', [AdminController.Auth, AdminController.Sign]);
 
 //SERIO VEY APAGA
 
 //Blog
 //Criar post
-routes.post('/posts',upload.single('img'), [ AdminController.Auth, BlogController.store])
+routes.post('/posts', upload.single('img'), [AdminController.Auth, BlogController.store])
 //Listar todos os post
-routes.get('/posts',BlogController.index)
+routes.get('/posts', BlogController.index)
 //Pegar post por id
-routes.get('/posts/:id',BlogController.show)
+routes.get('/posts/:id', BlogController.show)
 //Deletar por id
 routes.delete('/posts/:id', [AdminController.Auth, BlogController.destroy])
 //Atualizar por ID
 routes.put('/posts/:id', [AdminController.Auth, BlogController.update])
 //Atualizar Imagem por ID
-routes.post('/posts/:id',upload.single('img'), [AdminController.Auth, BlogController.UpdateImage])
+routes.post('/posts/:id', upload.single('img'), [AdminController.Auth, BlogController.UpdateImage])
 
 //Usuarios
 //Criar usuarios (depois pede confirmação por email)
-routes.post('/criarusuario', [UserController.Store, EmailController.ConfirmarEmail ]);
+routes.post('/criarusuario', [UserController.Store, EmailController.ConfirmarEmail]);
 //Adicionar no carrinho
 routes.post('/adicionarcarrinho', UserController.Auth, UserController.adicionarCarrinho);
 //Remover do carrinho
@@ -57,7 +57,7 @@ routes.post('/pegarcarrinho', UserController.getCarrinho)
 //Fazer login
 //routes.post('/login',UserController.Login);
 //Fazer login com padrão jwt
-routes.post('/Sign',UserController.Sign);
+routes.post('/Sign', UserController.Sign);
 //Fazer autheticação de token jwt
 routes.post('/Auth', [UserController.Auth, UserController.Sign]);
 //Atualizar nome
@@ -73,35 +73,35 @@ routes.post('/insertPhoneAreaCode', UserController.insertPhoneAreaCode)
 //Atualizar numéro de celular
 routes.post('/insertPhoneNumber', UserController.insertPhoneNumber)
 //Atualizar CEP
-routes.post('/insertCep',UserController.insertCep)
+routes.post('/insertCep', UserController.insertCep)
 
 //Propriedade Frete de Usuarios
 //Atualizar tipo
-routes.post('/updateType',FreteController.updateType)
+routes.post('/updateType', FreteController.updateType)
 //Atualizar rua
-routes.post('/updateStreet',FreteController.updateStreet)
+routes.post('/updateStreet', FreteController.updateStreet)
 //Atualizar numero
-routes.post('/updateNumber',FreteController.updateNumber)
+routes.post('/updateNumber', FreteController.updateNumber)
 //Atualizar complemento
-routes.post('/updateComplement',FreteController.updateComplement)
+routes.post('/updateComplement', FreteController.updateComplement)
 //Atualizar distrito
-routes.post('/updateDistrict',FreteController.updateDistrict)
+routes.post('/updateDistrict', FreteController.updateDistrict)
 //Atualizar codigo postal
-routes.post('/updatePostalCode',FreteController.updatePostalCode)
+routes.post('/updatePostalCode', FreteController.updatePostalCode)
 //Atualizar cidade
-routes.post('/updateCity',FreteController.updateCity);
+routes.post('/updateCity', FreteController.updateCity);
 //Atualizar estado
-routes.post('/updateState',FreteController.updateState)
+routes.post('/updateState', FreteController.updateState)
 //Atualizar país
-routes.post('/updateCountry',FreteController.updateCountry)
+routes.post('/updateCountry', FreteController.updateCountry)
 
 //Produtos
 //Criar produto
-routes.post('/criarproduto',upload.single('img'), [ AdminController.Auth, ProductController.Store]);
+routes.post('/criarproduto', upload.single('img'), [AdminController.Auth, ProductController.Store]);
 //Mostrar produtos
-routes.get('/mostrartodosprodutos/:pagina',ProductController.Show);
+routes.get('/mostrartodosprodutos/:pagina', ProductController.Show);
 //Mostrar produtos pelo tipo
-routes.get('/mostrarprodutoportipo/:tipo/:pagina',ProductController.ShowByTipo);
+routes.get('/mostrarprodutoportipo/:tipo/:pagina', ProductController.ShowByTipo);
 //Mostrar produtos em novidades
 routes.get('/mostrarprodutonovidade/:pagina', ProductController.ShowByNewer);
 //Mostrar produtos em promocao
@@ -111,37 +111,37 @@ routes.get('/mostrarprodutopornome/:nome/:pagina', ProductController.ShowByName)
 //Mostra produto por id
 routes.get('/mostrarprodutosporid/:id', ProductController.ShowById);
 //Remover produto pelo ID
-routes.post('/removerproduto', [ AdminController.Auth, ProductController.Destroy] );
+routes.post('/removerproduto', [AdminController.Auth, ProductController.Destroy]);
 //Atualizar imagem do prodtuto
-routes.post('/atualizarimagem',upload.single('img'), [AdminController.Auth,ProductController.UpdateImage ] );
+routes.post('/atualizarimagem', upload.single('img'), [AdminController.Auth, ProductController.UpdateImage]);
 //Atualizar nome do produto
-routes.post('/atualizartitulo', [ AdminController.Auth, ProductController.UpdateTitle] );
+routes.post('/atualizartitulo', [AdminController.Auth, ProductController.UpdateTitle]);
 //Atualizar marca
-routes.post('/atualizarmarca', [ AdminController.Auth,  ProductController.UpdateMarca] );
+routes.post('/atualizarmarca', [AdminController.Auth, ProductController.UpdateMarca]);
 //Atualizar preço
-routes.post('/atualizarpreco', [ AdminController.Auth, ProductController.UpdatePrice] );
+routes.post('/atualizarpreco', [AdminController.Auth, ProductController.UpdatePrice]);
 //Atualizar estoque
-routes.post('/atualizarestoque', [ AdminController.Auth,  ProductController.UpdateEstoque ]);
+routes.post('/atualizarestoque', [AdminController.Auth, ProductController.UpdateEstoque]);
 //Atualizar descrição
-routes.post('/atualizardescricao', [ AdminController.Auth, ProductController.UpdateDescription  ] );
+routes.post('/atualizardescricao', [AdminController.Auth, ProductController.UpdateDescription]);
 //Atualizar tipoProduto
-routes.post('/atualizartipo', [ AdminController.Auth, ProductController.UpdateType ] )
+routes.post('/atualizartipo', [AdminController.Auth, ProductController.UpdateType])
 //Atualizar peso
-routes.post('/atualizarpeso', [ AdminController.Auth, ProductController.UpdatePeso ] )
+routes.post('/atualizarpeso', [AdminController.Auth, ProductController.UpdatePeso])
 //Atualizar formato
-routes.post('/atualizarformato', [ AdminController.Auth, ProductController.UpdateFormato ] )
+routes.post('/atualizarformato', [AdminController.Auth, ProductController.UpdateFormato])
 //Atualizar comprimento
-routes.post('/atualizarcomprimento', [ AdminController.Auth, ProductController.UpdateComprimento ] )
+routes.post('/atualizarcomprimento', [AdminController.Auth, ProductController.UpdateComprimento])
 //Atualizar altura
-routes.post('/atualizaraltura', [ AdminController.Auth, ProductController.UpdateAltura ])
+routes.post('/atualizaraltura', [AdminController.Auth, ProductController.UpdateAltura])
 //Atualizar largura
-routes.post('/atualizarlargura', [ AdminController.Auth, ProductController.UpdateLargura ] )
+routes.post('/atualizarlargura', [AdminController.Auth, ProductController.UpdateLargura])
 //Atualizar diametro
-routes.post('/atualizardiametro', [ AdminController.Auth, ProductController.UpdateDiametro]  )
+routes.post('/atualizardiametro', [AdminController.Auth, ProductController.UpdateDiametro])
 //Atualizar novidade
-routes.post('/atualizarnovidade', [ AdminController.Auth, ProductController.UpdateNovidade ] )
+routes.post('/atualizarnovidade', [AdminController.Auth, ProductController.UpdateNovidade])
 //Atualizar promocao
-routes.post('/atualizarpromocao', [ AdminController.Auth,ProductController.UpdatePromocao ] )
+routes.post('/atualizarpromocao', [AdminController.Auth, ProductController.UpdatePromocao])
 
 //Histórico
 //Criar um ítem de histórico
@@ -151,16 +151,16 @@ routes.get('/getHistorybyID/:id', HistoryController.findHistoryById)
 //Obter todos os historicos
 routes.get('/getAllHistory/:page', HistoryController.findAllHistory)
 //Atualizar StatusFrete
-routes.put('/updateStatusFrete', HistoryController.updateStatusFrete)
+routes.put('/updateStatusFrete', [AdminController.Auth, HistoryController.updateStatusFrete])
 //Atualizar codRastreio
-routes.put('/updateCodRastreio', HistoryController.updateCodRastreio)
+routes.put('/updateCodRastreio', [AdminController.Auth, HistoryController.updateCodRastreio])
 
 
 //Correio
 //Receber CEP
-routes.get('/getAdress/:cep',CorreiosController.AdressGeter)
+routes.get('/getAdress/:cep', CorreiosController.AdressGeter)
 //Calcular preço do frete
-routes.post('/getShippingPrice',CorreiosController.getShippingPrice)
+routes.post('/getShippingPrice', CorreiosController.getShippingPrice)
 //Rastrear um pacote
 routes.get('/tracking/:cod', CorreiosController.tracking);
 
@@ -168,10 +168,10 @@ routes.get('/tracking/:cod', CorreiosController.tracking);
 //Recebe status do PagSeguro
 routes.post('/pagseguro/status', [PagSeguroController.receiveStatus, HistoryController.store, HistoryController.updateHistory, ProductController.Comprar, PagSeguroController.estornar]);
 //Fazer Checkout
-routes.post('/pagseguro/checkout',PagSeguroController.sendCheckout);
+routes.post('/pagseguro/checkout', PagSeguroController.sendCheckout);
 
-routes.get('/teste',(req,res)=>{
-    return res.send({oi:'oi'});
+routes.get('/teste', (req, res) => {
+    return res.send({ oi: 'oi' });
 });
 
 module.exports = routes;
