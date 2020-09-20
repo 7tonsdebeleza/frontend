@@ -77,7 +77,7 @@ module.exports = {
     async updateStatusFrete(req,res){
         const { code, statusFrete } = req.body
 
-        await History.findOne({code},{$set: {statusFrete}}, {new: true},
+        await History.findOneAndUpdate({code},{$set: {statusFrete}}, {new: true},
             (err, doc)=>{
                 if(err){
                     return res.status(500).send(err.message)
@@ -90,7 +90,7 @@ module.exports = {
     async updateCodRastreio(req,res){
         const { code, codRastreio } = req.body
 
-        await History.findOne({code},{$set: {codRastreio}}, {new: true},
+        await History.findOneAndUpdate({code},{$set: {codRastreio}}, {new: true},
             (err, doc)=>{
                 if(err){
                     return res.status(500).send(err.message)
