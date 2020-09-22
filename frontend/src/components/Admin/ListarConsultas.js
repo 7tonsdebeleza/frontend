@@ -11,6 +11,7 @@ function ListarConsultas() {
   const [page, setPage] = useState(1);
 
   const [statusDeEntrega, setStatusEntrega] = useState('');
+  const [codRastreio, setCodRastreio] = useState('');
   const [enviandoStatus, setEnviandoStatus] = useState(false);
 
   function traduzirStatusTrans(code) {
@@ -79,16 +80,37 @@ function ListarConsultas() {
 
     if (statusDeEntrega) {
       setEnviandoStatus(true);
-      console.log(statusDeEntrega)
-      await api.put('/updateStatusFrete', { code, statusFrete: statusDeEntrega }, { headers: { authorization: token }} ).then(() => {
-        alert('Atualização concluída com sucesso! Página será recarregada!')
+      try {
+        await api.put('/updateStatusFrete', { code, statusFrete: statusDeEntrega }, { headers: { authorization: token } });
         return window.location.reload();
 
-      }).catch(e => {
+      } catch (e) {
         console.log(e.response);
-
         alert('Falha inespereada... Tente novamente mais tarde.');
-      });
+
+      }
+
+    }
+
+    setEnviandoStatus(false);
+
+  }
+
+  async function attCodRastreio(regCod) {
+    const token = localStorage.getItem("@stbl/admin/user");
+
+    if (codRastreio) {
+      setEnviandoStatus(true);
+      try {
+        await api.put('/updateStatusFrete', { code: regCod, statusFrete: 'Postado nos Correios' }, { headers: { authorization: token } });
+        await api.put('/updateCodRastreio', { code: regCod, codRastreio }, { headers: { authorization: token } });
+        return window.location.reload();
+
+      } catch (e) {
+        console.log(e.response);
+        alert('Falha inespereada... Tente novamente mais tarde.');
+
+      }
 
     }
 
@@ -176,7 +198,7 @@ function ListarConsultas() {
                       <td> <strong>{reg.senderEmail}</strong></td>
                       <td>{new Date(reg.date).toLocaleDateString()}</td>
                       <td>{traduzirStatusTrans(reg.status)}</td>
-                      <td>{!!reg.statusFrete.trim() ? reg.statusFrete : 'No estoque'}</td>
+                      <td>{ !reg.statusFrete || !!reg.statusFrete.trim() ? reg.statusFrete : 'No estoque'}</td>
                       <td>{!!reg.codRastreio.trim() ? reg.codRastreio : <i> Indisponível no momento </i>}</td>
                       <td>
                         <img id={"img" + listId} src={Info} width={18} height={18} style={{ cursor: 'pointer' }} alt='detalhes' />
@@ -313,7 +335,7 @@ function ListarConsultas() {
 
                               <li className="list-group-item d-flex justify-content-between align-items-center">
                                 <strong> STATUS DA ENTREGA: </strong>
-                                <span>{!!reg.statusFrete.trim() ? reg.statusFrete : 'No estoque'}</span>
+                                <span>{!reg.statusFrete || !!reg.statusFrete.trim() ? reg.statusFrete : 'No estoque'}</span>
                               </li>
 
                               <li className="list-group-item d-flex justify-content-between align-items-center">
@@ -329,7 +351,7 @@ function ListarConsultas() {
                             <span className="btn-secundaryy" >
                               <button id={"btn-att-entrega" + listId} > ATUALIAZAR STATUS DE ENTREGA </button>
                               <br />
-                              <button > INSERIR CÓDIGO DE RASTREIO </button>
+                              <button id={"btn-att-cod" + listId} > INSERIR CÓDIGO DE RASTREIO </button>
 
                             </span>
 
@@ -351,6 +373,19 @@ function ListarConsultas() {
 
                           <span className="btn-secundaryy" >
                             <button onClick={() => attStatusDeEntrega(reg.code)} > {enviandoStatus ? 'ENVIANDO...' : 'ENVIAR'} </button>
+                          </span>
+
+                        </Modal>
+                        <Modal listenersId={["btn-att-cod" + listId]}>
+                          <h3> Insira o código de rastreio dos correios, esta informação será atualizada na área do cliente!</h3>
+
+                          <label>Código de rastreio</label>
+                          <div>
+                            <input className="inputt" type="text" onChange={(e) => setCodRastreio(e.target.value)} value={codRastreio}/>
+                          </div>
+
+                          <span className="btn-secundaryy" >
+                            <button onClick={() => attCodRastreio(reg.code)} > {enviandoStatus ? 'ENVIANDO...' : 'ENVIAR'} </button>
                           </span>
 
                         </Modal>
