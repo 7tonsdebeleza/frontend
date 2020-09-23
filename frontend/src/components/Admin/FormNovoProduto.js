@@ -172,7 +172,7 @@ class FormNovoProduto extends Component {
 
 
   render() {
-    const categorias = ['Categoria 1', 'Categoria 2', 'Categoria 3'];
+    const categorias = ['Cuidados com a pele', 'Pincéis', 'Boca', 'Pó', 'Bases', 'Paletas', 'Olhos', 'Primer', 'Iluminador', 'Blushs', 'Fixador'];
 
     return (
       <div className='admin-form'>

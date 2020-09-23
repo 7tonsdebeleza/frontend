@@ -386,7 +386,7 @@ class ProdutoEditavel extends Component {
     let BotaoModal = ProdutoId + "Btamodal";
     let BotaoModalCancel = ProdutoId + "BtamodalCancel";
 
-    const categorias = ['Categoria 1', 'Categoria 2', 'Categoria 3'];
+    const categorias = ['Cuidados com a pele', 'Pincéis', 'Boca', 'Pó', 'Bases', 'Paletas', 'Olhos', 'Primer', 'Iluminador', 'Blushs', 'Fixador'];
 
     return (
       <div >
