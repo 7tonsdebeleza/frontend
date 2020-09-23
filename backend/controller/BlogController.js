@@ -1,7 +1,6 @@
 const Blog = require("../model/Blog");
 const fs = require('fs');
 
-
 module.exports = {
     async store(req,res){
         try{

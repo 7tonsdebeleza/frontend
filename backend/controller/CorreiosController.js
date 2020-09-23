@@ -1,7 +1,23 @@
 const axios = require("axios");
 const Correios = require("node-correios");
 const { rastrearEncomendas } = require('correios-brasil');
-const config = require("../globalconfig");
+//const config = require("../globalconfig");
+require('../config/envConfig');
+
+const config = {
+  PagSeguroConfig: {
+    email: process.env.PAG_EMAIL,
+    token: process.env.PAG_TOKEN,
+    mode : process.env.PAG_MODE,
+  },
+  CorreiosConfig: {
+    nCdEmpresa: process.env.CORREIOS_NCDEMPRESA,
+    sDsSenha: process.env.CORREIOS_NCDSENHA,
+    nCdServico: process.env.CORREIOS_NCDSERVICO, 
+    sCepOrigem: process.env.CORREIOS_NCDCEPOORIGEM,
+  },
+}
+
 
 /*
  - AdressGeter: get em um cep (/:cep), e retorna um objeto com dados do endereço

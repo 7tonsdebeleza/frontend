@@ -1,10 +1,11 @@
 const Admin = require("../model/Admin")
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt');
+require('../config/envConfig');
 
-const data = require('../data/data')
-
-process.env.SECRET_KEY = 'secret7tons';
+//const data = require('../data/data')
+const key = process.env.SECRET_KEY;
+const salt = process.env.ENCRYPT_SALT;
 
 module.exports = {
     async Store(req, res) {
@@ -16,7 +17,7 @@ module.exports = {
             admin = await Admin.create({
                 nome,
                 email,
-                password: bcrypt.hashSync(password, data.salt)
+                password: bcrypt.hashSync(password, salt)
             })
         }
 
@@ -60,7 +61,7 @@ module.exports = {
             }
 
             //Gerando token com dados do usuário encontrado
-            jwt.sign(data.toJSON(), process.env.SECRET_KEY, { expiresIn: '1d' }, (err, token) => {
+            jwt.sign(data.toJSON(), key, { expiresIn: '1d' }, (err, token) => {
                 if (err) {
                     console.log(err)
                     return res.send({ error: "Erro inesperado..." })
@@ -77,7 +78,7 @@ module.exports = {
         const token = req.headers['authorization'];
 
         //Decodificando token
-        jwt.verify(token, process.env.SECRET_KEY, (err, decode) => {
+        jwt.verify(token, key, (err, decode) => {
             if (err) {
                 //Caso em que token se expirou ou houve algum erro interno
                 return res.send({ error: err })
