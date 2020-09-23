@@ -1,7 +1,22 @@
 const convert = require('xml-js');
-const config = require('../globalconfig');
 const axios = require('axios');
 const qs = require('qs');
+require('../config/envConfig');
+
+const config = {
+  PagSeguroConfig: {
+    email: process.env.PAG_EMAIL,
+    token: process.env.PAG_TOKEN,
+    mode : process.env.PAG_MODE,
+  },
+  CorreiosConfig: {
+    nCdEmpresa: process.env.CORREIOS_NCDEMPRESA,
+    sDsSenha: process.env.CORREIOS_NCDSENHA,
+    nCdServico: process.env.CORREIOS_NCDSERVICO, 
+    sCepOrigem: process.env.CORREIOS_NCDCEPOORIGEM,
+  },
+}
+
 
 /*
   Métodos exportados:
@@ -52,7 +67,7 @@ module.exports = {
     body.redirectURL = 'http://7tonsdebeleza.com.br/';
 
     // Endereço para envio de notificação ########## deve ser alterado em produção
-    body.notificationURL = 'http://localhost:3333/pagseguro/status';
+    body.notificationURL = process.env.NOTIFICATION_URL;
 
     // Email visível para cliente após fim da compra
     body.receiverEmail = config.PagSeguroConfig.email; 
@@ -163,7 +178,7 @@ module.exports = {
     */
 
     const code = req.body.notificationCode; 
-    const url = 'https://ws.sandbox.pagseguro.uol.com.br/v3/transactions/notifications/'+code+'?email='+config.PagSeguroConfig.email+'&token='+config.PagSeguroConfig.token;
+    const url = config.PagSeguroConfig.mode === 'sandbox' ? 'https://ws.sandbox.pagseguro.uol.com.br/v3/transactions/notifications/'+code+'?email='+config.PagSeguroConfig.email+'&token='+config.PagSeguroConfig.token : 'https://ws.pagseguro.uol.com.br/v3/transactions/notifications/'+code+'?email='+config.PagSeguroConfig.email+'&token='+config.PagSeguroConfig.token;
 
     //Buscando dados da transação realizada a partir do código de notificação recebido da PagSeguros
     axios({
@@ -276,7 +291,6 @@ module.exports = {
 
   }
 }
-
 
 // Lista de campos da transação e da lista de itens
 

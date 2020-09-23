@@ -1,16 +1,16 @@
 const express = require('express');
-const mongoose =  require('mongoose');
+const mongoose = require('mongoose');
 const bodyparser = require('body-parser');
-const data = require('./data/data');
 const cors = require('cors');
 const path = require('path');
 const app = express();
+require('./config/envConfig');
 
 app.use(cors())
 
 //Conecta ao banco de dados via MongoDB Atlas, em nuvem
 
-mongoose.connect(data.databaseUrl,{
+mongoose.connect(process.env.DATABASE_URL, {
     useUnifiedTopology: true,
     useNewUrlParser: true
 });
@@ -20,15 +20,15 @@ mongoose.connect(data.databaseUrl,{
 //mongoose.connect('mongodb://localhost/7tonsdebeleza')
 
 //Area para conferir o estado do servidor Mongo
-mongoose.connection.on('error',(err)=>{
+mongoose.connection.on('error', (err) => {
     console.log('Erro na conexão com o banco de dados:' + err);
 }); //função para erros na conexão
 
-mongoose.connection.on('disconnect',()=> {
+mongoose.connection.on('disconnect', () => {
     console.log('Aplicação desconectada do banco de dados!');
 }); //função de alerta caso desconecte do DB
 
-mongoose.connection.on('connected',()=>{
+mongoose.connection.on('connected', () => {
     console.log('Aplicação conectada ao banco de dados');
 });
 
@@ -40,8 +40,16 @@ mongoose.set('useCreateIndex', true);
 app.use(bodyparser.urlencoded({ extended: true }));
 app.use(bodyparser.json());
 
-app.use('/files', express.static(path.resolve(__dirname,"uploads")))
+app.use('/files', express.static(path.resolve(__dirname, "uploads")))
 
 app.use(require('./routes'));
 
-app.listen(3333);
+const port = normalizaPort(process.env.PORT || '3333');
+function normalizaPort(val) {
+    const port = parseInt(val, 10);
+    if (isNaN(port)) return val;
+    if (port >= 0) return port;
+    return false;
+};
+
+app.listen(port);

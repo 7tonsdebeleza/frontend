@@ -1,12 +1,10 @@
 const User = require("../model/User");
 const Produto = require('../model/Product');
-
-const mongoose = require('mongoose')
 const bcrypt = require("bcrypt");
-const data = require('../data/data');
 const jwt = require('jsonwebtoken');
 
-process.env.SECRET_KEY = 'secret7tons';
+const salt = process.env.ENCRYPT_SALT;
+const key = process.env.SECRET_KEY;
 
 module.exports = {
 
@@ -47,7 +45,7 @@ module.exports = {
                     nome,
                     sobrenome,
                     email,
-                    password: bcrypt.hashSync(password, data.salt),
+                    password: bcrypt.hashSync(password, salt),
                     phoneAreaCode,
                     phoneNumber,
                     cep,
@@ -156,7 +154,7 @@ module.exports = {
 
         const { token } = req.params;
 
-        jwt.verify(token, process.env.SECRET_KEY, async function (err, decode) {
+        jwt.verify(token, key, async function (err, decode) {
             if (err) {
                 //Caso em que token se expirou ou houve algum erro interno
                 if (err.name === 'TokenExpiredError')
@@ -169,7 +167,7 @@ module.exports = {
             await User.findOneAndUpdate({
                 _id: decode.id
             },
-                { $set: { password: bcrypt.hashSync(decode.newPass, data.salt), senhaAntiga: decode.senhaAntiga } },
+                { $set: { password: bcrypt.hashSync(decode.newPass, salt), senhaAntiga: decode.senhaAntiga } },
                 { new: true }, (err, doc) => {
                     if (err) {
                         return res.send('Erro inesperado... Tente novamente mais tarde!');
@@ -427,7 +425,7 @@ module.exports = {
             }
 
             //Gerando token com dados do usuário encontrado
-            jwt.sign(data.toJSON(), process.env.SECRET_KEY, { expiresIn: '7d' }, (err, token) => {
+            jwt.sign(data.toJSON(), key, { expiresIn: '7d' }, (err, token) => {
                 if (err) {
                     console.log(err)
                     return res.send({ error: "Erro inesperado..." })
@@ -445,7 +443,7 @@ module.exports = {
         const token = req.headers.authorization
 
         //Decodificando token
-        jwt.verify(token, process.env.SECRET_KEY, (err, decode) => {
+        jwt.verify(token, key, (err, decode) => {
             if (err) {
                 //Caso em que token se expirou ou houve algum erro interno
                 return res.send({ error: err })
