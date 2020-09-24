@@ -31,7 +31,7 @@ class ListaProdutoEditavel extends Component {
     pesquisar = async () => {
         this.setState({ pagina: 1 });
         
-        await api.get(`/mostrarprodutopornome/${this.state.pesquisa}/1`).then(res => {
+        if(this.state.pesquisa && !!this.state.pesquisa.toString().trim()) await api.get(`/mostrarprodutopornome/${this.state.pesquisa}/1`).then(res => {
             res.data.forEach((obj) => {
                 //Remove o path da imagem e seta como o link dela
                 obj.img = obj.img_url;
@@ -77,7 +77,7 @@ class ListaProdutoEditavel extends Component {
         const fetchNextPage = async () =>{
             const page = this.state.pagina;
             const produtos = this.state.produtos;
-            const url = this.state.pesquisado ? `/mostrarprodutopornome/${this.state.pesquisado}/${page + 1}` : `/mostrartodosprodutos/${page + 1}`;
+            const url = this.state.pesquisado && !!this.state.pesquisado.toString().trim() ? `/mostrarprodutopornome/${this.state.pesquisado}/${page + 1}` : `/mostrartodosprodutos/${page + 1}`;
     
             await api.get(url).then(res => {
                 if (res.data.length > 0) {

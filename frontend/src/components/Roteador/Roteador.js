@@ -307,7 +307,7 @@ class Roteador extends Component {
 	}
 
 	pesquisar = (string) => {
-		return this.setState({ pesquisa: string });
+		if(string && !!string.toString().trim()) return this.setState({ pesquisa: string });
 	}
 
 	checkAuths = async () => {
