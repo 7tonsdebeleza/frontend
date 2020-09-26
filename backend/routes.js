@@ -169,6 +169,9 @@ routes.get('/tracking/:cod', CorreiosController.tracking);
 routes.post('/pagseguro/status', [PagSeguroController.receiveStatus, HistoryController.store, HistoryController.updateHistory, ProductController.Comprar, PagSeguroController.estornar]);
 //Fazer Checkout
 routes.post('/pagseguro/checkout', PagSeguroController.sendCheckout);
+//Estonar uma trasação, precisa estar no status paga, disponível ou em disputa
+routes.post('/pagseguro/estornar', [AdminController.Auth, PagSeguroController.estornar]);
+
 
 routes.get('/teste', (req, res) => {
     return res.send({ oi: 'oi' });
