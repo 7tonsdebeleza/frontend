@@ -1,6 +1,5 @@
 const axios = require("axios");
-const Correios = require("node-correios");
-const { rastrearEncomendas } = require('correios-brasil');
+const { rastrearEncomendas, calcularPrecoPrazo } = require('correios-brasil');
 //const config = require("../globalconfig");
 require('../config/envConfig');
 
@@ -300,8 +299,7 @@ module.exports = {
     // Peso mínimo de um 1kg
     if (args.nVlPeso < 1) args.nVlPeso = 1;
 
-    const correios = new Correios();
-    await correios.calcPreco(args).then(result => {
+    calcularPrecoPrazo(args).then(result => {
       return res.send(result);
 
     }).catch(error => {

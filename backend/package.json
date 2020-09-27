@@ -1,13 +1,14 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "API para ecommerce 7 Tons",
   "main": "server.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=dev nodemon server.js",
     "start": "node server.js"
   },
-  "author": "",
+  "author": "CEOS",
+  "repository": "https://github.com/GustavoMarks/7TonsDeBeleza",
   "license": "ISC",
   "dependencies": {
     "@sendgrid/mail": "^7.0.1",
@@ -21,7 +22,6 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.5.9",
     "multer": "^1.4.2",
-    "node-correios": "^3.0.2",
     "node-fetch": "^2.6.1",
     "nodemailer": "^6.4.2",
     "nodemon": "^2.0.4",
