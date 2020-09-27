@@ -5,10 +5,11 @@ import Search2 from '../Images/iconsearch2.png';
 import api from "../API/api";
 
 class Checkout extends Component {
-  state ={
+  state = {
     alert: null, // Guardará string caso ocorra erro de submissão
     calculandoFrete: false,
     informationcep: false, // Indica se informativo sobre o cep deve aparecer
+    prazo: "",
 
     // Dados do usuário e do carrinho estarão em props user e carrrinho
     // Dados do frete
@@ -28,12 +29,12 @@ class Checkout extends Component {
     subtotal: 0,
   }
 
-  handleInput = (e) =>{
+  handleInput = (e) => {
     this.setState({
-        [e.target.name]: e.target.value
+      [e.target.name]: e.target.value
     })
   }
-  
+
 
   //função para fechar alertas ao clicar no X
   fecharAlerta = () => {
@@ -45,8 +46,7 @@ class Checkout extends Component {
   chamarAlerta = (msg) => {
     this.setState({
       alert: msg,
-    }, () => 
-    {
+    }, () => {
       let alertDiv = document.getElementById("alert-div");
       if (alertDiv) alertDiv.scrollIntoView();
     });
@@ -62,12 +62,12 @@ class Checkout extends Component {
   searchCep = async () => {
     // Buscar cep na api
     // Pegar retorno de estado, cidade, bairro e rua e por no state
-    const res  = await api.get(`/getAdress/${this.state.postalCode}`);
+    const res = await api.get(`/getAdress/${this.state.postalCode}`);
 
-    if(res.data === "Formato invalido") return this.chamarAlerta("Formato de cep inválido!")
+    if (res.data === "Formato invalido") return this.chamarAlerta("Formato de cep inválido!")
 
     else return this.setState({
-      street:res.data.logradouro,
+      street: res.data.logradouro,
       district: res.data.bairro,
       city: res.data.localidade,
       state: res.data.uf,
@@ -77,26 +77,29 @@ class Checkout extends Component {
   }
 
   // Calculo de valor de frete
-  getShipping = async () =>{
+  getShipping = async () => {
     const items = this.props.carrinho;
     const cep = this.state.postalCode;
 
-    if(cep && cep.toString().trim()) {
+    if (cep && cep.toString().trim()) {
       const req = { items, cep };
-      this.setState({calculandoFrete: true});
-      
-      await api.post('/getShippingPrice', req).then(res => {
-        this.setState({calculandoFrete: false});
+      this.setState({ calculandoFrete: true });
 
-        if(res.data === "Limite excedido") return this.chamarAlerta("Seu carrinho está muito cheio... Remova alguns itens para continuar");
-        else if(!res.data[0].Erro){
-          const floatValFrete = res.data[0].Valor.replace(',','.');
-          return this.setState({freteValor: parseFloat(floatValFrete).toFixed(2)});
-        } 
+      await api.post('/getShippingPrice', req).then(res => {
+        this.setState({ calculandoFrete: false });
+
+        console.log(res.data);
+
+        if (res.data === "Limite excedido") return this.chamarAlerta("Seu carrinho está muito cheio... Remova alguns itens para continuar");
+        else if (!res.data.Erro !== 0) {
+          const floatValFrete = res.data.Valor.replace(',', '.');
+          if (res.data.PrazoEntrega) this.setState({ prazo: `(Certa de ${res.data.PrazoEntrega} dias úteis para entrega)` });
+          return this.setState({ freteValor: parseFloat(floatValFrete).toFixed(2) });
+        }
         else return this.chamarAlerta("Erro ao tentar calcular frete... Tente novamente mais tarde ou verifique se sua região recebe frete por Correios!");
 
       }).catch(e => {
-        this.setState({calculandoFrete: false});
+        this.setState({ calculandoFrete: false });
         console.log(e);
         return this.chamarAlerta("Erro inesperado... Tente mais tarde!");
 
@@ -107,21 +110,21 @@ class Checkout extends Component {
     else return this.chamarAlerta("O cep deve ser preenchido!");
   }
 
-  Submit = () =>{
+  Submit = () => {
     // Enviar dados para PagSeguro e receber link de redirecionamento para transação
     const st = this.state;
 
-    if(st.phoneNumber.toString().length !== 9){
+    if (st.phoneNumber.toString().length !== 9) {
       return this.chamarAlerta("Insira um número de celular válido");
     }
 
-    if(st.phoneAreaCode && st.phoneNumber && st.street && st.number && 
+    if (st.phoneAreaCode && st.phoneNumber && st.street && st.number &&
       st.district && st.postalCode && st.city && st.state && st.country &&
       st.phoneAreaCode.trim() && st.phoneNumber.toString().trim() && st.street.trim() &&
       st.number.trim() && st.district.trim() && st.postalCode.trim() &&
-      st.city.trim() && st.state.trim() && st.country.trim()){
-    
-      if(!st.freteValor) return this.chamarAlerta("Calcule o frete antes de efetuar esta ação!");
+      st.city.trim() && st.state.trim() && st.country.trim()) {
+
+      if (!st.freteValor) return this.chamarAlerta("Calcule o frete antes de efetuar esta ação!");
 
       const comprador = {
         name: this.props.user.nome + " " + this.props.user.sobrenome,
@@ -159,14 +162,14 @@ class Checkout extends Component {
         carrinho.push(item);
       });
 
-      let req = {carrinho, comprador, frete};
+      let req = { carrinho, comprador, frete };
 
       api.post("/pagseguro/checkout", req).then((res) => {
         console.log("Redirecionando...");
         let redirectKey = res.data.checkout.code._text;
         alert('Você será redirecionado para um ambiente seguro onde poderá finalizar sua compra!')
         window.location = `https://sandbox.pagseguro.uol.com.br/v2/checkout/payment.html?code=${redirectKey}`
-      
+
       }).catch((e) => {
         console.log(e);
         this.chamarAlerta("Erro inesperado... Tente novamente mais tarde!");
@@ -180,29 +183,29 @@ class Checkout extends Component {
 
   }
 
-  componentDidMount(){
+  componentDidMount() {
     // Esta página não poderá ser acessada caso o usuário esteja logado, ou o carrinho vazio
-    if(!this.props.user) {
+    if (!this.props.user) {
       console.log('Acesso não autorizado...');
       window.location = '/login';
     }
 
-    else if(this.props.carrinho.length === 0){
+    else if (this.props.carrinho.length === 0) {
       console.log('Carrinho vazio, essa ação não pode ser concluída')
       window.location = '/lojavirtual';
-    } 
+    }
 
     // Calculando subtotal da compra
-    if(this.props.carrinho.length > 0){
+    if (this.props.carrinho.length > 0) {
       let subtotal = 0;
       this.props.carrinho.forEach(produto => {
         subtotal = subtotal + (produto.preco * produto.qtd);
       });
-      this.setState({subtotal: subtotal});
+      this.setState({ subtotal: subtotal });
     }
 
     // Carregando dados de frete que já foram salvos pelo usuário
-    if(this.props.user){
+    if (this.props.user) {
       this.setState({
         street: this.props.user.frete.street.trim(),
         number: this.props.user.frete.number.trim(),
@@ -217,14 +220,14 @@ class Checkout extends Component {
 
   }
 
-  render(){
+  render() {
     const dddList = [11, 12, 14, 15, 16, 17, 18, 19, 21, 22, 24, 27, 28, 31, 32, 33, 34, 35,
       37, 38, 41, 42, 43, 44, 45, 46, 47, 48, 49, 51, 53, 54, 55, 61, 62, 63, 64, 65, 66, 67,
       68, 69, 71, 73, 74, 75, 77, 79, 81, 82, 83, 84, 85, 86, 87, 88, 89, 91, 92, 93, 94, 95,
       96, 97, 98, 99];
 
-    return(
-        <div className="cadastro container">
+    return (
+      <div className="cadastro container">
 
         <div className="bread">
           <Link to="/home" >Home</Link>
@@ -244,38 +247,38 @@ class Checkout extends Component {
             <label>DDD e Celular</label><em>*&nbsp;&nbsp;</em>
 
             <div>
-              <div style={{display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
-                <select style={{minWidth: '60px', maxWidth: '60px'}} className="inputt" type="text" name="phoneAreaCode" onChange={this.handleInput} value={this.state.phoneAreaCode}>
-                  <option key={0} style={{maxWidth: '5px'}} value={''}> </option>
+              <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
+                <select style={{ minWidth: '60px', maxWidth: '60px' }} className="inputt" type="text" name="phoneAreaCode" onChange={this.handleInput} value={this.state.phoneAreaCode}>
+                  <option key={0} style={{ maxWidth: '5px' }} value={''}> </option>
                   {
                     dddList.map(ddd => {
-                      return(<option key={ddd} style={{maxWidth: '5px'}} value={ddd}> {ddd} </option>)
+                      return (<option key={ddd} style={{ maxWidth: '5px' }} value={ddd}> {ddd} </option>)
                     })
                   }
                 </select>
-                <input style={{width: '320px'}} className="inputt" type="number" name="phoneNumber" 
+                <input style={{ width: '320px' }} className="inputt" type="number" name="phoneNumber"
                   onChange={this.handleInput} placeholder="900000000" />
 
               </div>
             </div>
 
             <label>CEP</label><em>*&nbsp;&nbsp;</em>
-            
+
             <img name="informationcep" onClick={this.Information} className="information" id="info" width='12' height='12' src={Info} alt='info' />
-            
-            {this.state.informationcep ? 
-              <p>Insira seu CEP e click na lupa para preenchimento rápido. Caso não saiba seu CEP <a target='_blank'  rel="noopener noreferrer" href='http://www.buscacep.correios.com.br/sistemas/buscacep/'> click aqui. </a> 
+
+            {this.state.informationcep ?
+              <p>Insira seu CEP e click na lupa para preenchimento rápido. Caso não saiba seu CEP <a target='_blank' rel="noopener noreferrer" href='http://www.buscacep.correios.com.br/sistemas/buscacep/'> click aqui. </a>
               </p> : null}
 
             <div>
-              <div style={{display: 'flex', flexDirection: 'row' }}>
+              <div style={{ display: 'flex', flexDirection: 'row' }}>
                 <input className="inputt" type="text" name="postalCode" onChange={this.handleInput}
                   placeholder="00000000, 00000-000 ou 00.000-000" />
-                <img onClick={()=>this.searchCep()} className="information" id="img-pesquisa" width='20' height='20' style={{marginLeft: '4px', marginTop: '4px'}} src={Search2} alt='pesquisa' />
+                <img onClick={() => this.searchCep()} className="information" id="img-pesquisa" width='20' height='20' style={{ marginLeft: '4px', marginTop: '4px' }} src={Search2} alt='pesquisa' />
               </div>
             </div>
 
-            
+
             <label>Estado (UF)</label><em>*</em>
             <div >
               <select className="inputt" defaultValue={this.state.state || "CE"} type="text" name="state" onChange={this.handleInput}>
@@ -324,7 +327,7 @@ class Checkout extends Component {
             <label>Rua</label><em>*</em>
             <div >
               <input className="inputt" value={this.state.street} type="text" name="city" onChange={this.handleInput}
-                placeholder="Insira sua rua"/>
+                placeholder="Insira sua rua" />
             </div>
 
             <label>Número</label><em>*</em>
@@ -339,17 +342,21 @@ class Checkout extends Component {
                 placeholder="Insira um complemento (opcional)" />
             </div>
 
-            <p> <b>SUBTOTAL: </b> <em className="obrigatorio" style={{color: 'black'}}> R${parseFloat(this.state.subtotal).toFixed(2)} </em></p>
-            
+            <p> <b>SUBTOTAL: </b> <em className="obrigatorio" style={{ color: 'black' }}> R${parseFloat(this.state.subtotal).toFixed(2)} </em></p>
+
             <p className="btn-secundaryy">
-              <Link to="#" onClick={() => this.getShipping() } >Calcular frete</Link>
-              <em className="obrigatorio" style={{color: 'black'}}> {this.state.calculandoFrete ? "Calculando..." : null} {this.state.freteValor ? "FRETE: R$" + this.state.freteValor : null}</em>
-            </p>
-            
-            <p> <b>TOTAL: </b> <em className="obrigatorio" style={{color: 'black'}}>{this.state.freteValor ? "R$" + (parseFloat(this.state.subtotal) + parseFloat(this.state.freteValor)).toFixed(2) : null}</em>
+              <Link to="#" onClick={() => this.getShipping()} >Calcular frete</Link>
+              <em className="obrigatorio" style={{ color: 'black' }}> {this.state.calculandoFrete ? "Calculando..." : null} {this.state.freteValor ? "FRETE: R$" + this.state.freteValor : null}</em>
+              {
+                this.state.prazo ?
+                  <em className="obrigatorio" style={{ color: 'black' }}> {this.state.prazo} </em> : null
+              }
             </p>
 
-            
+            <p> <b>TOTAL: </b> <em className="obrigatorio" style={{ color: 'black' }}>{this.state.freteValor ? "R$" + (parseFloat(this.state.subtotal) + parseFloat(this.state.freteValor)).toFixed(2) : null}</em>
+            </p>
+
+
             <p className="btn-secundaryy">
               <Link to="#" onClick={() => this.Submit()}>Confirmar</Link>
               <em className="obrigatorio">(* obrigatório)</em>
@@ -359,13 +366,13 @@ class Checkout extends Component {
 
           {/*Alertas de erro no formulário */}
           <div>
-              {this.state.alert ?
-                <div id="alert-div" className="alertacadastro">{this.state.alert}
-                  <Link className="fecharalerta" name="alerta1" onClick={() => this.fecharAlerta()} to="#">X</Link>
-                </div> : null}
+            {this.state.alert ?
+              <div id="alert-div" className="alertacadastro">{this.state.alert}
+                <Link className="fecharalerta" name="alerta1" onClick={() => this.fecharAlerta()} to="#">X</Link>
+              </div> : null}
           </div>
+        </div>
       </div>
-    </div>
     )
   }
 }
