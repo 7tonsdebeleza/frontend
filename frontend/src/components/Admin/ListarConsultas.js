@@ -118,6 +118,27 @@ function ListarConsultas() {
 
   }
 
+  async function estornar(regCod) {
+    const token = localStorage.getItem("@stbl/admin/user");
+
+    if (codRastreio) {
+      setEnviandoStatus(true);
+      try {
+        await api.put('/pagseguro/estornar', { transData: { code: regCod } }, { headers: { authorization: token } });
+        return window.location.reload();
+
+      } catch (e) {
+        console.log(e.response);
+        alert('Falha inespereada... Tente novamente mais tarde.');
+
+      }
+
+    }
+
+    setEnviandoStatus(false);
+
+  }
+
   useEffect(() => {
     async function rastrear(cod) {
       const res = await api.get(`/tracking/${cod}`);
@@ -352,6 +373,12 @@ function ListarConsultas() {
                               <button id={"btn-att-entrega" + listId} > ATUALIAZAR STATUS DE ENTREGA </button>
                               <br />
                               <button id={"btn-att-cod" + listId} > INSERIR CÓDIGO DE RASTREIO </button>
+                              <br />
+                              { 
+                                // estornamento só pode ser feito nesses status (pago, em disputa, disponível)
+                                reg.status === 3 || reg.status === 4 || reg.status === 5 ?
+                                <button id={"btn-estornar" + listId} > ESTORNAR TRASAÇÃO DO PEDIDO </button> : null
+                              }
 
                             </span>
 
@@ -386,6 +413,15 @@ function ListarConsultas() {
 
                           <span className="btn-secundaryy" >
                             <button onClick={() => attCodRastreio(reg.code)} > {enviandoStatus ? 'ENVIANDO...' : 'ENVIAR'} </button>
+                          </span>
+
+                        </Modal>
+                        <Modal listenersId={["btn-estornar" + listId]}>
+                          <h3> Tem certeza que deseja estornar essa transação?</h3>
+                          <p> Essa ação anula a transação feita na PagSeguro! </p> 
+
+                          <span className="btn-secundaryy" >
+                            <button onClick={() => estornar(reg.code)} > {enviandoStatus ? 'PROCESSANDO...' : 'CONFIRMAR'} </button>
                           </span>
 
                         </Modal>
