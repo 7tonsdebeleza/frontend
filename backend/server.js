@@ -6,7 +6,21 @@ const path = require('path');
 const app = express();
 require('./config/envConfig');
 
-app.use(cors())
+const allowlist = [process.env.CLIENT_URL, 'https://ws.pagseguro.uol.com.br/']
+const corsOptionsDelegate = function (req, callback) {
+  let corsOptions;
+  if (allowlist.indexOf(req.header('Origin')) !== -1) {
+    corsOptions = { origin: true }
+
+  } else {
+    corsOptions = { origin: false }
+
+  }
+  callback(null, corsOptions)
+
+}
+
+app.use(cors(process.env.NODE_ENV == 'dev' ? null : corsOptionsDelegate))
 
 //Conecta ao banco de dados via MongoDB Atlas, em nuvem
 
