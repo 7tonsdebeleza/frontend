@@ -121,19 +121,17 @@ function ListarConsultas() {
   async function estornar(regCod) {
     const token = localStorage.getItem("@stbl/admin/user");
 
-    if (codRastreio) {
-      setEnviandoStatus(true);
-      try {
-        await api.put('/pagseguro/estornar', { transData: { code: regCod } }, { headers: { authorization: token } });
-        return window.location.reload();
+    setEnviandoStatus(true);
+    try {
+      await api.post('/pagseguro/estornar', { transData: { code: regCod } }, { headers: { authorization: token } });
+      return window.location.reload();
 
-      } catch (e) {
-        console.log(e.response);
-        alert('Falha inespereada... Tente novamente mais tarde.');
-
-      }
+    } catch (e) {
+      console.log(e.response);
+      alert('Falha inespereada... Tente novamente mais tarde.');
 
     }
+
 
     setEnviandoStatus(false);
 
@@ -219,7 +217,7 @@ function ListarConsultas() {
                       <td> <strong>{reg.senderEmail}</strong></td>
                       <td>{new Date(reg.date).toLocaleDateString()}</td>
                       <td>{traduzirStatusTrans(reg.status)}</td>
-                      <td>{ !reg.statusFrete || !!reg.statusFrete.trim() ? reg.statusFrete : 'No estoque'}</td>
+                      <td>{!reg.statusFrete || !!reg.statusFrete.trim() ? reg.statusFrete : 'No estoque'}</td>
                       <td>{!!reg.codRastreio.trim() ? reg.codRastreio : <i> Indisponível no momento </i>}</td>
                       <td>
                         <img id={"img" + listId} src={Info} width={18} height={18} style={{ cursor: 'pointer' }} alt='detalhes' />
@@ -374,10 +372,10 @@ function ListarConsultas() {
                               <br />
                               <button id={"btn-att-cod" + listId} > INSERIR CÓDIGO DE RASTREIO </button>
                               <br />
-                              { 
+                              {
                                 // estornamento só pode ser feito nesses status (pago, em disputa, disponível)
-                                reg.status === 3 || reg.status === 4 || reg.status === 5 ?
-                                <button id={"btn-estornar" + listId} > ESTORNAR TRASAÇÃO DO PEDIDO </button> : null
+                                reg.status === "3" || reg.status === "4" || reg.status === "5" ?
+                                  <button id={"btn-estornar" + listId} > ESTORNAR TRASAÇÃO DO PEDIDO </button> : null
                               }
 
                             </span>
@@ -408,7 +406,7 @@ function ListarConsultas() {
 
                           <label>Código de rastreio</label>
                           <div>
-                            <input className="inputt" type="text" onChange={(e) => setCodRastreio(e.target.value)} value={codRastreio}/>
+                            <input className="inputt" type="text" onChange={(e) => setCodRastreio(e.target.value)} value={codRastreio} />
                           </div>
 
                           <span className="btn-secundaryy" >
@@ -418,7 +416,7 @@ function ListarConsultas() {
                         </Modal>
                         <Modal listenersId={["btn-estornar" + listId]}>
                           <h3> Tem certeza que deseja estornar essa transação?</h3>
-                          <p> Essa ação anula a transação feita na PagSeguro! </p> 
+                          <p> Essa ação anula a transação feita na PagSeguro! </p>
 
                           <span className="btn-secundaryy" >
                             <button onClick={() => estornar(reg.code)} > {enviandoStatus ? 'PROCESSANDO...' : 'CONFIRMAR'} </button>
