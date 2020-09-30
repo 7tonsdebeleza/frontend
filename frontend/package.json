@@ -3,11 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "cors": "^2.8.5",
-    "express": "^4.17.1"
-  },
-  "devDependencies": {
     "axios": "^0.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
     "query-string": "^6.13.1",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
