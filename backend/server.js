@@ -6,7 +6,7 @@ const path = require('path');
 const app = express();
 require('./config/envConfig');
 
-const allowlist = [process.env.CLIENT_URL, 'https://ws.pagseguro.uol.com.br/']
+const allowlist = [process.env.CLIENT_URL, 'https://ws.pagseguro.uol.com.br']
 const corsOptionsDelegate = function (req, callback) {
   let corsOptions;
   if (allowlist.indexOf(req.header('Origin')) !== -1) {
