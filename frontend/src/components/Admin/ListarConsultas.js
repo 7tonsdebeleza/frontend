@@ -191,7 +191,7 @@ function ListarConsultas() {
 
   let listId = 0;
   return (
-    <div>
+    <div className='table-responsive'>
       <p><strong>COMPRAS REALIZADAS</strong></p>
       {
         !load ? <span> carregando... </span> : registros.length > 0 ?
