@@ -7,7 +7,7 @@ export function convertDate(date) {
     return `${time.getDate()} de ${meses[time.getMonth()]}, ${time.getFullYear()}`
 }
 
-const baseURL = process.env.NODE_ENV === 'development' ? `http://localhost:3333` : 'https://setetonsaapiteste.herokuapp.com';
+const baseURL = "http://api-7tonsdebeleza-com-br.umbler.net/"
 const api = axios.create({ baseURL });
 
 export default api;
