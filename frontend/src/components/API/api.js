@@ -7,7 +7,7 @@ export function convertDate(date) {
     return `${time.getDate()} de ${meses[time.getMonth()]}, ${time.getFullYear()}`
 }
 
-const baseURL = "http://api-7tonsdebeleza-com-br.umbler.net/"
+const baseURL = "https://api.7tonsdebeleza.com.br/"
 const api = axios.create({ baseURL });
 
 export default api;
